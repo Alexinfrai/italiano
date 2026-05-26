@@ -259,7 +259,7 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 <header>
   <div class="flag">🇮🇹</div>
   <h1><em>Italiano</em> — Полный конспект</h1>
-  <p>Уроки 24/04 · 27/04 · 30/04 · 04/05 · 08/05 · 12/05 · 14/05</p>
+  <p>Уроки 24/04 · 27/04 · 30/04 · 04/05 · 08/05 · 12/05 · 14/05 · 21/05</p>
 </header>
 
 <!-- API PANEL -->
@@ -301,7 +301,9 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
   <button class="tab" onclick="show('contrari')">↔ Антонимы</button>
   <button class="tab" onclick="show('pogoda')">🌤 Погода <span class="nbadge">NEW</span></button>
   <button class="tab" onclick="show('andare')">🚶 Andare/Venire</button>
-  <button class="tab" onclick="show('lezione1405')">📗 Урок 14/05 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione1405')">📗 Урок 14/05</button>
+  <button class="tab" onclick="show('lezione2105')">📘 Урок 21/05</button>
+  <button class="tab" onclick="show('lezione2605')">📙 Урок 26/05 <span class="nbadge">NEW</span></button>
 </div>
 
 <!-- ══ ПРИВЕТСТВИЯ ══ -->
@@ -1125,13 +1127,10 @@ function show(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405'];
+  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605'];
   document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
-  if(id==='essere') renderEssere();
-  if(id==='avere') renderAvere();
-  if(id==='andare') renderAndare();
-  if(id==='verbi') renderVerbi();
   if(id==='lezione1405') renderISC();
+  if(id==='lezione2105') renderModali();
 }
 
 // INIT
@@ -1200,7 +1199,53 @@ function renderISC(){
 window.addEventListener('load', function(){
   renderAndare();
   renderISC();
+  renderModali();
 });
+
+// ── МОДАЛЬНЫЕ ГЛАГОЛЫ (урок 21/05) ──
+const POTERE=[
+  {pro:'IO',it:'posso',ru:'я могу'},
+  {pro:'TU',it:'puoi',ru:'ты можешь'},
+  {pro:'LUI/LEI',it:'può',ru:'он/она может'},
+  {pro:'NOI',it:'possiamo',ru:'мы можем'},
+  {pro:'VOI',it:'potete',ru:'вы можете'},
+  {pro:'LORO',it:'possono',ru:'они могут'},
+];
+const VOLERE=[
+  {pro:'IO',it:'voglio',ru:'я хочу'},
+  {pro:'TU',it:'vuoi',ru:'ты хочешь'},
+  {pro:'LUI/LEI',it:'vuole',ru:'он/она хочет'},
+  {pro:'NOI',it:'vogliamo',ru:'мы хотим'},
+  {pro:'VOI',it:'volete',ru:'вы хотите'},
+  {pro:'LORO',it:'vogliono',ru:'они хотят'},
+];
+const DOVERE=[
+  {pro:'IO',it:'devo',ru:'я должен'},
+  {pro:'TU',it:'devi',ru:'ты должен'},
+  {pro:'LUI/LEI',it:'deve',ru:'он/она должен'},
+  {pro:'NOI',it:'dobbiamo',ru:'мы должны'},
+  {pro:'VOI',it:'dovete',ru:'вы должны'},
+  {pro:'LORO',it:'devono',ru:'они должны'},
+];
+const SAPERE=[
+  {pro:'IO',it:'so',ru:'я знаю'},
+  {pro:'TU',it:'sai',ru:'ты знаешь'},
+  {pro:'LUI/LEI',it:'sa',ru:'он/она знает'},
+  {pro:'NOI',it:'sappiamo',ru:'мы знаем'},
+  {pro:'VOI',it:'sapete',ru:'вы знаете'},
+  {pro:'LORO',it:'sanno',ru:'они знают'},
+];
+
+function renderModali(){
+  if(document.getElementById('potere-cards'))
+    document.getElementById('potere-cards').innerHTML=POTERE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('volere-cards'))
+    document.getElementById('volere-cards').innerHTML=VOLERE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+  if(document.getElementById('dovere-cards'))
+    document.getElementById('dovere-cards').innerHTML=DOVERE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('sapere-cards'))
+    document.getElementById('sapere-cards').innerHTML=SAPERE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+}
 </script>
 <!-- ══ УРОК 14/05 ══ -->
 <div class="section" id="lezione1405">
@@ -1286,6 +1331,229 @@ window.addEventListener('load', function(){
       <div class="dl"><div class="sb"><div class="it">Oggi io e Marco finiamo di lavorare alle 3.</div><div class="ru">Сегодня я и Марко заканчиваем работать в 3.</div></div></div>
     </div>
   </div>
+</div>
+
+<!-- ══ УРОК 21/05 ══ -->
+<div class="section" id="lezione2105">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#2d4a8f)">📅 Урок 21/05 — НОВОЕ</div>
+  <h2>Модальные глаголы: POTERE, VOLERE, DOVERE, SAPERE</h2>
+  <div class="tip"><strong>Модальные глаголы</strong> стоят перед инфинитивом: <em>Voglio mangiare · Posso aiutarti · Devo andare · So parlare</em></div>
+
+  <!-- POTERE -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">POTERE — мочь, иметь возможность</h3>
+    <div class="tip tip-v"><strong>Запомни:</strong> POSSO (не poto!) — двойное SS от латыни</div>
+    <div class="conj-grid" id="potere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Posso avere un caffè?</div><div class="ru">Можно мне кофе?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non posso venire alla festa.</div><div class="ru">Не могу прийти на вечеринку.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Quei ragazzi possono prendere solo un succo d'arancia perché non bevono alcolici.</div><div class="ru">Те ребята могут взять только апельсиновый сок потому что не пьют алкоголь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Mamma, possiamo restare ancora un po'?</div><div class="ru">Мама, можем остаться ещё немного?</div></div></div>
+    </div>
+  </div>
+
+  <!-- VOLERE -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">VOLERE — хотеть</h3>
+    <div class="tip tip-v"><strong>Запомни:</strong> VOGLIO (не volo!) — двойное GL!</div>
+    <div class="conj-grid" id="volere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Vuoi venire a cena con me questa sera?</div><div class="ru">Хочешь прийти ужинать со мной сегодня вечером?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non voglio uscire questa sera perché devo lavorare presto domani mattina.</div><div class="ru">Не хочу выходить сегодня вечером, потому что нужно рано работать завтра утром.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non voglio andare in centro oggi. Voglio riposare a casa.</div><div class="ru">Не хочу идти в центр сегодня. Хочу отдохнуть дома.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Voglio arrivare in tempo all'appuntamento.</div><div class="ru">Хочу прибыть вовремя на встречу.</div></div></div>
+    </div>
+  </div>
+
+  <!-- DOVERE -->
+  <div class="card car">
+    <h3 style="margin-bottom:9px">DOVERE — быть должным, нужно</h3>
+    <div class="tip tip-r"><strong>Запомни:</strong> NOI → DOBBIAMO (единственная форма с -BBIAMO!)</div>
+    <div class="conj-grid" id="dovere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Marco deve prendere l'aereo per Genova.</div><div class="ru">Марко должен сесть на самолёт в Геную.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Dovete andare a comprare un quaderno nuovo.</div><div class="ru">Вы должны пойти купить новую тетрадь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Prima di aprire la porta, devi chiedere "chi è?"!</div><div class="ru">Прежде чем открыть дверь, нужно спросить «кто там?»!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Io e mia moglie dobbiamo andare a comprare i vestiti nuovi per nostro figlio.</div><div class="ru">Мы с женой должны пойти купить новую одежду для нашего сына.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non dovete ascoltare musica durante le lezioni!</div><div class="ru">Нельзя слушать музыку во время уроков!</div></div></div>
+    </div>
+  </div>
+
+  <!-- SAPERE -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">SAPERE — знать / уметь</h3>
+    <div class="tip"><strong>SO</strong> — самая короткая форма! Знать факт или уметь делать что-то.</div>
+    <div class="conj-grid" id="sapere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Sai dove sono Maria e Luigi? — Non lo so.</div><div class="ru">Ты знаешь где Мария и Луиджи? — Не знаю.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ragazze, sapete dov'è la farmacia? — Non lo sappiamo!</div><div class="ru">Девочки, вы знаете где аптека? — Не знаем!</div></div></div>
+    </div>
+  </div>
+
+  <!-- VORREI -->
+  <div class="card cav2">
+    <h3 style="margin-bottom:9px">VORREI — я хотел бы (вежливо)</h3>
+    <div class="tip tip-v"><strong>VORREI</strong> = вежливая форма VOLERE. Используй в баре, ресторане, магазине.</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Vorrei un caffè, per favore.</div><div class="ru">Я бы хотел кофе, пожалуйста.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vorrei un bicchiere di vino.</div><div class="ru">Я бы хотел бокал вина.</div></div></div>
+    </div>
+    <div class="tip" style="margin-top:8px;margin-bottom:0">
+      <strong>Voglio</strong> un caffè = Хочу кофе (прямо)<br>
+      <strong>Vorrei</strong> un caffè = Я бы хотел кофе (вежливо) ✅
+    </div>
+  </div>
+
+  <!-- NUOVE PAROLE -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 21/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('pensare')"><span class="vocab-it">PENSARE</span><span class="vocab-ru">думать</span></div>
+      <div class="vocab-item" onclick="play('riposare')"><span class="vocab-it">RIPOSARE</span><span class="vocab-ru">отдыхать</span></div>
+      <div class="vocab-item" onclick="play('uscire')"><span class="vocab-it">USCIRE</span><span class="vocab-ru">выходить / гулять</span></div>
+      <div class="vocab-item" onclick="play('incontrare')"><span class="vocab-it">INCONTRARE</span><span class="vocab-ru">встречать</span></div>
+      <div class="vocab-item" onclick="play('comprare')"><span class="vocab-it">COMPRARE</span><span class="vocab-ru">покупать</span></div>
+      <div class="vocab-item" onclick="play('chiedere')"><span class="vocab-it">CHIEDERE</span><span class="vocab-ru">просить / спрашивать</span></div>
+      <div class="vocab-item" onclick="play('il locale')"><span class="vocab-it">IL LOCALE</span><span class="vocab-ru">заведение</span></div>
+      <div class="vocab-item" onclick="play('il quaderno')"><span class="vocab-it">IL QUADERNO</span><span class="vocab-ru">тетрадь</span></div>
+      <div class="vocab-item" onclick="play('il succo')"><span class="vocab-it">IL SUCCO</span><span class="vocab-ru">сок</span></div>
+      <div class="vocab-item" onclick="play('durante')"><span class="vocab-it">DURANTE</span><span class="vocab-ru">во время / в течение</span></div>
+      <div class="vocab-item" onclick="play('presto')"><span class="vocab-it">PRESTO</span><span class="vocab-ru">рано / быстро</span></div>
+      <div class="vocab-item" onclick="play('tardi')"><span class="vocab-it">TARDI</span><span class="vocab-ru">поздно</span></div>
+      <div class="vocab-item" onclick="play('solo')"><span class="vocab-it">SOLO</span><span class="vocab-ru">только / один</span></div>
+      <div class="vocab-item" onclick="play('qualcuno')"><span class="vocab-it">QUALCUNO</span><span class="vocab-ru">кто-то</span></div>
+      <div class="vocab-item" onclick="play('qualcosa')"><span class="vocab-it">QUALCOSA</span><span class="vocab-ru">что-то</span></div>
+      <div class="vocab-item" onclick="play('prima di')"><span class="vocab-it">PRIMA DI</span><span class="vocab-ru">прежде чем / перед тем как</span></div>
+    </div>
+  </div>
+
+  <!-- ДИАЛОГ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">💬 Диалог урока</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Cosa pensi di fare questo fine settimana?</div><div class="ru">Что думаешь делать в эти выходные?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Penso di lavorare e riposare.</div><div class="ru">Думаю работать и отдыхать.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Bene! Anch'io lavoro tutto il fine settimana.</div><div class="ru">Хорошо! Я тоже работаю всё выходные.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ПРАВИЛО QUI/LÌ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📐 QUI / QUA vs LÌ / LÀ</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">QUI = QUA</span><span class="vocab-ru">здесь / тут / сюда</span></div>
+      <div class="vocab-item"><span class="vocab-it">LÌ = LÀ</span><span class="vocab-ru">там / туда</span></div>
+    </div>
+    <div class="tip" style="margin-top:8px;margin-bottom:0">
+      <em>Mario e Luigi non possono lavorare <strong>qui</strong>.</em> — Марио и Луиджи не могут работать здесь.
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 26/05 ══ -->
+<div class="section" id="lezione2605">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 26/05 — НОВОЕ</div>
+  <h2>C'È / CI SONO — есть / находится</h2>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Правило C'È vs CI SONO</h3>
+    <div class="tip tip-v">
+      <strong>C'È</strong> = ci + è → используется с существительными в <strong>единственном числе</strong><br>
+      <strong>CI SONO</strong> = ci + sono → используется с существительными во <strong>множественном числе</strong>
+    </div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr;margin-bottom:10px">
+      <div class="vocab-item" onclick="play('c\'è')">
+        <span class="vocab-it" style="font-size:1.4rem">C'È</span>
+        <span class="vocab-ru">есть / находится (ед.ч.)</span>
+      </div>
+      <div class="vocab-item" onclick="play('ci sono')">
+        <span class="vocab-it" style="font-size:1.4rem">CI SONO</span>
+        <span class="vocab-ru">есть / находятся (мн.ч.)</span>
+      </div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> un euro nel mio portafoglio.</div><div class="ru">В моём кошельке есть один евро.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sul tavolo <strong>c'è</strong> una bottiglia.</div><div class="ru">На столе есть бутылка.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> una persona sull'autobus.</div><div class="ru">В автобусе есть один человек.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non <strong>c'è</strong> nessuno!</div><div class="ru">Там никого нет!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> qualcuno?</div><div class="ru">Есть кто-нибудь?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sul tavolo <strong>ci sono</strong> due bottiglie.</div><div class="ru">На столе две бутылки.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Nel mio portafoglio <strong>ci sono</strong> molti soldi.</div><div class="ru">В моём кошельке много денег.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Ci sono</strong> molte persone sull'autobus.</div><div class="ru">В автобусе много людей.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Nel mio giardino <strong>ci sono</strong> molti alberi.</div><div class="ru">В моём саду много деревьев.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Ci sono</strong> venti gradi, ma <strong>c'è</strong> il vento.</div><div class="ru">Двадцать градусов, но есть ветер.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ПРЕДЛОГ SU -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📐 Предлог SU = на</h3>
+    <div class="tip"><strong>SU + артикль</strong> = слитные формы:</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">SU + IL = <strong>SUL</strong></span><span class="vocab-ru">sul tavolo = на столе</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + LA = <strong>SULLA</strong></span><span class="vocab-ru">sulla sedia = на стуле</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + L' = <strong>SULL'</strong></span><span class="vocab-ru">sull'autobus = в автобусе</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + I = <strong>SUI</strong></span><span class="vocab-ru">sui libri = на книгах</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + GLI = <strong>SUGLI</strong></span><span class="vocab-ru">sugli scaffali = на полках</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + LE = <strong>SULLE</strong></span><span class="vocab-ru">sulle sedie = на стульях</span></div>
+    </div>
+  </div>
+
+  <!-- НОВЫЕ СЛОВА -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 26/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('portafoglio')"><span class="vocab-it">IL PORTAFOGLIO</span><span class="vocab-ru">кошелёк</span></div>
+      <div class="vocab-item" onclick="play('i soldi')"><span class="vocab-it">I SOLDI</span><span class="vocab-ru">деньги</span></div>
+      <div class="vocab-item" onclick="play('la persona')"><span class="vocab-it">LA PERSONA / LE PERSONE</span><span class="vocab-ru">человек / люди</span></div>
+      <div class="vocab-item" onclick="play('la gente')"><span class="vocab-it">LA GENTE</span><span class="vocab-ru">люди (ед.ч. жен.р.!)</span></div>
+      <div class="vocab-item" onclick="play('la camera')"><span class="vocab-it">LA CAMERA = LA STANZA</span><span class="vocab-ru">комната</span></div>
+      <div class="vocab-item" onclick="play('nessuno')"><span class="vocab-it">NESSUNO</span><span class="vocab-ru">никого / никто</span></div>
+      <div class="vocab-item" onclick="play('qualcuno')"><span class="vocab-it">QUALCUNO</span><span class="vocab-ru">кто-то / кто-нибудь</span></div>
+      <div class="vocab-item" onclick="play('qualcosa')"><span class="vocab-it">QUALCOSA</span><span class="vocab-ru">что-то / что-нибудь</span></div>
+      <div class="vocab-item" onclick="play('una cosa')"><span class="vocab-it">UNA COSA / TANTE COSE</span><span class="vocab-ru">одна вещь / много вещей</span></div>
+      <div class="vocab-item" onclick="play('tanto')"><span class="vocab-it">MOLTO = TANTO</span><span class="vocab-ru">много (согласуется с сущ.!)</span></div>
+      <div class="vocab-item" onclick="play('su')"><span class="vocab-it">SU</span><span class="vocab-ru">на (предлог)</span></div>
+    </div>
+  </div>
+
+  <!-- ВАЖНОЕ ЗАМЕЧАНИЕ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">⚠️ LA GENTE — ловушка!</h3>
+    <div class="tip tip-v">
+      <strong>LA GENTE</strong> = люди — жен.р. ед.ч., но по смыслу «много людей»<br>
+      Глагол ставится в <strong>единственном числе</strong>!
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb">
+        <div class="it">La gente <strong>è</strong> stanca. ✅</div>
+        <div class="ru">Люди устали. (ед.ч. → è)</div>
+      </div></div>
+      <div class="dl"><div class="sb">
+        <div class="it">❌ La gente <strong>sono</strong> stanche. ✗</div>
+        <div class="ru">Ошибка! Gente требует ед.ч.</div>
+      </div></div>
+      <div class="dl"><div class="sb">
+        <div class="it"><strong>C'è</strong> molta gente! ✅</div>
+        <div class="ru">Здесь много людей!</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- MOLTO / TANTO -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">💡 MOLTO = TANTO — согласование</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">molt<strong>o</strong> / tant<strong>o</strong></span><span class="vocab-ru">муж.р. ед.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>a</strong> / tant<strong>a</strong></span><span class="vocab-ru">жен.р. ед.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>i</strong> / tant<strong>i</strong></span><span class="vocab-ru">муж.р. мн.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>e</strong> / tant<strong>e</strong></span><span class="vocab-ru">жен.р. мн.ч.</span></div>
+    </div>
+    <div class="dialogo" style="margin-top:8px">
+      <div class="dl"><div class="sb"><div class="it">molti soldi · molta gente · molte cose · molto tempo</div><div class="ru">много денег · много людей · много вещей · много времени</div></div></div>
+    </div>
+  </div>
+
 </div>
 
 </body>

@@ -57,8 +57,13 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .cc-row:last-child{border-bottom:none}
 .cc-row:hover{background:var(--bg)}
 .cc-pro{font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;min-width:38px}
-.cc-form{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400}
+.cc-form{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400;flex:1}
 .cc-irreg{font-weight:700}
+.cc-play{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.58rem;color:var(--muted);transition:all .15s;flex-shrink:0;margin-left:4px}
+.cc-play:hover,.cc-play.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
+.cc-play.off{opacity:.22;cursor:default}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(45,122,79,.4)}50%{box-shadow:0 0 0 4px rgba(45,122,79,0)}}
+.pl{animation:abp .7s infinite}
 
 /* EXAMPLES */
 .ex-list{padding:11px 14px;background:#faf8f4;border-top:1px solid var(--border)}
@@ -127,6 +132,30 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 <div class="mn">
   <button class="mnb on"  onclick="sm('pairs')">📖 Пары</button>
   <button class="mnb" onclick="sm('quiz');startQuiz()">🎯 Тест</button>
+</div>
+
+<!-- API PANEL -->
+<div id="ap" style="background:#0d1117;border-bottom:2px solid #1a3a22;padding:9px 13px">
+  <div style="font-size:.72rem;color:#c9a84c;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px">
+    <div id="adot" style="width:6px;height:6px;border-radius:50%;background:#555;flex-shrink:0"></div>
+    <span id="atext">🔊 Подключи Google TTS — нажимай на любую форму или пример</span>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+    <input id="akey" type="password" placeholder="Google API ключ..." style="flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none">
+    <button onclick="ck()" style="background:#2d7a4f;border:none;border-radius:6px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer">Подключить</button>
+    <button id="axb" onclick="ckx()" style="display:none;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer">✕</button>
+  </div>
+  <div id="ks" style="font-size:.64rem;margin-top:3px;min-height:12px"></div>
+  <div id="vss" style="display:none;margin-top:4px">
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #2d7a4f;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#5ac4a0;cursor:pointer;font-family:'Nunito',sans-serif">Wavenet A ♀</div>
+      <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif">Wavenet C ♂</div>
+      <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif">Standard A</div>
+    </div>
+  </div>
+  <div id="ahint" style="font-size:.62rem;color:#667;margin-top:4px;line-height:1.5">
+    Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#c9a84c;text-decoration:none">console.cloud.google.com</a> → Cloud TTS → Create API Key → <a href="https://app.netlify.com/drop" target="_blank" style="color:#c9a84c;text-decoration:none">Netlify</a>.
+  </div>
 </div>
 
 <!-- PAIRS -->
@@ -348,6 +377,26 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
       <em>Где по-русски «мне холодно» — по-итальянски «имею холод» (avere!)</em>
     </div>
   </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--verde-l);color:var(--verde)">ESSERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--verde)">sono</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--verde)">sei</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--verde)">è</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--verde)">siamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form cc-irreg" style="color:var(--verde)">siete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--verde)">sono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--blu-l);color:var(--blu)">AVERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--blu)">ho</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--blu)">hai</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--blu)">ha</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--blu)">abbiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--blu)">avete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--blu)">hanno</span></div>
+    </div>
+  </div>
   <div class="ex-list">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px">
       <div>
@@ -386,6 +435,26 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
       <strong>FA</strong> + прилагательное = погода: fa bello, fa freddo, fa caldo<br>
       <strong>È</strong> + прилагательное = состояние: è soleggiato, è nuvoloso<br>
       <em>Fa freddo (холодно как погода) ≠ Ho freddo (мне лично холодно)</em>
+    </div>
+  </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--arancio-l);color:var(--arancio)">FARE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--arancio)">faccio</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--arancio)">fai</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--arancio)">fa</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--arancio)">facciamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form cc-irreg" style="color:var(--arancio)">fate</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--arancio)">fanno</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--rosso-l);color:var(--rosso)">ESSERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--rosso)">sono</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--rosso)">sei</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--rosso)">è</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--rosso)">siamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form cc-irreg" style="color:var(--rosso)">siete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--rosso)">sono</span></div>
     </div>
   </div>
   <div class="ex-list">
@@ -522,6 +591,93 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
     <div class="ex-item">
       <span class="ex-tag" style="background:#e0f5f0;color:#1a7a6a">USCIRE</span>
       <div class="ex-body"><span class="ex-it"><em class="ex-key">Esco</em> adesso. Usciamo stasera?</span><span class="ex-ru">Выхожу сейчас. Выйдем сегодня вечером? (из здания, на прогулку)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 8. CAPIRE / FINIRE / PREFERIRE — ISC глаголы -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs" style="grid-template-columns:1fr 1fr 1fr;gap:5px">
+      <div class="pv-verb" style="color:var(--verde);border-color:var(--verde)22">
+        <span class="pv-it" style="font-size:1.1rem">capire</span>
+        <span class="pv-ru">понимать</span>
+      </div>
+      <div class="pv-verb" style="color:var(--blu);border-color:var(--blu)22">
+        <span class="pv-it" style="font-size:1.1rem">finire</span>
+        <span class="pv-ru">заканчивать</span>
+      </div>
+      <div class="pv-verb" style="color:var(--viola);border-color:var(--viola)22">
+        <span class="pv-it" style="font-size:1.1rem">preferire</span>
+        <span class="pv-ru">предпочитать</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      Все три — глаголы <strong>-IRE с суффиксом -ISC-</strong><br>
+      <strong>-ISC-</strong> добавляется в IO, TU, LUI/LEI, LORO — но <strong>НЕ</strong> в NOI и VOI!<br>
+      <em>SC+I = [ши] · SC+E = [шэ] → cap<strong>isc</strong>o = «капИШко»</em>
+    </div>
+  </div>
+  <div class="conj-compare" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--verde-l);color:var(--verde)">CAPIRE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--verde)">capisco</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--verde)">capisci</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--verde)">capisce</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--muted)">capiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--muted)">capite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--verde)">capiscono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--blu-l);color:var(--blu)">FINIRE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--blu)">finisco</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--blu)">finisci</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--blu)">finisce</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--muted)">finiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--muted)">finite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--blu)">finiscono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--viola-l);color:var(--viola)">PREFERIRE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--viola)">preferisco</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--viola)">preferisci</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--viola)">preferisce</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--muted)">preferiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--muted)">preferite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--viola)">preferiscono</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div style="background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:8px 11px;margin-bottom:10px;font-size:.75rem;line-height:1.6">
+      <strong style="color:var(--oro)">Правило ISC:</strong> зелёный = с -ISC- (IO/TU/LUI/LORO) · серый = без -ISC- (NOI/VOI)
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--verde-l);color:var(--verde)">CAPIRE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Capisco</em>! Brigitte e Laura <em class="ex-key">capiscono</em> bene l'italiano.</span>
+        <span class="ex-ru">Понимаю! Брижит и Лора хорошо понимают итальянский.</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--blu-l);color:var(--blu)">FINIRE</span>
+      <div class="ex-body">
+        <span class="ex-it">Oggi io e Marco <em class="ex-key">finiamo</em> alle 3. Slava, a che ora <em class="ex-key">finisci</em>?</span>
+        <span class="ex-ru">NOI → finiamo (без ISC!). TU → finisci (с ISC!).</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--viola-l);color:var(--viola)">PREFERIRE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Preferisco</em> il vestito rosso, è più bello.</span>
+        <span class="ex-ru">Предпочитаю красное платье, оно красивее.</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--oro-l);color:var(--oro)">❗ ЛОВУШКА</span>
+      <div class="ex-body">
+        <span class="ex-it">❌ Io capo → ✅ Io <em class="ex-key">capisco</em></span>
+        <span class="ex-ru">«Capo» = начальник/голова. «Capisco» = я понимаю. Не путай!</span>
+      </div>
     </div>
   </div>
 </div>
@@ -678,6 +834,32 @@ const ALL_Q = [
    q:'IO uscire = ?',
    opts:['uscio','usco','esco','esci'],
    a:2, ex:'<strong>esco</strong> — IO USCIRE. Нерегулярно! esco/esci/esce/usciamo/uscite/escono.'},
+
+  // ISC ГЛАГОЛЫ
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'IO capire = ?',
+   opts:['capo','capio','capisce','capisco'],
+   a:3, ex:'<strong>capisco</strong> — IO CAPIRE. «Capo» = начальник! -ISC- добавляется в IO, TU, LUI, LORO.'},
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'NOI capire = ?',
+   opts:['capisciamo','capiscono','capiamo','capimo'],
+   a:2, ex:'<strong>capiamo</strong> — NOI. Без -ISC-! Только IO/TU/LUI/LORO с ISC. NOI и VOI — без!'},
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'LORO finire = ?',
+   opts:['finono','finiamo','finiscono','finisco'],
+   a:2, ex:'<strong>finiscono</strong> — LORO FINIRE. С -ISC-! Loro finiscono di lavorare.'},
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'Вставь: <div class="qsent">Laura, <span class="blank">___</span> una pizza o un panino?</div>',
+   opts:['preferisce','preferisci','preferiamo','preferisco'],
+   a:1, ex:'<strong>preferisci</strong> — TU PREFERIRE. С -ISC-! TU → preferisci.'},
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'В каких лицах НЕТ -ISC-?',
+   opts:['IO и TU','LUI и LORO','NOI и VOI','Везде есть'],
+   a:2, ex:'<strong>NOI и VOI</strong> — без -ISC-. capiamo/capite. Все остальные — capisco/capisci/capisce/capiscono.'},
+  {pair:'isc', tag:'tg-isc', tl:'ISC глаголы',
+   q:'Вставь: <div class="qsent">Oggi io e Marco <span class="blank">___</span> di lavorare alle 3.</div>',
+   opts:['finiscono','finisco','finisce','finiamo'],
+   a:3, ex:'<strong>finiamo</strong> — NOI FINIRE. Io e Marco = NOI → finiamo. Без ISC!'},
 ];
 
 const PAIR_LABELS = {
@@ -689,6 +871,7 @@ const PAIR_LABELS = {
   'fare/stare':'fare / погода',
   modali:'modali (vol/pot/dov)',
   'partire/uscire':'partire / uscire',
+  isc:'capire / finire / preferire',
 };
 const TAG_STYLES = {
   'tg-av':'background:var(--verde-l);color:var(--verde)',
@@ -698,6 +881,7 @@ const TAG_STYLES = {
   'tg-fw':'background:var(--arancio-l);color:var(--arancio)',
   'tg-md':'background:var(--rosso-l);color:var(--rosso)',
   'tg-pu':'background:#e0f5f0;color:#1a7a6a',
+  'tg-isc':'background:var(--verde-l);color:#1a5030',
 };
 
 let activePair='all', qState={};
@@ -802,6 +986,134 @@ function showResult(){
       <button class="btn-b" onclick="sm('pairs')">← К парам</button>
     </div>`;
 }
+
+// ══════════════════════════════════════════════════════
+// TTS ENGINE
+// ══════════════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>{
+    c.style.borderColor='#2a3a2a';c.style.color='#778';
+  });
+  chip.style.borderColor='#2d7a4f';chip.style.color='#5ac4a0';
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+
+async function pl(text, btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.cc-play,.ex-play-btn').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    // Clean text: remove HTML tags and extra spaces
+    const clean = text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    if(!ttsCache[clean]){
+      const body={input:{text:clean},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.85}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json();
+      ttsCache[clean]=d.audioContent;
+    }
+    const clean2=text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[clean2]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){
+    if(btn)btn.classList.remove('pl');
+    const ks=document.getElementById('ks');
+    if(ks){ks.textContent='❌ '+e.message;ks.className='err';}
+  }
+}
+
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json();
+    ttsCache['ciao']=d.audioContent;
+    ttsKey=k;
+    document.getElementById('adot').style.background='#5ac4a0';
+    document.getElementById('atext').textContent='✅ Нажимай 🔊 на любую форму или пример!';
+    document.getElementById('ap').style.borderColor='#2a5a2a';
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('[onclick="ck()"]').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    // Enable all audio buttons
+    document.querySelectorAll('.cc-play,.ex-play-btn').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+
+function ckx(){
+  ttsKey='';
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  document.getElementById('akey').style.display='block';
+  document.querySelector('[onclick="ck()"]').style.display='block';
+  document.getElementById('ahint').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').style.background='#555';
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — нажимай на любую форму или пример';
+  setKS('','');
+  document.querySelectorAll('.cc-play,.ex-play-btn').forEach(b=>b.classList.add('off'));
+}
+
+function setKS(m,t){
+  const el=document.getElementById('ks');
+  if(el){el.textContent=m;el.style.color=t==='ok'?'#5ac4a0':t==='err'?'#e07070':'';}
+}
+
+// AUTO-ATTACH audio buttons to all conjugation rows and examples
+window.addEventListener('load', function(){
+  // Add play buttons to all cc-rows
+  document.querySelectorAll('.cc-row').forEach(row=>{
+    const formEl=row.querySelector('.cc-form');
+    if(!formEl) return;
+    const text=formEl.textContent.trim();
+    const btn=document.createElement('button');
+    btn.className='cc-play off';
+    btn.textContent='🔊';
+    btn.onclick=(e)=>{e.stopPropagation();pl(text,btn);};
+    row.appendChild(btn);
+    // Also make the whole row clickable
+    row.onclick=()=>pl(text, btn);
+  });
+
+  // Add play buttons to all example Italian sentences
+  document.querySelectorAll('.ex-it').forEach(el=>{
+    const text=el.textContent.trim();
+    const btn=document.createElement('button');
+    btn.className='ex-play-btn off';
+    btn.style.cssText='width:20px;height:20px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.58rem;color:var(--muted);transition:all .15s;flex-shrink:0;margin-right:5px;vertical-align:middle';
+    btn.textContent='🔊';
+    btn.onclick=(e)=>{e.stopPropagation();pl(text,btn);};
+    el.parentNode.insertBefore(btn, el);
+    el.style.cursor='pointer';
+    el.onclick=()=>pl(text, btn);
+  });
+
+  // Add play buttons to pv-verb (verb title cards)
+  document.querySelectorAll('.pv-it').forEach(el=>{
+    const text=el.textContent.trim();
+    el.style.cursor='pointer';
+    el.title='Нажми чтобы услышать';
+    el.onclick=()=>{if(ttsKey)pl(text,null);};
+  });
+});
 
 // NAV
 function sm(id){

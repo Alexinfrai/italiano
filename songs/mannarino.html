@@ -1,14 +1,1004 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mannarino — Italiano</title>
-<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem}a{color:#06c}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎵 Mannarino — Me So' Mbriacato</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d0a08;--card:#1a1510;--border:#2a2218;
+  --verde:#2d7a4f;--verde-l:#0a1a10;
+  --rosso:#c0392b;--rosso-l:#1a0808;
+  --oro:#c9a84c;--oro-l:#1a1500;
+  --blu:#2855a0;--blu-l:#080e1a;
+  --viola:#6040a0;--viola-l:#0e0818;
+  --testo:#f0ebe3;--muted:#887868;
+  --shadow:0 4px 20px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{background:linear-gradient(135deg,#0a0808 0%,#1a0e04 40%,#0a0a18 100%);padding:24px 14px 18px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid #2a1a08}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(201,168,76,.12),transparent 70%)}
+.song-icon{font-size:2rem;margin-bottom:6px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;position:relative;color:#f0ebe3}
+header h1 em{font-style:italic;color:var(--oro)}
+header .sub{font-size:.72rem;color:var(--oro);margin-top:3px;position:relative;opacity:.8;letter-spacing:.08em}
+header .desc{font-size:.68rem;color:var(--muted);margin-top:6px;position:relative;line-height:1.5}
+
+.mn{display:flex;overflow-x:auto;background:#0a0808;border-bottom:1px solid #2a1a08;position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 12px;border:none;background:none;color:#556;font-family:'Nunito',sans-serif;font-size:.67rem;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:var(--oro);border-bottom-color:var(--oro)}
+.mnb:hover:not(.on){color:#889}
+.sec{display:none}.sec.on{display:block}
+.sw{max-width:700px;margin:0 auto;padding:14px 13px 50px}
+
+/* DIALECT BANNER */
+.dialect-banner{background:linear-gradient(135deg,#1a0e04,#120a00);border:1px solid #3a2010;border-radius:12px;padding:13px 14px;margin-bottom:14px}
+.db-title{font-size:.65rem;color:var(--oro);font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:7px}
+.db-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.db-item{background:#0d0800;border:1px solid #2a1808;border-radius:8px;padding:8px 10px}
+.db-dial{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--oro);font-style:italic}
+.db-std{font-size:.72rem;color:var(--muted);margin-top:2px}
+.db-arr{font-size:.6rem;color:#556;text-align:center;padding-top:14px}
+
+/* WORD CARDS */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:8px;margin-bottom:14px}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s;cursor:pointer}
+.wcard:hover{border-color:var(--oro)44}
+.wc-top{padding:12px 13px 9px;border-bottom:1px solid var(--border)}
+.wc-tag{display:inline-flex;align-items:center;border-radius:99px;padding:2px 8px;font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px}
+.t-verb{background:#0a1a0a;color:#5ac4a0;border:1px solid #1a3a2a}
+.t-noun{background:#0a0a1a;color:#7090e0;border:1px solid #1a1a3a}
+.t-adj{background:#1a1000;color:var(--oro);border:1px solid #3a2800}
+.t-expr{background:#1a0a1a;color:#c090e0;border:1px solid #3a1a3a}
+.t-dial{background:#1a0800;color:#e09050;border:1px solid #3a1800}
+.wc-it{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:400;color:var(--testo);line-height:1;margin-bottom:3px}
+.wc-ph{font-size:.63rem;color:var(--muted);font-style:italic;margin-bottom:5px}
+.wc-ru{font-size:.82rem;color:#c8c0b4;font-weight:300;margin-bottom:6px}
+.wc-ex{background:#0d0a08;border-radius:8px;padding:8px 10px;font-family:'Playfair Display',serif;font-size:.84rem;color:#a090c0;font-style:italic;line-height:1.6}
+.wc-ex-ru{font-size:.65rem;color:var(--muted);margin-top:3px;font-style:normal;font-family:'Nunito',sans-serif}
+.wc-note{padding:8px 13px 10px;font-size:.68rem;color:var(--muted);line-height:1.6;background:#0d0a08}
+.wc-note strong{color:var(--oro)}
+
+/* SECTION TITLES */
+.stitle{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--oro);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.stitle span{font-size:.65rem;color:var(--muted);font-family:'Nunito',sans-serif;font-style:normal}
+
+/* TIP BOX */
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:10px;font-size:.76rem;line-height:1.6;color:#c8b888}
+.tip strong{color:var(--oro)}
+.tip-v{background:var(--verde-l);border-left-color:var(--verde);color:#88c8a0}
+.tip-v strong{color:#5ac4a0}
+
+/* TRAINER */
+.trw{max-width:500px;margin:0 auto;padding:14px 12px 50px}
+.mdb{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 10px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.74rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.5}
+.mdb .mi{font-size:1.3rem;display:block;margin-bottom:3px}
+.mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
+.mdg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:7px}
+.qbar{width:100%;height:2px;background:var(--border);border-radius:99px;margin-bottom:12px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,var(--oro),var(--verde));border-radius:99px;transition:width .4s}
+.qex{font-family:'Playfair Display',serif;font-size:1rem;color:#a090c0;font-style:italic;background:#0d0a08;border-radius:8px;padding:10px 12px;margin-bottom:12px;line-height:1.6;border:1px solid var(--border)}
+.blank{background:#1a1040;border-bottom:2px solid var(--oro);padding:0 8px;border-radius:4px;color:var(--oro);font-weight:700;font-style:normal}
+.qt{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:11px;color:var(--testo)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{background:#0d0a08;border:1px solid var(--border);border-radius:9px;padding:10px 8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;color:var(--testo);line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--oro);background:var(--oro-l);color:var(--oro)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:#5ac4a0}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:#e07070}
+.opt:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6}
+.fb.ok{background:var(--verde-l);border-left:3px solid var(--verde);color:#5ac4a0}
+.fb.err{background:var(--rosso-l);border-left:3px solid var(--rosso);color:#e07070}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--oro),#8a6020);color:#0d0a08;border:none;border-radius:9px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
+.res-num{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;color:var(--oro);line-height:1}
+.btn-r{background:linear-gradient(135deg,var(--oro),#8a6020);color:#0d0a08;border:none;border-radius:10px;padding:12px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:7px}
+.btn-b{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+
+/* FLIP CARD */
+.fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
+.fc{position:relative;width:100%;height:170px;transform-style:preserve-3d;transition:transform .45s}
+.fc.fl{transform:rotateY(180deg)}
+.ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
+.f1{background:linear-gradient(135deg,#1a1040,#0d0820);border:1px solid #3a2a60}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,#1a1000,#0d0800);border:1px solid #3a2800}
+.fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fw2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#c0a8f0;font-style:italic}
+.fw2b{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--oro)}
+.fs2{font-size:.72rem;color:var(--muted)}
+.fex{font-size:.68rem;color:#7060a0;font-style:italic;text-align:center;margin-top:4px}
+.qnav{display:flex;gap:6px;margin-top:10px}
+.qnb{flex:1;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px 6px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.qnb.p{background:linear-gradient(135deg,var(--oro),#8a6020);border-color:var(--oro);color:#0d0a08}
+.qnb:hover:not(.p){border-color:var(--oro)}
+.divider{height:1px;background:var(--border);margin:11px 0}
+.vchip{background:#1a1008;border:1px solid #3a2010;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.on{border-color:#8a6020;color:var(--oro)}
+.play-btn{width:24px;height:24px;border-radius:50%;border:1px solid #3a2010;background:#1a1008;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;color:#556;transition:all .15s;flex-shrink:0;vertical-align:middle;margin-left:4px}
+.play-btn:hover,.play-btn.pl{border-color:var(--oro);color:var(--oro);background:#1a1000}
+.play-btn.off{opacity:.2;cursor:default}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 5px rgba(201,168,76,0)}}
+.pl{animation:abp .7s infinite}
+</style>
 </head>
 <body>
-<p><a href="../index.html">&larr; На главную</a></p>
-<h1>Mannarino</h1>
-<p><em>Страница в подготовке.</em></p>
+
+<header>
+  <div class="song-icon">🎵</div>
+  <h1><em>Me So' Mbriacato</em></h1>
+  <div class="sub">Alessandro Mannarino · Bar della rabbia (2009)</div>
+  <div class="desc">Словарь песни · Диалект романеско · Тренажёр</div>
+</header>
+
+<!-- TTS PANEL -->
+<div id="ap" style="background:#0a0808;border-bottom:1px solid #2a1a08;padding:9px 13px">
+  <div style="font-size:.72rem;color:var(--oro);font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px">
+    <div id="adot" style="width:6px;height:6px;border-radius:50%;background:#3a2a18;flex-shrink:0"></div>
+    <span id="atext">🔊 Подключи Google TTS — слушай произношение каждого слова и примера</span>
+  </div>
+  <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+    <input id="akey" type="password" placeholder="Google API ключ..." style="flex:1;min-width:130px;background:#1a1008;border:1px solid #3a2010;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none">
+    <button onclick="ck()" style="background:#8a6020;border:none;border-radius:6px;color:#f0d060;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer">Подключить</button>
+    <button id="axb" onclick="ckx()" style="display:none;background:#1a1008;border:1px solid #3a2010;border-radius:6px;color:#667;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer">✕</button>
+  </div>
+  <div id="ks" style="font-size:.64rem;margin-top:3px;min-height:12px"></div>
+  <div id="vss" style="display:none;margin-top:4px">
+    <div style="display:flex;gap:4px;flex-wrap:wrap">
+      <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)">Wavenet A ♀</div>
+      <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)">Wavenet C ♂</div>
+      <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)">Standard A</div>
+    </div>
+  </div>
+  <div id="ahint" style="font-size:.62rem;color:#556;margin-top:4px;line-height:1.5">
+    Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:var(--oro);text-decoration:none">console.cloud.google.com</a> → Cloud TTS → Create API Key.
+  </div>
+</div>
+
+<div class="mn">
+  <button class="mnb on" onclick="sm('vocab')">📖 Словарь<br><small style="font-size:.55rem;opacity:.7">45 слов</small></button>
+  <button class="mnb" onclick="sm('dialect')">🗣 Диалект<br><small style="font-size:.55rem;opacity:.7">Романеско</small></button>
+  <button class="mnb" onclick="sm('train')">🎯 Тренажёр<br><small style="font-size:.55rem;opacity:.7">4 режима</small></button>
+</div>
+
+<!-- ══════════════════════ СЛОВАРЬ ══════════════════════ -->
+<div class="sec on" id="vocab">
+<div class="sw">
+
+  <div class="stitle">🍷 Заголовок <span>о чём песня</span></div>
+  <div class="tip">
+    <strong>Me so' mbriacato</strong> — романеско. По-итальянски: <strong>Mi sono ubriacato</strong> = «Я опьянел». Mannarino поёт на диалекте Рима — это его фирменный стиль. Тема песни: опьянение не вином, а запахом и присутствием женщины.
+  </div>
+
+  <!-- ГЛАГОЛЫ -->
+  <div class="stitle" style="margin-top:4px">🎬 Глаголы <span>из песни</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">sognare</div>
+        <div class="wc-ph">[soɲˈɲaːre]</div>
+        <div class="wc-ru">мечтать, грезить, сниться</div>
+        <div class="wc-ex">Sogno immerso in una tazza di tè.<div class="wc-ex-ru">Грежу, погружённый в чашку чая.</div></div>
+      </div>
+      <div class="wc-note"><strong>sogno</strong> = IO sognare · также: <em>il sogno</em> = мечта/сон</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">scogliersi</div>
+        <div class="wc-ph">[ˈʃkɔʎʎersi]</div>
+        <div class="wc-ru">таять, растворяться (о человеке)</div>
+        <div class="wc-ex">Mi sciolgo di dentro.<div class="wc-ex-ru">Таю внутри.</div></div>
+      </div>
+      <div class="wc-note"><strong>mi sciolgo</strong> = IO sciogliersi · буквально «растворяюсь» · очень поэтично!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">crollare</div>
+        <div class="wc-ph">[krolˈlaːre]</div>
+        <div class="wc-ru">рухнуть, обвалиться, упасть</div>
+        <div class="wc-ex">Crolla il pavimento.<div class="wc-ex-ru">Рушится пол.</div></div>
+      </div>
+      <div class="wc-note">LUI crolla · метафора: мир рушится когда влюблён</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">rimbombare</div>
+        <div class="wc-ph">[rimˈbombare]</div>
+        <div class="wc-ru">гудеть, грохотать, отдаваться эхом</div>
+        <div class="wc-ex">Come rimbomba l'odore dell'ombra.<div class="wc-ex-ru">Как гудит запах тени.</div></div>
+      </div>
+      <div class="wc-note">Синестезия — запах «гремит». Очень характерно для Mannarino!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">sfamarsi</div>
+        <div class="wc-ph">[sfaˈmarsi]</div>
+        <div class="wc-ru">утолять голод, наедаться</div>
+        <div class="wc-ex">Non mi devo sfamare.<div class="wc-ex-ru">Мне не нужно наедаться.</div></div>
+      </div>
+      <div class="wc-note">da <em>fame</em> (голод) → sfamare = накормить · sfamarsi = наесться</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">saziarsi</div>
+        <div class="wc-ph">[satˈtsjarsi]</div>
+        <div class="wc-ru">насыщаться, пресыщаться</div>
+        <div class="wc-ex">Non mi devo saziare con te.<div class="wc-ex-ru">Мне не нужно пресыщаться тобой.</div></div>
+      </div>
+      <div class="wc-note">Тонкая разница: <em>sfamarsi</em> = утолить голод · <em>saziarsi</em> = насытиться полностью</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">cercare</div>
+        <div class="wc-ph">[tʃerˈkaːre]</div>
+        <div class="wc-ru">искать</div>
+        <div class="wc-ex">Ce vado de notte a cercà' le parole.<div class="wc-ex-ru">Иду туда ночью искать слова.</div></div>
+      </div>
+      <div class="wc-note"><strong>cercà'</strong> = романеско · итальянский: cercare · IO cerco, TU cerchi</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">tenere</div>
+        <div class="wc-ph">[teˈneːre]</div>
+        <div class="wc-ru">держать, хранить</div>
+        <div class="wc-ex">Io ti tengo qua dentro di me.<div class="wc-ex-ru">Я держу тебя здесь внутри себя.</div></div>
+      </div>
+      <div class="wc-note">IO tengo (нерегулярный!) · очень поэтичное использование</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">ubriacarsi</div>
+        <div class="wc-ph">[ubriˈkarsi]</div>
+        <div class="wc-ru">опьянеть, напиться</div>
+        <div class="wc-ex">Me so' 'mbriacato de 'na donna.<div class="wc-ex-ru">Я опьянел от одной женщины.</div></div>
+      </div>
+      <div class="wc-note">Диалект: <em>mbriacato</em> · стандарт: <em>ubriacato</em> · метафора опьянения любовью</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-it">immergersi</div>
+        <div class="wc-ph">[imˈmɛrdʒersi]</div>
+        <div class="wc-ru">погружаться, окунаться</div>
+        <div class="wc-ex">Sogno immerso in una tazza di tè.<div class="wc-ex-ru">Грежу погружённым в чашку чая.</div></div>
+      </div>
+      <div class="wc-note"><em>immerso</em> = причастие (погружённый) · immergersi = погружаться</div>
+    </div>
+
+  </div>
+
+  <!-- СУЩЕСТВИТЕЛЬНЫЕ -->
+  <div class="stitle" style="margin-top:6px">📦 Существительные</div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">l'odore</div>
+        <div class="wc-ph">[oˈdoːre]</div>
+        <div class="wc-ru">запах, аромат</div>
+        <div class="wc-ex">Quanto è buono l'odore della gonna.<div class="wc-ex-ru">Как хорош запах юбки.</div></div>
+      </div>
+      <div class="wc-note">Муж.р. · l'odore (ед.) · gli odori (мн.) · ключевое слово песни — повторяется 6 раз!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">la gonna</div>
+        <div class="wc-ph">[ˈɡɔnna]</div>
+        <div class="wc-ru">юбка</div>
+        <div class="wc-ex">L'odore della gonna.<div class="wc-ex-ru">Запах юбки.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · le gonne (мн.) · <em>della gonna</em> = di + la gonna</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">il pavimento</div>
+        <div class="wc-ph">[paviˈmento]</div>
+        <div class="wc-ru">пол, напольное покрытие</div>
+        <div class="wc-ex">Crolla il pavimento.<div class="wc-ex-ru">Рушится пол.</div></div>
+      </div>
+      <div class="wc-note">Буквально — пол. Метафорически — почва уходит из-под ног</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">l'ombra</div>
+        <div class="wc-ph">[ˈɔmbra]</div>
+        <div class="wc-ru">тень</div>
+        <div class="wc-ex">L'odore dell'ombra.<div class="wc-ex-ru">Запах тени.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · очень поэтичный образ — «запах тени когда есть солнце»</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">l'onda</div>
+        <div class="wc-ph">[ˈɔnda]</div>
+        <div class="wc-ru">волна</div>
+        <div class="wc-ex">L'odore dell'onda.<div class="wc-ex-ru">Запах волны.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · le onde (мн.) · il mare, le onde, l'onda — морские образы</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">la schiena</div>
+        <div class="wc-ph">[ˈskjɛːna]</div>
+        <div class="wc-ru">спина</div>
+        <div class="wc-ex">La mia schiena è più dritta.<div class="wc-ex-ru">Моя спина стала прямее.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · la schiena dritta = прямая спина → метафора уверенности</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">il momento</div>
+        <div class="wc-ph">[moˈmento]</div>
+        <div class="wc-ru">момент, мгновение</div>
+        <div class="wc-ex">Ma che bello il momento!<div class="wc-ex-ru">Как прекрасен этот момент!</div></div>
+      </div>
+      <div class="wc-note">Муж.р. · <em>il momento</em> — звучит как по-русски!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">la parola</div>
+        <div class="wc-ph">[paˈrɔːla]</div>
+        <div class="wc-ru">слово</div>
+        <div class="wc-ex">A cercà' le parole.<div class="wc-ex-ru">Искать слова.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · le parole (мн.) · «искать слова» = искать способ выразить чувства</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-it">la tazza</div>
+        <div class="wc-ph">[ˈtatttsa]</div>
+        <div class="wc-ru">чашка, кружка</div>
+        <div class="wc-ex">Immerso in una tazza di tè.<div class="wc-ex-ru">Погружённый в чашку чая.</div></div>
+      </div>
+      <div class="wc-note">Жен.р. · <em>una tazza di caffè</em> = чашка кофе · очень итальянская деталь!</div>
+    </div>
+
+  </div>
+
+  <!-- ПРИЛАГАТЕЛЬНЫЕ -->
+  <div class="stitle" style="margin-top:6px">🎨 Прилагательные и наречия</div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-it">denso</div>
+        <div class="wc-ph">[ˈdɛnso]</div>
+        <div class="wc-ru">плотный, густой, насыщенный</div>
+        <div class="wc-ex">Mi sento denso perché...<div class="wc-ex-ru">Чувствую себя насыщенным потому что...</div></div>
+      </div>
+      <div class="wc-note">Обычно о физическом (густой туман), здесь — о внутреннем состоянии</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-it">dritto</div>
+        <div class="wc-ph">[ˈdritto]</div>
+        <div class="wc-ru">прямой, ровный</div>
+        <div class="wc-ex">La mia schiena è più dritta.<div class="wc-ex-ru">Моя спина стала прямее.</div></div>
+      </div>
+      <div class="wc-note"><em>più dritta</em> = прямее · <em>più</em> + прилагательное = сравнительная степень</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Наречие</div>
+        <div class="wc-it">meglio</div>
+        <div class="wc-ph">[ˈmeʎʎo]</div>
+        <div class="wc-ru">лучше (сравн. степень от bene)</div>
+        <div class="wc-ex">Cammino meglio. Mangio meglio.<div class="wc-ex-ru">Хожу лучше. Ем лучше.</div></div>
+      </div>
+      <div class="wc-note"><strong>bene → meglio</strong> (нерегулярно!) · так же: buono → migliore</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Наречие</div>
+        <div class="wc-it">dentro</div>
+        <div class="wc-ph">[ˈdɛntro]</div>
+        <div class="wc-ru">внутри, внутрь</div>
+        <div class="wc-ex">Dentro lo sento. Mi sciolgo di dentro.<div class="wc-ex-ru">Внутри чувствую. Таю изнутри.</div></div>
+      </div>
+      <div class="wc-note">Ключевое слово песни — повторяется много раз. Противоположное: <em>fuori</em></div>
+    </div>
+
+  </div>
+
+  <!-- ВЫРАЖЕНИЯ -->
+  <div class="stitle" style="margin-top:6px">💬 Выражения и конструкции</div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">che caldo qua dentro!</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">как жарко здесь внутри!</div>
+        <div class="wc-ex">Ma che caldo qua dentro!<div class="wc-ex-ru">Но как же жарко здесь внутри!</div></div>
+      </div>
+      <div class="wc-note"><em>che + прилагательное</em> = восклицание · che bello! che caldo! che freddo!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">non so più chi sono</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">я больше не знаю кто я</div>
+        <div class="wc-ex">Quando sono con te non so più chi sono.<div class="wc-ex-ru">Когда я с тобой — не знаю больше кто я.</div></div>
+      </div>
+      <div class="wc-note"><em>non...più</em> = больше не · non mangio più = больше не ем · non vengo più = больше не приду</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">di dentro</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">изнутри, внутри</div>
+        <div class="wc-ex">Mi sciolgo di dentro.<div class="wc-ex-ru">Таю изнутри.</div></div>
+      </div>
+      <div class="wc-note">Усиленная форма <em>dentro</em> с предлогом di · очень разговорное</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">quanto è buono...</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">как хорошо..., как прекрасен...</div>
+        <div class="wc-ex">Quanto è buono l'odore del mare!<div class="wc-ex-ru">Как прекрасен запах моря!</div></div>
+      </div>
+      <div class="wc-note"><em>Quanto è + прилагательное</em> = восклицание о качестве · рефрен всей песни</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">lo sento dentro</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">чувствую это внутри</div>
+        <div class="wc-ex">Dentro lo sento, dentro lo sento.<div class="wc-ex-ru">Внутри чувствую, внутри чувствую.</div></div>
+      </div>
+      <div class="wc-note"><em>lo</em> = прямое дополнение (его/это) · lo sento = слышу/чувствую это</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-it">non mi devo...</div>
+        <div class="wc-ph"></div>
+        <div class="wc-ru">мне не нужно..., я не должен...</div>
+        <div class="wc-ex">Non mi devo sfamare.<div class="wc-ex-ru">Мне не нужно утолять голод.</div></div>
+      </div>
+      <div class="wc-note"><em>dovere + infinito</em> = нужно/должен · с отрицанием non = не нужно</div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════ ДИАЛЕКТ ══════════════════════ -->
+<div class="sec" id="dialect">
+<div class="sw">
+
+  <div class="stitle">🗺 Романеско — диалект Рима</div>
+  <div class="tip">
+    <strong>Романеско</strong> — исторический диалект Рима. Mannarino использует его намеренно, чтобы звучать аутентично и «по-уличному». Многие слова похожи на стандартный итальянский, но с изменениями в произношении и написании.
+  </div>
+
+  <div class="stitle" style="margin-top:4px">🔄 Диалект → Стандартный итальянский</div>
+  <div class="dialect-banner">
+    <div class="db-title">Главные изменения в романеско</div>
+    <div class="db-grid">
+      <div class="db-item">
+        <div class="db-dial">me so' mbriacato</div>
+        <div class="db-std">→ mi sono ubriacato</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">de 'na donna</div>
+        <div class="db-std">→ di una donna</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">quanto è bbono</div>
+        <div class="db-std">→ quanto è buono</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">der mare</div>
+        <div class="db-std">→ del mare</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">ce vado</div>
+        <div class="db-std">→ ci vado</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">de notte</div>
+        <div class="db-std">→ di notte</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">a cercà'</div>
+        <div class="db-std">→ a cercare</div>
+      </div>
+      <div class="db-item">
+        <div class="db-dial">'r sole</div>
+        <div class="db-std">→ il sole</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stitle" style="margin-top:6px">📐 Правила романеско <span>что меняется</span></div>
+
+  <div class="tip">
+    <strong>1. ME вместо MI:</strong> me so' → mi sono. Личное местоимение меняется.<br>
+    <strong>2. SO' вместо SONO:</strong> усечение глагола essere.<br>
+    <strong>3. DE вместо DI:</strong> предлог «di» → «de» в романеско.<br>
+    <strong>4. 'NA вместо UNA:</strong> артикль una → 'na (апостроф = усечение).<br>
+    <strong>5. DER вместо DEL:</strong> del (di + il) → der в романеско.<br>
+    <strong>6. CE вместо CI:</strong> наречие «ci» (здесь/туда) → «ce».<br>
+    <strong>7. Удвоение согласных:</strong> buono → bbono (усиление).<br>
+    <strong>8. Усечение инфинитива:</strong> cercare → cercà' (апостроф вместо -re).
+  </div>
+
+  <div class="stitle" style="margin-top:6px">🎵 Художественные образы <span>синестезия Mannarino</span></div>
+
+  <div class="tip-v tip" style="margin-bottom:8px">
+    <strong>Синестезия</strong> = смешение чувств. Mannarino описывает <em>запах</em> вещей которые обычно не пахнут:
+  </div>
+
+  <div class="wgrid">
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Образ</div>
+        <div class="wc-it">l'odore del vento</div>
+        <div class="wc-ru">запах ветра</div>
+        <div class="wc-ex">Quanto è buono l'odore del vento.<div class="wc-ex-ru">Как прекрасен запах ветра.</div></div>
+      </div>
+    </div>
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Образ</div>
+        <div class="wc-it">l'odore dell'ombra</div>
+        <div class="wc-ru">запах тени</div>
+        <div class="wc-ex">Come rimbomba l'odore dell'ombra.<div class="wc-ex-ru">Как гремит запах тени.</div></div>
+      </div>
+    </div>
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Образ</div>
+        <div class="wc-it">l'odore dell'onda</div>
+        <div class="wc-ru">запах волны</div>
+        <div class="wc-ex">Come ritorna l'odore dell'onda.<div class="wc-ex-ru">Как возвращается запах волны.</div></div>
+      </div>
+    </div>
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Образ</div>
+        <div class="wc-it">sciolgo di dentro</div>
+        <div class="wc-ru">таю изнутри</div>
+        <div class="wc-ex">E mi sciolgo di dentro.<div class="wc-ex-ru">И таю изнутри.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════════════════ ТРЕНАЖЁР ══════════════════════ -->
+<div class="sec" id="train">
+<div class="trw">
+  <div id="tpick">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--oro);margin-bottom:11px">🎯 Тренажёр</h2>
+    <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Выбери режим:</div>
+    <div class="mdg">
+      <button class="mdb" onclick="startTR('meaning')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">слово → значение</small></button>
+      <button class="mdb" onclick="startTR('fill')"><span class="mi">✍️</span>Пропуски<br><small style="color:var(--muted)">вставь слово</small></button>
+      <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">стандарт ↔ диалект</small></button>
+      <button class="mdb" onclick="startTR('dialect')"><span class="mi">🗣</span>Диалект<br><small style="color:var(--muted)">романеско→итал.</small></button>
+    </div>
+  </div>
+  <div id="tarea" style="display:none"></div>
+</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// VOCAB DATA FOR TRAINER
+// ══════════════════════════════════════════════════════
+const WORDS = [
+  {it:'sognare',    ru:'мечтать, грезить',      ex:'Sogno immerso in una tazza di tè.',    exru:'Грежу погружённым в чашку чая.'},
+  {it:'scogliersi', ru:'таять, растворяться',    ex:'Mi sciolgo di dentro.',                exru:'Таю изнутри.'},
+  {it:'crollare',   ru:'рухнуть, обвалиться',    ex:'Crolla il pavimento.',                 exru:'Рушится пол.'},
+  {it:'rimbombare', ru:'гудеть, грохотать',      ex:'Come rimbomba l\'odore dell\'ombra.',  exru:'Как гремит запах тени.'},
+  {it:'sfamarsi',   ru:'утолять голод',           ex:'Non mi devo sfamare.',                 exru:'Мне не нужно наедаться.'},
+  {it:'saziarsi',   ru:'насыщаться, пресыщаться', ex:'Non mi devo saziare con te.',          exru:'Мне не нужно пресыщаться тобой.'},
+  {it:'cercare',    ru:'искать',                  ex:'A cercà\' le parole.',                 exru:'Искать слова.'},
+  {it:'tenere',     ru:'держать, хранить',        ex:'Io ti tengo qua dentro di me.',        exru:'Я держу тебя здесь внутри.'},
+  {it:'ubriacarsi', ru:'опьянеть, напиться',      ex:'Me so\' mbriacato de \'na donna.',     exru:'Я опьянел от одной женщины.'},
+  {it:'immergersi', ru:'погружаться',             ex:'Sogno immerso in una tazza di tè.',    exru:'Погружённый в чашку чая.'},
+  {it:'l\'odore',   ru:'запах, аромат',           ex:'Quanto è buono l\'odore del mare!',    exru:'Как прекрасен запах моря!'},
+  {it:'la gonna',   ru:'юбка',                    ex:'L\'odore della gonna.',                exru:'Запах юбки.'},
+  {it:'il pavimento',ru:'пол',                   ex:'Crolla il pavimento.',                 exru:'Рушится пол.'},
+  {it:'l\'ombra',   ru:'тень',                    ex:'L\'odore dell\'ombra.',                exru:'Запах тени.'},
+  {it:'l\'onda',    ru:'волна',                   ex:'Come ritorna l\'odore dell\'onda.',    exru:'Как возвращается запах волны.'},
+  {it:'la schiena', ru:'спина',                   ex:'La mia schiena è più dritta.',         exru:'Моя спина стала прямее.'},
+  {it:'il momento', ru:'момент, мгновение',       ex:'Ma che bello il momento!',             exru:'Как прекрасен этот момент!'},
+  {it:'la parola',  ru:'слово',                   ex:'A cercà\' le parole.',                 exru:'Искать слова.'},
+  {it:'la tazza',   ru:'чашка, кружка',           ex:'Immerso in una tazza di tè.',          exru:'Погружённый в чашку чая.'},
+  {it:'denso',      ru:'плотный, густой, насыщенный', ex:'Mi sento denso perché...',         exru:'Чувствую себя насыщенным...'},
+  {it:'dritto',     ru:'прямой, ровный',          ex:'La mia schiena è più dritta.',         exru:'Моя спина прямее.'},
+  {it:'meglio',     ru:'лучше',                   ex:'Cammino meglio.',                      exru:'Хожу лучше.'},
+  {it:'dentro',     ru:'внутри, внутрь',          ex:'Dentro lo sento.',                     exru:'Внутри чувствую.'},
+];
+
+const FILL_Q = [
+  {sent:'Mi ___ di dentro quando penso a te.',      blank:'sciolgo',  ru:'Таю изнутри когда думаю о тебе.',   opts:['sciolgo','cammino','tengo','sogno']},
+  {sent:'___ il pavimento quando sono con te.',     blank:'Crolla',   ru:'Рушится пол когда я с тобой.',      opts:['Crolla','Parte','Ritorna','Cammina']},
+  {sent:'La mia schiena è più ___ con te.',         blank:'dritta',   ru:'Моя спина прямее с тобой.',         opts:['dritta','buona','bella','densa']},
+  {sent:'Io ti ___ qua dentro di me.',              blank:'tengo',    ru:'Я держу тебя здесь внутри себя.',   opts:['tengo','sento','sogno','cerco']},
+  {sent:'Non mi devo ___ con te.',                  blank:'saziare',  ru:'Мне не нужно пресыщаться тобой.',   opts:['saziare','sfamare','crollare','sognare']},
+  {sent:"Quanto è buono l'___ del mare!",      blank:'odore',    ru:'Как прекрасен запах моря!',         opts:['odore','ombra','onda','ora']},
+  {sent:"Ce vado de notte a cercà' le ___.",   blank:'parole',   ru:'Иду ночью искать слова.',           opts:['parole','onde','ombre','gonne']},
+  {sent:'Cammino ___ perché la schiena è più dritta.', blank:'meglio', ru:'Хожу лучше — спина прямее.',      opts:['meglio','bene','molto','dentro']},
+  {sent:'Sogno ___ in una tazza di tè.',            blank:'immerso',  ru:'Грежу погружённым в чашку чая.',    opts:['immerso','solo','perso','denso']},
+  {sent:'Come ___ l\'odore dell\'ombra!',           blank:'rimbomba', ru:'Как гремит запах тени!',            opts:['rimbomba','ritorna','cammina','crolla']},
+];
+
+const DIALECT_Q = [
+  {dial:'me so\' mbriacato',   std:'mi sono ubriacato',   ru:'я опьянел'},
+  {dial:'de \'na donna',       std:'di una donna',         ru:'от одной женщины'},
+  {dial:'quanto è bbono',      std:'quanto è buono',       ru:'как хорошо/прекрасно'},
+  {dial:'der mare',            std:'del mare',             ru:'моря (родит. падеж)'},
+  {dial:'ce vado',             std:'ci vado',              ru:'туда иду'},
+  {dial:'de notte',            std:'di notte',             ru:'ночью'},
+  {dial:'a cercà\'',           std:'a cercare',            ru:'искать'},
+  {dial:'\'r sole',            std:'il sole',              ru:'солнце'},
+  {dial:'so\'',                std:'sono',                 ru:'есть (essere)'},
+  {dial:'\'na',                std:'una',                  ru:'одна (артикль)'},
+];
+
+const shuf = a => [...a].sort(() => Math.random() - .5);
+let trMode='', trWords=[], trIdx=0, trSc=0, trAns=false;
+
+// ── TRAINER ──────────────────────────────────────────────
+
+function startTR(mode){
+  trMode=mode;
+  trIdx=0; trSc=0; trAns=false;
+  if(mode==='meaning') trWords=shuf(WORDS);
+  else if(mode==='fill') trWords=shuf(FILL_Q);
+  else if(mode==='flip') trWords=shuf(WORDS);
+  else trWords=shuf(DIALECT_Q);
+  document.getElementById('tpick').style.display='none';
+  document.getElementById('tarea').style.display='block';
+  renderTQ();
+}
+
+function stopTR(){
+  document.getElementById('tpick').style.display='block';
+  document.getElementById('tarea').style.display='none';
+}
+
+function renderTQ(){
+  if(trIdx>=trWords.length){renderTRes();return;}
+  trAns=false;
+  const pct=Math.round(trIdx/trWords.length*100);
+  if(trMode==='meaning') renderMeaning(pct);
+  else if(trMode==='fill') renderFill(pct);
+  else if(trMode==='flip') renderFlip(pct);
+  else renderDialect(pct);
+}
+
+function prog(pct){
+  return `<div class="qprog"><span>${trIdx+1}/${trWords.length}</span><span style="color:var(--oro)">⭐ ${trSc}</span></div>
+  <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>`;
+}
+function nav(extra=''){
+  return `<div class="navrow">${extra}<button class="btn-skip" onclick="skipQ()">Пропустить</button><button class="btn-next" id="nxt" onclick="nextQ()">Дальше →</button></div>`;
+}
+
+function renderMeaning(pct){
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  const safeEx=w.exru.replace(/'/g,'&#39;');
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Что означает:</div>
+    <div class="qex" style="font-size:1.3rem;text-align:center">${w.it}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="chk(this,${i===nc},${i})">${o.ru}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${nav()}
+  </div>`;
+  window._chkEx=safeEx;
+}
+
+function renderFill(pct){
+  const q=trWords[trIdx];
+  const opts=shuf(q.opts);
+  const nc=opts.indexOf(q.blank);
+  // предложение уже содержит ___ — просто подсвечиваем
+  const sentHL=q.sent.replace('___','<span class="blank">___</span>');
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Вставь правильное слово:</div>
+    <div class="qex">${sentHL}<br><span style="font-size:.65rem;font-style:normal;font-family:Nunito;color:var(--muted)">${q.ru}</span></div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="chk(this,${i===nc},${i})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${nav()}
+  </div>`;
+  window._chkEx='Правильно: <em>'+q.blank+'</em>';
+}
+
+function renderFlip(pct){
+  const w=trWords[trIdx];
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div style="font-size:.72rem;color:var(--muted);text-align:center;margin-bottom:9px">Нажми карточку чтобы перевернуть</div>
+    <div class="fw" onclick="this.querySelector('.fc').classList.toggle('fl')">
+      <div class="fc">
+        <div class="ff2 f1">
+          <div class="fl2">Итальянский</div>
+          <div class="fw2">${w.it}</div>
+          <div class="fex">${w.ex}</div>
+        </div>
+        <div class="ff2 f2">
+          <div class="fl2">Перевод</div>
+          <div class="fw2b">${w.ru}</div>
+          <div class="fs2" style="margin-top:6px">${w.exru}</div>
+        </div>
+      </div>
+    </div>
+    <div class="qnav">
+      <button class="qnb" onclick="skipQ()">✕</button>
+      <button class="qnb p" onclick="trSc++;nextQ()">✓ Знал</button>
+    </div>
+  </div>`;
+}
+
+function renderDialect(pct){
+  const q=trWords[trIdx];
+  const allStd=DIALECT_Q.map(x=>x.std);
+  const opts=shuf([q.std,...shuf(allStd.filter(x=>x!==q.std)).slice(0,3)]);
+  const nc=opts.indexOf(q.std);
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Романеско → стандартный итальянский:</div>
+    <div class="qex" style="text-align:center;font-size:1.3rem">${q.dial}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="chk(this,${i===nc},${i})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${nav()}
+  </div>`;
+  window._chkEx=q.dial+' → '+q.std+' ('+q.ru+')';
+}
+
+function chk(btn, ok, idx){
+  if(trAns) return;
+  trAns=true;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.querySelector('.btn-skip').style.display='none';
+  document.getElementById('nxt').style.display='block';
+  const fb=document.getElementById('fb');
+  const ex=window._chkEx||'';
+  if(ok){
+    trSc++;
+    btn.classList.add('correct');
+    fb.className='fb ok';
+    fb.innerHTML='✓ Правильно! '+ex;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelector('.opt[data-ok="true"]').classList.add('correct');
+    fb.className='fb err';
+    fb.innerHTML='✕ Неправильно. '+ex;
+  }
+}
+
+function skipQ(){trIdx++;renderTQ();}
+function nextQ(){trIdx++;renderTQ();}
+
+function renderTRes(){
+  const pct=Math.round(trSc/trWords.length*100);
+  const col=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const msg=pct>=90?'🏆 Отлично!':pct>=75?'🎉 Хорошо!':pct>=50?'👍 Неплохо!':'📚 Повтори словарь.';
+  document.getElementById('tarea').innerHTML=`<div class="res-card">
+    <div style="font-size:2.4rem;margin-bottom:8px">🎵</div>
+    <div class="res-num" style="color:${col}">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:11px">${trSc} из ${trWords.length}</div>
+    <div style="font-size:.88rem;line-height:1.7;margin-bottom:14px;color:#c8c0b4">${msg}</div>
+    <button class="btn-r" onclick="startTR('${trMode}')">🔄 Ещё раз</button>
+    <button class="btn-b" onclick="stopTR()">← Выбрать режим</button>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// TTS ENGINE
+// ══════════════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>{c.style.borderColor='#3a2010';c.style.color='#778';});
+  chip.style.borderColor='#8a6020';chip.style.color='var(--oro)';
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+
+async function pl(text, btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    const clean=text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    if(!ttsCache[clean]){
+      const body={input:{text:clean},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.85}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json();ttsCache[clean]=d.audioContent;
+    }
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[clean]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){
+    if(btn)btn.classList.remove('pl');
+    const ks=document.getElementById('ks');
+    if(ks){ks.textContent='❌ '+e.message;ks.style.color='#e07070';}
+  }
+}
+
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json();ttsCache['ciao']=d.audioContent;
+    ttsKey=k;
+    document.getElementById('adot').style.background='#c9a84c';
+    document.getElementById('atext').textContent='✅ Нажимай 🔊 на любое слово или пример!';
+    document.getElementById('ap').style.borderColor='#3a2a10';
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('[onclick="ck()"]').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    document.querySelectorAll('.play-btn').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+
+function ckx(){
+  ttsKey='';Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  document.getElementById('akey').style.display='block';
+  document.querySelector('[onclick="ck()"]').style.display='block';
+  document.getElementById('ahint').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').style.background='#3a2a18';
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — слушай произношение каждого слова и примера';
+  setKS('','');
+  document.querySelectorAll('.play-btn').forEach(b=>b.classList.add('off'));
+}
+
+function setKS(m,t){
+  const el=document.getElementById('ks');
+  if(el){el.textContent=m;el.style.color=t==='ok'?'#c9a84c':t==='err'?'#e07070':'';}
+}
+
+// AUTO-ATTACH play buttons after DOM loads
+window.addEventListener('load',function(){
+
+  // 1. Кнопка на каждое итальянское слово (.wc-it)
+  document.querySelectorAll('.wc-it').forEach(el=>{
+    const text=el.textContent.trim().replace(/^l['']|^il |^la |^lo |^i |^gli |^le /,'');
+    const btn=document.createElement('button');
+    btn.className='play-btn off';
+    btn.textContent='🔊';
+    btn.title='Произношение';
+    btn.onclick=(e)=>{e.stopPropagation();pl(text,btn);};
+    el.appendChild(btn);
+    el.style.cursor='pointer';
+    el.onclick=()=>pl(text,btn);
+  });
+
+  // 2. Кнопка на каждый пример (.wc-ex) — только итальянский текст (не дочерний .wc-ex-ru)
+  document.querySelectorAll('.wc-ex').forEach(el=>{
+    // берём только текст самого элемента, без дочерних
+    const text=Array.from(el.childNodes)
+      .filter(n=>n.nodeType===3)
+      .map(n=>n.textContent.trim())
+      .join(' ').trim();
+    if(!text) return;
+    const btn=document.createElement('button');
+    btn.className='play-btn off';
+    btn.textContent='🔊';
+    btn.title='Прослушать пример';
+    btn.onclick=(e)=>{e.stopPropagation();pl(text,btn);};
+    el.insertBefore(btn, el.firstChild);
+  });
+
+  // 3. Кнопка на диалектные формы (.db-dial)
+  document.querySelectorAll('.db-dial').forEach(el=>{
+    const text=el.textContent.trim();
+    const btn=document.createElement('button');
+    btn.className='play-btn off';
+    btn.textContent='🔊';
+    btn.onclick=(e)=>{e.stopPropagation();pl(text,btn);};
+    el.appendChild(btn);
+    el.style.cursor='pointer';
+    el.onclick=()=>pl(text,btn);
+  });
+
+  // 4. Кнопка на примеры в диалоговой части (.qex) — динамически создаются в тренажёре
+  // обработаем через делегацию событий
+  document.addEventListener('click',function(e){
+    if(e.target.classList.contains('qex')){
+      const text=e.target.textContent.trim();
+      pl(text,null);
+    }
+  });
+});
+
+// NAV
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  const idx=['vocab','dialect','train'].indexOf(id);
+  document.querySelectorAll('.mnb')[idx].classList.add('on');
+  if(id==='train') stopTR();
+}
+</script>
 </body>
 </html>

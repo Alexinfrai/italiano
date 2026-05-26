@@ -1,14 +1,877 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lucio — Italiano</title>
-<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem}a{color:#06c}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐱 Lucio — il gatto di Gianni Morandi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
+  --verde:#2d7a4f;--verde-l:#e8f5ee;
+  --rosso:#c0392b;--rosso-l:#fdecea;
+  --oro:#b8860b;--oro-l:#fdf5e0;
+  --blu:#2855a0;--blu-l:#e8eef8;
+  --viola:#6040a0;--viola-l:#f0eaf8;
+  --arancio:#c06010;--arancio-l:#fef0e0;
+  --testo:#2a2218;--muted:#887868;
+  --shadow:0 2px 12px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{background:linear-gradient(135deg,#1a3a28,#2d7a4f 45%,#1a4a6a);color:white;padding:20px 14px 14px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
+.flag{font-size:1.8rem;margin-bottom:3px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.9rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:#f0d060}
+header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
+
+/* API */
+#ap{background:#0d1a10;border-bottom:2px solid #1a3a22;padding:9px 13px}
+#ap.conn{background:#0a1a0a;border-color:#2a5a2a}
+.at{font-size:.72rem;color:#c9a84c;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.adot{width:6px;height:6px;border-radius:50%;background:#555;flex-shrink:0}
+.adot.on{background:#5ac4a0;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+.arow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ainp{flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
+.ainp::placeholder{color:#556}
+.ac{background:#2d7a4f;border:none;border-radius:6px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.axb{background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
+#ks{font-size:.64rem;margin-top:3px;min-height:12px}
+#ks.ok{color:#5ac4a0}#ks.err{color:#e07070}
+.ahint{font-size:.62rem;color:#667;margin-top:4px;line-height:1.5}
+.ahint a{color:#c9a84c;text-decoration:none}
+#vss{display:none;margin-top:4px}
+.vrow{display:flex;gap:4px;flex-wrap:wrap}
+.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.on{border-color:#2d7a4f;color:#5ac4a0}
+
+/* NAV */
+.mn{display:flex;overflow-x:auto;background:#111;border-bottom:2px solid #333;position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:#f0d060;border-bottom-color:#f0d060}
+.mnb:hover:not(.on){color:#ccc}
+.sec{display:none}.sec.on{display:block}
+.sw{max-width:720px;margin:0 auto;padding:14px 13px 50px}
+
+/* TEXT */
+.text-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+.text-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.text-para{font-size:.9rem;line-height:1.9;margin-bottom:10px;color:var(--testo)}
+.text-para:last-child{margin-bottom:0}
+.text-word{cursor:pointer;border-radius:3px;transition:background .15s;padding:0 1px}
+.text-word:hover{background:var(--oro-l);color:var(--oro)}
+.text-word.play{background:var(--verde-l);color:var(--verde)}
+.sent-play{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.58rem;color:var(--muted);transition:all .15s;margin-left:4px;vertical-align:middle;flex-shrink:0}
+.sent-play:hover,.sent-play.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
+.sent-play.off{opacity:.22;cursor:default}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(45,122,79,.4)}50%{box-shadow:0 0 0 4px rgba(45,122,79,0)}}
+.pl{animation:abp .7s infinite}
+
+/* VOCAB GRID */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:7px}
+.vcard{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .2s,transform .15s;box-shadow:var(--shadow)}
+.vcard:hover{border-color:#c8c0b0;transform:translateY(-1px)}
+.vcard.vc-body{border-top:3px solid var(--blu)}
+.vcard.vc-adj{border-top:3px solid var(--oro)}
+.vcard.vc-verb{border-top:3px solid var(--verde)}
+.vcard.vc-expr{border-top:3px solid var(--viola)}
+.emoji-wrap{text-align:center;padding:12px 8px 2px;font-size:2.2rem;line-height:1}
+.assoc-wrap{text-align:center;font-size:.58rem;color:var(--oro);font-style:italic;padding:2px 8px 6px;line-height:1.4;min-height:20px}
+.cbody{padding:8px 11px 10px}
+.ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.pill{font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;border-radius:99px;padding:2px 6px;border:1px solid}
+.p-body{color:var(--blu);border-color:#2855a044;background:#2855a011}
+.p-adj{color:var(--oro);border-color:#c9a84c44;background:#c9a84c11}
+.p-verb{color:var(--verde);border-color:#2d7a4f44;background:#2d7a4f11}
+.p-expr{color:var(--viola);border-color:#6040a044;background:#6040a011}
+.abtn{border-radius:50%;width:27px;height:27px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;font-size:.74rem;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+.abtn:hover,.abtn.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
+.abtn.off{opacity:.25;cursor:default}
+.it-word{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;line-height:1;margin-bottom:2px;color:var(--testo)}
+.it-form{font-size:.6rem;color:var(--oro);margin-bottom:2px;font-weight:500}
+.it-ph{font-size:.62rem;color:var(--muted);font-style:italic;margin-bottom:5px}
+.divl{height:1px;background:var(--border);margin-bottom:5px}
+.ru-word{font-size:.82rem;color:#5a5050;font-weight:400;margin-bottom:3px}
+.ex-line{font-size:.66rem;color:var(--muted);font-style:italic;line-height:1.5}
+.ex-line strong{color:var(--oro);font-style:normal;font-weight:600}
+
+/* PHRASES */
+.phrase-item{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 13px;margin-bottom:7px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:border-color .15s}
+.phrase-item:hover{border-color:var(--verde)}
+.pi-body{flex:1}
+.pi-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--verde);font-style:italic;display:block;margin-bottom:3px;line-height:1.5}
+.pi-ru{font-size:.76rem;color:var(--muted);display:block;margin-bottom:3px}
+.pi-note{font-size:.66rem;color:var(--arancio);font-weight:700;display:block}
+.pi-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);transition:all .15s;flex-shrink:0}
+.pi-btn:hover,.pi-btn.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
+.pi-btn.off{opacity:.22;cursor:default}
+
+/* SECTION HEADER */
+.sh{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sh span{font-size:.62rem;color:var(--muted);font-family:'Nunito',sans-serif;font-style:normal}
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:10px;font-size:.76rem;line-height:1.6}
+.tip strong{color:var(--oro)}
+.tip-v{background:var(--verde-l);border-left-color:var(--verde)}.tip-v strong{color:var(--verde)}
+
+/* TRAINER */
+.trw{max-width:520px;margin:0 auto;padding:14px 12px 50px}
+.mdg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px}
+.mdb{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:12px 7px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.mdb .mi{font-size:1.25rem;display:block;margin-bottom:2px}
+.mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
+.qcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:7px}
+.qbar{width:100%;height:3px;background:var(--border);border-radius:99px;margin-bottom:11px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,var(--verde),var(--blu));border-radius:99px;transition:width .4s}
+.qmeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.qnum{font-size:.63rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.qtag{border-radius:99px;padding:2px 8px;font-size:.61rem;font-weight:800;text-transform:uppercase}
+.tg-v{background:var(--verde-l);color:#1a5030}
+.tg-a{background:var(--oro-l);color:#7a5500}
+.tg-e{background:var(--viola-l);color:#4a2a80}
+.tg-t{background:var(--blu-l);color:#1a3570}
+.qsent{font-family:'Playfair Display',serif;font-size:1rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;line-height:1.7;border:1px solid var(--border)}
+.blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700;font-style:normal}
+.qt{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:9px 7px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--verde);background:var(--verde-l)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.opt:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6}
+.fb.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
+.fb.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
+.fc{position:relative;width:100%;height:170px;transform-style:preserve-3d;transition:transform .45s}
+.fc.fl{transform:rotateY(180deg)}
+.ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
+.f1{background:linear-gradient(135deg,var(--verde-l),var(--blu-l));border:2px solid #b0d0c0}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#fff8e8);border:2px solid #d8c080}
+.fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fw2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:var(--verde)}
+.fw2b{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oro)}
+.fs2{font-size:.7rem;color:var(--muted)}
+.fa2{font-size:.64rem;color:var(--oro);font-style:italic;text-align:center}
+.qnav{display:flex;gap:5px;margin-top:10px}
+.qnb{flex:1;background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 6px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.qnb.p{background:linear-gradient(135deg,var(--verde),var(--blu));border-color:var(--verde);color:white}
+.qnb:hover:not(.p){border-color:var(--verde)}
+.res-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
+.res-pct{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;line-height:1}
+.cat-grid{display:grid;gap:5px;margin-bottom:13px;text-align:left}
+.cat-row{display:flex;align-items:center;gap:8px}
+.cat-name{font-size:.7rem;font-weight:700;min-width:110px}
+.cat-bar{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden}
+.cat-fill{height:100%;border-radius:99px}
+.cat-sc{font-size:.67rem;font-weight:800;min-width:30px;text-align:right}
+.err-item{background:var(--rosso-l);border-radius:7px;padding:7px 10px;font-size:.76rem;color:#5a1010;margin-bottom:3px}
+.ok-ex{background:var(--verde-l);border-radius:7px;padding:6px 10px;font-size:.72rem;color:#1a4020;margin-bottom:5px}
+.btn-r{background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.divider{height:1px;background:var(--border);margin:11px 0}
+</style>
 </head>
 <body>
-<p><a href="../index.html">&larr; На главную</a></p>
-<h1>Lucio</h1>
-<p><em>Страница в подготовке.</em></p>
+
+<header>
+  <div class="flag">🐱</div>
+  <h1><em>Lucio</em> — il gatto di Gianni Morandi</h1>
+  <p>Текст · Слова · Фразы · Тренажёр · Тест</p>
+</header>
+
+<!-- API -->
+<div id="ap">
+  <div class="at"><div class="adot" id="adot"></div><span id="atext">🔊 Подключи Google TTS — произношение каждого слова и предложения</span></div>
+  <div class="arow">
+    <input class="ainp" type="password" id="akey" placeholder="Google API ключ...">
+    <button class="ac" onclick="ck()">Подключить</button>
+    <button class="axb" id="axb" onclick="ckx()" style="display:none">✕</button>
+  </div>
+  <div id="ks"></div>
+  <div id="vss"><div class="vrow">
+    <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)">Wavenet A ♀</div>
+    <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)">Wavenet C ♂</div>
+    <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)">Standard A</div>
+  </div></div>
+  <div class="ahint" id="ahint">Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Cloud TTS → Create API Key → <a href="https://app.netlify.com/drop" target="_blank">Netlify</a>.</div>
+</div>
+
+<!-- NAV -->
+<div class="mn">
+  <button class="mnb on" onclick="sm('testo')">📖 Текст<br><small style="font-size:.55rem;opacity:.7">С озвучкой</small></button>
+  <button class="mnb" onclick="sm('vocab')">📚 Слова<br><small style="font-size:.55rem;opacity:.7">40 слов</small></button>
+  <button class="mnb" onclick="sm('frasi')">💬 Фразы<br><small style="font-size:.55rem;opacity:.7">Из текста</small></button>
+  <button class="mnb" onclick="sm('train')">🎯 Тренажёр<br><small style="font-size:.55rem;opacity:.7">4 режима</small></button>
+  <button class="mnb" onclick="sm('test')">📝 Тест<br><small style="font-size:.55rem;opacity:.7">30 вопросов</small></button>
+</div>
+
+<!-- ══ ТЕКСТ ══ -->
+<div class="sec on" id="testo">
+<div class="sw">
+  <div class="tip"><strong>Нажимай на любое предложение 🔊</strong> чтобы услышать произношение. Нажимай на слово чтобы услышать его отдельно.</div>
+  <div class="text-card">
+    <div class="text-title">Lucio, il gatto di Gianni Morandi</div>
+    <div id="text-body"></div>
+  </div>
+</div>
+</div>
+
+<!-- ══ СЛОВАРЬ ══ -->
+<div class="sec" id="vocab">
+<div class="sw">
+  <div class="sh">🐾 Части тела кота <span>corpo del gatto</span></div>
+  <div class="vgrid" id="vg-body"></div>
+
+  <div class="sh" style="margin-top:12px">🎨 Прилагательные <span>aggettivi</span></div>
+  <div class="vgrid" id="vg-adj"></div>
+
+  <div class="sh" style="margin-top:12px">🎬 Глаголы <span>verbi</span></div>
+  <div class="vgrid" id="vg-verb"></div>
+
+  <div class="sh" style="margin-top:12px">📦 Существительные <span>sostantivi</span></div>
+  <div class="vgrid" id="vg-noun"></div>
+</div>
+</div>
+
+<!-- ══ ФРАЗЫ ══ -->
+<div class="sec" id="frasi">
+<div class="sw">
+  <div class="tip tip-v"><strong>Все предложения</strong> взяты напрямую из текста. Нажимай 🔊 чтобы слышать правильное произношение!</div>
+
+  <div class="sh">🐱 ESSERE — описание <span>caratteristiche permanenti</span></div>
+  <div id="ph-esse"></div>
+
+  <div class="sh" style="margin-top:10px">💎 AVERE — внешность и возраст <span>descrizione fisica</span></div>
+  <div id="ph-avere"></div>
+
+  <div class="sh" style="margin-top:10px">🎬 AMARE + инфинитив <span>cosa ama fare Lucio</span></div>
+  <div id="ph-amare"></div>
+
+  <div class="sh" style="margin-top:10px">📌 Другие глаголы <span>altri verbi del testo</span></div>
+  <div id="ph-altri"></div>
+</div>
+</div>
+
+<!-- ══ ТРЕНАЖЁР ══ -->
+<div class="sec" id="train">
+<div class="trw">
+  <div id="tpick">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:11px">🎯 Тренажёр</h2>
+    <div class="mdg">
+      <button class="mdb" onclick="startTR('meaning')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">слово → значение</small></button>
+      <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">с ассоциацией</small></button>
+      <button class="mdb" onclick="startTR('fill')"><span class="mi">✍️</span>Пропуски<br><small style="color:var(--muted)">вставь слово</small></button>
+      <button class="mdb" onclick="startTR('audio')"><span class="mi">👂</span>На слух<br><small style="color:var(--muted)">звук → слово</small></button>
+    </div>
+  </div>
+  <div id="tarea" style="display:none"></div>
+</div>
+</div>
+
+<!-- ══ ТЕСТ ══ -->
+<div class="sec" id="test">
+<div class="sw">
+  <div id="test-start">
+    <div style="text-align:center;padding:20px 0 14px">
+      <div style="font-size:2.4rem;margin-bottom:8px">📝</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:8px">Тест — 30 вопросов</h2>
+      <p style="font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:16px">Слова, прилагательные, глаголы и предложения из текста про Люцо!</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:18px;text-align:left">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🐾 Части тела</div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🎨 Прилагательные</div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🎬 Глаголы</div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">💬 Предложения</div>
+      </div>
+      <button style="background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:13px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;width:100%" onclick="startTest()">🚀 Начать тест</button>
+    </div>
+  </div>
+  <div id="test-quiz" style="display:none"></div>
+  <div id="test-result" style="display:none"></div>
+</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// TTS
+// ══════════════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>c.classList.remove('on'));
+  chip.classList.add('on');
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+
+async function pl(text, btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.abtn,.sent-play,.pi-btn').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    const clean=text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    if(!ttsCache[clean]){
+      const body={input:{text:clean},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.85}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json(); ttsCache[clean]=d.audioContent;
+    }
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[clean]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){
+    if(btn)btn.classList.remove('pl');
+    setKS('❌ '+e.message,'err');
+  }
+}
+
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json(); ttsCache['ciao']=d.audioContent; ttsKey=k;
+    document.getElementById('adot').classList.add('on');
+    document.getElementById('atext').textContent='✅ Нажимай 🔊 на любое слово или предложение!';
+    document.getElementById('ap').classList.add('conn');
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('[onclick="ck()"]').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    document.querySelectorAll('.abtn,.sent-play,.pi-btn').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+function ckx(){
+  ttsKey=''; Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  ['akey','ahint'].forEach(id=>document.getElementById(id).style.display='block');
+  document.querySelector('[onclick="ck()"]').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').classList.remove('on');
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — произношение каждого слова и предложения';
+  document.getElementById('ap').classList.remove('conn');
+  setKS('','');
+  document.querySelectorAll('.abtn,.sent-play,.pi-btn').forEach(b=>b.classList.add('off'));
+}
+function setKS(m,t){const el=document.getElementById('ks');el.textContent=m;el.className=t;}
+
+// ══════════════════════════════════════════════════════
+// TEXT
+// ══════════════════════════════════════════════════════
+const SENTENCES = [
+  "Lucio è il gatto del famoso cantante italiano Gianni Morandi e di sua moglie Anna.",
+  "Lucio è un gatto di razza British Shorthair.",
+  "È un gatto giovane, ha due anni.",
+  "Ha il pelo corto, morbido e grigio.",
+  "Anche le zampe sono grigie.",
+  "Ha la testa rotonda e gli occhi gialli.",
+  "Ha una corporatura robusta.",
+  "Ha le orecchie piccole e i baffi lunghi.",
+  "Anche la coda è lunga.",
+  "Lucio è simpatico e affettuoso.",
+  "Ama giocare con le palline di lana, ama bere il latte e mangiare le sue crocchette.",
+  "Lucio ama correre in giardino ma è un gatto tranquillo e passa molto tempo a dormire.",
+  "È un gatto molto bello.",
+  "Porta il nome di un grande amico di Gianni Morandi, il cantante Lucio Dalla, morto nel 2012.",
+  "Il nome Lucio ricorda la grande amicizia tra Gianni Morandi e Lucio Dalla.",
+  "Lucio è il gatto di Gianni Morandi dal 2023.",
+  "Gianni Morandi mette sempre le foto di Lucio sui social.",
+  "Tutti i follower di Gianni Morandi conoscono Lucio.",
+];
+
+function renderText(){
+  const off=ttsKey?'':'off';
+  document.getElementById('text-body').innerHTML=SENTENCES.map(s=>{
+    const safe=s.replace(/'/g,"'");
+    return `<p class="text-para">
+      ${s.split(' ').map(w=>{
+        const clean=w.replace(/[.,!?;:]/g,'');
+        return `<span class="text-word" onclick="pl('${clean}',this)">${w}</span>`;
+      }).join(' ')}
+      <button class="sent-play ${off}" onclick="pl('${safe}',this)">🔊</button>
+    </p>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// VOCAB DATA
+// ══════════════════════════════════════════════════════
+const BODY = [
+  {it:'il pelo',    ph:'[ˈpeːlo]',   forms:'il pelo / i peli', ru:'шерсть',        emoji:'🪶', assoc:'Пелюш — мягкая шерстяная игрушка',       ex:'Ha il <strong>pelo</strong> corto e grigio.'},
+  {it:'la zampa',   ph:'[ˈdzampa]',  forms:'la zampa / le zampe', ru:'лапа',       emoji:'🐾', assoc:'Зампа — лапа (итал. звучит как топот)',   ex:'Anche le <strong>zampe</strong> sono grigie.'},
+  {it:'la testa',   ph:'[ˈtɛsta]',   forms:'la testa / le teste', ru:'голова',     emoji:'🧠', assoc:'Тест — проверяешь головой',               ex:'Ha la <strong>testa</strong> rotonda.'},
+  {it:"l'occhio",   ph:'[ˈɔkkjo]',   forms:"l'occhio / gli occhi", ru:'глаз / глаза', emoji:'👁️', assoc:'Оккулярный — относящийся к глазу',    ex:'Ha gli <strong>occhi</strong> gialli.'},
+  {it:"l'orecchia", ph:'[oˈrekkja]', forms:"l'orecchia / le orecchie", ru:'ухо',   emoji:'👂', assoc:'Оркестр слушают ушами',                  ex:'Ha le <strong>orecchie</strong> piccole.'},
+  {it:'il baffo',   ph:'[ˈbaffo]',   forms:'il baffo / i baffi', ru:'ус / усы',    emoji:'😸', assoc:'Бафф — усатый персонаж',                 ex:'Ha i <strong>baffi</strong> lunghi.'},
+  {it:'la coda',    ph:'[ˈkoːda]',   forms:'la coda / le code', ru:'хвост',        emoji:'🐈', assoc:'Кода — окончание (как хвост пьесы)',      ex:'Anche la <strong>coda</strong> è lunga.'},
+  {it:'la corporatura', ph:'[korporaˈtuːra]', forms:'', ru:'телосложение',         emoji:'💪', assoc:'Корпус — тело',                          ex:'Ha una <strong>corporatura</strong> robusta.'},
+];
+
+const ADJS = [
+  {it:'corto',      ph:'[ˈkɔrto]',   forms:'corta/corti/corte', ru:'короткий',    emoji:'✂️', assoc:'Короткий — почти как по-русски!',         ex:'Ha il pelo <strong>corto</strong>.'},
+  {it:'morbido',    ph:'[ˈmɔrbido]', forms:'morbida/morbidi/morbide', ru:'мягкий',emoji:'🛋️', assoc:'Морбид — мягкий как вата',                ex:'Il pelo è <strong>morbido</strong>.'},
+  {it:'grigio',     ph:'[ˈɡriːdʒo]', forms:'grigia/grigi/grigie', ru:'серый',     emoji:'🩶', assoc:'Грей — серый (grey)',                      ex:'Il pelo è <strong>grigio</strong>.'},
+  {it:'rotondo',    ph:'[roˈtondo]',  forms:'rotonda/rotondi/rotonde', ru:'круглый',emoji:'⭕',assoc:'Ротонда — круглое здание',                ex:'Ha la testa <strong>rotonda</strong>.'},
+  {it:'giallo',     ph:'[ˈdʒallo]',   forms:'gialla/gialli/gialle', ru:'жёлтый',  emoji:'💛', assoc:'Жёлтый — giallo (как детектив «giallo»)', ex:'Ha gli occhi <strong>gialli</strong>.'},
+  {it:'robusto',    ph:'[roˈbusto]',  forms:'robusta/robusti/robuste', ru:'крепкий, плотный',emoji:'🏋️',assoc:'Робастный — прочный',          ex:'Ha una corporatura <strong>robusta</strong>.'},
+  {it:'piccolo',    ph:'[ˈpikkolo]',  forms:'piccola/piccoli/piccole', ru:'маленький',emoji:'🐭',assoc:'Пикколо — маленькая флейта',           ex:'Ha le orecchie <strong>piccole</strong>.'},
+  {it:'lungo',      ph:'[ˈluŋɡo]',   forms:'lunga/lunghi/lunghe', ru:'длинный',   emoji:'📏', assoc:'Вдоль — длинный путь',                    ex:'Ha i baffi <strong>lunghi</strong>.'},
+  {it:'simpatico',  ph:'[simˈpatiko]',forms:'simpatica/simpatici', ru:'симпатичный, приятный',emoji:'😊',assoc:'Симпатия — звучит похоже!',   ex:'Lucio è <strong>simpatico</strong>.'},
+  {it:'affettuoso', ph:'[affetˈtwoːzo]',forms:'affettuosa/affettuosi', ru:'ласковый, нежный',emoji:'🤗',assoc:'Аффекция — привязанность',     ex:'Lucio è <strong>affettuoso</strong>.'},
+  {it:'tranquillo', ph:'[traŋˈkwillo]',forms:'tranquilla/tranquilli', ru:'спокойный',emoji:'🏝️',assoc:'Транквилизатор — успокаивает',         ex:'È un gatto <strong>tranquillo</strong>.'},
+  {it:'giovane',    ph:'[ˈdʒoːvane]', forms:'giovane/giovani', ru:'молодой',      emoji:'👶', assoc:'Ювенес — молодость (латынь)',              ex:'È un gatto <strong>giovane</strong>.'},
+];
+
+const VERBS = [
+  {it:'essere',     ph:'[ˈɛssere]',  forms:'è / sono', ru:'быть, являться',      emoji:'✨', assoc:'Эссе — написать о том, кем являешься',   ex:'Lucio <strong>è</strong> il gatto di Morandi.'},
+  {it:'avere',      ph:'[aˈveːre]',  forms:'ha / hanno', ru:'иметь',             emoji:'🤲', assoc:'Аверс монеты — иметь обе стороны',        ex:'<strong>Ha</strong> due anni.'},
+  {it:'amare',      ph:'[aˈmaːre]',  forms:'ama / amano', ru:'любить',           emoji:'❤️', assoc:'Амур — бог любви',                        ex:'<strong>Ama</strong> giocare con le palline.'},
+  {it:'correre',    ph:'[ˈkorrere]', forms:'corre / corrono', ru:'бегать',        emoji:'🏃', assoc:'Курьер — бегает быстро',                  ex:'<strong>Corre</strong> in giardino.'},
+  {it:'dormire',    ph:'[dorˈmiːre]',forms:'dorme / dormono', ru:'спать',         emoji:'😴', assoc:'Дормиторий — место для сна',               ex:'Passa tempo a <strong>dormire</strong>.'},
+  {it:'passare',    ph:'[pasˈsaːre]',forms:'passa / passano', ru:'проводить (время)',emoji:'⏰',assoc:'Пасс — передать время',                ex:'<strong>Passa</strong> molto tempo a dormire.'},
+  {it:'portare',    ph:'[porˈtaːre]',forms:'porta / portano', ru:'носить, нести',emoji:'🎁', assoc:'Портер — носильщик',                      ex:'<strong>Porta</strong> il nome di Lucio Dalla.'},
+  {it:'ricordare',  ph:'[rikorˈdaːre]',forms:'ricorda / ricordano', ru:'напоминать, помнить',emoji:'💭',assoc:'Рекорд — помни о рекорде',     ex:'Il nome <strong>ricorda</strong> l\'amicizia.'},
+  {it:'mettere',    ph:'[ˈmettere]', forms:'mette / mettono', ru:'класть, публиковать',emoji:'📱',assoc:'Метка — mettere (поставить метку)', ex:'<strong>Mette</strong> le foto sui social.'},
+  {it:'conoscere',  ph:'[koˈnoʃʃere]',forms:'conosce / conoscono', ru:'знать (лично)',emoji:'🤝',assoc:'Познание — conoscere',               ex:'Tutti <strong>conoscono</strong> Lucio.'},
+];
+
+const NOUNS = [
+  {it:'il gatto',   ph:'[ˈɡatto]',   forms:'il gatto / i gatti', ru:'кот',        emoji:'🐱', assoc:'Гатто — кот (итал.)',                     ex:'Lucio è <strong>il gatto</strong> di Morandi.'},
+  {it:'la razza',   ph:'[ˈrattsa]',  forms:'', ru:'порода',                        emoji:'🏅', assoc:'Расса — порода (razza)',                  ex:'È un gatto di <strong>razza</strong> British.'},
+  {it:'il cantante',ph:'[kanˈtante]',forms:'il cantante / i cantanti', ru:'певец', emoji:'🎤', assoc:'Кантата — пение',                         ex:'Il famoso <strong>cantante</strong> Morandi.'},
+  {it:"l'amicizia", ph:'[amitˈtsiːtsia]',forms:'', ru:'дружба',                   emoji:'🤝', assoc:'Амичеволе — дружелюбный',                 ex:'La grande <strong>amicizia</strong> tra Morandi e Dalla.'},
+  {it:'il giardino',ph:'[dʒarˈdiːno]',forms:'', ru:'сад',                          emoji:'🌳', assoc:'Жардин — сад (от фр. jardin)',            ex:'Ama correre in <strong>giardino</strong>.'},
+  {it:'la pallina', ph:'[palˈliːna]',forms:'le palline', ru:'шарик, клубок',       emoji:'🧶', assoc:'Паллина — маленький мяч',                ex:'Gioca con le <strong>palline</strong> di lana.'},
+  {it:'il latte',   ph:'[ˈlatte]',   forms:'', ru:'молоко',                        emoji:'🥛', assoc:'Латте — кофе с молоком!',                 ex:'Ama bere <strong>il latte</strong>.'},
+  {it:'le crocchette',ph:'[krokˈkette]',forms:'', ru:'кошачий корм (гранулы)',     emoji:'🐟', assoc:'Крокет — шарики',                        ex:'Ama mangiare le <strong>crocchette</strong>.'},
+  {it:'il social',  ph:'[ˈsoːʃal]',  forms:'i social', ru:'соцсети',              emoji:'📱', assoc:'Социал — звучит как по-русски!',          ex:'Mette le foto sui <strong>social</strong>.'},
+  {it:'il follower',ph:'[ˈfollower]',forms:'i follower', ru:'подписчик',           emoji:'👥', assoc:'Фолловер — подписчик',                   ex:'Tutti i <strong>follower</strong> conoscono Lucio.'},
+];
+
+// ══════════════════════════════════════════════════════
+// RENDER VOCAB
+// ══════════════════════════════════════════════════════
+function mkCard(w, catClass, pillClass, pillLabel){
+  const off=ttsKey?'':'off';
+  const clean=w.it.replace(/^(il |la |lo |l'|i |gli |le )/,'').trim().split(' ')[0];
+  return `<div class="vcard ${catClass}">
+    <div class="emoji-wrap">${w.emoji}</div>
+    <div class="assoc-wrap">«${w.assoc}»</div>
+    <div class="cbody">
+      <div class="ctop">
+        <span class="pill ${pillClass}">${pillLabel}</span>
+        <button class="abtn ${off}" onclick="pl('${clean}',this)">🔊</button>
+      </div>
+      <div class="it-word">${w.it}</div>
+      ${w.forms?`<div class="it-form">${w.forms}</div>`:''}
+      <div class="it-ph">${w.ph}</div>
+      <div class="divl"></div>
+      <div class="ru-word">${w.ru}</div>
+      <div class="ex-line">${w.ex}</div>
+    </div>
+  </div>`;
+}
+
+function renderVocab(){
+  document.getElementById('vg-body').innerHTML = BODY.map(w=>mkCard(w,'vc-body','p-body','Тело')).join('');
+  document.getElementById('vg-adj').innerHTML  = ADJS.map(w=>mkCard(w,'vc-adj','p-adj','Прилагательное')).join('');
+  document.getElementById('vg-verb').innerHTML = VERBS.map(w=>mkCard(w,'vc-verb','p-verb','Глагол')).join('');
+  document.getElementById('vg-noun').innerHTML = NOUNS.map(w=>mkCard(w,'vc-body','p-body','Существительное')).join('');
+}
+
+// ══════════════════════════════════════════════════════
+// PHRASES DATA
+// ══════════════════════════════════════════════════════
+const PHRASES = {
+  esse:[
+    {it:'Lucio è il gatto del famoso cantante italiano Gianni Morandi.', ru:'Люцо — кот знаменитого итальянского певца Джанни Моранди.', note:'ESSERE + роль → essere'},
+    {it:'Lucio è un gatto di razza British Shorthair.', ru:'Люцо — кот породы Британская короткошёрстная.', note:'ESSERE + характеристика'},
+    {it:'È un gatto giovane.', ru:'Это молодой кот.', note:'LUI → è · прилагательное → essere'},
+    {it:'Lucio è simpatico e affettuoso.', ru:'Люцо симпатичный и ласковый.', note:'Два прилагательных → essere'},
+    {it:'È un gatto tranquillo.', ru:'Это спокойный кот.', note:'Характер → essere'},
+    {it:'È un gatto molto bello.', ru:'Это очень красивый кот.', note:'molto + прилагательное'},
+  ],
+  avere:[
+    {it:'Ha due anni.', ru:'Ему два года.', note:'Возраст → AVERE. LUI → ha'},
+    {it:'Ha il pelo corto, morbido e grigio.', ru:'У него короткая, мягкая и серая шерсть.', note:'Внешность → avere. Три прилагат. согласованы с pelo (муж.р.)'},
+    {it:'Ha la testa rotonda e gli occhi gialli.', ru:'У него круглая голова и жёлтые глаза.', note:'testa (жен.р.) → rotonda · occhi (муж.р. мн.ч.) → gialli'},
+    {it:'Ha una corporatura robusta.', ru:'У него крепкое телосложение.', note:'corporatura (жен.р.) → robusta'},
+    {it:'Ha le orecchie piccole e i baffi lunghi.', ru:'У него маленькие уши и длинные усы.', note:'orecchie (жен.р. мн.ч.) → piccole · baffi (муж.р. мн.ч.) → lunghi'},
+  ],
+  amare:[
+    {it:'Ama giocare con le palline di lana.', ru:'Он любит играть с клубками из шерсти.', note:'AMARE + инфинитив · LUI ama'},
+    {it:'Ama bere il latte.', ru:'Он любит пить молоко.', note:'ama + bere (инфинитив)'},
+    {it:'Ama mangiare le sue crocchette.', ru:'Он любит есть свой корм.', note:'sue = её/его (crocchette — жен.р. мн.ч.)'},
+    {it:'Lucio ama correre in giardino.', ru:'Люцо любит бегать в саду.', note:'ama + correre · in + место без артикля'},
+  ],
+  altri:[
+    {it:'Passa molto tempo a dormire.', ru:'Проводит много времени за сном.', note:'PASSARE + tempo + a + инфинитив'},
+    {it:'Porta il nome di un grande amico di Gianni Morandi.', ru:'Носит имя большого друга Джанни Моранди.', note:'PORTARE = носить (имя)'},
+    {it:'Il nome Lucio ricorda la grande amicizia tra Morandi e Lucio Dalla.', ru:'Имя Люцо напоминает о великой дружбе между Моранди и Лучо Далла.', note:'RICORDARE = напоминать'},
+    {it:'Gianni Morandi mette sempre le foto di Lucio sui social.', ru:'Джанни Моранди всегда публикует фото Люцо в соцсетях.', note:'METTERE = публиковать (в соцсети)'},
+    {it:'Tutti i follower di Gianni Morandi conoscono Lucio.', ru:'Все подписчики Джанни Моранди знают Люцо.', note:'CONOSCERE = знать лично · LORO → conoscono'},
+  ]
+};
+
+function renderPhrases(){
+  const off=ttsKey?'':'off';
+  function mkPh(arr, id){
+    document.getElementById(id).innerHTML=arr.map(p=>{
+      const safe=p.it.replace(/'/g,"'").replace(/"/g,'&quot;');
+      return `<div class="phrase-item" onclick="pl('${safe}',this.querySelector('.pi-btn'))">
+        <div class="pi-body">
+          <span class="pi-it">${p.it}</span>
+          <span class="pi-ru">${p.ru}</span>
+          ${p.note?`<span class="pi-note">💡 ${p.note}</span>`:''}
+        </div>
+        <button class="pi-btn ${off}" onclick="event.stopPropagation();pl('${safe}',this)">🔊</button>
+      </div>`;
+    }).join('');
+  }
+  mkPh(PHRASES.esse,  'ph-esse');
+  mkPh(PHRASES.avere, 'ph-avere');
+  mkPh(PHRASES.amare, 'ph-amare');
+  mkPh(PHRASES.altri, 'ph-altri');
+}
+
+// ══════════════════════════════════════════════════════
+// ALL WORDS (for trainer)
+// ══════════════════════════════════════════════════════
+const ALL_WORDS = [
+  ...BODY.map(w=>({...w,cat:'body'})),
+  ...ADJS.map(w=>({...w,cat:'adj'})),
+  ...VERBS.map(w=>({...w,cat:'verb'})),
+  ...NOUNS.map(w=>({...w,cat:'noun'})),
+];
+
+const FILL_Q = [
+  {sent:'Lucio ha il pelo corto, ___ e grigio.', blank:'morbido', opts:['morbido','lungo','piccolo','robusto'], ru:'У него короткая, ___ и серая шерсть.'},
+  {sent:'Ha la testa rotonda e gli occhi ___.', blank:'gialli', opts:['gialli','grigi','piccoli','rotondi'], ru:'У него круглая голова и ___ глаза.'},
+  {sent:'Ha le orecchie piccole e i baffi ___.', blank:'lunghi', opts:['lunghi','grigi','gialli','robusti'], ru:'У него маленькие уши и ___ усы.'},
+  {sent:'Lucio ama ___ con le palline di lana.', blank:'giocare', opts:['giocare','dormire','correre','bere'], ru:'Люцо любит ___ с клубками.'},
+  {sent:'Lucio è un gatto ___ e affettuoso.', blank:'simpatico', opts:['simpatico','grigio','giovane','robusto'], ru:'Люцо — ___ и ласковый кот.'},
+  {sent:'Anche le ___ sono grigie.', blank:'zampe', opts:['zampe','orecchie','code','teste'], ru:'Также ___ серые.'},
+  {sent:'Passa molto tempo a ___.', blank:'dormire', opts:['dormire','correre','giocare','mangiare'], ru:'Проводит много времени за ___.'},
+  {sent:'Tutti i follower di Morandi ___ Lucio.', blank:'conoscono', opts:['conoscono','amano','vedono','portano'], ru:'Все подписчики ___ Люцо.'},
+  {sent:'Morandi mette sempre le ___ di Lucio sui social.', blank:'foto', opts:['foto','palline','crocchette','zampe'], ru:'Моранди всегда публикует ___ Люцо.'},
+  {sent:'Ha una corporatura ___.', blank:'robusta', opts:['robusta','piccola','lunga','grigia'], ru:'У него ___ телосложение.'},
+];
+
+// ══════════════════════════════════════════════════════
+// TRAINER
+// ══════════════════════════════════════════════════════
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+let trMode='', trWords=[], trIdx=0, trSc=0, trAns=false;
+
+function startTR(mode){
+  trMode=mode; trIdx=0; trSc=0; trAns=false;
+  trWords = mode==='fill' ? shuf(FILL_Q) : shuf(ALL_WORDS);
+  document.getElementById('tpick').style.display='none';
+  document.getElementById('tarea').style.display='block';
+  renderTQ();
+}
+function stopTR(){
+  document.getElementById('tpick').style.display='block';
+  document.getElementById('tarea').style.display='none';
+}
+
+function renderTQ(){
+  if(trIdx>=trWords.length){renderTRes();return;}
+  trAns=false;
+  const pct=Math.round(trIdx/trWords.length*100);
+  if(trMode==='meaning') trMeaning(pct);
+  else if(trMode==='flip') trFlip(pct);
+  else if(trMode==='fill') trFill(pct);
+  else trAudio(pct);
+}
+
+function tprog(pct){
+  return `<div class="qprog"><span>${trIdx+1}/${trWords.length}</span><span>✓ ${trSc}</span></div>
+  <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>`;
+}
+function tnav(extra=''){
+  return `<div class="navrow">${extra}<button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+  <button class="btn-next" id="nxtb" onclick="trNext()">Следующий →</button></div>`;
+}
+
+function trMeaning(pct){
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(ALL_WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  window._trEx=w.ex;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(pct)}
+    <div class="qmeta"><span class="qnum">Перевод</span><span class="qtag tg-v">Слова</span></div>
+    <div class="qt">Что означает:</div>
+    <div style="text-align:center;font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);padding:10px;background:var(--bg);border-radius:8px;margin-bottom:11px">${w.it}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.ru}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${tnav()}
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(w.it.replace(/^(il |la |lo |l'|i |gli |le )/,'').split(' ')[0],null),300);
+}
+
+function trFlip(pct){
+  const w=trWords[trIdx];
+  const clean=w.it.replace(/^(il |la |lo |l'|i |gli |le )/,'').split(' ')[0];
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(pct)}
+    <div style="font-size:.68rem;color:var(--muted);text-align:center;margin-bottom:8px">Нажми карточку чтобы перевернуть</div>
+    <div class="fw" onclick="this.querySelector('.fc').classList.toggle('fl')">
+      <div class="fc">
+        <div class="ff2 f1">
+          <div class="fl2">Итальянский</div>
+          <div class="fw2">${w.it}</div>
+          <div style="font-size:.62rem;color:var(--muted);font-style:italic">${w.ph}</div>
+          <div class="fa2">«${w.assoc.substring(0,50)}»</div>
+        </div>
+        <div class="ff2 f2">
+          <div class="fl2">Перевод</div>
+          <div class="fw2b">${w.ru}</div>
+          <div class="fs2" style="margin-top:5px;font-style:italic">${w.emoji} ${w.ex.replace(/<[^>]+>/g,'')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="qnav">
+      <button class="qnb" onclick="pl('${clean}',null)">🔊</button>
+      <button class="qnb" onclick="trSkip()">✕</button>
+      <button class="qnb p" onclick="trSc++;trNext()">✓ Знал</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(clean,null),300);
+}
+
+function trFill(pct){
+  const q=trWords[trIdx];
+  const opts=shuf(q.opts);
+  const nc=opts.indexOf(q.blank);
+  window._trEx='Правильно: <em>'+q.blank+'</em>';
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(pct)}
+    <div class="qmeta"><span class="qnum">Пропуски</span><span class="qtag tg-a">Предложения</span></div>
+    <div class="qt">Вставь правильное слово:</div>
+    <div class="qsent">${q.sent.replace('___','<span class="blank">___</span>')}<br><span style="font-size:.65rem;color:var(--muted);font-style:normal;font-family:Nunito">${q.ru}</span></div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${tnav()}
+  </div>`;
+}
+
+function trAudio(pct){
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(ALL_WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  const clean=w.it.replace(/^(il |la |lo |l'|i |gli |le )/,'').split(' ')[0];
+  window._trEx=w.ex;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(pct)}
+    <div class="qmeta"><span class="qnum">На слух</span><span class="qtag tg-t">Аудио</span></div>
+    <div style="text-align:center;margin:8px 0 14px">
+      ${ttsKey?`<button class="qnb p" style="padding:13px 22px;font-size:1rem" onclick="pl('${clean}',null)">🔊 Воспроизвести</button>`:'<div style="color:var(--muted);font-size:.8rem">⚠️ Подключи TTS для этого режима</div>'}
+    </div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.it}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>
+    ${tnav()}
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(clean,null),400);
+}
+
+function trChk(btn, ok){
+  if(trAns)return; trAns=true;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('skipb').style.display='none';
+  document.getElementById('nxtb').style.display='block';
+  const fb=document.getElementById('fb');
+  const ex=window._trEx||'';
+  if(ok){trSc++;btn.classList.add('correct');fb.className='fb ok';fb.innerHTML='✓ Правильно! '+ex;}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-ok="true"]').classList.add('correct');fb.className='fb err';fb.innerHTML='✕ Неправильно. '+ex;}
+}
+function trSkip(){trIdx++;renderTQ();}
+function trNext(){trIdx++;renderTQ();}
+
+function renderTRes(){
+  const pct=Math.round(trSc/trWords.length*100);
+  const col=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const msg=pct>=90?'🏆 Феноменально!':pct>=75?'🎉 Отлично!':pct>=50?'👍 Неплохо!':'📚 Повтори слова.';
+  document.getElementById('tarea').innerHTML=`<div class="qcard" style="text-align:center">
+    <div style="font-size:2.6rem;margin-bottom:7px">🐱</div>
+    <div class="res-pct" style="color:${col}">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-top:2px;margin-bottom:10px">${trSc} из ${trWords.length}</div>
+    <div style="font-size:.9rem;margin-bottom:12px">${msg}</div>
+    <div class="qnav" style="flex-direction:column;gap:6px">
+      <button class="qnb p" onclick="startTR('${trMode}')">🔄 Ещё раз</button>
+      <button class="qnb" onclick="stopTR()">← Выбрать режим</button>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// TEST — 30 ВОПРОСОВ
+// ══════════════════════════════════════════════════════
+const TEST_Q = [
+  // ЧАСТИ ТЕЛА
+  {tag:'tg-v',tl:'Тело',q:'«il pelo» = ?',opts:['шерсть','хвост','лапа','ухо'],a:0,ex:'<strong>il pelo</strong> = шерсть. Ha il pelo corto, morbido e grigio.'},
+  {tag:'tg-v',tl:'Тело',q:'«la zampa» = ?',opts:['голова','лапа','ухо','глаз'],a:1,ex:'<strong>la zampa</strong> = лапа. Le zampe sono grigie.'},
+  {tag:'tg-v',tl:'Тело',q:'«i baffi» = ?',opts:['глаза','уши','усы','лапы'],a:2,ex:'<strong>i baffi</strong> = усы (мн.ч.). Ha i baffi lunghi.'},
+  {tag:'tg-v',tl:'Тело',q:'«la coda» = ?',opts:['хвост','шерсть','голова','нос'],a:0,ex:'<strong>la coda</strong> = хвост. Anche la coda è lunga.'},
+  {tag:'tg-v',tl:'Тело',q:'«gli occhi» = ?',opts:['уши','усы','глаза','лапы'],a:2,ex:'<strong>gli occhi</strong> = глаза (мн.ч. от occhio). Ha gli occhi gialli.'},
+  // ПРИЛАГАТЕЛЬНЫЕ
+  {tag:'tg-a',tl:'Прилагательные',q:'«morbido» = ?',opts:['серый','короткий','мягкий','крепкий'],a:2,ex:'<strong>morbido</strong> = мягкий. Ha il pelo morbido.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'«grigio» = ?',opts:['жёлтый','серый','белый','чёрный'],a:1,ex:'<strong>grigio</strong> = серый. Il pelo è grigio.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'«robusto» = ?',opts:['маленький','длинный','крепкий','круглый'],a:2,ex:'<strong>robusto</strong> = крепкий. Ha una corporatura robusta.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'«affettuoso» = ?',opts:['спокойный','красивый','молодой','ласковый'],a:3,ex:'<strong>affettuoso</strong> = ласковый. Lucio è affettuoso.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'Прилагательное для «le zampe» (лапы):',opts:['grigio','grigia','grigi','grigie'],a:3,ex:'<strong>grigie</strong> — жен.р. мн.ч. (-E). Le zampe grigie.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'Прилагательное для «i baffi» (усы):',opts:['lungo','lunga','lunghi','lunghe'],a:2,ex:'<strong>lunghi</strong> — муж.р. мн.ч. (-I). I baffi lunghi.'},
+  {tag:'tg-a',tl:'Прилагательные',q:'Прилагательное для «le orecchie» (уши):',opts:['piccolo','piccola','piccoli','piccole'],a:3,ex:'<strong>piccole</strong> — жен.р. мн.ч. (-E). Le orecchie piccole.'},
+  // ГЛАГОЛЫ
+  {tag:'tg-e',tl:'Глаголы',q:'«amare» — что делает Люцо с молоком?',opts:['Ama bere il latte.','Ha il latte.','È il latte.','Passa il latte.'],a:0,ex:'<strong>Ama bere il latte.</strong> — AMARE + инфинитив = любит делать.'},
+  {tag:'tg-e',tl:'Глаголы',q:'«conoscono» — кто знает Люцо?',opts:['Morandi conosce Lucio.','Tutti conoscono Lucio.','Lucio conosce tutti.','Anna conosce Lucio.'],a:1,ex:'<strong>Tutti conoscono Lucio.</strong> — LORO conoscono.'},
+  {tag:'tg-e',tl:'Глаголы',q:'«mette» — что делает Моранди?',opts:['Mette le foto sui social.','Mette il latte.','Mette le zampe.','Mette i baffi.'],a:0,ex:'<strong>Mette le foto sui social.</strong> — METTERE = публиковать.'},
+  {tag:'tg-e',tl:'Глаголы',q:'«passa» в предложении «passa molto tempo a dormire»:',opts:['проходит мимо','проводит время','передаёт','пропускает'],a:1,ex:'<strong>Passare tempo a</strong> + инф. = проводить время за чем-то.'},
+  {tag:'tg-e',tl:'Глаголы',q:'ESSERE vs AVERE: «Lucio ___ simpatico»',opts:['ha','hanno','è','sono'],a:2,ex:'<strong>È simpatico</strong> — прилагательное → ESSERE. LUI → è.'},
+  {tag:'tg-e',tl:'Глаголы',q:'ESSERE vs AVERE: «Ha ___ anni»',opts:['due','giovane','grigio','simpatico'],a:0,ex:'<strong>Ha due anni</strong> — возраст → AVERE. ha + число + anni.'},
+  // ПРЕДЛОЖЕНИЯ ИЗ ТЕКСТА
+  {tag:'tg-t',tl:'Текст',q:'Кто такой Gianni Morandi?',opts:['Il gatto di Lucio','Un famoso cantante italiano','Il cantante Lucio Dalla','Un follower'],a:1,ex:'<strong>Il famoso cantante italiano Gianni Morandi.</strong>'},
+  {tag:'tg-t',tl:'Текст',q:'Какой породы кот Люцо?',opts:['Persiano','Siamese','British Shorthair','Maine Coon'],a:2,ex:'<strong>British Shorthair.</strong> Lucio è un gatto di razza British Shorthair.'},
+  {tag:'tg-t',tl:'Текст',q:'Сколько лет Люцо?',opts:['Uno','Due','Tre','Cinque'],a:1,ex:'<strong>Ha due anni.</strong> — двухлетний кот.'},
+  {tag:'tg-t',tl:'Текст',q:'Какого цвета глаза у Люцо?',opts:['Grigi','Neri','Gialli','Blu'],a:2,ex:'<strong>Ha gli occhi gialli.</strong> — жёлтые глаза.'},
+  {tag:'tg-t',tl:'Текст',q:'В честь кого назван кот?',opts:['Gianni Morandi','Anna Morandi','Lucio Dalla','Un follower'],a:2,ex:'<strong>Porta il nome di Lucio Dalla</strong> — певца, умершего в 2012.'},
+  {tag:'tg-t',tl:'Текст',q:'С какого года Люцо у Моранди?',opts:['2020','2021','2022','2023'],a:3,ex:'<strong>Dal 2023.</strong> Lucio è il gatto di Morandi dal 2023.'},
+  {tag:'tg-t',tl:'Текст',q:'Вставь: <div class="qsent">Anche la coda <span class="blank">___</span> lunga.</div>',opts:['ha','hanno','è','sono'],a:2,ex:'<strong>è lunga</strong> — прилагательное lunga → ESSERE. la coda = жен.р. → lunga.'},
+  {tag:'tg-t',tl:'Текст',q:'Вставь: <div class="qsent">Lucio ama correre in ___, ma è un gatto tranquillo.</div>',opts:['casa','social','giardino','lana'],a:2,ex:'<strong>in giardino</strong> — в саду. Ama correre in giardino.'},
+  {tag:'tg-t',tl:'Текст',q:'«il follower» в тексте — это:',opts:['кот','певец','подписчик','друг'],a:2,ex:'<strong>Tutti i follower</strong> di Morandi conoscono Lucio. Follower = подписчик.'},
+  {tag:'tg-t',tl:'Текст',q:'«le crocchette» — это:',opts:['клубки шерсти','молоко','кошачий корм','соцсети'],a:2,ex:'<strong>Ama mangiare le sue crocchette.</strong> Crocchette = кошачий корм в виде гранул.'},
+  {tag:'tg-t',tl:'Текст',q:'Вставь: <div class="qsent">Anche le zampe ___ grigie.</div>',opts:['è','ha','sono','hanno'],a:2,ex:'<strong>sono grigie</strong> — le zampe = LORO → sono. Прилагательное → ESSERE.'},
+  {tag:'tg-t',tl:'Текст',q:'«la pallina di lana» — это:',opts:['кошачий корм','клубок шерсти','фото','молоко'],a:1,ex:'<strong>Ama giocare con le palline di lana.</strong> Pallina di lana = клубок из шерсти.'},
+];
+
+let testState={};
+
+function startTest(){
+  const qs=shuf(TEST_Q);
+  testState={questions:qs,current:0,score:0,answered:false,userAnswers:[]};
+  document.getElementById('test-start').style.display='none';
+  document.getElementById('test-result').style.display='none';
+  document.getElementById('test-quiz').style.display='block';
+  renderTestQ();
+}
+
+function renderTestQ(){
+  if(testState.current>=testState.questions.length){showTestResult();return;}
+  const q=testState.questions[testState.current];
+  testState.answered=false;
+  const pct=Math.round(testState.current/testState.questions.length*100);
+  const sf=shuf([0,1,2,3].slice(0,q.opts.length));
+  const nc=sf.indexOf(q.a);
+  const so=sf.map(i=>q.opts[i]);
+  document.getElementById('test-quiz').innerHTML=`<div class="qcard">
+    <div class="qmeta"><span class="qnum">Вопрос ${testState.current+1}/${testState.questions.length}</span>
+    <span class="qtag ${q.tag}">${q.tl}</span>
+    <span style="font-size:.65rem;color:var(--muted);margin-left:auto">✓ ${testState.score}</span></div>
+    <div class="qprog"><span></span><span></span></div>
+    <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>
+    <div class="qt">${q.q}</div>
+    <div class="opts">${so.map((o,i)=>`<button class="opt" data-correct="${i===nc}" onclick="testChk(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="fb" id="tfb"></div>
+    <div class="navrow">
+      <button class="btn-skip" id="tskip" onclick="testSkip()">Пропустить</button>
+      <button class="btn-next" id="tnext" onclick="testNext()">${testState.current<testState.questions.length-1?'Следующий →':'Результат 🎉'}</button>
+    </div>
+  </div>`;
+}
+
+function testChk(btn,ok){
+  if(testState.answered)return;
+  testState.answered=true;
+  const q=testState.questions[testState.current];
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('tskip').style.display='none';
+  document.getElementById('tnext').style.display='block';
+  const fb=document.getElementById('tfb');
+  if(ok){testState.score++;btn.classList.add('correct');fb.className='fb ok';fb.innerHTML='✓ Правильно! '+q.ex;testState.userAnswers.push({q,correct:true});}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-correct="true"]').classList.add('correct');fb.className='fb err';fb.innerHTML='✕ Неправильно. '+q.ex;testState.userAnswers.push({q,correct:false,chosen:btn.textContent.trim()});}
+}
+function testSkip(){testState.userAnswers.push({q:testState.questions[testState.current],correct:false,chosen:'—'});testNext();}
+function testNext(){testState.current++;renderTestQ();}
+
+function showTestResult(){
+  document.getElementById('test-quiz').style.display='none';
+  document.getElementById('test-result').style.display='block';
+  const total=testState.questions.length;
+  const pct=Math.round(testState.score/total*100);
+  const color=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const emoji=pct>=90?'🏆':pct>=75?'🎉':pct>=60?'👍':'📚';
+  const msg=pct>=90?'Отлично! Текст усвоен полностью!':pct>=75?'Хорошо! Повтори слабые места.':pct>=60?'Неплохо — ещё практики!':'Перечитай текст и попробуй снова.';
+  const cats={};
+  testState.userAnswers.forEach(({q,correct})=>{
+    if(!cats[q.tl])cats[q.tl]={t:0,c:0};
+    cats[q.tl].t++;if(correct)cats[q.tl].c++;
+  });
+  const wrong=testState.userAnswers.filter(x=>!x.correct);
+  document.getElementById('test-result').innerHTML=`<div class="res-card">
+    <div style="font-size:2.8rem;margin-bottom:7px">${emoji}</div>
+    <div class="res-pct" style="color:${color}">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px">${testState.score} из ${total}</div>
+    <div style="font-size:.9rem;line-height:1.7;margin-bottom:12px">${msg}</div>
+    <div class="divider"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📊 По темам</div>
+    <div class="cat-grid">
+      ${Object.entries(cats).map(([name,{t,c}])=>{
+        const p=Math.round(c/t*100);
+        const col=p>=75?'var(--verde)':p>=50?'var(--oro)':'var(--rosso)';
+        return `<div class="cat-row"><div class="cat-name">${name}</div>
+          <div class="cat-bar"><div class="cat-fill" style="width:${p}%;background:${col}"></div></div>
+          <div class="cat-sc" style="color:${col}">${c}/${t}</div></div>`;
+      }).join('')}
+    </div>
+    ${wrong.length?`
+    <div class="divider"></div>
+    <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
+    <div style="display:grid;gap:4px;margin-bottom:14px">
+      ${wrong.map(({q,chosen})=>`
+        <div class="err-item">${q.q.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}</div>
+        <div class="ok-ex">💡 ${q.ex}</div>`).join('')}
+    </div>`:''}
+    <button class="btn-r" onclick="startTest()">🔄 Пройти снова</button>
+    <button class="btn-b" onclick="document.getElementById('test-result').style.display='none';document.getElementById('test-start').style.display='block'">← К старту</button>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════════════
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  const idx=['testo','vocab','frasi','train','test'].indexOf(id);
+  document.querySelectorAll('.mnb')[idx].classList.add('on');
+  if(id==='train') stopTR();
+}
+
+// INIT
+renderText();
+renderVocab();
+renderPhrases();
+</script>
 </body>
 </html>

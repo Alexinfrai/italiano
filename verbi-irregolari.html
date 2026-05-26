@@ -1,14 +1,2080 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Verbi irregolari — Italiano</title>
-<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem}a{color:#06c}</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Verbi Irregolari</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
+  --verde:#2d7a4f;--verde-l:#e8f5ee;
+  --rosso:#c0392b;--rosso-l:#fdecea;
+  --oro:#b8860b;--oro-l:#fdf5e0;
+  --blu:#2855a0;--blu-l:#e8eef8;
+  --viola:#6040a0;--viola-l:#f0eaf8;
+  --arancio:#c06010;--arancio-l:#fef0e0;
+  --dark:#0d1117;--dark2:#161b22;--dark3:#21262d;--dark4:#30363d;
+  --testo:#2a2218;--muted:#887868;
+  --shadow:0 2px 12px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:70px}
+
+header{background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);color:white;padding:20px 14px 14px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
+header .flag{font-size:1.5rem;margin-bottom:3px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:#f0d060}
+header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
+
+/* API */
+#ap{background:#0d1117;border-bottom:2px solid #21262d;padding:9px 13px}
+#ap.conn{background:#0a1a0a;border-color:#2a5a2a}
+.at{font-size:.72rem;color:#c9a84c;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.adot{width:6px;height:6px;border-radius:50%;background:#555;flex-shrink:0}
+.adot.on{background:#5ac4a0;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
+.arow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.ainp{flex:1;min-width:130px;background:#161b22;border:1px solid #30363d;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
+.ainp::placeholder{color:#556}
+.ac{background:#2d7a4f;border:none;border-radius:6px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.axb{background:#161b22;border:1px solid #30363d;border-radius:6px;color:#889;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
+#ks{font-size:.64rem;margin-top:3px;min-height:12px}
+#ks.ok{color:#5ac4a0}#ks.err{color:#e07070}
+.ahint{font-size:.62rem;color:#667;margin-top:4px;line-height:1.5}
+.ahint a{color:#c9a84c;text-decoration:none}
+#vss{display:none;margin-top:4px}
+.vrow{display:flex;gap:4px;flex-wrap:wrap}
+.vchip{background:#161b22;border:1px solid #30363d;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.on{border-color:#2d7a4f;color:#5ac4a0}
+
+/* MAIN NAV */
+.mn{display:flex;overflow-x:auto;background:#0d1117;border-bottom:2px solid #21262d;position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.67rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:#f0d060;border-bottom-color:#f0d060}
+.mnb:hover:not(.on){color:#ccc}
+
+.sec{display:none}.sec.on{display:block}
+
+/* GROUP FILTER */
+.gf{display:flex;gap:5px;flex-wrap:wrap;padding:8px 12px;border-bottom:1px solid var(--border);background:var(--bg);justify-content:center}
+.gfb{background:white;border:1px solid var(--border);color:var(--muted);border-radius:99px;padding:3px 10px;font-family:'Nunito',sans-serif;font-size:.64rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.gfb.on,.gfb:hover{border-color:var(--oro);color:var(--oro);background:var(--oro-l)}
+
+/* VERB CARDS GRID */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:9px;padding:9px 11px 50px;max-width:1100px;margin:0 auto}
+
+/* VERB CARD */
+.vcard{background:var(--dark2);border:1px solid var(--dark4);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .15s;box-shadow:0 3px 16px rgba(0,0,0,.3)}
+.vcard:hover{border-color:#c9a84c55;transform:translateY(-2px)}
+.vc-top{padding:14px 14px 10px;position:relative}
+.vc-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 10px;font-size:.6rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.b-irreg{background:#c0392b22;color:#e07070;border:1px solid #c0392b44}
+.b-modal{background:#b8860b22;color:#c9a84c;border:1px solid #b8860b44}
+.b-part{background:#2d7a4f22;color:#5ac4a0;border:1px solid #2d7a4f44}
+.vc-emoji{font-size:2rem;position:absolute;top:12px;right:12px;line-height:1}
+.vc-it{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:400;color:#f0ebe3;line-height:1;margin-bottom:3px}
+.vc-ph{font-size:.65rem;color:#8090a0;font-style:italic;margin-bottom:4px}
+.vc-ru{font-size:.85rem;color:#c8c0b4;font-weight:300;margin-bottom:7px}
+.vc-assoc{font-size:.66rem;color:#c9a84c;font-style:italic;background:#c9a84c11;border:1px solid #c9a84c22;border-radius:7px;padding:5px 9px;margin-bottom:8px;line-height:1.5}
+
+/* CONJUGATION TABLE inside card */
+.conj-table{width:100%;border-collapse:collapse;margin-bottom:8px}
+.conj-table tr{border-bottom:1px solid #21262d}
+.conj-table tr:last-child{border-bottom:none}
+.conj-table td{padding:5px 8px;font-size:.78rem}
+.ct-pro{color:#667;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;width:38%}
+.ct-it{font-family:'Playfair Display',serif;font-size:.98rem;font-weight:400}
+.ct-ru{color:#667;font-size:.62rem;text-align:right}
+.ct-irreg{color:#f0d060}
+.ct-reg{color:#5ac4a0}
+.ct-play{width:22px;height:22px;border-radius:50%;border:1px solid #30363d;background:#161b22;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#667;transition:all .15s;flex-shrink:0}
+.ct-play:hover,.ct-play.pl{border-color:#2d7a4f;color:#5ac4a0}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(45,122,79,.4)}50%{box-shadow:0 0 0 4px rgba(45,122,79,0)}}
+.pl{animation:abp .7s infinite}
+.ct-play.off{opacity:.2;cursor:default}
+
+/* EXAMPLES */
+.vc-ex{background:#161b22;border-radius:0 0 13px 13px;padding:10px 14px}
+.ex-label{font-size:.58rem;color:#556;font-weight:800;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.ex-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:5px}
+.ex-item:last-child{margin-bottom:0}
+.ex-it{font-family:'Playfair Display',serif;font-size:.88rem;color:#a0c8e0;font-style:italic;cursor:pointer;transition:color .15s}
+.ex-it:hover{color:#c9a84c}
+.ex-ru{font-size:.68rem;color:#556;margin-top:2px}
+.ex-play{width:20px;height:20px;border-radius:50%;border:1px solid #30363d;background:#161b22;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.58rem;color:#556;transition:all .15s;flex-shrink:0;margin-top:1px}
+.ex-play:hover,.ex-play.pl{border-color:#2d7a4f;color:#5ac4a0}
+.ex-play.off{opacity:.2;cursor:default}
+
+/* FLIP TRAINER */
+.trainer-wrap{max-width:560px;margin:0 auto;padding:14px 12px 50px}
+.tr-pick-group{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:11px}
+.tr-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:11px}
+.tpb{background:var(--card);border:2px solid var(--border);border-radius:9px;padding:9px 6px;text-align:center;cursor:pointer;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;color:var(--muted);transition:all .2s}
+.tpb:hover,.tpb.on{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
+.mdb{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:12px 7px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.mdb .mi{font-size:1.25rem;display:block;margin-bottom:2px}
+.mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
+
+/* QUIZ CARD */
+.qcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.67rem;color:var(--muted);margin-bottom:7px}
+.qbar{width:100%;height:3px;background:var(--border);border-radius:99px;margin-bottom:11px;overflow:hidden}
+.qfill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blu),var(--viola));transition:width .4s}
+.qmeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.qnum{font-size:.63rem;font-weight:800;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.qtag{border-radius:99px;padding:2px 8px;font-size:.6rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.tg-conj{background:var(--blu-l);color:#1a3570}
+.tg-mean{background:var(--verde-l);color:#1a5030}
+.tg-fill{background:var(--viola-l);color:#4a2a80}
+.tg-chose{background:var(--oro-l);color:#7a5500}
+.qtext{font-size:.94rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.qtext .it{font-family:'Playfair Display',serif;color:var(--blu);font-style:italic}
+.qsent{font-family:'Playfair Display',serif;font-size:1rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:8px;padding:9px 12px;margin-bottom:10px;line-height:1.6;border:1px solid var(--border)}
+.blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 8px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.opt:disabled{cursor:default}
+.qfb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6;min-height:38px}
+.qfb.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
+.qfb.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+
+/* FLIP CARD */
+.fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
+.fc{position:relative;width:100%;height:200px;transform-style:preserve-3d;transition:transform .45s}
+.fc.fl{transform:rotateY(180deg)}
+.ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
+.f1{background:linear-gradient(135deg,var(--blu-l),var(--viola-l));border:2px solid #b0c0e8}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#fff8e8);border:2px solid #d8c080}
+.fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fw2{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:400;color:var(--blu)}
+.fw2b{color:var(--oro)}
+.fs2{font-size:.7rem;color:var(--muted)}
+.fa2{font-size:.65rem;color:var(--oro);font-style:italic;text-align:center}
+.fconj{font-size:.72rem;color:#3050a0;line-height:1.9;text-align:center}
+
+/* RESULT */
+.res-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
+.res-pct{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;line-height:1}
+.res-lbl{font-size:.8rem;color:var(--muted);margin-bottom:12px}
+.cat-grid{display:grid;gap:5px;margin-bottom:13px;text-align:left}
+.cat-row{display:flex;align-items:center;gap:8px}
+.cat-name{font-size:.7rem;font-weight:700;min-width:115px}
+.cat-bar{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden}
+.cat-fill2{height:100%;border-radius:99px}
+.cat-sc{font-size:.67rem;font-weight:800;min-width:30px;text-align:right}
+.err-q{background:var(--rosso-l);border-radius:7px;padding:7px 10px;font-size:.76rem;font-weight:600;line-height:1.4;color:#5a1010;margin-bottom:3px}
+.ok-ex{background:var(--verde-l);border-radius:7px;padding:6px 10px;font-size:.72rem;line-height:1.5;color:#1a4020;margin-bottom:5px}
+.btn-r{background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:11px 24px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 18px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.divider{height:1px;background:var(--border);margin:11px 0}
+.sec-title{font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px}
+.qnav{display:flex;gap:5px;margin-top:10px;width:100%;flex-wrap:wrap}
+.qnb{flex:1;min-width:60px;background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 6px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s}
+.qnb.p{background:linear-gradient(135deg,var(--blu),var(--viola));border-color:var(--blu);color:white}
+.qnb:hover:not(.p){border-color:var(--blu)}
+.qrs{font-family:'Playfair Display',serif;font-size:4rem;color:var(--blu)}
+
+/* MARATHON */
+.mw{max-width:480px;margin:0 auto;padding:14px 12px 50px}
+.m-verb-display{background:linear-gradient(135deg,var(--dark2),#1a1030);border:1px solid var(--dark4);border-radius:20px;padding:28px 20px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+.m-verb-display::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(100,80,200,.15),transparent 70%)}
+.m-pro-label{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#8090c0;margin-bottom:6px;position:relative}
+.m-pro-word{font-family:'Playfair Display',serif;font-size:2rem;color:#a0c0ff;font-weight:400;margin-bottom:10px;position:relative}
+.m-divider{width:40px;height:2px;background:linear-gradient(90deg,transparent,#c9a84c,transparent);margin:0 auto 10px;border-radius:99px}
+.m-form{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,10vw,4rem);font-weight:400;color:#f0d060;line-height:1;position:relative;min-height:70px;display:flex;align-items:center;justify-content:center}
+.m-ru{font-size:.8rem;color:#8090a0;margin-top:8px;position:relative}
+.m-verb-name{font-size:.68rem;color:#556;position:relative;margin-bottom:4px;text-transform:uppercase;letter-spacing:.1em}
+.m-progress{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.m-prog-txt{font-size:.7rem;color:#667;font-weight:700}
+.m-pbar{flex:1;height:3px;background:#1a2030;border-radius:99px;margin:0 10px;overflow:hidden}
+.m-pfill{height:100%;background:linear-gradient(90deg,var(--blu),var(--viola));border-radius:99px;transition:width .4s}
+.m-dots{display:flex;justify-content:center;gap:5px;margin-bottom:14px;flex-wrap:wrap}
+.m-dot{width:10px;height:10px;border-radius:50%;background:#1a2030;transition:all .3s;cursor:pointer}
+.m-dot.done{background:var(--verde)}
+.m-dot.cur{background:var(--oro);box-shadow:0 0 8px #c9a84c88;transform:scale(1.3)}
+.m-dot.skip{background:var(--rosso)}
+.m-controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.m-btn{border:none;border-radius:13px;padding:14px 10px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px}
+.m-btn-icon{font-size:1.4rem}
+.m-play{background:linear-gradient(135deg,var(--blu),var(--viola));color:white}
+.m-play:hover{opacity:.9;transform:scale(1.02)}
+.m-auto{background:linear-gradient(135deg,var(--verde),#1a5a3f);color:white}
+.m-auto.running{background:linear-gradient(135deg,var(--rosso),#7a1010)}
+.m-skip-btn{background:#1a2020;border:1px solid #2a3a2a;color:#778;border-radius:13px;padding:11px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer}
+.m-settings{background:#0d1117;border:1px solid #21262d;border-radius:13px;padding:12px;margin-bottom:12px}
+.m-set-title{font-size:.64rem;color:#556;font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.m-set-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.m-set-row:last-child{margin-bottom:0}
+.m-set-lbl{font-size:.74rem;color:#889}
+.m-set-val{display:flex;gap:5px}
+.m-svb{background:#1a2020;border:1px solid #2a3a2a;color:#778;border-radius:7px;padding:4px 9px;font-family:'Nunito',sans-serif;font-size:.68rem;cursor:pointer;transition:all .15s}
+.m-svb.on{border-color:#2d7a4f;color:#5ac4a0;background:#0a1a0a}
+.m-status{text-align:center;font-size:.72rem;color:#5ac4a0;min-height:18px;margin-bottom:6px;font-weight:700}
+.m-warning{text-align:center;padding:20px;color:#e07070;font-size:.82rem;line-height:1.6}
+.m-start-card{background:var(--dark2);border:1px solid var(--dark4);border-radius:16px;padding:22px 16px;text-align:center}
+.m-start-icon{font-size:3rem;margin-bottom:10px}
+.m-start-btn{background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:12px;padding:13px 28px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;width:100%;margin-top:14px}
+.m-group-pick{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.m-gpb{background:#161b22;border:1px solid #30363d;color:#778;border-radius:9px;padding:9px 6px;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center}
+.m-gpb.on{border-color:#2d7a4f;color:#5ac4a0;background:#0a1a10}
+.m-result{background:var(--dark2);border:1px solid var(--dark4);border-radius:16px;padding:24px 16px;text-align:center}
+.m-res-num{font-family:'Playfair Display',serif;font-size:3rem;color:#f0d060;line-height:1;margin-bottom:5px}
+
+.sw{padding:11px 12px 20px;max-width:800px;margin:0 auto}
+h2{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px}
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:9px;font-size:.76rem;line-height:1.6}
+.tip strong{color:var(--oro)}
+</style>
 </head>
 <body>
-<p><a href="index.html">&larr; На главную</a></p>
-<h1>Неправильные глаголы</h1>
-<p><em>Страница в подготовке.</em></p>
+
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1><em>Verbi Irregolari</em></h1>
+  <p>51 неправильный глагол · спряжение · ассоциации · TTS · тесты</p>
+</header>
+
+<!-- API -->
+<div id="ap">
+  <div class="at"><div class="adot" id="adot"></div><span id="atext">🔊 Подключи Google TTS — слушай каждую форму глагола</span></div>
+  <div class="arow">
+    <input class="ainp" type="password" id="akey" placeholder="Google API ключ...">
+    <button class="ac" onclick="ck()">Подключить</button>
+    <button class="axb" id="axb" onclick="ckx()" style="display:none">✕</button>
+  </div>
+  <div id="ks"></div>
+  <div id="vss"><div class="vrow">
+    <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)">Wavenet A ♀</div>
+    <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)">Wavenet C ♂</div>
+    <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)">Standard A</div>
+  </div></div>
+  <div class="ahint" id="ahint">Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Cloud TTS → Create API Key → <a href="https://app.netlify.com/drop" target="_blank">Netlify</a>.</div>
+</div>
+
+<!-- NAV -->
+<div class="mn">
+  <button class="mnb on" onclick="sm('cards')">📖 Карточки<br><small style="font-size:.55rem;opacity:.7">51 глагол</small></button>
+  <button class="mnb" onclick="sm('train')">🃏 Тренажёр<br><small style="font-size:.55rem;opacity:.7">4 режима</small></button>
+  <button class="mnb" onclick="sm('test')">📝 Тест<br><small style="font-size:.55rem;opacity:.7">30 вопросов</small></button>
+  <button class="mnb" onclick="sm('marathon')">🎧 Марафон<br><small style="font-size:.55rem;opacity:.7">Аудио-повтор</small></button>
+  <button class="mnb" onclick="sm('rules')">📐 Правила<br><small style="font-size:.55rem;opacity:.7">Объяснения</small></button>
+</div>
+
+<!-- CARDS -->
+<div class="sec on" id="cards">
+  <div class="gf" id="gf"></div>
+  <div class="vgrid" id="vgrid"></div>
+</div>
+
+<!-- TRAINER -->
+<div class="sec" id="train">
+  <div class="trainer-wrap">
+    <div id="tpick">
+      <h2 style="margin-bottom:10px">🃏 Тренажёр</h2>
+      <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">Группа глаголов:</div>
+      <div class="tr-pick-group" id="tr-groups"></div>
+      <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">Режим:</div>
+      <div class="tr-mode-grid">
+        <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">Перевернуть</small></button>
+        <button class="mdb" onclick="startTR('conj')"><span class="mi">🔤</span>Спряжение<br><small style="color:var(--muted)">Выбери форму</small></button>
+        <button class="mdb" onclick="startTR('mean')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">4 варианта</small></button>
+        <button class="mdb" onclick="startTR('audio')"><span class="mi">👂</span>На слух<br><small style="color:var(--muted)">Звук → глагол</small></button>
+      </div>
+    </div>
+    <div id="tarea" style="display:none"></div>
+  </div>
+</div>
+
+<!-- TEST -->
+<div class="sec" id="test">
+  <div class="sw">
+    <div id="test-start">
+      <div style="text-align:center;padding:20px 0 14px">
+        <div style="font-size:2.4rem;margin-bottom:8px">📝</div>
+        <h2>Тест — 30 вопросов</h2>
+        <p style="font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:16px">Спряжение, перевод, выбор правильной формы, предложения из реальной речи.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:18px;text-align:left">
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🔴 Полностью нерегулярные</div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🟡 Модальные глаголы</div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🟢 Частично нерегулярные</div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">💬 Реальные предложения</div>
+        </div>
+        <button style="background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:13px 28px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;width:100%" onclick="startTest()">🚀 Начать тест</button>
+      </div>
+    </div>
+    <div id="test-quiz" style="display:none"></div>
+    <div id="test-result" style="display:none"></div>
+  </div>
+</div>
+
+<!-- MARATHON -->
+<div class="sec" id="marathon">
+<div class="mw" id="m-content"></div>
+</div>
+
+<!-- RULES -->
+<div class="sec" id="rules">
+  <div class="sw">
+    <h2>📐 Правила и объяснения</h2>
+    <div class="tip"><strong>Почему неправильные?</strong> Самые частые глаголы в любом языке — самые неправильные. Их формы складывались веками из разных латинских корней.</div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:9px;border-top:3px solid var(--rosso)">
+      <h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px;color:var(--rosso)">🔴 Группа 1 — Полностью нерегулярные</h3>
+      <p style="font-size:.78rem;line-height:1.7;color:var(--muted);margin-bottom:8px">У этих глаголов нет закономерности — нужно выучить все 6 форм наизусть.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:.78rem">
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">ESSERE</strong> — sono/sei/è/siamo/siete/sono</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">AVERE</strong> — ho/hai/ha/abbiamo/avete/hanno</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">FARE</strong> — faccio/fai/fa/facciamo/fate/fanno</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">ANDARE</strong> — vado/vai/va/andiamo/andate/vanno</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">VENIRE</strong> — vengo/vieni/viene/veniamo/venite/vengono</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">STARE</strong> — sto/stai/sta/stiamo/state/stanno</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">DARE</strong> — do/dai/dà/diamo/date/danno</div>
+        <div style="background:var(--rosso-l);border-radius:8px;padding:9px"><strong style="color:var(--rosso)">DIRE</strong> — dico/dici/dice/diciamo/dite/dicono</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:9px;border-top:3px solid var(--oro)">
+      <h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px;color:var(--oro)">🟡 Группа 2 — Модальные глаголы</h3>
+      <p style="font-size:.78rem;line-height:1.7;color:var(--muted);margin-bottom:8px">VOLERE, POTERE, DOVERE всегда стоят перед инфинитивом другого глагола.</p>
+      <div style="font-size:.78rem;line-height:1.7;background:var(--oro-l);border-radius:8px;padding:10px;margin-bottom:7px">
+        <strong>Voglio</strong> mangiare. — Я хочу есть.<br>
+        <strong>Posso</strong> aiutarti? — Могу помочь?<br>
+        <strong>Devo</strong> andare. — Мне нужно идти.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr;gap:5px;font-size:.76rem">
+        <div style="background:var(--oro-l);border-radius:8px;padding:9px"><strong style="color:var(--oro)">VOLERE</strong> — voglio/vuoi/vuole/vogliamo/volete/vogliono</div>
+        <div style="background:var(--oro-l);border-radius:8px;padding:9px"><strong style="color:var(--oro)">POTERE</strong> — posso/puoi/può/possiamo/potete/possono</div>
+        <div style="background:var(--oro-l);border-radius:8px;padding:9px"><strong style="color:var(--oro)">DOVERE</strong> — devo/devi/deve/dobbiamo/dovete/devono</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;margin-bottom:9px;border-top:3px solid var(--verde)">
+      <h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px;color:var(--verde)">🟢 Группа 3 — Частично нерегулярные</h3>
+      <p style="font-size:.78rem;line-height:1.7;color:var(--muted);margin-bottom:8px">Нерегулярны только IO и LORO — остальные формы правильные.</p>
+      <div style="background:var(--verde-l);border-radius:8px;padding:10px;font-size:.78rem;margin-bottom:7px">
+        <strong>Правило:</strong> IO → -go, -ngo, -lgo | LORO → аналогично + -ono<br>
+        tengo, tengono · rimango, rimangono · tolgo, tolgono
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;font-size:.74rem">
+        <div style="background:var(--verde-l);border-radius:8px;padding:8px"><strong style="color:var(--verde)">TENERE</strong> — tengo/tieni/tiene/teniamo/tenete/tengono</div>
+        <div style="background:var(--verde-l);border-radius:8px;padding:8px"><strong style="color:var(--verde)">RIMANERE</strong> — rimango/rimani/rimane/rimaniamo/rimanete/rimangono</div>
+        <div style="background:var(--verde-l);border-radius:8px;padding:8px"><strong style="color:var(--verde)">BERE</strong> — bevo/bevi/beve/beviamo/bevete/bevono</div>
+        <div style="background:var(--verde-l);border-radius:8px;padding:8px"><strong style="color:var(--verde)">SAPERE</strong> — so/sai/sa/sappiamo/sapete/sanno</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px;border-top:3px solid var(--viola)">
+      <h3 style="font-size:.9rem;font-weight:800;margin-bottom:8px;color:var(--viola)">💡 Как запомнить быстрее</h3>
+      <div style="display:grid;gap:7px;font-size:.78rem;line-height:1.6">
+        <div style="background:var(--viola-l);border-radius:8px;padding:10px"><strong>1. Парами-антонимами:</strong> ANDARE (идти) ↔ VENIRE (приходить). Одна ситуация — два глагола.</div>
+        <div style="background:var(--viola-l);border-radius:8px;padding:10px"><strong>2. IO и LORO особые:</strong> у частично нерегулярных нерегулярны только эти формы. Выучи их, остальное — по правилу.</div>
+        <div style="background:var(--viola-l);border-radius:8px;padding:10px"><strong>3. NOI и VOI почти всегда правильные:</strong> andare → andiamo/andate, venire → veniamo/venite. Только ESSERE исключение!</div>
+        <div style="background:var(--viola-l);border-radius:8px;padding:10px"><strong>4. Группы IO:</strong> vado/vengo/faccio/ho/sono — это самые нужные формы. Выучи их первыми.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA — 25 НЕПРАВИЛЬНЫХ ГЛАГОЛОВ
+// ══════════════════════════════════════════════════════
+const VERBS = [
+  // ГРУППА 1 — ПОЛНОСТЬЮ НЕРЕГУЛЯРНЫЕ
+  {
+    it:'essere', ph:'[ˈɛssere]', ru:'быть, являться', group:'irreg', emoji:'✨',
+    assoc:'Эссе — написать кем являешься. SONO — «я есть» (как Spanish «soy»)',
+    conj:[
+      {pro:'IO',    form:'sono',    ru:'я есть',     irreg:true},
+      {pro:'TU',    form:'sei',     ru:'ты есть',    irreg:true},
+      {pro:'LUI/LEI',form:'è',     ru:'он/она есть',irreg:true},
+      {pro:'NOI',   form:'siamo',   ru:'мы есть',    irreg:true},
+      {pro:'VOI',   form:'siete',   ru:'вы есть',    irreg:true},
+      {pro:'LORO',  form:'sono',    ru:'они есть',   irreg:true},
+    ],
+    examples:[
+      {it:'Io sono ucraino.', ru:'Я украинец.'},
+      {it:'Sei pronto? — Sì, sono pronto!', ru:'Готов? — Да!'},
+      {it:'Luigi è sempre puntuale.', ru:'Луиджи всегда пунктуален.'},
+    ]
+  },
+  {
+    it:'avere', ph:'[aˈveːre]', ru:'иметь, обладать', group:'irreg', emoji:'🤲',
+    assoc:'Аверс монеты — иметь. HO звучит как «о!» — удивление от обладания',
+    conj:[
+      {pro:'IO',    form:'ho',       ru:'у меня есть', irreg:true},
+      {pro:'TU',    form:'hai',      ru:'у тебя есть', irreg:true},
+      {pro:'LUI/LEI',form:'ha',     ru:'у него/неё',  irreg:true},
+      {pro:'NOI',   form:'abbiamo', ru:'у нас',       irreg:true},
+      {pro:'VOI',   form:'avete',   ru:'у вас',       irreg:false},
+      {pro:'LORO',  form:'hanno',   ru:'у них',       irreg:true},
+    ],
+    examples:[
+      {it:'Ho un appuntamento alle 10.', ru:'У меня встреча в 10.'},
+      {it:'Ho fame! — Ho sete!', ru:'Голоден! — Хочу пить!'},
+      {it:'Quanti anni hai?', ru:'Сколько тебе лет?'},
+    ]
+  },
+  {
+    it:'fare', ph:'[ˈfaːre]', ru:'делать, готовить', group:'irreg', emoji:'🔨',
+    assoc:'Фабрика — там делают. FACCIO = «я делаю» (двойное CC — интенсивность!)',
+    conj:[
+      {pro:'IO',    form:'faccio',  ru:'я делаю',    irreg:true},
+      {pro:'TU',    form:'fai',     ru:'ты делаешь', irreg:true},
+      {pro:'LUI/LEI',form:'fa',    ru:'он/она делает',irreg:true},
+      {pro:'NOI',   form:'facciamo',ru:'мы делаем',  irreg:false},
+      {pro:'VOI',   form:'fate',    ru:'вы делаете', irreg:true},
+      {pro:'LORO',  form:'fanno',   ru:'они делают', irreg:true},
+    ],
+    examples:[
+      {it:'Che fai oggi?', ru:'Что делаешь сегодня?'},
+      {it:'Fa bello! — Fa freddo!', ru:'Хорошая погода! — Холодно!'},
+      {it:'Facciamo una passeggiata!', ru:'Пойдём на прогулку!'},
+    ]
+  },
+  {
+    it:'andare', ph:'[anˈdaːre]', ru:'идти, ехать', group:'irreg', emoji:'🚶',
+    assoc:'Анданте — медленное движение в музыке. VADO — иду (не andо!)',
+    conj:[
+      {pro:'IO',    form:'vado',    ru:'я иду',     irreg:true},
+      {pro:'TU',    form:'vai',     ru:'ты идёшь',  irreg:true},
+      {pro:'LUI/LEI',form:'va',    ru:'он/она идёт',irreg:true},
+      {pro:'NOI',   form:'andiamo',ru:'мы идём',    irreg:false},
+      {pro:'VOI',   form:'andate', ru:'вы идёте',   irreg:false},
+      {pro:'LORO',  form:'vanno',  ru:'они идут',   irreg:true},
+    ],
+    examples:[
+      {it:'Dove vai? — Vado al lavoro.', ru:'Куда идёшь? — На работу.'},
+      {it:'Andiamo! — Пошли!', ru:'Andiamo = Пошли! (очень частая фраза)'},
+      {it:'Luca e Maria vanno in vacanza.', ru:'Лука и Мария едут в отпуск.'},
+    ]
+  },
+  {
+    it:'venire', ph:'[veˈniːre]', ru:'приходить, приезжать', group:'irreg', emoji:'👋',
+    assoc:'Вэни — «приди» по-итальянски. VENGO — прихожу (помни: G добавляется!)',
+    conj:[
+      {pro:'IO',    form:'vengo',   ru:'я прихожу',  irreg:true},
+      {pro:'TU',    form:'vieni',   ru:'ты приходишь',irreg:true},
+      {pro:'LUI/LEI',form:'viene', ru:'он/она приходит',irreg:true},
+      {pro:'NOI',   form:'veniamo',ru:'мы приходим', irreg:false},
+      {pro:'VOI',   form:'venite', ru:'вы приходите',irreg:false},
+      {pro:'LORO',  form:'vengono',ru:'они приходят',irreg:true},
+    ],
+    examples:[
+      {it:'Vieni con noi?', ru:'Ты идёшь с нами?'},
+      {it:'Vengo subito!', ru:'Сейчас приду!'},
+      {it:'Vengono anche Martina e Lia!', ru:'Мартина и Лиа тоже приходят!'},
+    ]
+  },
+  {
+    it:'stare', ph:'[ˈstaːre]', ru:'находиться, чувствовать себя', group:'irreg', emoji:'🏠',
+    assoc:'Стоять — STARE (стоять на месте). STO — стою/нахожусь. Come stai? — знаешь!',
+    conj:[
+      {pro:'IO',    form:'sto',     ru:'я нахожусь', irreg:true},
+      {pro:'TU',    form:'stai',    ru:'ты находишься',irreg:true},
+      {pro:'LUI/LEI',form:'sta',   ru:'он/она',      irreg:true},
+      {pro:'NOI',   form:'stiamo', ru:'мы',          irreg:false},
+      {pro:'VOI',   form:'state',  ru:'вы',          irreg:false},
+      {pro:'LORO',  form:'stanno', ru:'они',         irreg:true},
+    ],
+    examples:[
+      {it:'Come stai? — Sto bene!', ru:'Как дела? — Хорошо!'},
+      {it:'Stai attento!', ru:'Будь внимателен!'},
+      {it:'Dove stai?', ru:'Где ты находишься?'},
+    ]
+  },
+  {
+    it:'dare', ph:'[ˈdaːre]', ru:'давать', group:'irreg', emoji:'🎁',
+    assoc:'Дать — DA (давай!). Похоже на русское «да»! DO — очень короткое!',
+    conj:[
+      {pro:'IO',    form:'do',      ru:'я даю',     irreg:true},
+      {pro:'TU',    form:'dai',     ru:'ты даёшь',  irreg:true},
+      {pro:'LUI/LEI',form:'dà',    ru:'он/она даёт',irreg:true},
+      {pro:'NOI',   form:'diamo',  ru:'мы даём',   irreg:true},
+      {pro:'VOI',   form:'date',   ru:'вы даёте',  irreg:false},
+      {pro:'LORO',  form:'danno',  ru:'они дают',  irreg:true},
+    ],
+    examples:[
+      {it:'Mi dai il libro?', ru:'Дашь мне книгу?'},
+      {it:'Do un esame domani.', ru:'Сдаю экзамен завтра.'},
+      {it:'Dai retta!', ru:'Послушай! (Dai!)'},
+    ]
+  },
+  {
+    it:'dire', ph:'[ˈdiːre]', ru:'говорить, сказать', group:'irreg', emoji:'🗣️',
+    assoc:'Диктор — говорит. DICO — говорю (помни C→CO для IO!)',
+    conj:[
+      {pro:'IO',    form:'dico',    ru:'я говорю',   irreg:true},
+      {pro:'TU',    form:'dici',    ru:'ты говоришь',irreg:true},
+      {pro:'LUI/LEI',form:'dice',  ru:'он/она говорит',irreg:true},
+      {pro:'NOI',   form:'diciamo',ru:'мы говорим',  irreg:true},
+      {pro:'VOI',   form:'dite',   ru:'вы говорите', irreg:true},
+      {pro:'LORO',  form:'dicono', ru:'они говорят', irreg:false},
+    ],
+    examples:[
+      {it:'Cosa dici?', ru:'Что ты говоришь?'},
+      {it:'Come si dice «grazie» in russo?', ru:'Как сказать «спасибо» по-русски?'},
+      {it:'Diciamo la verità.', ru:'Скажем правду.'},
+    ]
+  },
+  {
+    it:'uscire', ph:'[uˈʃiːre]', ru:'выходить', group:'irreg', emoji:'🚪',
+    assoc:'Uscita — выход (знак на двери!). ESCO — выхожу (добавляется SC)',
+    conj:[
+      {pro:'IO',    form:'esco',    ru:'я выхожу',   irreg:true},
+      {pro:'TU',    form:'esci',    ru:'ты выходишь',irreg:true},
+      {pro:'LUI/LEI',form:'esce',  ru:'он/она выходит',irreg:true},
+      {pro:'NOI',   form:'usciamo',ru:'мы выходим',  irreg:false},
+      {pro:'VOI',   form:'uscite', ru:'вы выходите', irreg:false},
+      {pro:'LORO',  form:'escono', ru:'они выходят', irreg:true},
+    ],
+    examples:[
+      {it:'A che ora esci?', ru:'В котором часу выходишь?'},
+      {it:'Esco adesso.', ru:'Выхожу сейчас.'},
+      {it:'Usciamo stasera?', ru:'Выйдем сегодня вечером?'},
+    ]
+  },
+  {
+    it:'sapere', ph:'[saˈpeːre]', ru:'знать (факт/умение)', group:'irreg', emoji:'🧠',
+    assoc:'Сапиенс — знающий. SO — знаю (самая короткая форма!)',
+    conj:[
+      {pro:'IO',    form:'so',       ru:'я знаю',    irreg:true},
+      {pro:'TU',    form:'sai',      ru:'ты знаешь', irreg:true},
+      {pro:'LUI/LEI',form:'sa',     ru:'он/она знает',irreg:true},
+      {pro:'NOI',   form:'sappiamo',ru:'мы знаем',   irreg:true},
+      {pro:'VOI',   form:'sapete',  ru:'вы знаете',  irreg:false},
+      {pro:'LORO',  form:'sanno',   ru:'они знают',  irreg:true},
+    ],
+    examples:[
+      {it:'Non lo so.', ru:'Не знаю.'},
+      {it:'Sai parlare italiano?', ru:'Умеешь говорить по-итальянски?'},
+      {it:'Sa cucinare benissimo.', ru:'Она отлично умеет готовить.'},
+    ]
+  },
+  // ГРУППА 2 — МОДАЛЬНЫЕ
+  {
+    it:'volere', ph:'[voˈleːre]', ru:'хотеть', group:'modal', emoji:'🌟',
+    assoc:'Воля — хочу и буду! VOGLIO (не volo!) — хочу (двойное GL!)',
+    conj:[
+      {pro:'IO',    form:'voglio',  ru:'я хочу',    irreg:true},
+      {pro:'TU',    form:'vuoi',    ru:'ты хочешь', irreg:true},
+      {pro:'LUI/LEI',form:'vuole', ru:'он/она хочет',irreg:true},
+      {pro:'NOI',   form:'vogliamo',ru:'мы хотим',  irreg:true},
+      {pro:'VOI',   form:'volete', ru:'вы хотите',  irreg:false},
+      {pro:'LORO',  form:'vogliono',ru:'они хотят', irreg:true},
+    ],
+    examples:[
+      {it:'Cosa vuoi mangiare?', ru:'Что хочешь есть?'},
+      {it:'Voglio imparare l\'italiano!', ru:'Хочу выучить итальянский!'},
+      {it:'Ti voglio bene.', ru:'Я тебя люблю (близкий человек).'},
+    ]
+  },
+  {
+    it:'potere', ph:'[poˈteːre]', ru:'мочь, иметь возможность', group:'modal', emoji:'💪',
+    assoc:'Потенция — мощь. POSSO — могу (двойное SS от латыни)',
+    conj:[
+      {pro:'IO',    form:'posso',   ru:'я могу',     irreg:true},
+      {pro:'TU',    form:'puoi',    ru:'ты можешь',  irreg:true},
+      {pro:'LUI/LEI',form:'può',   ru:'он/она может',irreg:true},
+      {pro:'NOI',   form:'possiamo',ru:'мы можем',   irreg:true},
+      {pro:'VOI',   form:'potete', ru:'вы можете',   irreg:false},
+      {pro:'LORO',  form:'possono',ru:'они могут',   irreg:true},
+    ],
+    examples:[
+      {it:'Posso aiutarti?', ru:'Могу помочь тебе?'},
+      {it:'Non posso venire oggi.', ru:'Не могу прийти сегодня.'},
+      {it:'Puoi parlare più piano?', ru:'Можешь говорить тише?'},
+    ]
+  },
+  {
+    it:'dovere', ph:'[doˈveːre]', ru:'должен, обязан', group:'modal', emoji:'⚖️',
+    assoc:'Долг — devo, я должен. DEVO звучит как «дево» — дева долга',
+    conj:[
+      {pro:'IO',    form:'devo',    ru:'я должен',   irreg:true},
+      {pro:'TU',    form:'devi',    ru:'ты должен',  irreg:true},
+      {pro:'LUI/LEI',form:'deve',  ru:'он/она должен',irreg:true},
+      {pro:'NOI',   form:'dobbiamo',ru:'мы должны',  irreg:true},
+      {pro:'VOI',   form:'dovete', ru:'вы должны',   irreg:false},
+      {pro:'LORO',  form:'devono', ru:'они должны',  irreg:true},
+    ],
+    examples:[
+      {it:'Devo andare adesso.', ru:'Мне нужно идти сейчас.'},
+      {it:'Devi studiare di più!', ru:'Нужно учиться больше!'},
+      {it:'Dobbiamo parlare.', ru:'Нам нужно поговорить.'},
+    ]
+  },
+  {
+    it:'volere bene', ph:'[voˈlere ˈbɛne]', ru:'любить (близкого)', group:'modal', emoji:'❤️',
+    assoc:'Волере бэне — желать добра. Ti voglio bene! — говорят маме, другу',
+    conj:[
+      {pro:'IO',    form:'voglio bene',ru:'я люблю (близко)',irreg:true},
+      {pro:'TU',    form:'vuoi bene',  ru:'ты любишь',      irreg:true},
+      {pro:'LUI/LEI',form:'vuole bene',ru:'он/она любит',   irreg:true},
+      {pro:'NOI',   form:'vogliamo bene',ru:'мы любим',     irreg:true},
+      {pro:'VOI',   form:'volete bene', ru:'вы любите',     irreg:false},
+      {pro:'LORO',  form:'vogliono bene',ru:'они любят',    irreg:true},
+    ],
+    examples:[
+      {it:'Ti voglio bene, mamma!', ru:'Люблю тебя, мама!'},
+      {it:'Vuole bene a tutti.', ru:'Он всех любит.'},
+      {it:'Vi voglio bene, ragazzi!', ru:'Люблю вас, ребята!'},
+    ]
+  },
+  // ГРУППА 3 — ЧАСТИЧНО НЕРЕГУЛЯРНЫЕ
+  {
+    it:'tenere', ph:'[teˈneːre]', ru:'держать, иметь', group:'part', emoji:'🤜',
+    assoc:'Тенор — держит высокую ноту! TENGO — держу (добавляется G в IO!)',
+    conj:[
+      {pro:'IO',    form:'tengo',   ru:'я держу',    irreg:true},
+      {pro:'TU',    form:'tieni',   ru:'ты держишь', irreg:false},
+      {pro:'LUI/LEI',form:'tiene', ru:'он/она держит',irreg:false},
+      {pro:'NOI',   form:'teniamo',ru:'мы держим',   irreg:false},
+      {pro:'VOI',   form:'tenete', ru:'вы держите',  irreg:false},
+      {pro:'LORO',  form:'tengono',ru:'они держат',  irreg:true},
+    ],
+    examples:[
+      {it:'Tengo la borsa.', ru:'Держу сумку.'},
+      {it:'Tieni duro!', ru:'Держись крепко!'},
+      {it:'Tiene un bel negozio.', ru:'У него хороший магазин.'},
+    ]
+  },
+  {
+    it:'venire → rimanere', ph:'[rimaˈneːre]', ru:'оставаться', group:'part', emoji:'🏡',
+    assoc:'Ремонт — остаёшься дома. RIMANGO — остаюсь (добавляется G!)',
+    conj:[
+      {pro:'IO',    form:'rimango',  ru:'я остаюсь',  irreg:true},
+      {pro:'TU',    form:'rimani',   ru:'ты остаёшься',irreg:false},
+      {pro:'LUI/LEI',form:'rimane', ru:'он/она остаётся',irreg:false},
+      {pro:'NOI',   form:'rimaniamo',ru:'мы остаёмся',irreg:false},
+      {pro:'VOI',   form:'rimanete',ru:'вы остаётесь',irreg:false},
+      {pro:'LORO',  form:'rimangono',ru:'они остаются',irreg:true},
+    ],
+    examples:[
+      {it:'Rimango a casa oggi.', ru:'Остаюсь дома сегодня.'},
+      {it:'Rimani ancora un po\'!', ru:'Побудь ещё немного!'},
+      {it:'Rimangono sempre insieme.', ru:'Они всегда остаются вместе.'},
+    ]
+  },
+  {
+    it:'bere', ph:'[ˈbeːre]', ru:'пить', group:'part', emoji:'☕',
+    assoc:'Бэр — медведь любит пить мёд. BEVO — пью (основа BEV-, не ber-!)',
+    conj:[
+      {pro:'IO',    form:'bevo',    ru:'я пью',      irreg:true},
+      {pro:'TU',    form:'bevi',    ru:'ты пьёшь',   irreg:true},
+      {pro:'LUI/LEI',form:'beve',  ru:'он/она пьёт',irreg:true},
+      {pro:'NOI',   form:'beviamo',ru:'мы пьём',     irreg:true},
+      {pro:'VOI',   form:'bevete', ru:'вы пьёте',    irreg:true},
+      {pro:'LORO',  form:'bevono', ru:'они пьют',    irreg:true},
+    ],
+    examples:[
+      {it:'Bevo un caffè ogni mattina.', ru:'Пью кофе каждое утро.'},
+      {it:'Cosa bevi?', ru:'Что пьёшь?'},
+      {it:'Beviamo alla tua salute!', ru:'Пьём за твоё здоровье!'},
+    ]
+  },
+  {
+    it:'scegliere', ph:'[ˈʃeʎʎere]', ru:'выбирать', group:'part', emoji:'🎯',
+    assoc:'Шельма — выбирает хитро! SCELGO — выбираю (GL→LG для IO)',
+    conj:[
+      {pro:'IO',    form:'scelgo',  ru:'я выбираю',  irreg:true},
+      {pro:'TU',    form:'scegli',  ru:'ты выбираешь',irreg:false},
+      {pro:'LUI/LEI',form:'sceglie',ru:'он/она выбирает',irreg:false},
+      {pro:'NOI',   form:'scegliamo',ru:'мы выбираем',irreg:false},
+      {pro:'VOI',   form:'scegliete',ru:'вы выбираете',irreg:false},
+      {pro:'LORO',  form:'scelgono',ru:'они выбирают',irreg:true},
+    ],
+    examples:[
+      {it:'Scelgo il vestito rosso.', ru:'Выбираю красное платье.'},
+      {it:'Cosa scegli?', ru:'Что выбираешь?'},
+      {it:'Scegliamo insieme!', ru:'Выбираем вместе!'},
+    ]
+  },
+  {
+    it:'porre', ph:'[ˈpɔrre]', ru:'класть, ставить', group:'part', emoji:'📦',
+    assoc:'Порядок — porre (положить в порядок). PONGO — кладу (NGO для IO!)',
+    conj:[
+      {pro:'IO',    form:'pongo',   ru:'я кладу',    irreg:true},
+      {pro:'TU',    form:'poni',    ru:'ты кладёшь', irreg:true},
+      {pro:'LUI/LEI',form:'pone',  ru:'он/она кладёт',irreg:true},
+      {pro:'NOI',   form:'poniamo',ru:'мы кладём',   irreg:true},
+      {pro:'VOI',   form:'ponete', ru:'вы кладёте',  irreg:true},
+      {pro:'LORO',  form:'pongono',ru:'они кладут',  irreg:true},
+    ],
+    examples:[
+      {it:'Pongo una domanda.', ru:'Задаю вопрос.'},
+      {it:'Poni il libro sul tavolo.', ru:'Положи книгу на стол.'},
+      {it:'Pone le basi del successo.', ru:'Закладывает основы успеха.'},
+    ]
+  },
+  {
+    it:'togliere', ph:'[ˈtɔʎʎere]', ru:'снимать, убирать', group:'part', emoji:'🗑️',
+    assoc:'Толь — толь снимают с крыши. TOLGO — снимаю (GLI→LGO для IO!)',
+    conj:[
+      {pro:'IO',    form:'tolgo',   ru:'я снимаю',   irreg:true},
+      {pro:'TU',    form:'togli',   ru:'ты снимаешь',irreg:false},
+      {pro:'LUI/LEI',form:'toglie',ru:'он/она снимает',irreg:false},
+      {pro:'NOI',   form:'togliamo',ru:'мы снимаем', irreg:false},
+      {pro:'VOI',   form:'togliete',ru:'вы снимаете',irreg:false},
+      {pro:'LORO',  form:'tolgono',ru:'они снимают', irreg:true},
+    ],
+    examples:[
+      {it:'Togliti le scarpe!', ru:'Сними обувь!'},
+      {it:'Tolgo il cappotto.', ru:'Снимаю пальто.'},
+      {it:'Togli i libri dal tavolo.', ru:'Убери книги со стола.'},
+    ]
+  },
+  {
+    it:'spegnere', ph:'[ˈspeɲɲere]', ru:'выключать, тушить', group:'part', emoji:'💡',
+    assoc:'Спень — спит (выключил свет). SPENGO — выключаю (NGO для IO!)',
+    conj:[
+      {pro:'IO',    form:'spengo',  ru:'я выключаю', irreg:true},
+      {pro:'TU',    form:'spegni',  ru:'ты выключаешь',irreg:false},
+      {pro:'LUI/LEI',form:'spegne',ru:'он/она выключает',irreg:false},
+      {pro:'NOI',   form:'spegniamo',ru:'мы выключаем',irreg:false},
+      {pro:'VOI',   form:'spegnete',ru:'вы выключаете',irreg:false},
+      {pro:'LORO',  form:'spengono',ru:'они выключают',irreg:true},
+    ],
+    examples:[
+      {it:'Spengo la luce.', ru:'Выключаю свет.'},
+      {it:'Spegni il telefono!', ru:'Выключи телефон!'},
+      {it:'Spegniamo la TV.', ru:'Выключаем телевизор.'},
+    ]
+  },
+  {
+    it:'condurre', ph:'[konˈdurre]', ru:'вести, руководить', group:'part', emoji:'🎭',
+    assoc:'Кондуктор — ведёт оркестр. CONDUCO — веду (основа conduc-!)',
+    conj:[
+      {pro:'IO',    form:'conduco', ru:'я веду',     irreg:true},
+      {pro:'TU',    form:'conduci',ru:'ты ведёшь',  irreg:true},
+      {pro:'LUI/LEI',form:'conduce',ru:'он ведёт',  irreg:true},
+      {pro:'NOI',   form:'conduciamo',ru:'мы ведём',irreg:true},
+      {pro:'VOI',   form:'conducete',ru:'вы ведёте',irreg:true},
+      {pro:'LORO',  form:'conducono',ru:'они ведут',irreg:true},
+    ],
+    examples:[
+      {it:'Conduce una vita felice.', ru:'Ведёт счастливую жизнь.'},
+      {it:'Chi conduce il programma?', ru:'Кто ведёт программу?'},
+      {it:'Conduciamo una riunione.', ru:'Проводим совещание.'},
+    ]
+  },
+  {
+    it:'tradurre', ph:'[traˈdurre]', ru:'переводить', group:'part', emoji:'🌐',
+    assoc:'Транслятор — переводит. TRADUCO — перевожу (такая же основа как condurre)',
+    conj:[
+      {pro:'IO',    form:'traduco', ru:'я перевожу',  irreg:true},
+      {pro:'TU',    form:'traduci',ru:'ты переводишь',irreg:true},
+      {pro:'LUI/LEI',form:'traduce',ru:'он/она переводит',irreg:true},
+      {pro:'NOI',   form:'traduciamo',ru:'мы переводим',irreg:true},
+      {pro:'VOI',   form:'traducete',ru:'вы переводите',irreg:true},
+      {pro:'LORO',  form:'traducono',ru:'они переводят',irreg:true},
+    ],
+    examples:[
+      {it:'Traduco dall\'italiano.', ru:'Перевожу с итальянского.'},
+      {it:'Sai tradurre questo?', ru:'Умеешь перевести это?'},
+      {it:'Traduciamo insieme.', ru:'Переводим вместе.'},
+    ]
+  },
+  {
+    it:'morire', ph:'[moˈriːre]', ru:'умирать', group:'part', emoji:'💀',
+    assoc:'Мор — мор (чума). MUOIO — умираю (UO появляется в IO/LUI!)',
+    conj:[
+      {pro:'IO',    form:'muoio',   ru:'я умираю',   irreg:true},
+      {pro:'TU',    form:'muori',   ru:'ты умираешь',irreg:true},
+      {pro:'LUI/LEI',form:'muore', ru:'он/она умирает',irreg:true},
+      {pro:'NOI',   form:'moriamo',ru:'мы умираем',  irreg:false},
+      {pro:'VOI',   form:'morite', ru:'вы умираете', irreg:false},
+      {pro:'LORO',  form:'muoiono',ru:'они умирают', irreg:true},
+    ],
+    examples:[
+      {it:'Muoio di fame!', ru:'Умираю от голода! (разг.)'},
+      {it:'Muoio dal ridere!', ru:'Умираю со смеху! (разг.)'},
+      {it:'Che caldo! Muoio!', ru:'Какая жара! Умираю! (разг.)'},
+    ]
+  },
+
+  // ── ДОПОЛНИТЕЛЬНЫЕ НЕРЕГУЛЯРНЫЕ ──
+  {
+    it:'piacere', ph:'[pjaˈtʃeːre]', ru:'нравиться (особая конструкция)', group:'irreg', emoji:'👍',
+    assoc:'Пиаченца — приятный город. MI PIACE = мне нравится (не «я нравлюсь»!)',
+    conj:[
+      {pro:'IO',    form:'piaccio',  ru:'я нравлюсь',   irreg:true},
+      {pro:'TU',    form:'piaci',    ru:'ты нравишься', irreg:false},
+      {pro:'LUI/LEI',form:'piace',  ru:'он/она нравится',irreg:false},
+      {pro:'NOI',   form:'piacciamo',ru:'мы нравимся',  irreg:true},
+      {pro:'VOI',   form:'piacete', ru:'вы нравитесь',  irreg:false},
+      {pro:'LORO',  form:'piacciono',ru:'они нравятся', irreg:true},
+    ],
+    examples:[
+      {it:'Mi piace l\'italiano!', ru:'Мне нравится итальянский!'},
+      {it:'Ti piacciono le pizze?', ru:'Тебе нравятся пиццы?'},
+      {it:'Non mi piace il freddo.', ru:'Мне не нравится холод.'},
+    ]
+  },
+  {
+    it:'conoscere', ph:'[koˈnoʃʃere]', ru:'знать (лично), быть знакомым', group:'irreg', emoji:'🤝',
+    assoc:'Познание — conoscere. CONOSCO — знаю лично (в отличие от SAPERE = знать факт)',
+    conj:[
+      {pro:'IO',    form:'conosco',  ru:'я знаю',      irreg:true},
+      {pro:'TU',    form:'conosci',  ru:'ты знаешь',   irreg:false},
+      {pro:'LUI/LEI',form:'conosce',ru:'он/она знает', irreg:false},
+      {pro:'NOI',   form:'conosciamo',ru:'мы знаем',   irreg:false},
+      {pro:'VOI',   form:'conoscete',ru:'вы знаете',   irreg:false},
+      {pro:'LORO',  form:'conoscono',ru:'они знают',   irreg:false},
+    ],
+    examples:[
+      {it:'Conosci Marco?', ru:'Ты знаешь Марко лично?'},
+      {it:'Conosco la strada.', ru:'Я знаю дорогу.'},
+      {it:'Non la conosco.', ru:'Я её не знаю.'},
+    ]
+  },
+  {
+    it:'leggere', ph:'[ˈleddʒere]', ru:'читать', group:'irreg', emoji:'📖',
+    assoc:'Лекция — leggere (читают вслух). LEGGO — читаю (двойное GG!)',
+    conj:[
+      {pro:'IO',    form:'leggo',    ru:'я читаю',     irreg:true},
+      {pro:'TU',    form:'leggi',    ru:'ты читаешь',  irreg:false},
+      {pro:'LUI/LEI',form:'legge',  ru:'он/она читает',irreg:false},
+      {pro:'NOI',   form:'leggiamo',ru:'мы читаем',    irreg:false},
+      {pro:'VOI',   form:'leggete', ru:'вы читаете',   irreg:false},
+      {pro:'LORO',  form:'leggono', ru:'они читают',   irreg:false},
+    ],
+    examples:[
+      {it:'Leggo un libro ogni settimana.', ru:'Читаю книгу каждую неделю.'},
+      {it:'Cosa leggi?', ru:'Что читаешь?'},
+      {it:'Leggiamo insieme!', ru:'Читаем вместе!'},
+    ]
+  },
+  {
+    it:'scrivere', ph:'[ˈskriːvere]', ru:'писать', group:'irreg', emoji:'✍️',
+    assoc:'Скрипт — написанное. SCRIVO — пишу (основа scriv-!)',
+    conj:[
+      {pro:'IO',    form:'scrivo',   ru:'я пишу',      irreg:true},
+      {pro:'TU',    form:'scrivi',   ru:'ты пишешь',   irreg:false},
+      {pro:'LUI/LEI',form:'scrive', ru:'он/она пишет', irreg:false},
+      {pro:'NOI',   form:'scriviamo',ru:'мы пишем',    irreg:false},
+      {pro:'VOI',   form:'scrivete',ru:'вы пишете',    irreg:false},
+      {pro:'LORO',  form:'scrivono',ru:'они пишут',    irreg:false},
+    ],
+    examples:[
+      {it:'Scrivo una lettera.', ru:'Пишу письмо.'},
+      {it:'Cosa scrivi?', ru:'Что пишешь?'},
+      {it:'Scriviamo la relazione.', ru:'Пишем отчёт.'},
+    ]
+  },
+  {
+    it:'vivere', ph:'[ˈviːvere]', ru:'жить (жизнью)', group:'irreg', emoji:'🌱',
+    assoc:'Vivace — живой и яркий. VIVO — живу (основа VIV-!)',
+    conj:[
+      {pro:'IO',    form:'vivo',     ru:'я живу',      irreg:true},
+      {pro:'TU',    form:'vivi',     ru:'ты живёшь',   irreg:false},
+      {pro:'LUI/LEI',form:'vive',   ru:'он/она живёт', irreg:false},
+      {pro:'NOI',   form:'viviamo', ru:'мы живём',     irreg:false},
+      {pro:'VOI',   form:'vivete',  ru:'вы живёте',    irreg:false},
+      {pro:'LORO',  form:'vivono',  ru:'они живут',    irreg:false},
+    ],
+    examples:[
+      {it:'Vivo bene!', ru:'Живу хорошо!'},
+      {it:'Dove vivi?', ru:'Где ты живёшь?'},
+      {it:'Vivono in campagna.', ru:'Они живут в деревне.'},
+    ]
+  },
+  {
+    it:'chiedere', ph:'[ˈkjeːdere]', ru:'спрашивать, просить', group:'irreg', emoji:'🙋',
+    assoc:'Кьедере — кто-то просит. CHIEDO — прошу/спрашиваю',
+    conj:[
+      {pro:'IO',    form:'chiedo',   ru:'я спрашиваю', irreg:true},
+      {pro:'TU',    form:'chiedi',   ru:'ты спрашиваешь',irreg:false},
+      {pro:'LUI/LEI',form:'chiede', ru:'он/она спрашивает',irreg:false},
+      {pro:'NOI',   form:'chiediamo',ru:'мы спрашиваем',irreg:false},
+      {pro:'VOI',   form:'chiedete',ru:'вы спрашиваете',irreg:false},
+      {pro:'LORO',  form:'chiedono',ru:'они спрашивают',irreg:false},
+    ],
+    examples:[
+      {it:'Chiedo informazioni.', ru:'Спрашиваю информацию.'},
+      {it:'Posso chiederti qualcosa?', ru:'Могу тебя кое-что спросить?'},
+      {it:'Chiediamo aiuto.', ru:'Просим помощи.'},
+    ]
+  },
+  {
+    it:'perdere', ph:'[ˈpɛrdere]', ru:'терять, проигрывать', group:'irreg', emoji:'😰',
+    assoc:'Пердита — потеря (персонаж Шекспира). PERDO — теряю',
+    conj:[
+      {pro:'IO',    form:'perdo',    ru:'я теряю',     irreg:true},
+      {pro:'TU',    form:'perdi',    ru:'ты теряешь',  irreg:false},
+      {pro:'LUI/LEI',form:'perde',  ru:'он/она теряет',irreg:false},
+      {pro:'NOI',   form:'perdiamo',ru:'мы теряем',    irreg:false},
+      {pro:'VOI',   form:'perdete', ru:'вы теряете',   irreg:false},
+      {pro:'LORO',  form:'perdono', ru:'они теряют',   irreg:false},
+    ],
+    examples:[
+      {it:'Non perdo mai le chiavi.', ru:'Никогда не теряю ключи.'},
+      {it:'Perdiamo tempo!', ru:'Мы теряем время!'},
+      {it:'Ha perso il lavoro.', ru:'Он потерял работу.'},
+    ]
+  },
+  {
+    it:'mettere', ph:'[ˈmettere]', ru:'класть, ставить, надевать', group:'irreg', emoji:'📦',
+    assoc:'Метка — mettere (поставить метку). METTO — кладу',
+    conj:[
+      {pro:'IO',    form:'metto',    ru:'я кладу',     irreg:true},
+      {pro:'TU',    form:'metti',    ru:'ты кладёшь',  irreg:false},
+      {pro:'LUI/LEI',form:'mette',  ru:'он/она кладёт',irreg:false},
+      {pro:'NOI',   form:'mettiamo',ru:'мы кладём',    irreg:false},
+      {pro:'VOI',   form:'mettete', ru:'вы кладёте',   irreg:false},
+      {pro:'LORO',  form:'mettono', ru:'они кладут',   irreg:false},
+    ],
+    examples:[
+      {it:'Metti il cappotto!', ru:'Надень пальто!'},
+      {it:'Dove metto le chiavi?', ru:'Куда положить ключи?'},
+      {it:'Mettiamo la musica!', ru:'Включим музыку!'},
+    ]
+  },
+  {
+    it:'vincere', ph:'[ˈvintʃere]', ru:'побеждать, выигрывать', group:'irreg', emoji:'🏆',
+    assoc:'Винценцо — имя победителя. VINCO — побеждаю',
+    conj:[
+      {pro:'IO',    form:'vinco',    ru:'я побеждаю',  irreg:true},
+      {pro:'TU',    form:'vinci',    ru:'ты побеждаешь',irreg:false},
+      {pro:'LUI/LEI',form:'vince',  ru:'он/она побеждает',irreg:false},
+      {pro:'NOI',   form:'vinciamo',ru:'мы побеждаем', irreg:false},
+      {pro:'VOI',   form:'vincete', ru:'вы побеждаете',irreg:false},
+      {pro:'LORO',  form:'vincono', ru:'они побеждают',irreg:false},
+    ],
+    examples:[
+      {it:'Vinco sempre a scacchi!', ru:'Всегда выигрываю в шахматы!'},
+      {it:'Chi vince?', ru:'Кто побеждает?'},
+      {it:'Non vinciamo mai.', ru:'Мы никогда не выигрываем.'},
+    ]
+  },
+  {
+    it:'nascere', ph:'[ˈnaʃʃere]', ru:'рождаться', group:'irreg', emoji:'👶',
+    assoc:'Натальность — nascere (рождаемость). NASCO — рождаюсь',
+    conj:[
+      {pro:'IO',    form:'nasco',    ru:'я рождаюсь',  irreg:true},
+      {pro:'TU',    form:'nasci',    ru:'ты рождаешься',irreg:false},
+      {pro:'LUI/LEI',form:'nasce',  ru:'он/она рождается',irreg:false},
+      {pro:'NOI',   form:'nasciamo',ru:'мы рождаемся', irreg:false},
+      {pro:'VOI',   form:'nascete', ru:'вы рождаетесь',irreg:false},
+      {pro:'LORO',  form:'nascono', ru:'они рождаются',irreg:false},
+    ],
+    examples:[
+      {it:'Sono nato a Milano.', ru:'Я родился в Милане.'},
+      {it:'Dove sei nato?', ru:'Где ты родился?'},
+      {it:'Nasce una nuova stella!', ru:'Рождается новая звезда!'},
+    ]
+  },
+  {
+    it:'cadere', ph:'[kaˈdeːre]', ru:'падать', group:'irreg', emoji:'🍂',
+    assoc:'Каденция — падение ноты вниз. CADO — падаю',
+    conj:[
+      {pro:'IO',    form:'cado',     ru:'я падаю',     irreg:true},
+      {pro:'TU',    form:'cadi',     ru:'ты падаешь',  irreg:false},
+      {pro:'LUI/LEI',form:'cade',   ru:'он/она падает',irreg:false},
+      {pro:'NOI',   form:'cadiamo', ru:'мы падаем',    irreg:false},
+      {pro:'VOI',   form:'cadete',  ru:'вы падаете',   irreg:false},
+      {pro:'LORO',  form:'cadono',  ru:'они падают',   irreg:false},
+    ],
+    examples:[
+      {it:'Attento, non cadere!', ru:'Осторожно, не упади!'},
+      {it:'Le foglie cadono in autunno.', ru:'Листья падают осенью.'},
+      {it:'È caduto per strada.', ru:'Он упал на улице.'},
+    ]
+  },
+  {
+    it:'valere', ph:'[vaˈleːre]', ru:'стоить, иметь ценность', group:'irreg', emoji:'💎',
+    assoc:'Валюта — valere (стоить). VALGO — стою (добавляется G!)',
+    conj:[
+      {pro:'IO',    form:'valgo',    ru:'я стою',      irreg:true},
+      {pro:'TU',    form:'vali',     ru:'ты стоишь',   irreg:false},
+      {pro:'LUI/LEI',form:'vale',   ru:'он/она стоит', irreg:false},
+      {pro:'NOI',   form:'valiamo', ru:'мы стоим',     irreg:false},
+      {pro:'VOI',   form:'valete',  ru:'вы стоите',    irreg:false},
+      {pro:'LORO',  form:'valgono', ru:'они стоят',    irreg:true},
+    ],
+    examples:[
+      {it:'Quanto vale?', ru:'Сколько стоит?'},
+      {it:'Non vale la pena!', ru:'Не стоит усилий!'},
+      {it:'Vale molto questo anello.', ru:'Это кольцо стоит много.'},
+    ]
+  },
+  {
+    it:'salire', ph:'[saˈliːre]', ru:'подниматься, садиться (в транспорт)', group:'irreg', emoji:'⬆️',
+    assoc:'Сальто — прыгаешь вверх. SALGO — поднимаюсь (G добавляется!)',
+    conj:[
+      {pro:'IO',    form:'salgo',    ru:'я поднимаюсь', irreg:true},
+      {pro:'TU',    form:'sali',     ru:'ты поднимаешься',irreg:false},
+      {pro:'LUI/LEI',form:'sale',   ru:'он/она поднимается',irreg:false},
+      {pro:'NOI',   form:'saliamo', ru:'мы поднимаемся',irreg:false},
+      {pro:'VOI',   form:'salite',  ru:'вы поднимаетесь',irreg:false},
+      {pro:'LORO',  form:'salgono', ru:'они поднимаются',irreg:true},
+    ],
+    examples:[
+      {it:'Salgo le scale.', ru:'Поднимаюсь по лестнице.'},
+      {it:'Sali sull\'autobus!', ru:'Садись в автобус!'},
+      {it:'Salgono sul treno.', ru:'Они садятся в поезд.'},
+    ]
+  },
+  {
+    it:'sedere', ph:'[seˈdeːre]', ru:'сидеть, сесть', group:'irreg', emoji:'🪑',
+    assoc:'Седан — сидячий автомобиль. SIEDO — сижу (IE появляется!)',
+    conj:[
+      {pro:'IO',    form:'siedo',    ru:'я сижу',      irreg:true},
+      {pro:'TU',    form:'siedi',    ru:'ты сидишь',   irreg:true},
+      {pro:'LUI/LEI',form:'siede',  ru:'он/она сидит', irreg:true},
+      {pro:'NOI',   form:'sediamo', ru:'мы сидим',     irreg:false},
+      {pro:'VOI',   form:'sedete',  ru:'вы сидите',    irreg:false},
+      {pro:'LORO',  form:'siedono', ru:'они сидят',    irreg:true},
+    ],
+    examples:[
+      {it:'Siediti qui!', ru:'Садись сюда!'},
+      {it:'Siedo accanto a te.', ru:'Сижу рядом с тобой.'},
+      {it:'Dov\'è seduto?', ru:'Где он сидит?'},
+    ]
+  },
+  {
+    it:'vedere', ph:'[ˈveːdere]', ru:'видеть', group:'irreg', emoji:'👁️',
+    assoc:'Видео — смотришь и видишь. VEDO — вижу',
+    conj:[
+      {pro:'IO',    form:'vedo',     ru:'я вижу',      irreg:true},
+      {pro:'TU',    form:'vedi',     ru:'ты видишь',   irreg:false},
+      {pro:'LUI/LEI',form:'vede',   ru:'он/она видит', irreg:false},
+      {pro:'NOI',   form:'vediamo', ru:'мы видим',     irreg:false},
+      {pro:'VOI',   form:'vedete',  ru:'вы видите',    irreg:false},
+      {pro:'LORO',  form:'vedono',  ru:'они видят',    irreg:false},
+    ],
+    examples:[
+      {it:'Quando vedi Marco?', ru:'Когда видишь Марко?'},
+      {it:'Non vedo niente!', ru:'Ничего не вижу!'},
+      {it:'Vediamo!', ru:'Посмотрим! (разг.)'},
+    ]
+  },
+  {
+    it:'rispondere', ph:'[risˈpɔndere]', ru:'отвечать', group:'irreg', emoji:'↩️',
+    assoc:'Респондент — отвечающий. RISPONDO — отвечаю',
+    conj:[
+      {pro:'IO',    form:'rispondo', ru:'я отвечаю',   irreg:true},
+      {pro:'TU',    form:'rispondi',ru:'ты отвечаешь', irreg:false},
+      {pro:'LUI/LEI',form:'risponde',ru:'он/она отвечает',irreg:false},
+      {pro:'NOI',   form:'rispondiamo',ru:'мы отвечаем',irreg:false},
+      {pro:'VOI',   form:'rispondete',ru:'вы отвечаете',irreg:false},
+      {pro:'LORO',  form:'rispondono',ru:'они отвечают',irreg:false},
+    ],
+    examples:[
+      {it:'Non rispondo al telefono.', ru:'Не отвечаю на телефон.'},
+      {it:'Rispondi subito!', ru:'Ответь немедленно!'},
+      {it:'Non risponde mai.', ru:'Он никогда не отвечает.'},
+    ]
+  },
+  {
+    it:'proporre', ph:'[proˈpɔrre]', ru:'предлагать', group:'part', emoji:'💡',
+    assoc:'Пропоузал — предложение! PROPONGO — предлагаю (как porre + G)',
+    conj:[
+      {pro:'IO',    form:'propongo', ru:'я предлагаю', irreg:true},
+      {pro:'TU',    form:'proponi', ru:'ты предлагаешь',irreg:true},
+      {pro:'LUI/LEI',form:'propone',ru:'он предлагает',irreg:true},
+      {pro:'NOI',   form:'proponiamo',ru:'мы предлагаем',irreg:true},
+      {pro:'VOI',   form:'proponete',ru:'вы предлагаете',irreg:true},
+      {pro:'LORO',  form:'propongono',ru:'они предлагают',irreg:true},
+    ],
+    examples:[
+      {it:'Propongo un caffè!', ru:'Предлагаю кофе!'},
+      {it:'Cosa proponi?', ru:'Что предлагаешь?'},
+      {it:'Proponiamo una soluzione.', ru:'Предлагаем решение.'},
+    ]
+  },
+  {
+    it:'produrre', ph:'[proˈdurre]', ru:'производить, создавать', group:'part', emoji:'🏭',
+    assoc:'Продукт — produrre. PRODUCO — произвожу (основа produc-!)',
+    conj:[
+      {pro:'IO',    form:'produco',  ru:'я произвожу', irreg:true},
+      {pro:'TU',    form:'produci', ru:'ты производишь',irreg:true},
+      {pro:'LUI/LEI',form:'produce',ru:'он производит',irreg:true},
+      {pro:'NOI',   form:'produciamo',ru:'мы производим',irreg:true},
+      {pro:'VOI',   form:'producete',ru:'вы производите',irreg:true},
+      {pro:'LORO',  form:'producono',ru:'они производят',irreg:true},
+    ],
+    examples:[
+      {it:'L\'Italia produce ottimo vino.', ru:'Италия производит отличное вино.'},
+      {it:'Cosa producete?', ru:'Что вы производите?'},
+      {it:'Producono scarpe di qualità.', ru:'Они производят качественную обувь.'},
+    ]
+  },
+  {
+    it:'raccogliere', ph:'[rakˈkɔʎʎere]', ru:'собирать, подбирать', group:'part', emoji:'🍄',
+    assoc:'Рэкол — собирать урожай. RACCOLGO — собираю (как scegliere!)',
+    conj:[
+      {pro:'IO',    form:'raccolgo', ru:'я собираю',   irreg:true},
+      {pro:'TU',    form:'raccogli',ru:'ты собираешь', irreg:false},
+      {pro:'LUI/LEI',form:'raccoglie',ru:'он собирает',irreg:false},
+      {pro:'NOI',   form:'raccogliamo',ru:'мы собираем',irreg:false},
+      {pro:'VOI',   form:'raccogliete',ru:'вы собираете',irreg:false},
+      {pro:'LORO',  form:'raccolgono',ru:'они собирают',irreg:true},
+    ],
+    examples:[
+      {it:'Raccolgo i funghi nel bosco.', ru:'Собираю грибы в лесу.'},
+      {it:'Raccogli la spazzatura!', ru:'Подбери мусор!'},
+      {it:'Raccolgono le olive.', ru:'Они собирают оливки.'},
+    ]
+  },
+  {
+    it:'offrire', ph:'[ofˈfriːre]', ru:'предлагать, угощать', group:'irreg', emoji:'🎁',
+    assoc:'Оффер — предложение (offer). OFFRO — предлагаю/угощаю',
+    conj:[
+      {pro:'IO',    form:'offro',    ru:'я предлагаю', irreg:true},
+      {pro:'TU',    form:'offri',    ru:'ты предлагаешь',irreg:true},
+      {pro:'LUI/LEI',form:'offre',  ru:'он предлагает',irreg:true},
+      {pro:'NOI',   form:'offriamo',ru:'мы предлагаем',irreg:true},
+      {pro:'VOI',   form:'offrite', ru:'вы предлагаете',irreg:true},
+      {pro:'LORO',  form:'offrono', ru:'они предлагают',irreg:true},
+    ],
+    examples:[
+      {it:'Offro io la pizza!', ru:'Я угощаю пиццей!'},
+      {it:'Ti offro un caffè?', ru:'Угощу тебя кофе?'},
+      {it:'L\'azienda offre un buon lavoro.', ru:'Компания предлагает хорошую работу.'},
+    ]
+  },
+  {
+    it:'soffrire', ph:'[sofˈfriːre]', ru:'страдать, болеть', group:'irreg', emoji:'😢',
+    assoc:'Суффикс страдания — SOFFRO (как offro, только с SO-)',
+    conj:[
+      {pro:'IO',    form:'soffro',   ru:'я страдаю',   irreg:true},
+      {pro:'TU',    form:'soffri',   ru:'ты страдаешь',irreg:true},
+      {pro:'LUI/LEI',form:'soffre', ru:'он страдает',  irreg:true},
+      {pro:'NOI',   form:'soffriamo',ru:'мы страдаем', irreg:true},
+      {pro:'VOI',   form:'soffrite',ru:'вы страдаете', irreg:true},
+      {pro:'LORO',  form:'soffrono',ru:'они страдают', irreg:true},
+    ],
+    examples:[
+      {it:'Soffro di mal di testa.', ru:'Страдаю от головной боли.'},
+      {it:'Non vuole soffrire.', ru:'Он не хочет страдать.'},
+      {it:'Soffriamo insieme.', ru:'Страдаем вместе.'},
+    ]
+  },
+  {
+    it:'aprire', ph:'[aˈpriːre]', ru:'открывать', group:'irreg', emoji:'🔓',
+    assoc:'Аперитив — открывает аппетит! APRO — открываю',
+    conj:[
+      {pro:'IO',    form:'apro',     ru:'я открываю',  irreg:true},
+      {pro:'TU',    form:'apri',     ru:'ты открываешь',irreg:true},
+      {pro:'LUI/LEI',form:'apre',   ru:'он/она открывает',irreg:true},
+      {pro:'NOI',   form:'apriamo', ru:'мы открываем', irreg:true},
+      {pro:'VOI',   form:'aprite',  ru:'вы открываете',irreg:true},
+      {pro:'LORO',  form:'aprono',  ru:'они открывают',irreg:true},
+    ],
+    examples:[
+      {it:'Apri la finestra!', ru:'Открой окно!'},
+      {it:'Il negozio apre alle 9.', ru:'Магазин открывается в 9.'},
+      {it:'Apriamo una bottiglia!', ru:'Откроем бутылку!'},
+    ]
+  },
+  {
+    it:'coprire', ph:'[koˈpriːre]', ru:'покрывать, накрывать', group:'irreg', emoji:'🛡️',
+    assoc:'Крышка — coprire (накрыть). COPRO — покрываю (как apro!)',
+    conj:[
+      {pro:'IO',    form:'copro',    ru:'я покрываю',  irreg:true},
+      {pro:'TU',    form:'copri',    ru:'ты покрываешь',irreg:true},
+      {pro:'LUI/LEI',form:'copre',  ru:'он покрывает', irreg:true},
+      {pro:'NOI',   form:'copriamo',ru:'мы покрываем', irreg:true},
+      {pro:'VOI',   form:'coprite', ru:'вы покрываете',irreg:true},
+      {pro:'LORO',  form:'coprono', ru:'они покрывают',irreg:true},
+    ],
+    examples:[
+      {it:'Copri il bambino!', ru:'Укрой ребёнка!'},
+      {it:'La neve copre tutto.', ru:'Снег покрывает всё.'},
+      {it:'Mi copro con una coperta.', ru:'Укрываюсь одеялом.'},
+    ]
+  },
+  {
+    it:'sciogliere', ph:'[ˈʃɔʎʎere]', ru:'растворять, развязывать', group:'part', emoji:'🧊',
+    assoc:'Щёлочь — растворяет. SCIOLGO — растворяю (как scegliere!)',
+    conj:[
+      {pro:'IO',    form:'sciolgo',  ru:'я растворяю', irreg:true},
+      {pro:'TU',    form:'sciogli', ru:'ты растворяешь',irreg:false},
+      {pro:'LUI/LEI',form:'scioglie',ru:'он растворяет',irreg:false},
+      {pro:'NOI',   form:'sciogliamo',ru:'мы растворяем',irreg:false},
+      {pro:'VOI',   form:'sciogliete',ru:'вы растворяете',irreg:false},
+      {pro:'LORO',  form:'sciolgono',ru:'они растворяют',irreg:true},
+    ],
+    examples:[
+      {it:'Sciolgo lo zucchero nel caffè.', ru:'Растворяю сахар в кофе.'},
+      {it:'Il ghiaccio si scioglie.', ru:'Лёд тает.'},
+      {it:'Sciogli il nodo!', ru:'Развяжи узел!'},
+    ]
+  },
+  {
+    it:'cogliere', ph:'[ˈkɔʎʎere]', ru:'срывать, улавливать', group:'part', emoji:'🌸',
+    assoc:'Коль — срываешь цветок. COLGO — срываю (OL→LGO для IO!)',
+    conj:[
+      {pro:'IO',    form:'colgo',    ru:'я срываю',    irreg:true},
+      {pro:'TU',    form:'cogli',    ru:'ты срываешь', irreg:false},
+      {pro:'LUI/LEI',form:'coglie', ru:'он срывает',   irreg:false},
+      {pro:'NOI',   form:'cogliamo',ru:'мы срываем',   irreg:false},
+      {pro:'VOI',   form:'cogliete',ru:'вы срываете',  irreg:false},
+      {pro:'LORO',  form:'colgono', ru:'они срывают',  irreg:true},
+    ],
+    examples:[
+      {it:'Colgo i fiori nel giardino.', ru:'Срываю цветы в саду.'},
+      {it:'Cogli l\'occasione!', ru:'Улови момент! (Пользуйся возможностью!)'},
+      {it:'Hai colto nel segno!', ru:'Ты попал в точку!'},
+    ]
+  },
+  {
+    it:'ridurre', ph:'[riˈdurre]', ru:'уменьшать, сокращать', group:'part', emoji:'📉',
+    assoc:'Редукция — ridurre. RIDUCO — сокращаю (как condurre!)',
+    conj:[
+      {pro:'IO',    form:'riduco',   ru:'я сокращаю',  irreg:true},
+      {pro:'TU',    form:'riduci',  ru:'ты сокращаешь',irreg:true},
+      {pro:'LUI/LEI',form:'riduce', ru:'он сокращает', irreg:true},
+      {pro:'NOI',   form:'riduciamo',ru:'мы сокращаем',irreg:true},
+      {pro:'VOI',   form:'riducete',ru:'вы сокращаете',irreg:true},
+      {pro:'LORO',  form:'riducono',ru:'они сокращают',irreg:true},
+    ],
+    examples:[
+      {it:'Riduco le spese.', ru:'Сокращаю расходы.'},
+      {it:'Riduci il volume!', ru:'Уменьши громкость!'},
+      {it:'Riducono i prezzi.', ru:'Они снижают цены.'},
+    ]
+  },
+  {
+    it:'introdurre', ph:'[introduˈrre]', ru:'вводить, представлять', group:'part', emoji:'🚪',
+    assoc:'Интродукция — вступление. INTRODUCO — ввожу (как condurre!)',
+    conj:[
+      {pro:'IO',    form:'introduco',ru:'я ввожу',     irreg:true},
+      {pro:'TU',    form:'introduci',ru:'ты вводишь',  irreg:true},
+      {pro:'LUI/LEI',form:'introduce',ru:'он вводит',  irreg:true},
+      {pro:'NOI',   form:'introduciamo',ru:'мы вводим',irreg:true},
+      {pro:'VOI',   form:'introducete',ru:'вы вводите',irreg:true},
+      {pro:'LORO',  form:'introducono',ru:'они вводят',irreg:true},
+    ],
+    examples:[
+      {it:'Introduco una nuova regola.', ru:'Ввожу новое правило.'},
+      {it:'Ti introduco al mio amico.', ru:'Представляю тебя своему другу.'},
+      {it:'Introducono cambiamenti.', ru:'Они вводят изменения.'},
+    ]
+  },
+];
+
+const GROUP_LABELS = {
+  all: 'Все (51)',
+  irreg: '🔴 Нерегулярные',
+  modal: '🟡 Модальные',
+  part: '🟢 Частично',
+};
+
+// ══════════════════════════════════════════════════════
+// TTS
+// ══════════════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>c.classList.remove('on'));
+  chip.classList.add('on');
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+
+async function pl(text, btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.ct-play,.ex-play').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    if(!ttsCache[text]){
+      const body={input:{text},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.82}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json();
+      ttsCache[text]=d.audioContent;
+    }
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[text]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){
+    if(btn)btn.classList.remove('pl');
+    setKS('❌ '+e.message,'err');
+  }
+}
+
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json();
+    ttsCache['ciao']=d.audioContent;
+    ttsKey=k;
+    document.getElementById('adot').classList.add('on');
+    document.getElementById('atext').textContent='✅ Звук подключён — нажимай 🔊 на любой форме!';
+    document.getElementById('ap').classList.add('conn');
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('.ac').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    renderCards();
+    document.querySelectorAll('.ct-play,.ex-play').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+function ckx(){
+  ttsKey='';
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  ['akey','ahint'].forEach(id=>document.getElementById(id).style.display='block');
+  document.querySelector('.ac').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').classList.remove('on');
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — слушай каждую форму глагола';
+  document.getElementById('ap').classList.remove('conn');
+  setKS('','');
+  renderCards();
+}
+function setKS(m,t){const el=document.getElementById('ks');el.textContent=m;el.className=t;}
+
+// ══════════════════════════════════════════════════════
+// CARDS
+// ══════════════════════════════════════════════════════
+let activeGroup='all';
+
+function mkVerbCard(v){
+  const off=ttsKey?'':'off';
+  const badgeClass={'irreg':'b-irreg','modal':'b-modal','part':'b-part'}[v.group];
+  const badgeLabel={'irreg':'🔴 Нерегулярный','modal':'🟡 Модальный','part':'🟢 Частично'}[v.group];
+
+  const conjRows = v.conj.map(c=>`
+    <tr>
+      <td class="ct-pro">${c.pro}</td>
+      <td class="ct-it ${c.irreg?'ct-irreg':'ct-reg'}">${c.form}</td>
+      <td class="ct-ru">${c.ru}</td>
+      <td><button class="ct-play ${off}" onclick="pl('${c.form}',this)">🔊</button></td>
+    </tr>`).join('');
+
+  const exRows = v.examples.map(e=>`
+    <div class="ex-item">
+      <button class="ex-play ${off}" onclick="pl('${e.it.replace(/'/g,"\\'")}',this)">🔊</button>
+      <div>
+        <div class="ex-it" onclick="pl('${e.it.replace(/'/g,"\\'")}',this.previousElementSibling.previousElementSibling)">${e.it}</div>
+        <div class="ex-ru">${e.ru}</div>
+      </div>
+    </div>`).join('');
+
+  return `<div class="vcard">
+    <div class="vc-top">
+      <div class="vc-emoji">${v.emoji}</div>
+      <div class="vc-badge ${badgeClass}">${badgeLabel}</div>
+      <div class="vc-it" onclick="pl('${v.it.split('→')[0].trim()}',null)" style="cursor:pointer">${v.it}</div>
+      <div class="vc-ph">${v.ph}</div>
+      <div class="vc-ru">${v.ru}</div>
+      <div class="vc-assoc">💡 ${v.assoc}</div>
+      <table class="conj-table">${conjRows}</table>
+      <div style="font-size:.56rem;color:#556;margin-top:4px">
+        <span style="color:#f0d060">■</span> нерегулярная форма &nbsp; <span style="color:#5ac4a0">■</span> правильная
+      </div>
+    </div>
+    <div class="vc-ex">
+      <div class="ex-label">Примеры из речи</div>
+      ${exRows}
+    </div>
+  </div>`;
+}
+
+function renderCards(){
+  const filtered = activeGroup==='all' ? VERBS : VERBS.filter(v=>v.group===activeGroup);
+  document.getElementById('vgrid').innerHTML = filtered.map(mkVerbCard).join('');
+  // filter buttons
+  document.getElementById('gf').innerHTML = Object.entries(GROUP_LABELS).map(([k,l])=>
+    `<button class="gfb${k===activeGroup?' on':''}" onclick="setGroup('${k}')">${l}</button>`
+  ).join('');
+}
+
+function setGroup(g){
+  activeGroup=g;
+  renderCards();
+}
+
+// ══════════════════════════════════════════════════════
+// TRAINER
+// ══════════════════════════════════════════════════════
+let trGroup='all', trMode='', trWords=[], trIdx=0, trSc=0, trTotal=0, trAns=false;
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+
+function renderTrGroups(){
+  document.getElementById('tr-groups').innerHTML = Object.entries(GROUP_LABELS).map(([k,l])=>
+    `<button class="tpb${k===trGroup?' on':''}" id="tg-${k}" onclick="setTG('${k}')">${l}</button>`
+  ).join('');
+}
+function setTG(g){
+  trGroup=g;
+  renderTrGroups();
+}
+
+function getTrPool(){
+  return trGroup==='all' ? VERBS : VERBS.filter(v=>v.group===trGroup);
+}
+
+function startTR(mode){
+  trMode=mode; trWords=shuf(getTrPool());
+  trIdx=0; trSc=0; trTotal=trWords.length; trAns=false;
+  document.getElementById('tpick').style.display='none';
+  document.getElementById('tarea').style.display='block';
+  renderTQ();
+}
+function stopTR(){
+  document.getElementById('tpick').style.display='block';
+  document.getElementById('tarea').style.display='none';
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+}
+function renderTQ(){
+  if(trIdx>=trTotal){renderTRes();return;}
+  trAns=false;
+  const v=trWords[trIdx];
+  const sp=trIdx>0?Math.round(trSc/trIdx*100):100;
+  if(trMode==='flip') trFlip(v,sp);
+  else if(trMode==='conj') trConj(v,sp);
+  else if(trMode==='mean') trMean(v,sp);
+  else trAudio(v,sp);
+}
+function tprog(sp){
+  return `<div class="qprog"><span>${trIdx}/${trTotal}</span><span>✓ ${trSc}</span></div>
+  <div class="qbar"><div class="qfill" style="width:${sp}%"></div></div>`;
+}
+function tnav(extra=''){
+  return `<div class="qnav">${extra}<button class="qnb" onclick="stopTR()">✕ Выйти</button></div>`;
+}
+function trFlip(v,sp){
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(sp)}
+    <div style="font-size:.68rem;color:var(--muted);margin-bottom:8px;text-align:center">Нажми карточку чтобы увидеть спряжение</div>
+    <div class="fw" onclick="this.querySelector('.fc').classList.toggle('fl')">
+      <div class="fc">
+        <div class="ff2 f1">
+          <div class="fl2">Глагол</div>
+          <div class="fw2">${v.it}</div>
+          <div class="fs2">${v.ph}</div>
+          <div class="fa2">«${v.assoc.substring(0,60)}...»</div>
+        </div>
+        <div class="ff2 f2">
+          <div class="fl2">Спряжение</div>
+          <div class="fw2b" style="font-size:1.3rem;margin-bottom:5px">${v.ru}</div>
+          <div class="fconj">${v.conj.map(c=>`${c.pro}: <b>${c.form}</b>`).join('<br>')}</div>
+        </div>
+      </div>
+    </div>
+    ${tnav(`
+      <button class="qnb" onclick="pl('${v.it.split('→')[0].trim()}',null)">🔊</button>
+      <button class="qnb" onclick="trMF(false)">✕</button>
+      <button class="qnb p" onclick="trMF(true)">✓ Знал</button>
+    `)}
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(v.it.split('→')[0].trim(),null),300);
+}
+function trMF(k){if(k)trSc++;trIdx++;renderTQ();}
+
+function trConj(v,sp){
+  // Pick random person to test
+  const testPerson=shuf(v.conj)[0];
+  const pool=getTrPool();
+  // Get wrong options from other verbs
+  const wrongs=shuf(pool.filter(x=>x.it!==v.it).map(x=>{
+    const match=x.conj.find(c=>c.pro===testPerson.pro);
+    return match?match.form:null;
+  }).filter(Boolean)).slice(0,3);
+  const opts=shuf([testPerson.form,...wrongs]);
+  const nc=opts.indexOf(testPerson.form);
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(sp)}
+    <div class="qmeta"><span class="qnum">Спряжение</span><span class="qtag tg-conj">CONJ</span></div>
+    <div class="qtext">Форма <span class="it">${v.it}</span> для <strong>${testPerson.pro}</strong>:</div>
+    <div style="font-size:.78rem;color:var(--muted);margin-bottom:10px">${v.ru}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-correct="${i===nc}" onclick="checkQ(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="qfb" id="qfb"></div>
+    <div class="navrow">
+      <button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+      <button class="btn-next" id="nextb" onclick="trNext()">${trIdx<trTotal-1?'Следующий →':'Результат 🎉'}</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(v.it.split('→')[0].trim(),null),300);
+}
+
+function trMean(v,sp){
+  const pool=getTrPool();
+  const opts=shuf([v,...shuf(pool.filter(x=>x.it!==v.it)).slice(0,3)]);
+  const nc=opts.indexOf(v);
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(sp)}
+    <div class="qmeta"><span class="qnum">Перевод</span><span class="qtag tg-mean">ЗНАЧЕНИЕ</span></div>
+    <div class="qtext">Что означает <span class="it">${v.it}</span>?</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-correct="${i===nc}" onclick="checkQ(this,${i===nc})">${o.ru}</button>`).join('')}</div>
+    <div class="qfb" id="qfb"></div>
+    <div class="navrow">
+      <button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+      <button class="btn-next" id="nextb" onclick="trNext()">${trIdx<trTotal-1?'Следующий →':'Результат 🎉'}</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(v.it.split('→')[0].trim(),null),300);
+}
+
+function trAudio(v,sp){
+  const pool=getTrPool();
+  const opts=shuf([v,...shuf(pool.filter(x=>x.it!==v.it)).slice(0,3)]);
+  const nc=opts.indexOf(v);
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${tprog(sp)}
+    <div class="qmeta"><span class="qnum">На слух</span><span class="qtag tg-chose">АУДИО</span></div>
+    <div style="text-align:center;margin:8px 0 14px">
+      ${ttsKey?`<button class="qnb p" style="padding:13px 22px;font-size:1rem" onclick="pl('${v.it.split('→')[0].trim()}',null)">🔊 Воспроизвести</button>`:'<div style="color:var(--muted);font-size:.8rem">⚠️ Подключи TTS для этого режима</div>'}
+    </div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-correct="${i===nc}" onclick="checkQ(this,${i===nc})">${o.it}</button>`).join('')}</div>
+    <div class="qfb" id="qfb"></div>
+    <div class="navrow">
+      <button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+      <button class="btn-next" id="nextb" onclick="trNext()">${trIdx<trTotal-1?'Следующий →':'Результат 🎉'}</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(v.it.split('→')[0].trim(),null),400);
+}
+
+function checkQ(btn,ok){
+  if(trAns)return; trAns=true;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('skipb').style.display='none';
+  document.getElementById('nextb').style.display='block';
+  const fb=document.getElementById('qfb');
+  const v=trWords[trIdx];
+  if(ok){
+    trSc++;
+    btn.classList.add('correct');
+    fb.className='qfb ok';
+    fb.innerHTML='✓ Правильно! <em style="font-family:\'Playfair Display\',serif">'
+      +v.conj.map(c=>`${c.pro}: ${c.form}`).join(' · ')+'</em>';
+  } else {
+    btn.classList.add('wrong');
+    document.querySelector('.opt[data-correct="true"]').classList.add('correct');
+    fb.className='qfb err';
+    fb.innerHTML='✕ Неправильно. Правильное спряжение: <em style="font-family:\'Playfair Display\',serif">'
+      +v.conj.map(c=>`${c.pro}: ${c.form}`).join(' · ')+'</em>';
+  }
+}
+function trSkip(){trIdx++;renderTQ();}
+function trNext(){trIdx++;renderTQ();}
+
+function renderTRes(){
+  const pct=Math.round(trSc/trTotal*100);
+  const msg=pct>=90?'🏆 Великолепно!':pct>=70?'👍 Хорошо!':pct>=50?'📚 Повтори.':'🔄 Ещё раз!';
+  document.getElementById('tarea').innerHTML=`<div class="qcard" style="text-align:center">
+    <div class="qrs">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-top:2px">${trSc} из ${trTotal}</div>
+    <div style="font-size:.9rem;margin:10px 0">${msg}</div>
+    <div class="qnav" style="flex-direction:column;gap:6px;margin-top:11px">
+      <button class="qnb p" onclick="startTR('${trMode}')">🔄 Ещё раз</button>
+      <button class="qnb" onclick="stopTR()">← Выбрать режим</button>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// TEST — 30 ВОПРОСОВ
+// ══════════════════════════════════════════════════════
+const TEST_Q = [
+  // ESSERE
+  {tag:'tg-conj',tl:'ESSERE',q:'IO essere = ?',opts:['sei','sono','siamo','è'],a:1,ex:'<strong>sono</strong> — IO. Essere: sono/sei/è/siamo/siete/sono.'},
+  {tag:'tg-conj',tl:'ESSERE',q:'VOI essere = ?',opts:['sono','siete','siamo','sei'],a:1,ex:'<strong>siete</strong> — VOI. Единственная правильная форма!'},
+  {tag:'tg-fill',tl:'ESSERE',q:'Вставь: <div class="qsent">Voi non <span class="blank">___</span> italiani, <span class="blank">___</span> stranieri.</div>',opts:['siete/siete','sono/sono','siete/sono','sei/sei'],a:0,ex:'<strong>siete</strong> для VOI — оба раза одна форма!'},
+  // AVERE
+  {tag:'tg-conj',tl:'AVERE',q:'LORO avere = ?',opts:['avete','abbiamo','hanno','ha'],a:2,ex:'<strong>hanno</strong> — LORO. IO ho, TU hai, LUI ha, NOI abbiamo, VOI avete, LORO hanno.'},
+  {tag:'tg-conj',tl:'AVERE',q:'NOI avere = ?',opts:['avete','abbiamo','hanno','ho'],a:1,ex:'<strong>abbiamo</strong> — NOI. Нерегулярная форма — выучи!'},
+  {tag:'tg-fill',tl:'AVERE',q:'Вставь: <div class="qsent">Professore, <span class="blank">___</span> un po\' di tempo?</div>',opts:['avete','hai','ha','hanno'],a:2,ex:'<strong>ha</strong> — Lei формальное → 3 лицо ед.ч. → ha.'},
+  // FARE
+  {tag:'tg-conj',tl:'FARE',q:'IO fare = ?',opts:['faro','faccio','fai','fanno'],a:1,ex:'<strong>faccio</strong> — IO. Не faro! Fare: faccio/fai/fa/facciamo/fate/fanno.'},
+  {tag:'tg-conj',tl:'FARE',q:'LORO fare = ?',opts:['fate','fanno','faccio','facciamo'],a:1,ex:'<strong>fanno</strong> — LORO. Как STANNO и DANNO — двойное N!'},
+  {tag:'tg-fill',tl:'FARE',q:'Вставь: <div class="qsent">Che tempo <span class="blank">___</span>?</div>',opts:['è','ha','fa','faccio'],a:2,ex:'<strong>fa</strong> — погода через FARE. Che tempo fa? = Какая погода?'},
+  // ANDARE
+  {tag:'tg-conj',tl:'ANDARE',q:'TU andare = ?',opts:['vado','vai','va','andate'],a:1,ex:'<strong>vai</strong> — TU. Dove vai? — Куда идёшь?'},
+  {tag:'tg-conj',tl:'ANDARE',q:'LORO andare = ?',opts:['andate','andiamo','va','vanno'],a:3,ex:'<strong>vanno</strong> — LORO. Запомни: vado/vai/va/andiamo/andate/vanno.'},
+  {tag:'tg-fill',tl:'ANDARE',q:'Вставь: <div class="qsent">Noi <span class="blank">___</span> al cinema stasera!</div>',opts:['vanno','vado','andiamo','vai'],a:2,ex:'<strong>andiamo</strong> — NOI. Andiamo! = Пошли! (очень частая фраза!)'},
+  // VENIRE
+  {tag:'tg-conj',tl:'VENIRE',q:'IO venire = ?',opts:['vieni','viene','vengo','veniamo'],a:2,ex:'<strong>vengo</strong> — IO. VENGO — добавляется G! vengo/vieni/viene/veniamo/venite/vengono.'},
+  {tag:'tg-conj',tl:'VENIRE',q:'LORO venire = ?',opts:['venite','veniamo','viene','vengono'],a:3,ex:'<strong>vengono</strong> — LORO. Основа veng- для IO и LORO.'},
+  {tag:'tg-fill',tl:'VENIRE',q:'Вставь: <div class="qsent"><span class="blank">___</span> con noi? — <span class="blank">___</span> subito!</div>',opts:['Vieni/Vengo','Viene/Vado','Vai/Vengo','Vieni/Vado'],a:0,ex:'<strong>Vieni</strong> (TU) — приходишь? <strong>Vengo</strong> (IO) — прихожу!'},
+  // VOLERE
+  {tag:'tg-conj',tl:'VOLERE',q:'IO volere = ?',opts:['volo','volgo','voglio','vuoi'],a:2,ex:'<strong>voglio</strong> — IO. Не volo! voglio/vuoi/vuole/vogliamo/volete/vogliono.'},
+  {tag:'tg-conj',tl:'VOLERE',q:'TU volere = ?',opts:['voglio','vuole','vuoi','volete'],a:2,ex:'<strong>vuoi</strong> — TU. Cosa vuoi? — Чего хочешь?'},
+  {tag:'tg-fill',tl:'VOLERE',q:'Вставь: <div class="qsent">Non <span class="blank">___</span> venire, ma <span class="blank">___</span>.</div>',opts:['vuoi/devo','voglio/devo','vuoi/deve','voglio/deve'],a:1,ex:'IO: <strong>voglio</strong> (volere) и <strong>devo</strong> (dovere). Оба модальных!'},
+  // POTERE / DOVERE
+  {tag:'tg-conj',tl:'POTERE',q:'IO potere = ?',opts:['puo','puoi','posso','potete'],a:2,ex:'<strong>posso</strong> — IO. posso/puoi/può/possiamo/potete/possono. Двойное SS!'},
+  {tag:'tg-conj',tl:'DOVERE',q:'NOI dovere = ?',opts:['dovete','devono','dobbiamo','devo'],a:2,ex:'<strong>dobbiamo</strong> — NOI. Нерегулярная форма — единственная с BBIAMO!'},
+  {tag:'tg-fill',tl:'Модальные',q:'Вставь: <div class="qsent"><span class="blank">___</span> aiutarti? — Grazie, non è necessario.</div>',opts:['Posso','Devo','Voglio','Puoi'],a:0,ex:'<strong>Posso</strong> aiutarti? — Могу помочь? IO potere = posso.'},
+  // DARE / DIRE / STARE
+  {tag:'tg-conj',tl:'DARE',q:'IO dare = ?',opts:['dai','dà','do','diamo'],a:2,ex:'<strong>do</strong> — IO. Самая короткая форма! do/dai/dà/diamo/date/danno.'},
+  {tag:'tg-conj',tl:'DIRE',q:'NOI dire = ?',opts:['dite','dicono','dico','diciamo'],a:3,ex:'<strong>diciamo</strong> — NOI. dico/dici/dice/diciamo/dite/dicono.'},
+  {tag:'tg-fill',tl:'STARE',q:'Вставь: <div class="qsent">Come <span class="blank">___</span>? — <span class="blank">___</span> bene!</div>',opts:['stai/Sto','sei/Sono','hai/Ho','vai/Vado'],a:0,ex:'<strong>stai</strong> (TU) и <strong>sto</strong> (IO) — STARE. Come stai? — уже знаешь!'},
+  // ЧАСТИЧНО НЕРЕГУЛЯРНЫЕ
+  {tag:'tg-conj',tl:'TENERE',q:'IO tenere = ?',opts:['tenio','teno','tengo','tiene'],a:2,ex:'<strong>tengo</strong> — IO. Добавляется G! tengo/tieni/tiene/teniamo/tenete/tengono.'},
+  {tag:'tg-conj',tl:'BERE',q:'NOI bere = ?',opts:['bero','bero','beviamo','biamo'],a:2,ex:'<strong>beviamo</strong> — NOI. Основа BEV-! bevo/bevi/beve/beviamo/bevete/bevono.'},
+  {tag:'tg-conj',tl:'USCIRE',q:'IO uscire = ?',opts:['uscio','usco','esco','esci'],a:2,ex:'<strong>esco</strong> — IO. Добавляется EC-! esco/esci/esce/usciamo/uscite/escono.'},
+  {tag:'tg-conj',tl:'SAPERE',q:'IO sapere = ?',opts:['sapio','spo','so','sai'],a:2,ex:'<strong>so</strong> — IO. Очень короткая! so/sai/sa/sappiamo/sapete/sanno.'},
+  // ПРЕДЛОЖЕНИЯ
+  {tag:'tg-fill',tl:'Предложения',q:'Вставь: <div class="qsent">Non <span class="blank">___</span> dove abita Marco.</div>',opts:['posso','voglio','so','devo'],a:2,ex:'<strong>so</strong> — sapere (знать). Non lo so. = Не знаю.'},
+  {tag:'tg-mean',tl:'Перевод',q:'Как по-итальянски «Мне нужно идти»?',opts:['Voglio andare','Posso andare','Devo andare','Vado'],a:2,ex:'<strong>Devo andare</strong> — dovere (должен) + andare. IO dovere = devo.'},
+  {tag:'tg-chose',tl:'Перевод',q:'«Facciamo una passeggiata!» = ?',opts:['Они делают прогулку!','Пойдём на прогулку!','Делай прогулку!','Я делаю прогулку'],a:1,ex:'<strong>Facciamo</strong> = NOI fare. «Facciamo» часто используется как предложение «Давай сделаем!»'},
+];
+
+let testState={};
+
+function startTest(){
+  const qs=shuf(TEST_Q);
+  testState={questions:qs,current:0,score:0,answered:false,userAnswers:[]};
+  document.getElementById('test-start').style.display='none';
+  document.getElementById('test-result').style.display='none';
+  document.getElementById('test-quiz').style.display='block';
+  renderTestQ();
+}
+
+function renderTestQ(){
+  if(testState.current>=testState.questions.length){showTestResult();return;}
+  const q=testState.questions[testState.current];
+  testState.answered=false;
+  const pct=Math.round(testState.current/testState.questions.length*100);
+  const sf=shuf([0,1,2,3].slice(0,q.opts.length));
+  const nc=sf.indexOf(q.a);
+  const so=sf.map(i=>q.opts[i]);
+  document.getElementById('test-quiz').innerHTML=`<div class="qcard">
+    <div class="qmeta"><span class="qnum">Вопрос ${testState.current+1}/${testState.questions.length}</span><span class="qtag ${q.tag}">${q.tl}</span></div>
+    <div class="qprog"><span></span><span>✓ ${testState.score}</span></div>
+    <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>
+    <div class="qtext">${q.q}</div>
+    <div class="opts">${so.map((o,i)=>`<button class="opt" data-correct="${i===nc}" onclick="checkTest(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="qfb" id="tfb"></div>
+    <div class="navrow">
+      <button class="btn-skip" id="tskip" onclick="testSkip()">Пропустить</button>
+      <button class="btn-next" id="tnext" onclick="testNext()">${testState.current<testState.questions.length-1?'Следующий →':'Результат 🎉'}</button>
+    </div>
+  </div>`;
+}
+
+function checkTest(btn,ok){
+  if(testState.answered)return;
+  testState.answered=true;
+  const q=testState.questions[testState.current];
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('tskip').style.display='none';
+  document.getElementById('tnext').style.display='block';
+  const fb=document.getElementById('tfb');
+  if(ok){testState.score++;btn.classList.add('correct');fb.className='qfb ok';fb.innerHTML='✓ Правильно! '+q.ex;testState.userAnswers.push({q,correct:true});}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-correct="true"]').classList.add('correct');fb.className='qfb err';fb.innerHTML='✕ Неправильно. '+q.ex;testState.userAnswers.push({q,correct:false,chosen:btn.textContent.trim()});}
+}
+function testSkip(){testState.userAnswers.push({q:testState.questions[testState.current],correct:false,chosen:'—'});testNext();}
+function testNext(){testState.current++;renderTestQ();}
+
+function showTestResult(){
+  document.getElementById('test-quiz').style.display='none';
+  document.getElementById('test-result').style.display='block';
+  const total=testState.questions.length;
+  const pct=Math.round(testState.score/total*100);
+  const color=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const emoji=pct>=90?'🏆':pct>=75?'🎉':pct>=60?'👍':'📚';
+  const msg=pct>=90?'Превосходно! Неправильные глаголы усвоены!':pct>=75?'Хорошо! Повтори слабые места.':pct>=60?'Неплохо — ещё немного практики!':'Вернись к карточкам.';
+  const cats={};
+  testState.userAnswers.forEach(({q,correct})=>{
+    if(!cats[q.tl])cats[q.tl]={t:0,c:0};
+    cats[q.tl].t++;if(correct)cats[q.tl].c++;
+  });
+  const wrong=testState.userAnswers.filter(x=>!x.correct);
+  document.getElementById('test-result').innerHTML=`<div class="res-card">
+    <div style="font-size:2.8rem;margin-bottom:7px">${emoji}</div>
+    <div class="res-pct" style="color:${color}">${pct}%</div>
+    <div class="res-lbl">${testState.score} из ${total} правильно</div>
+    <div style="font-size:.9rem;line-height:1.7;margin-bottom:12px">${msg}</div>
+    <div class="divider"></div>
+    <div class="sec-title">📊 По глаголам</div>
+    <div class="cat-grid">
+      ${Object.entries(cats).map(([name,{t,c}])=>{
+        const p=Math.round(c/t*100);
+        const col=p>=75?'var(--verde)':p>=50?'var(--oro)':'var(--rosso)';
+        return `<div class="cat-row"><div class="cat-name">${name}</div>
+          <div class="cat-bar"><div class="cat-fill2" style="width:${p}%;background:${col}"></div></div>
+          <div class="cat-sc" style="color:${col}">${c}/${t}</div></div>`;
+      }).join('')}
+    </div>
+    ${wrong.length>0?`
+    <div class="divider"></div>
+    <div class="sec-title">📋 Разбор ошибок</div>
+    <div style="display:grid;gap:4px;margin-bottom:14px">
+      ${wrong.map(({q,chosen})=>`
+        <div class="err-q">${q.q.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}${chosen&&chosen!=='—'?`<br><span style="font-size:.68rem">Твой ответ: ${chosen}</span>`:''}</div>
+        <div class="ok-ex">💡 ${q.ex}</div>`).join('')}
+    </div>`:``}
+    <button class="btn-r" onclick="startTest()">🔄 Пройти снова</button>
+    <button class="btn-b" onclick="document.getElementById('test-result').style.display='none';document.getElementById('test-start').style.display='block'">← К старту</button>
+  </div>`;
+}
+
+// ══════════════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════════════
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  const idx=['cards','train','test','marathon','rules'].indexOf(id);
+  document.querySelectorAll('.mnb')[idx].classList.add('on');
+  if(id==='train') stopTR();
+  if(id==='marathon'){mStop();renderMarathonStart();}
+}
+
+// ══════════════════════════════════════════════════════
+// MARATHON — АУДИО МАРАФОН
+// ══════════════════════════════════════════════════════
+const PROS_M   = ['IO','TU','LUI / LEI','NOI','VOI','LORO'];
+const PROS_RU_M= ['я','ты','он / она','мы','вы','они'];
+
+let mGroup='all', mPause=2, mSpeed=0.8;
+let mQueue=[], mIdx=0, mDone=[];
+let mRunning=false;
+let mCurrentAudio=null;  // текущий Audio объект
+let mAborted=false;      // флаг прерывания текущего воспроизведения
+
+// ── Вспомогательные ──────────────────────────────────
+
+function mAbort(){
+  mAborted=true;
+  if(mCurrentAudio){mCurrentAudio.pause();mCurrentAudio=null;}
+}
+
+// Воспроизвести один текст, вернуть Promise
+function plM(text){
+  return new Promise((resolve,reject)=>{
+    const key=text+'|'+mSpeed;
+    const play=()=>{
+      const a=new Audio('data:audio/mp3;base64,'+ttsCache[key]);
+      mCurrentAudio=a;
+      a.onended=()=>{mCurrentAudio=null;resolve();};
+      a.onerror=()=>{mCurrentAudio=null;reject(new Error('audio error'));};
+      a.play();
+    };
+    if(ttsCache[key]){play();return;}
+    const body={
+      input:{text},
+      voice:{languageCode:'it-IT',name:ttsVoice},
+      audioConfig:{audioEncoding:'MP3',speakingRate:mSpeed}
+    };
+    fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+      .then(r=>{if(!r.ok)throw new Error('TTS error');return r.json();})
+      .then(d=>{ttsCache[key]=d.audioContent;play();})
+      .catch(reject);
+  });
+}
+
+function mSleep(ms){
+  return new Promise(r=>setTimeout(r,ms));
+}
+
+// ── Ядро воспроизведения ─────────────────────────────
+
+// Запускает воспроизведение одной формы и (если auto=true) цепочку дальше
+async function mRun(){
+  if(!ttsKey||mIdx>=mQueue.length) return;
+  mAborted=false;
+
+  const q=mQueue[mIdx];
+  const i=mIdx;
+  const st=()=>document.getElementById('m-status');
+
+  try{
+    if(st()) st().textContent='🔊 Слушаю...';
+
+    if(q.intro){
+      // INTRO — произносим только инфинитив
+      await plM(q.verb);
+      if(mAborted||mIdx!==i) return;
+      if(st()) st().textContent='⏳ Повтори: '+q.verb;
+      mDone[i]=1;
+      if(mRunning){
+        await mSleep(mPause*1000);
+        if(mAborted||mIdx!==i||!mRunning) return;
+        mGoNext();
+      } else {
+        if(st()) st().textContent='✓ Нажми → чтобы начать склонение';
+      }
+    } else {
+      // ФОРМА — произносим местоимение + форму
+      await plM(q.pro.replace('/',','));
+      if(mAborted||mIdx!==i) return;
+
+      await mSleep(400);
+      if(mAborted||mIdx!==i) return;
+
+      await plM(q.form);
+      if(mAborted||mIdx!==i) return;
+
+      mDone[i]=1;
+      if(st()) st().textContent='⏳ Повтори: '+q.form;
+
+      if(mRunning){
+        await mSleep(mPause*1000);
+        if(mAborted||mIdx!==i||!mRunning) return;
+        mGoNext();
+      } else {
+        if(st()) st().textContent='✓ Нажми → или ▶ Авто';
+      }
+    }
+
+  }catch(e){
+    const s=st();
+    if(s){s.style.color='#e07070';s.textContent='❌ '+e.message;}
+  }
+}
+
+function mGoNext(){
+  if(mIdx>=mQueue.length) return;
+  mDone[mIdx]=mDone[mIdx]||1;
+  mIdx++;
+  if(mIdx>=mQueue.length){mRunning=false;renderMCard();mFinish();return;}
+  renderMCard();
+  if(mRunning) mRun();
+}
+
+// ── Кнопки ───────────────────────────────────────────
+
+function mPlayBtn(){           // кнопка 🔊 Слушать
+  mAbort();
+  mRun();
+}
+
+function mToggleAuto(){
+  if(mRunning){
+    // СТОП
+    mRunning=false;
+    mAbort();
+    const btn=document.getElementById('m-auto-btn');
+    if(btn){btn.innerHTML='<span class="m-btn-icon">▶️</span><span>Авто</span>';btn.classList.remove('running');}
+    const st=document.getElementById('m-status');
+    if(st) st.textContent='⏸ Остановлено';
+  } else {
+    // СТАРТ АВТО
+    mRunning=true;
+    const btn=document.getElementById('m-auto-btn');
+    if(btn){btn.innerHTML='<span class="m-btn-icon">⏹</span><span>Стоп</span>';btn.classList.add('running');}
+    mAbort();
+    mRun();
+  }
+}
+
+function mNext(manual){
+  mAbort();
+  if(manual) mRunning=false; // ручной пропуск останавливает авто
+  mDone[mIdx]=mDone[mIdx]||2;
+  mIdx++;
+  if(mIdx>=mQueue.length){mRunning=false;mFinish();return;}
+  renderMCard();
+  if(mRunning) mRun();
+}
+
+function mPrev(){
+  mAbort();
+  mRunning=false;
+  if(mIdx>0){mIdx--;renderMCard();}
+}
+
+function mStop(){
+  mRunning=false;
+  mAbort();
+}
+
+// ── Старт и рендер ───────────────────────────────────
+
+function buildMQueue(){
+  const pool=mGroup==='all'?VERBS:VERBS.filter(v=>v.group===mGroup);
+  const q=[];
+  pool.forEach(v=>{
+    // Вступительная карточка глагола (без склонения)
+    q.push({intro:true, verb:v.it, ru:v.ru, emoji:v.emoji, assoc:v.assoc, group:v.group});
+    // Все 6 форм
+    v.conj.forEach((c,i)=>{
+      q.push({intro:false, verb:v.it, ru:v.ru, pro:c.pro, proRu:PROS_RU_M[i]||c.ru, form:c.form, irreg:c.irreg});
+    });
+  });
+  return q;
+}
+
+function mStart(){
+  mAbort();
+  mRunning=false;
+  mQueue=buildMQueue();
+  mIdx=0;
+  mDone=new Array(mQueue.length).fill(0);
+  renderMCard();
+}
+
+function renderMCard(){
+  if(mIdx>=mQueue.length){mFinish();return;}
+  const q=mQueue[mIdx];
+  const pct=Math.round(mIdx/mQueue.length*100);
+  const from=Math.max(0,mIdx-10);
+  const to=Math.min(mQueue.length,mIdx+20);
+  const dots=mQueue.slice(from,to).map((_,j)=>{
+    const i=from+j;
+    let cls='m-dot';
+    if(i<mIdx)  cls+=' '+(mDone[i]===1?'done':'skip');
+    if(i===mIdx) cls+=' cur';
+    return `<div class="${cls}" title="${mQueue[i].verb}"></div>`;
+  }).join('');
+
+  const progress=`
+    <div class="m-progress">
+      <span class="m-prog-txt">${mIdx+1} / ${mQueue.length}</span>
+      <div class="m-pbar"><div class="m-pfill" style="width:${pct}%"></div></div>
+      <span class="m-prog-txt">${pct}%</span>
+    </div>
+    <div class="m-dots">${dots}</div>`;
+
+  const controls=`
+    <div class="m-status" id="m-status">${q.intro?'Нажми 🔊 чтобы услышать глагол':'Нажми 🔊 чтобы услышать'}</div>
+    <div class="m-controls">
+      <button class="m-btn m-play" onclick="mPlayBtn()">
+        <span class="m-btn-icon">🔊</span><span>Слушать</span>
+      </button>
+      <button class="m-btn m-auto${mRunning?' running':''}" id="m-auto-btn" onclick="mToggleAuto()">
+        <span class="m-btn-icon">${mRunning?'⏹':'▶️'}</span>
+        <span>${mRunning?'Стоп':'Авто'}</span>
+      </button>
+    </div>
+    <div style="display:flex;gap:7px">
+      <button class="m-skip-btn" style="flex:1" onclick="mPrev()">← Назад</button>
+      <button class="m-skip-btn" style="flex:1" onclick="mNext(true)">Пропустить →</button>
+      <button class="m-skip-btn" onclick="mStop();renderMarathonStart()">✕</button>
+    </div>`;
+
+  if(q.intro){
+    // INTRO карточка — крупно глагол, ассоциация, перевод
+    const badgeCol = q.group==='irreg'?'#e07070':q.group==='modal'?'#c9a84c':'#5ac4a0';
+    const badgeTxt = q.group==='irreg'?'🔴 Нерегулярный':q.group==='modal'?'🟡 Модальный':'🟢 Частично';
+    document.getElementById('m-content').innerHTML=`
+      ${progress}
+      <div class="m-verb-display" style="padding:32px 20px;background:linear-gradient(135deg,#0d1117,#1a1040)">
+        <div style="font-size:.62rem;color:${badgeCol};font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">${badgeTxt}</div>
+        <div style="font-size:3.8rem;line-height:1;margin-bottom:8px">${q.emoji||'📖'}</div>
+        <div style="font-family:'Playfair Display',serif;font-size:3rem;color:#f0d060;font-weight:400;line-height:1;margin-bottom:8px">${q.verb}</div>
+        <div class="m-divider"></div>
+        <div style="font-size:1rem;color:#c8c0b4;margin-bottom:10px">${q.ru}</div>
+        <div style="font-size:.72rem;color:#8090a0;font-style:italic;background:#ffffff08;border-radius:8px;padding:8px 12px;line-height:1.6">💡 ${q.assoc||''}</div>
+      </div>
+      ${controls}
+      <div style="margin-top:10px;font-size:.68rem;color:#5ac4a0;text-align:center;font-weight:700">
+        ▼ Далее — 6 форм спряжения
+      </div>`;
+  } else {
+    // ФОРМА — как раньше
+    document.getElementById('m-content').innerHTML=`
+      ${progress}
+      <div class="m-verb-display">
+        <div class="m-verb-name">${q.verb} — ${q.ru}</div>
+        <div class="m-pro-label">${q.pro}</div>
+        <div class="m-pro-word">(${q.proRu})</div>
+        <div class="m-divider"></div>
+        <div class="m-form"><span style="color:${q.irreg?'#f0d060':'#5ac4a0'}">${q.form}</span></div>
+        <div class="m-ru">${q.proRu} ${q.verb} = ${q.form}</div>
+      </div>
+      ${controls}
+      <div style="margin-top:10px;font-size:.64rem;color:#445;text-align:center;line-height:1.6">
+        🟡 = нерегулярная форма &nbsp;|&nbsp; 🟢 = правильная форма
+      </div>`;
+  }
+}
+
+function renderMarathonStart(){
+  if(!ttsKey){
+    document.getElementById('m-content').innerHTML=`
+      <div class="m-start-card">
+        <div class="m-start-icon">🎧</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#f0ebe3;margin-bottom:8px">Аудио-Марафон</h2>
+        <div class="m-warning">⚠️ Для марафона нужен<br>Google TTS ключ.<br><br>Подключи его вверху страницы<br>и вернись сюда!</div>
+      </div>`;
+    return;
+  }
+  document.getElementById('m-content').innerHTML=`
+    <div class="m-start-card">
+      <div class="m-start-icon">🎧</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;color:#f0ebe3;margin-bottom:6px">Аудио-Марафон</h2>
+      <p style="font-size:.76rem;color:#8090a0;line-height:1.7;margin-bottom:10px">
+        Слушай → повторяй вслух → следующая форма.<br>Как в видео на YouTube, только с твоими глаголами!
+      </p>
+      <div class="m-settings">
+        <div class="m-set-title">⚙️ Настройки</div>
+        <div class="m-set-row">
+          <span class="m-set-lbl">Пауза для повторения</span>
+          <div class="m-set-val">
+            <button class="m-svb${mPause===1?' on':''}" onclick="setPause(1)">1с</button>
+            <button class="m-svb${mPause===2?' on':''}" onclick="setPause(2)">2с</button>
+            <button class="m-svb${mPause===3?' on':''}" onclick="setPause(3)">3с</button>
+            <button class="m-svb${mPause===4?' on':''}" onclick="setPause(4)">4с</button>
+          </div>
+        </div>
+        <div class="m-set-row">
+          <span class="m-set-lbl">Скорость речи</span>
+          <div class="m-set-val">
+            <button class="m-svb${mSpeed===0.7?' on':''}" onclick="setSpd(0.7)">Медл.</button>
+            <button class="m-svb${mSpeed===0.85?' on':''}" onclick="setSpd(0.85)">Норм.</button>
+            <button class="m-svb${mSpeed===1.0?' on':''}" onclick="setSpd(1.0)">Быстро</button>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:.72rem;color:#778;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Группа глаголов:</div>
+      <div class="m-group-pick">
+        <button class="m-gpb${mGroup==='all'?' on':''}" onclick="setMG('all')">Все (51)</button>
+        <button class="m-gpb${mGroup==='irreg'?' on':''}" onclick="setMG('irreg')">🔴 Нерегулярные</button>
+        <button class="m-gpb${mGroup==='modal'?' on':''}" onclick="setMG('modal')">🟡 Модальные</button>
+        <button class="m-gpb${mGroup==='part'?' on':''}" onclick="setMG('part')">🟢 Частично</button>
+      </div>
+      <button class="m-start-btn" onclick="mStart()">🎧 Начать марафон</button>
+    </div>`;
+}
+
+function setPause(v){mPause=v;renderMarathonStart();}
+function setSpd(v){mSpeed=v;renderMarathonStart();}
+function setMG(g){mGroup=g;renderMarathonStart();}
+
+function mFinish(){
+  mStop();
+  const done=mDone.filter(d=>d===1).length;
+  const pct=mQueue.length?Math.round(done/mQueue.length*100):0;
+  document.getElementById('m-content').innerHTML=`
+    <div class="m-result">
+      <div style="font-size:2.8rem;margin-bottom:8px">🎧</div>
+      <div class="m-res-num">${pct}%</div>
+      <div style="font-size:.78rem;color:#8090a0;margin-bottom:12px">Прослушано ${done} из ${mQueue.length} форм</div>
+      <div style="font-size:.88rem;color:#c8c0b4;line-height:1.7;margin-bottom:16px">
+        ${pct>=90?'🏆 Феноменально!':pct>=70?'👍 Отлично! Повтори пропущенные.':'📚 Продолжай — каждый повтор строит память!'}
+      </div>
+      <button style="background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:12px;padding:12px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:7px" onclick="mStart()">🔄 Сначала</button>
+      <button style="background:#1a2020;border:1px solid #2a3a2a;color:#889;border-radius:12px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%" onclick="renderMarathonStart()">← Настройки</button>
+    </div>`;
+}
+
+
+// INIT
+renderCards();
+renderTrGroups();
+renderMarathonStart();
+</script>
 </body>
 </html>
