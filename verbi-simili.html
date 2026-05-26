@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Verbi Simili</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
+  --verde:#2d7a4f;--verde-l:#e8f5ee;
+  --rosso:#c0392b;--rosso-l:#fdecea;
+  --oro:#b8860b;--oro-l:#fdf5e0;
+  --blu:#2855a0;--blu-l:#e8eef8;
+  --viola:#6040a0;--viola-l:#f0eaf8;
+  --arancio:#c06010;--arancio-l:#fef0e0;
+  --testo:#2a2218;--muted:#887868;
+  --shadow:0 2px 12px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{background:linear-gradient(135deg,#1a2030,#2d4a6f 50%,#1a3a28);color:white;padding:20px 14px 15px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
+.flag{font-size:1.5rem;margin-bottom:3px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:#f0d060}
+header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
+
+.mn{display:flex;overflow-x:auto;background:#111;border-bottom:2px solid #333;position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:#f0d060;border-bottom-color:#f0d060}
+.mnb:hover:not(.on){color:#ccc}
+.sec{display:none}.sec.on{display:block}
+.sw{max-width:680px;margin:0 auto;padding:14px 13px 50px}
+h2{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px}
+h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
+
+/* PAIR CARDS */
+.pair-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px;box-shadow:var(--shadow)}
+.pair-header{padding:13px 14px 10px;border-bottom:1px solid var(--border)}
+.pair-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px}
+.pv-verb{text-align:center;background:var(--bg);border-radius:10px;padding:10px 8px;cursor:pointer;transition:all .15s;border:2px solid var(--border)}
+.pv-verb:hover{border-color:currentColor;opacity:.85}
+.pv-it{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;display:block;margin-bottom:2px}
+.pv-ru{font-size:.68rem;color:var(--muted);display:block}
+.pv-sep{font-size:1.3rem;color:var(--muted);font-weight:800;text-align:center}
+.pair-rule{font-size:.78rem;line-height:1.7;padding:10px 14px;background:var(--oro-l);border-top:1px solid #e8d88020}
+.pair-rule strong{color:var(--oro)}
+
+/* CONJ COMPARE */
+.conj-compare{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)}
+.cc-col{padding:11px 12px}
+.cc-col:first-child{border-right:1px solid var(--border)}
+.cc-title{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;text-align:center;padding:4px 8px;border-radius:99px}
+.cc-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s;border-radius:4px;padding-left:3px;padding-right:3px}
+.cc-row:last-child{border-bottom:none}
+.cc-row:hover{background:var(--bg)}
+.cc-pro{font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;min-width:38px}
+.cc-form{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400}
+.cc-irreg{font-weight:700}
+
+/* EXAMPLES */
+.ex-list{padding:11px 14px;background:#faf8f4;border-top:1px solid var(--border)}
+.ex-item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
+.ex-item:last-child{margin-bottom:0}
+.ex-tag{font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:99px;text-transform:uppercase;flex-shrink:0;margin-top:2px;letter-spacing:.04em}
+.ex-body{flex:1}
+.ex-it{font-family:'Playfair Display',serif;font-size:.92rem;font-style:italic;display:block;margin-bottom:1px;cursor:pointer;transition:color .15s}
+.ex-ru{font-size:.68rem;color:var(--muted);display:block}
+.ex-key{background:rgba(0,0,0,.08);border-radius:3px;padding:0 3px;font-style:normal;font-weight:700}
+
+/* QUIZ */
+.quiz-wrap{max-width:520px;margin:0 auto;padding:14px 13px 50px}
+.pair-filter{display:flex;gap:5px;flex-wrap:wrap;padding:8px 0 12px;justify-content:center}
+.pfb{background:var(--card);border:2px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 11px;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.pfb.on,.pfb:hover{border-color:var(--oro);color:var(--oro);background:var(--oro-l)}
+.qcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:7px}
+.qbar{width:100%;height:3px;background:var(--border);border-radius:99px;margin-bottom:11px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,var(--blu),var(--verde));border-radius:99px;transition:width .4s}
+.qmeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.qnum{font-size:.63rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.qtag{border-radius:99px;padding:2px 9px;font-size:.61rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.qsent{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:9px;padding:11px 13px;margin-bottom:11px;line-height:1.7;border:1px solid var(--border)}
+.blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700;font-style:normal}
+.qt{font-size:.92rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 8px;font-family:'Playfair Display',serif;font-size:1rem;cursor:pointer;transition:all .15s;text-align:center}
+.opt:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.opt:disabled{cursor:default}
+.opts2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt2{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 8px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;line-height:1.4}
+.opt2:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l)}
+.opt2.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.opt2.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.opt2:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.7}
+.fb.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
+.fb.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.res-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
+.res-num{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;line-height:1}
+.btn-r{background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.divider{height:1px;background:var(--border);margin:10px 0}
+.cat-grid{display:grid;gap:5px;margin-bottom:12px;text-align:left}
+.cat-row{display:flex;align-items:center;gap:8px}
+.cat-name{font-size:.7rem;font-weight:700;min-width:140px}
+.cat-bar{flex:1;height:5px;background:var(--border);border-radius:99px;overflow:hidden}
+.cat-fill{height:100%;border-radius:99px}
+.cat-sc{font-size:.67rem;font-weight:800;min-width:30px;text-align:right}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1><em>Verbi Simili</em></h1>
+  <p>Похожие глаголы · сравнение · правила · тест</p>
+</header>
+
+<div class="mn">
+  <button class="mnb on"  onclick="sm('pairs')">📖 Пары</button>
+  <button class="mnb" onclick="sm('quiz');startQuiz()">🎯 Тест</button>
+</div>
+
+<!-- PAIRS -->
+<div class="sec on" id="pairs">
+<div class="sw">
+
+<!-- 1. ANDARE vs VENIRE -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:var(--verde);border-color:var(--verde)22">
+        <span class="pv-it">andare</span>
+        <span class="pv-ru">идти/ехать</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:var(--blu);border-color:var(--blu)22">
+        <span class="pv-it">venire</span>
+        <span class="pv-ru">приходить</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>ANDARE</strong> — движение <em>от говорящего</em> (я иду туда, к вам) →<br>
+      <strong>VENIRE</strong> — движение <em>к говорящему</em> (ко мне, сюда) ←<br>
+      <em>Vado da te! — Я иду к тебе. / Vieni da me! — Приходи ко мне!</em>
+    </div>
+  </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--verde-l);color:var(--verde)">ANDARE →</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--verde)">vado</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--verde)">vai</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--verde)">va</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--verde)">andiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--verde)">andate</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--verde)">vanno</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--blu-l);color:var(--blu)">VENIRE ←</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--blu)">vengo</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--blu)">vieni</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--blu)">viene</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--blu)">veniamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--blu)">venite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--blu)">vengono</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--verde-l);color:var(--verde)">ANDARE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Vado</em> al lavoro ogni giorno.</span>
+        <span class="ex-ru">Я иду на работу каждый день. (от меня — туда)</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--blu-l);color:var(--blu)">VENIRE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Vieni</em> con noi? — <em class="ex-key">Vengo</em> subito!</span>
+        <span class="ex-ru">Идёшь с нами? — Сейчас приду! (ко мне/к нам — сюда)</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--oro-l);color:var(--oro)">❗ ЛОВУШКА</span>
+      <div class="ex-body">
+        <span class="ex-it">Vieni da me! ≠ Vai da me!</span>
+        <span class="ex-ru">«Приходи ко мне» — venire (сюда). «Иди ко мне» — тоже venire! Движение К говорящему = всегда venire.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 2. ESSERE vs STARE -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:var(--viola);border-color:var(--viola)22">
+        <span class="pv-it">essere</span>
+        <span class="pv-ru">быть/являться</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:var(--arancio);border-color:var(--arancio)22">
+        <span class="pv-it">stare</span>
+        <span class="pv-ru">находиться/чувствовать</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>ESSERE</strong> — постоянные характеристики: профессия, национальность, описание<br>
+      <strong>STARE</strong> — временное состояние, самочувствие, нахождение где-то<br>
+      <em>È italiano. (он итальянец) / Sta a Roma. (он сейчас в Риме)</em>
+    </div>
+  </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--viola-l);color:var(--viola)">ESSERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--viola)">sono</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--viola)">sei</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--viola)">è</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--viola)">siamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form cc-irreg" style="color:var(--viola)">siete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--viola)">sono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--arancio-l);color:var(--arancio)">STARE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--arancio)">sto</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--arancio)">stai</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--arancio)">sta</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--arancio)">stiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--arancio)">state</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--arancio)">stanno</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--viola-l);color:var(--viola)">ESSERE</span>
+      <div class="ex-body">
+        <span class="ex-it">Sono ucraino. <em class="ex-key">È</em> medico.</span>
+        <span class="ex-ru">Я украинец. Он врач. (постоянно)</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--arancio-l);color:var(--arancio)">STARE</span>
+      <div class="ex-body">
+        <span class="ex-it">Come <em class="ex-key">stai</em>? — <em class="ex-key">Sto</em> bene!</span>
+        <span class="ex-ru">Как дела? — Хорошо! (временное состояние)</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--oro-l);color:var(--oro)">СРАВНИ</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">È</em> a Roma. vs <em class="ex-key">Sta</em> a Roma.</span>
+        <span class="ex-ru">Оба верны, но stare — он там сейчас/временно. È — более нейтрально.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 3. SAPERE vs CONOSCERE -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:var(--oro);border-color:var(--oro)22">
+        <span class="pv-it">sapere</span>
+        <span class="pv-ru">знать (факт)</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:#1a7a6a;border-color:#1a7a6a22">
+        <span class="pv-it">conoscere</span>
+        <span class="pv-ru">знать (лично)</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>SAPERE</strong> — знать факт, информацию, уметь делать что-то<br>
+      <strong>CONOSCERE</strong> — быть знакомым с человеком, местом, произведением<br>
+      <em>So parlare italiano. / Conosci Marco?</em>
+    </div>
+  </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--oro-l);color:var(--oro)">SAPERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--oro)">so</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--oro)">sai</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:var(--oro)">sa</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--oro)">sappiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--oro)">sapete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--oro)">sanno</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:#e0f5f0;color:#1a7a6a">CONOSCERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:#1a7a6a">conosco</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form" style="color:#1a7a6a">conosci</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form" style="color:#1a7a6a">conosce</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:#1a7a6a">conosciamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:#1a7a6a">conoscete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form" style="color:#1a7a6a">conoscono</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--oro-l);color:var(--oro)">SAPERE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">So</em> parlare italiano. Non lo <em class="ex-key">so</em>.</span>
+        <span class="ex-ru">Умею говорить по-итальянски. Не знаю (этого факта).</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:#e0f5f0;color:#1a7a6a">CONOSCERE</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Conosci</em> Marco? <em class="ex-key">Conosco</em> la strada.</span>
+        <span class="ex-ru">Ты знаком с Марко? Я знаю эту дорогу (знакомое место).</span>
+      </div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--oro-l);color:var(--oro)">❗ ЛОВУШКА</span>
+      <div class="ex-body">
+        <span class="ex-it"><em class="ex-key">Sai</em> dov'è il museo? vs <em class="ex-key">Conosci</em> questo museo?</span>
+        <span class="ex-ru">Знаешь, где музей? (факт/информация) vs Знаком с этим музеем? (лично был)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. ESSERE vs AVERE (ощущения) -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:var(--verde);border-color:var(--verde)22">
+        <span class="pv-it">essere</span>
+        <span class="pv-ru">прилагательные</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:var(--blu);border-color:var(--blu)22">
+        <span class="pv-it">avere</span>
+        <span class="pv-ru">ощущения/боль</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>ESSERE</strong> + прилагательное: sono stanco, sei bello, è pronto<br>
+      <strong>AVERE</strong> + существительное: ho fame, hai freddo, ha mal di testa<br>
+      <em>Где по-русски «мне холодно» — по-итальянски «имею холод» (avere!)</em>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px">
+      <div>
+        <div style="font-size:.63rem;font-weight:800;color:var(--verde);text-transform:uppercase;margin-bottom:7px">ESSERE + прилагательное</div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Sono <em class="ex-key">stanco</em>.</span><span class="ex-ru">Я устал.</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Sei <em class="ex-key">pronto</em>?</span><span class="ex-ru">Ты готов?</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">È <em class="ex-key">medico</em>.</span><span class="ex-ru">Он врач.</span></div></div>
+        <div class="ex-item"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Siamo <em class="ex-key">italiani</em>.</span><span class="ex-ru">Мы итальянцы.</span></div></div>
+      </div>
+      <div>
+        <div style="font-size:.63rem;font-weight:800;color:var(--blu);text-transform:uppercase;margin-bottom:7px">AVERE + существительное</div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Ho <em class="ex-key">fame</em>.</span><span class="ex-ru">Я голоден.</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Hai <em class="ex-key">freddo</em>?</span><span class="ex-ru">Тебе холодно?</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Ha <em class="ex-key">mal di testa</em>.</span><span class="ex-ru">У неё болит голова.</span></div></div>
+        <div class="ex-item"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Ho <em class="ex-key">fretta</em>!</span><span class="ex-ru">Я спешу!</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. FARE vs AVERE (погода и выражения) -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:#c06010;border-color:#c0601022">
+        <span class="pv-it">fare</span>
+        <span class="pv-ru">делать/погода</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:var(--rosso);border-color:var(--rosso)22">
+        <span class="pv-it">essere</span>
+        <span class="pv-ru">состояние</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>FA</strong> + прилагательное = погода: fa bello, fa freddo, fa caldo<br>
+      <strong>È</strong> + прилагательное = состояние: è soleggiato, è nuvoloso<br>
+      <em>Fa freddo (холодно как погода) ≠ Ho freddo (мне лично холодно)</em>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <div>
+        <div style="font-size:.63rem;font-weight:800;color:#c06010;text-transform:uppercase;margin-bottom:7px">FARE → погода</div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Fa <em class="ex-key">bello</em>.</span><span class="ex-ru">Хорошая погода.</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Fa <em class="ex-key">caldo</em>.</span><span class="ex-ru">Жарко (погода).</span></div></div>
+        <div class="ex-item"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Fa <em class="ex-key">freddo</em>.</span><span class="ex-ru">Холодно (погода).</span></div></div>
+      </div>
+      <div>
+        <div style="font-size:.63rem;font-weight:800;color:var(--blu);text-transform:uppercase;margin-bottom:7px">AVERE → ощущение</div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Ho <em class="ex-key">caldo</em>.</span><span class="ex-ru">Мне жарко (лично).</span></div></div>
+        <div class="ex-item" style="margin-bottom:5px"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Ho <em class="ex-key">freddo</em>.</span><span class="ex-ru">Мне холодно (лично).</span></div></div>
+        <div class="ex-item"><div class="ex-body"><span class="ex-it" style="font-size:.84rem">Fa freddo <em class="ex-key">e</em> ho freddo!</span><span class="ex-ru">Холодно снаружи и мне холодно!</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 6. VOLERE vs POTERE vs DOVERE -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs" style="grid-template-columns:1fr 1fr 1fr;gap:5px">
+      <div class="pv-verb" style="color:var(--verde);border-color:var(--verde)22">
+        <span class="pv-it" style="font-size:1.1rem">volere</span>
+        <span class="pv-ru">хотеть</span>
+      </div>
+      <div class="pv-verb" style="color:var(--blu);border-color:var(--blu)22">
+        <span class="pv-it" style="font-size:1.1rem">potere</span>
+        <span class="pv-ru">мочь</span>
+      </div>
+      <div class="pv-verb" style="color:var(--rosso);border-color:var(--rosso)22">
+        <span class="pv-it" style="font-size:1.1rem">dovere</span>
+        <span class="pv-ru">должен</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      Все три — <strong>модальные</strong>: стоят перед инфинитивом другого глагола<br>
+      <strong>voglio</strong> mangiare · <strong>posso</strong> aiutarti · <strong>devo</strong> andare<br>
+      <em>Главное: IO voglio (не volo!), IO posso (не poto!), IO devo (не dovo!)</em>
+    </div>
+  </div>
+  <div class="conj-compare" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--verde-l);color:var(--verde)">VOLERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--verde)">voglio</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--verde)">vuoi</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI</span><span class="cc-form cc-irreg" style="color:var(--verde)">vuole</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--verde)">vogliamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--verde)">volete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--verde)">vogliono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--blu-l);color:var(--blu)">POTERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--blu)">posso</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--blu)">puoi</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI</span><span class="cc-form cc-irreg" style="color:var(--blu)">può</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--blu)">possiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--blu)">potete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--blu)">possono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--rosso-l);color:var(--rosso)">DOVERE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:var(--rosso)">devo</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:var(--rosso)">devi</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI</span><span class="cc-form cc-irreg" style="color:var(--rosso)">deve</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form cc-irreg" style="color:var(--rosso)">dobbiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--rosso)">dovete</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:var(--rosso)">devono</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--verde-l);color:var(--verde)">VOGLIO</span>
+      <div class="ex-body"><span class="ex-it"><em class="ex-key">Voglio</em> imparare l'italiano!</span><span class="ex-ru">Хочу выучить итальянский! (желание)</span></div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--blu-l);color:var(--blu)">POSSO</span>
+      <div class="ex-body"><span class="ex-it"><em class="ex-key">Posso</em> aiutarti?</span><span class="ex-ru">Могу помочь тебе? (возможность)</span></div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--rosso-l);color:var(--rosso)">DEVO</span>
+      <div class="ex-body"><span class="ex-it"><em class="ex-key">Devo</em> andare adesso.</span><span class="ex-ru">Мне нужно идти сейчас. (необходимость)</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 7. PARTIRE vs USCIRE vs ANDARE VIA -->
+<div class="pair-card">
+  <div class="pair-header">
+    <div class="pair-vs">
+      <div class="pv-verb" style="color:var(--viola);border-color:var(--viola)22">
+        <span class="pv-it">partire</span>
+        <span class="pv-ru">уезжать</span>
+      </div>
+      <div class="pv-sep">VS</div>
+      <div class="pv-verb" style="color:#1a7a6a;border-color:#1a7a6a22">
+        <span class="pv-it">uscire</span>
+        <span class="pv-ru">выходить</span>
+      </div>
+    </div>
+    <div class="pair-rule">
+      <strong>PARTIRE</strong> — уезжать/уходить надолго, в путешествие, с отправной точки<br>
+      <strong>USCIRE</strong> — выходить из здания, выйти вечером, выходить из ситуации<br>
+      <em>Parto per Milano domani. / Esco adesso (из офиса).</em>
+    </div>
+  </div>
+  <div class="conj-compare">
+    <div class="cc-col">
+      <div class="cc-title" style="background:var(--viola-l);color:var(--viola)">PARTIRE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form" style="color:var(--viola)">parto</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form" style="color:var(--viola)">parti</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form" style="color:var(--viola)">parte</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:var(--viola)">partiamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:var(--viola)">partite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form" style="color:var(--viola)">partono</span></div>
+    </div>
+    <div class="cc-col">
+      <div class="cc-title" style="background:#e0f5f0;color:#1a7a6a">USCIRE</div>
+      <div class="cc-row"><span class="cc-pro">IO</span><span class="cc-form cc-irreg" style="color:#1a7a6a">esco</span></div>
+      <div class="cc-row"><span class="cc-pro">TU</span><span class="cc-form cc-irreg" style="color:#1a7a6a">esci</span></div>
+      <div class="cc-row"><span class="cc-pro">LUI/LEI</span><span class="cc-form cc-irreg" style="color:#1a7a6a">esce</span></div>
+      <div class="cc-row"><span class="cc-pro">NOI</span><span class="cc-form" style="color:#1a7a6a">usciamo</span></div>
+      <div class="cc-row"><span class="cc-pro">VOI</span><span class="cc-form" style="color:#1a7a6a">uscite</span></div>
+      <div class="cc-row"><span class="cc-pro">LORO</span><span class="cc-form cc-irreg" style="color:#1a7a6a">escono</span></div>
+    </div>
+  </div>
+  <div class="ex-list">
+    <div class="ex-item">
+      <span class="ex-tag" style="background:var(--viola-l);color:var(--viola)">PARTIRE</span>
+      <div class="ex-body"><span class="ex-it"><em class="ex-key">Parto</em> per Milano domani mattina.</span><span class="ex-ru">Уезжаю в Милан завтра утром. (путешествие)</span></div>
+    </div>
+    <div class="ex-item">
+      <span class="ex-tag" style="background:#e0f5f0;color:#1a7a6a">USCIRE</span>
+      <div class="ex-body"><span class="ex-it"><em class="ex-key">Esco</em> adesso. Usciamo stasera?</span><span class="ex-ru">Выхожу сейчас. Выйдем сегодня вечером? (из здания, на прогулку)</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end sw -->
+</div><!-- end pairs -->
+
+<!-- QUIZ -->
+<div class="sec" id="quiz">
+<div class="quiz-wrap">
+  <div id="qf-bar">
+    <div style="font-size:.74rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;margin-top:4px">Фокус теста:</div>
+    <div class="pair-filter" id="pair-filter"></div>
+  </div>
+  <div id="quiz-content"></div>
+</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// QUIZ DATA
+// ══════════════════════════════════════════════════════
+const ALL_Q = [
+  // ANDARE vs VENIRE
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'«Я иду на работу» — какой глагол?',
+   opts:['Vengo al lavoro.','Vado al lavoro.','Sto al lavoro.','Sono al lavoro.'],
+   a:1, ex:'<strong>Vado</strong> — ANDARE. Движение от меня (туда, на работу). Venire = движение ко мне.'},
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'«Приходи ко мне!» — какой глагол?',
+   opts:['Vai da me!','Vai da te!','Vieni da me!','Vai a me!'],
+   a:2, ex:'<strong>Vieni da me!</strong> — VENIRE. Движение к говорящему = venire!'},
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'Вставь: <div class="qsent">Franco, se <span class="blank">___</span> al cinema, <span class="blank">___</span> anch\'io con te.</div>',
+   opts:['vai/vengo','vieni/vado','vai/vado','vieni/vengo'],
+   a:0, ex:'<strong>vai</strong> (TU ANDARE) — ты идёшь туда. <strong>vengo</strong> (IO VENIRE) — я прихожу к тебе.'},
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'Вставь: <div class="qsent">Ragazzi, <span class="blank">___</span> in centro in autobus o <span class="blank">___</span> in macchina con noi?</div>',
+   opts:['andate/venite','venite/andate','andate/andate','venite/venite'],
+   a:0, ex:'<strong>andate</strong> (VOI ANDARE) — вы едете туда. <strong>venite</strong> (VOI VENIRE) — приедете с нами (к нам).'},
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'LORO andare = ?',
+   opts:['vengono','andate','vanno','veniamo'],
+   a:2, ex:'<strong>vanno</strong> — LORO ANDARE. IO vado, TU vai, LUI va, NOI andiamo, VOI andate, LORO vanno.'},
+  {pair:'andare/venire', tag:'tg-av', tl:'ANDARE / VENIRE',
+   q:'IO venire = ?',
+   opts:['vado','vieni','viene','vengo'],
+   a:3, ex:'<strong>vengo</strong> — IO VENIRE. Добавляется G! vengo/vieni/viene/veniamo/venite/vengono.'},
+
+  // ESSERE vs STARE
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'«Как дела?» — какой глагол?',
+   opts:['Come sei?','Come stai?','Come hai?','Come fai?'],
+   a:1, ex:'<strong>Come stai?</strong> — STARE. Самочувствие, временное состояние = stare.'},
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'«Он врач» — какой глагол?',
+   opts:['Sta medico.','Ha medico.','È medico.','Fa medico.'],
+   a:2, ex:'<strong>È medico</strong> — ESSERE. Профессия = постоянная характеристика = essere. Без артикля!'},
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'Вставь: <div class="qsent"><span class="blank">___</span> attento! Non <span class="blank">___</span> distratto.</div>',
+   opts:['Stai/essere','Sei/stai','Stai/stai','Sei/essere'],
+   a:0, ex:'<strong>Stai attento!</strong> — STARE (временное поведение). <strong>essere distratto</strong> — состояние.'},
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'IO stare = ?',
+   opts:['sono','sto','stio','stano'],
+   a:1, ex:'<strong>sto</strong> — IO STARE. sto/stai/sta/stiamo/state/stanno.'},
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'LORO stare = ?',
+   opts:['state','stano','sono','stanno'],
+   a:3, ex:'<strong>stanno</strong> — LORO STARE. Двойное N — как fanno, danno, hanno.'},
+  {pair:'essere/stare', tag:'tg-es', tl:'ESSERE / STARE',
+   q:'«Мы в Италии» — essere или stare?',
+   opts:['Siamo in Italia. (essere) ✓','Stiamo in Italia. (stare) ✓','Оба варианта верны','Ни один не верен'],
+   a:2, ex:'<strong>Оба верны!</strong> Siamo in Italia (нейтрально). Stiamo in Italia (сейчас, временно). Чаще используют essere.'},
+
+  // SAPERE vs CONOSCERE
+  {pair:'sapere/conoscere', tag:'tg-sc', tl:'SAPERE / CONOSCERE',
+   q:'«Умею говорить по-итальянски» — какой глагол?',
+   opts:['Conosco parlare italiano.','So parlare italiano.','Posso parlare italiano.','Faccio parlare italiano.'],
+   a:1, ex:'<strong>So parlare</strong> — SAPERE + инфинитив = умею делать что-то. Conosco = знаком лично.'},
+  {pair:'sapere/conoscere', tag:'tg-sc', tl:'SAPERE / CONOSCERE',
+   q:'«Ты знаком с Марко?» — какой глагол?',
+   opts:['Sai Marco?','Conosci Marco?','Hai Marco?','Stai con Marco?'],
+   a:1, ex:'<strong>Conosci Marco?</strong> — CONOSCERE. Знать лично человека = conoscere.'},
+  {pair:'sapere/conoscere', tag:'tg-sc', tl:'SAPERE / CONOSCERE',
+   q:'«Не знаю (этого факта)» — какой глагол?',
+   opts:['Non conosco.','Non sto.','Non lo so.','Non lo conosco.'],
+   a:2, ex:'<strong>Non lo so</strong> — SAPERE. Не знаю факта/информации. Non lo conosco = не знаком с ним лично.'},
+  {pair:'sapere/conoscere', tag:'tg-sc', tl:'SAPERE / CONOSCERE',
+   q:'IO sapere = ?',
+   opts:['sapo','sai','so','sappo'],
+   a:2, ex:'<strong>so</strong> — IO SAPERE. Очень короткая форма! so/sai/sa/sappiamo/sapete/sanno.'},
+
+  // ESSERE vs AVERE
+  {pair:'essere/avere', tag:'tg-ea', tl:'ESSERE / AVERE',
+   q:'«Я устал» — essere или avere?',
+   opts:['Ho stanco.','Sono stanco.','Faccio stanco.','Sto stanco.'],
+   a:1, ex:'<strong>Sono stanco</strong> — ESSERE. Прилагательное + essere. Ho stanco не существует!'},
+  {pair:'essere/avere', tag:'tg-ea', tl:'ESSERE / AVERE',
+   q:'«Мне холодно» — essere или avere?',
+   opts:['Sono freddo.','Sto freddo.','Ho freddo.','Faccio freddo.'],
+   a:2, ex:'<strong>Ho freddo</strong> — AVERE. Ощущения в итальянском = иметь! Ho fame/sete/caldo/freddo.'},
+  {pair:'essere/avere', tag:'tg-ea', tl:'ESSERE / AVERE',
+   q:'Вставь: <div class="qsent">Francesca <span class="blank">___</span> mal di testa.</div>',
+   opts:['è','sta','fa','ha'],
+   a:3, ex:'<strong>ha</strong> — AVERE. Боль = avere mal di. LEI → ha.'},
+  {pair:'essere/avere', tag:'tg-ea', tl:'ESSERE / AVERE',
+   q:'Вставь: <div class="qsent">Loro <span class="blank">___</span> una villa in campagna.</div>',
+   opts:['sono','stanno','hanno','fanno'],
+   a:2, ex:'<strong>hanno</strong> — AVERE. Обладание (вилла) = avere. LORO → hanno.'},
+  {pair:'essere/avere', tag:'tg-ea', tl:'ESSERE / AVERE',
+   q:'«Ей 30 лет» — essere или avere?',
+   opts:['È trenta anni.','Ha trenta anni.','Sta trenta anni.','Fa trenta anni.'],
+   a:1, ex:'<strong>Ha trenta anni</strong> — AVERE. Возраст в итальянском = иметь годы. Quanti anni hai?'},
+
+  // FARE vs погода
+  {pair:'fare/stare', tag:'tg-fw', tl:'FARE / погода',
+   q:'«Хорошая погода» — какой глагол?',
+   opts:['È bello.','Sta bello.','Fa bello.','Ha bello.'],
+   a:2, ex:'<strong>Fa bello</strong> — FARE. Погода: fa bello/brutto/caldo/freddo. LUI fa = погода делает.'},
+  {pair:'fare/stare', tag:'tg-fw', tl:'FARE / погода',
+   q:'«Жарко (погода) и мне жарко» — два правильных:',
+   opts:['Fa caldo e sono caldo.','Fa caldo e ho caldo.','Ho caldo e fa caldo.','Entrambi b e c'],
+   a:3, ex:'<strong>Fa caldo</strong> (погода) + <strong>ho caldo</strong> (мне лично). Оба варианта б и в правильные!'},
+
+  // VOLERE vs POTERE vs DOVERE
+  {pair:'modali', tag:'tg-md', tl:'MODALI',
+   q:'IO volere = ?',
+   opts:['volo','vuolo','voglio','vuoi'],
+   a:2, ex:'<strong>voglio</strong> — IO VOLERE. Не volo! voglio/vuoi/vuole/vogliamo/volete/vogliono.'},
+  {pair:'modali', tag:'tg-md', tl:'MODALI',
+   q:'IO potere = ?',
+   opts:['poto','puoi','può','posso'],
+   a:3, ex:'<strong>posso</strong> — IO POTERE. Двойное SS! posso/puoi/può/possiamo/potete/possono.'},
+  {pair:'modali', tag:'tg-md', tl:'MODALI',
+   q:'NOI dovere = ?',
+   opts:['dovete','devono','dobbiamo','devo'],
+   a:2, ex:'<strong>dobbiamo</strong> — NOI DOVERE. Единственная форма с -BBIAMO.'},
+  {pair:'modali', tag:'tg-md', tl:'MODALI',
+   q:'«Хочу, но не могу» — вставь:',
+   opts:['Voglio, ma non posso.','Voglio, ma non devo.','Vuoi, ma non puoi.','Volio, ma non poto.'],
+   a:0, ex:'<strong>Voglio</strong> (IO VOLERE) + <strong>non posso</strong> (IO POTERE). Оба IO!'},
+
+  // PARTIRE vs USCIRE
+  {pair:'partire/uscire', tag:'tg-pu', tl:'PARTIRE / USCIRE',
+   q:'«Выхожу из офиса» — какой глагол?',
+   opts:['Parto dall\'ufficio.','Esco dall\'ufficio.','Vado dall\'ufficio.','Vengo dall\'ufficio.'],
+   a:1, ex:'<strong>Esco</strong> — USCIRE. Выходить из здания = uscire.'},
+  {pair:'partire/uscire', tag:'tg-pu', tl:'PARTIRE / USCIRE',
+   q:'«Уезжаю в Рим завтра» — какой глагол?',
+   opts:['Esco per Roma domani.','Vado per Roma domani.','Parto per Roma domani.','Vengo per Roma domani.'],
+   a:2, ex:'<strong>Parto per Roma</strong> — PARTIRE. Уезжать в путешествие/надолго = partire.'},
+  {pair:'partire/uscire', tag:'tg-pu', tl:'PARTIRE / USCIRE',
+   q:'IO uscire = ?',
+   opts:['uscio','usco','esco','esci'],
+   a:2, ex:'<strong>esco</strong> — IO USCIRE. Нерегулярно! esco/esci/esce/usciamo/uscite/escono.'},
+];
+
+const PAIR_LABELS = {
+  all:'Все пары',
+  'andare/venire':'andare / venire',
+  'essere/stare':'essere / stare',
+  'sapere/conoscere':'sapere / conoscere',
+  'essere/avere':'essere / avere',
+  'fare/stare':'fare / погода',
+  modali:'modali (vol/pot/dov)',
+  'partire/uscire':'partire / uscire',
+};
+const TAG_STYLES = {
+  'tg-av':'background:var(--verde-l);color:var(--verde)',
+  'tg-es':'background:var(--viola-l);color:var(--viola)',
+  'tg-sc':'background:var(--oro-l);color:var(--oro)',
+  'tg-ea':'background:var(--blu-l);color:var(--blu)',
+  'tg-fw':'background:var(--arancio-l);color:var(--arancio)',
+  'tg-md':'background:var(--rosso-l);color:var(--rosso)',
+  'tg-pu':'background:#e0f5f0;color:#1a7a6a',
+};
+
+let activePair='all', qState={};
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+
+function renderPairFilter(){
+  document.getElementById('pair-filter').innerHTML=Object.entries(PAIR_LABELS).map(([k,l])=>
+    `<button class="pfb${k===activePair?' on':''}" onclick="setPair('${k}')">${l}</button>`
+  ).join('');
+}
+function setPair(p){activePair=p;renderPairFilter();startQuiz();}
+
+function startQuiz(){
+  const pool = activePair==='all' ? ALL_Q : ALL_Q.filter(q=>q.pair===activePair);
+  const qs=shuf(pool);
+  qState={questions:qs,current:0,score:0,answered:false,userAnswers:[]};
+  renderPairFilter();
+  renderQ();
+}
+
+function renderQ(){
+  if(qState.current>=qState.questions.length){showResult();return;}
+  const q=qState.questions[qState.current];
+  qState.answered=false;
+  const pct=Math.round(qState.current/qState.questions.length*100);
+  const sf=shuf([0,1,2,3].slice(0,q.opts.length));
+  const nc=sf.indexOf(q.a);
+  const so=sf.map(i=>q.opts[i]);
+  const tagStyle=TAG_STYLES[q.tag]||'background:var(--bg);color:var(--muted)';
+  document.getElementById('quiz-content').innerHTML=`
+    <div class="qcard">
+      <div class="qmeta">
+        <span class="qnum">Вопрос ${qState.current+1}/${qState.questions.length}</span>
+        <span class="qtag" style="${tagStyle}">${q.tl}</span>
+        <span style="margin-left:auto;font-size:.7rem;font-weight:700;color:var(--verde)">✓ ${qState.score}</span>
+      </div>
+      <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>
+      <div class="qt">${q.q}</div>
+      <div class="${q.opts.length>2?'opts2':'opts'}">${so.map((o,i)=>`<button class="${q.opts.length>2?'opt2':'opt'}" data-correct="${i===nc}" onclick="checkQ(this,${i===nc})">${o}</button>`).join('')}</div>
+      <div class="fb" id="qfb"></div>
+      <div class="navrow">
+        <button class="btn-skip" id="skipb" onclick="skipQ()">Пропустить</button>
+        <button class="btn-next" id="nextb" onclick="nextQ()">${qState.current<qState.questions.length-1?'Следующий →':'Результат 🎉'}</button>
+      </div>
+    </div>`;
+}
+
+function checkQ(btn, ok){
+  if(qState.answered)return;
+  qState.answered=true;
+  const q=qState.questions[qState.current];
+  document.querySelectorAll('.opt,.opt2').forEach(b=>b.disabled=true);
+  document.getElementById('skipb').style.display='none';
+  document.getElementById('nextb').style.display='block';
+  const fb=document.getElementById('qfb');
+  if(ok){qState.score++;btn.classList.add('correct');fb.className='fb ok';fb.innerHTML='✓ Правильно! '+q.ex;qState.userAnswers.push({q,correct:true});}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-correct="true"],.opt2[data-correct="true"]').classList.add('correct');fb.className='fb err';fb.innerHTML='✕ Неправильно. '+q.ex;qState.userAnswers.push({q,correct:false,chosen:btn.textContent.trim()});}
+}
+function skipQ(){qState.userAnswers.push({q:qState.questions[qState.current],correct:false,chosen:'—'});nextQ();}
+function nextQ(){qState.current++;renderQ();}
+
+function showResult(){
+  const total=qState.questions.length;
+  const pct=Math.round(qState.score/total*100);
+  const color=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const emoji=pct>=90?'🏆':pct>=75?'🎉':pct>=60?'👍':'📚';
+  const msg=pct>=90?'Пары усвоены! Ты не перепутаешь!':pct>=75?'Хорошо! Повтори слабые пары.':pct>=60?'Неплохо — ещё практики!':'Вернись к вкладке «Пары» и почитай правила.';
+  const cats={};
+  qState.userAnswers.forEach(({q,correct})=>{
+    if(!cats[q.tl])cats[q.tl]={t:0,c:0};
+    cats[q.tl].t++;if(correct)cats[q.tl].c++;
+  });
+  const wrong=qState.userAnswers.filter(x=>!x.correct);
+  document.getElementById('quiz-content').innerHTML=`
+    <div class="res-card">
+      <div style="font-size:2.8rem;margin-bottom:7px">${emoji}</div>
+      <div class="res-num" style="color:${color}">${pct}%</div>
+      <div style="font-size:.8rem;color:var(--muted);margin-bottom:11px">${qState.score} из ${total} правильно</div>
+      <div style="font-size:.9rem;line-height:1.7;margin-bottom:12px">${msg}</div>
+      <div class="divider"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📊 По парам</div>
+      <div class="cat-grid">
+        ${Object.entries(cats).map(([name,{t,c}])=>{
+          const p=Math.round(c/t*100);
+          const col=p>=75?'var(--verde)':p>=50?'var(--oro)':'var(--rosso)';
+          return `<div class="cat-row">
+            <div class="cat-name">${name}</div>
+            <div class="cat-bar"><div class="cat-fill" style="width:${p}%;background:${col}"></div></div>
+            <div class="cat-sc" style="color:${col}">${c}/${t}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${wrong.length>0?`
+      <div class="divider"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
+      <div style="display:grid;gap:4px;margin-bottom:14px;text-align:left">
+        ${wrong.map(({q,chosen})=>`
+          <div style="background:var(--rosso-l);border-radius:7px;padding:6px 10px;font-size:.74rem;font-weight:600;color:#5a1010">${q.q.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}</div>
+          <div style="background:var(--verde-l);border-radius:7px;padding:6px 10px;font-size:.71rem;color:#1a4020;margin-bottom:3px">💡 ${q.ex}</div>`).join('')}
+      </div>`:``}
+      <button class="btn-r" onclick="startQuiz()">🔄 Ещё раз</button>
+      <button class="btn-b" onclick="sm('pairs')">← К парам</button>
+    </div>`;
+}
+
+// NAV
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  ['pairs','quiz'].indexOf(id);
+  document.querySelectorAll('.mnb')[['pairs','quiz'].indexOf(id)].classList.add('on');
+}
+
+// INIT
+renderPairFilter();
+</script>
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Italiano — Тесты</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f5f0e8;--card:#fff;--border:#e2d9cc;
+  --verde:#2d7a4f;--verde-l:#e8f5ee;
+  --rosso:#c0392b;--rosso-l:#fdecea;
+  --oro:#b8860b;--oro-l:#fdf5e0;
+  --blu:#2855a0;--blu-l:#e8eef8;
+  --viola:#6040a0;--viola-l:#f0eaf8;
+  --testo:#2a2218;--muted:#887868;
+  --shadow:0 3px 16px rgba(0,0,0,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{background:linear-gradient(135deg,#1a3a28 0%,#2d7a4f 50%,#1a2855 100%);color:white;padding:22px 16px 16px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(255,255,255,.03) 24px,rgba(255,255,255,.03) 25px)}
+header .flag{font-size:1.6rem;margin-bottom:3px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4.5vw,2rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:#f0d060}
+header p{margin-top:3px;font-size:.7rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
+
+/* MAIN NAV */
+.main-nav{display:flex;background:#1a1a1a;border-bottom:2px solid #333;overflow-x:auto}
+.main-nav-btn{flex:1;min-width:80px;padding:12px 8px;border:none;background:none;color:#888;font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center}
+.main-nav-btn.active{color:#f0d060;border-bottom-color:#f0d060}
+
+/* PROGRESS BAR */
+.prog-header{background:white;border-bottom:2px solid var(--border);padding:11px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);display:none}
+.prog-label{font-size:.7rem;color:var(--muted);font-weight:700;white-space:nowrap}
+.prog-bar-bg{flex:1;height:7px;background:var(--border);border-radius:99px;overflow:hidden}
+.prog-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--verde),#c9a84c);transition:width .5s}
+.prog-score{font-size:.78rem;font-weight:800;color:var(--verde);white-space:nowrap}
+
+.main-wrap{max-width:680px;margin:0 auto;padding:16px 13px 60px}
+
+/* TEST SECTIONS */
+.test-section{display:none}
+.test-section.active{display:block}
+
+/* START CARD */
+.start-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:28px 20px;box-shadow:var(--shadow);max-width:480px;margin:0 auto;text-align:center}
+.start-card h2{font-family:'Playfair Display',serif;font-size:1.6rem;margin-bottom:7px}
+.start-card p{font-size:.83rem;color:var(--muted);line-height:1.7;margin-bottom:16px}
+.topics-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:20px;text-align:left}
+.topic-chip{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600}
+
+/* QUESTION */
+.q-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:22px 18px;box-shadow:var(--shadow);margin-bottom:9px;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.q-meta{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.q-num{font-size:.66rem;font-weight:800;color:var(--muted);letter-spacing:.05em;text-transform:uppercase}
+.q-topic{border-radius:99px;padding:3px 10px;font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.qt-greet{background:#e8f5ee;color:#1a5030}
+.qt-pronun{background:#f0eaf8;color:#4a2a80}
+.qt-articoli{background:#e8eef8;color:#1a3570}
+.qt-aggettivi{background:#fdf5e0;color:#7a5500}
+.qt-pronomi{background:#f0eaf8;color:#5a2080}
+.qt-essere{background:#e8f5ee;color:#1a5030}
+.qt-avere{background:#e8eef8;color:#1a3570}
+.qt-domande{background:#f0eaf8;color:#4a2a80}
+.qt-verbi{background:#e8f0e8;color:#205020}
+.qt-numeri{background:#fdecea;color:#801010}
+.qt-contrari{background:#fdecea;color:#800020}
+
+.q-text{font-size:.97rem;font-weight:700;line-height:1.5;margin-bottom:14px}
+.q-text .it{font-family:'Playfair Display',serif;color:var(--verde);font-style:italic}
+
+/* SENTENCE TEST special */
+.q-sentence{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:9px;padding:11px 14px;margin-bottom:12px;line-height:1.6;border:1px solid var(--border)}
+.q-sentence .blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700}
+
+.opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opts-grid.wide{grid-template-columns:1fr}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 9px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--verde);background:var(--verde-l);transform:translateY(-1px)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.opt:disabled{cursor:default}
+.opt .it{font-family:'Playfair Display',serif;display:block;font-size:.92rem;color:var(--verde)}
+.opt.correct .it{color:var(--verde)}
+.opt.wrong .it{color:var(--rosso)}
+
+.feedback{margin-top:11px;padding:10px 13px;border-radius:9px;font-size:.8rem;line-height:1.6;min-height:44px}
+.feedback.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
+.feedback.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
+
+.nav-btns{display:flex;gap:7px;margin-top:12px}
+.btn-next{flex:1;background:var(--verde);color:white;border:none;border-radius:10px;padding:12px 18px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;transition:all .2s;display:none}
+.btn-next:hover{background:#1f5c3a}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 14px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;color:var(--muted)}
+
+/* RESULT */
+.result-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:28px 20px;box-shadow:var(--shadow);max-width:500px;margin:0 auto;text-align:center}
+.res-pct{font-family:'Playfair Display',serif;font-size:5rem;font-weight:700;line-height:1}
+.res-label{font-size:.83rem;color:var(--muted);margin-top:3px;margin-bottom:14px}
+.res-msg{font-size:.95rem;line-height:1.7;margin-bottom:16px}
+.cat-progress{display:grid;gap:6px;margin-bottom:16px;text-align:left}
+.cp-row{display:flex;align-items:center;gap:9px}
+.cp-name{font-size:.72rem;font-weight:700;min-width:110px}
+.cp-bar-bg{flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.cp-bar-fill{height:100%;border-radius:99px}
+.cp-score{font-size:.68rem;font-weight:800;min-width:32px;text-align:right}
+.breakdown{display:grid;gap:5px;margin-bottom:18px;text-align:left}
+.bd-err{background:var(--rosso-l);border-radius:8px;padding:8px 11px}
+.bd-ok{background:var(--verde-l);border-radius:8px;padding:7px 11px;margin-top:-3px;margin-bottom:4px}
+.bd-q{font-size:.78rem;font-weight:600;line-height:1.4}
+.bd-explain{font-size:.73rem;line-height:1.5;color:#3a2020}
+.btn-restart{background:var(--verde);color:white;border:none;border-radius:10px;padding:12px 28px;font-family:'Nunito',sans-serif;font-size:.88rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:7px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+.sec-title{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1><em>Italiano</em> — Тесты</h1>
+  <p>Тест 1 · Тест 2 · Предложения из урока</p>
+</header>
+
+<div class="main-nav">
+  <button class="main-nav-btn active" onclick="switchTest('t1')">📝 Тест 1<br><small style="font-size:.6rem;opacity:.7">30 вопросов</small></button>
+  <button class="main-nav-btn" onclick="switchTest('t2')">📝 Тест 2<br><small style="font-size:.6rem;opacity:.7">30 вопросов</small></button>
+  <button class="main-nav-btn" onclick="switchTest('t3')">💬 Предложения<br><small style="font-size:.6rem;opacity:.7">Из урока</small></button>
+</div>
+
+<div class="prog-header" id="prog-header">
+  <div class="prog-label" id="prog-label">1/30</div>
+  <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-bar" style="width:0%"></div></div>
+  <div class="prog-score" id="prog-score">✓ 0</div>
+</div>
+
+<div class="main-wrap">
+
+<!-- ══ ТЕСТ 1 ══ -->
+<div class="test-section active" id="t1">
+  <div id="t1-start">
+    <div class="start-card">
+      <div style="font-size:2.4rem;margin-bottom:9px">📝</div>
+      <h2>Тест 1</h2>
+      <p>30 вопросов по темам уроков 24/04 – 08/05. Приветствия, произношение, артикли, прилагательные, местоимения, essere, avere, вопросы, глаголы, числа!</p>
+      <div class="topics-grid">
+        <div class="topic-chip">👋 Приветствия</div>
+        <div class="topic-chip">🗣 Произношение</div>
+        <div class="topic-chip">📖 Артикли</div>
+        <div class="topic-chip">🎨 Прилагательные</div>
+        <div class="topic-chip">👤 Местоимения</div>
+        <div class="topic-chip">✦ Essere</div>
+        <div class="topic-chip">💎 Avere</div>
+        <div class="topic-chip">❓ Вопросы</div>
+        <div class="topic-chip">🎬 Глаголы</div>
+        <div class="topic-chip">🔢 Числа</div>
+      </div>
+      <button class="btn-next" style="display:block;width:100%;font-size:.92rem;padding:14px" onclick="startTest('t1')">🚀 Начать тест 1</button>
+    </div>
+  </div>
+  <div id="t1-quiz" style="display:none"></div>
+  <div id="t1-result" style="display:none"></div>
+</div>
+
+<!-- ══ ТЕСТ 2 ══ -->
+<div class="test-section" id="t2">
+  <div id="t2-start">
+    <div class="start-card">
+      <div style="font-size:2.4rem;margin-bottom:9px">📝</div>
+      <h2>Тест 2</h2>
+      <p>30 новых вопросов — другие примеры, другой порядок. Углублённая проверка по всем темам!</p>
+      <div class="topics-grid">
+        <div class="topic-chip">↔ Антонимы</div>
+        <div class="topic-chip">🔗 Согласование</div>
+        <div class="topic-chip">💬 Диалоги</div>
+        <div class="topic-chip">🔢 Числа</div>
+        <div class="topic-chip">🎬 Глаголы</div>
+        <div class="topic-chip">👤 Местоимения</div>
+        <div class="topic-chip">✦ Essere</div>
+        <div class="topic-chip">💎 Avere</div>
+        <div class="topic-chip">📖 Артикли</div>
+        <div class="topic-chip">🎨 Прилагательные</div>
+      </div>
+      <button class="btn-next" style="display:block;width:100%;font-size:.92rem;padding:14px" onclick="startTest('t2')">🚀 Начать тест 2</button>
+    </div>
+  </div>
+  <div id="t2-quiz" style="display:none"></div>
+  <div id="t2-result" style="display:none"></div>
+</div>
+
+<!-- ══ ПРЕДЛОЖЕНИЯ ══ -->
+<div class="test-section" id="t3">
+  <div id="t3-start">
+    <div class="start-card">
+      <div style="font-size:2.4rem;margin-bottom:9px">💬</div>
+      <h2>Предложения из урока</h2>
+      <p>Предложения прямо из домашнего задания и упражнений конспекта. Выбери правильный глагол!</p>
+      <div class="topics-grid">
+        <div class="topic-chip">✦ Essere / Avere</div>
+        <div class="topic-chip">🎬 Parlare / Dormire</div>
+        <div class="topic-chip">📝 Домашние задания</div>
+        <div class="topic-chip">💬 Примеры урока</div>
+      </div>
+      <button class="btn-next" style="display:block;width:100%;font-size:.92rem;padding:14px" onclick="startTest('t3')">🚀 Начать тест предложений</button>
+    </div>
+  </div>
+  <div id="t3-quiz" style="display:none"></div>
+  <div id="t3-result" style="display:none"></div>
+</div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// ТЕСТ 1 — 30 вопросов
+// ══════════════════════════════════════════════
+const TEST1 = [
+  // ПРИВЕТСТВИЯ
+  {topic:'greet',tl:'Приветствия',q:'Как сказать «добрый вечер» (17:00–00:00)?',opts:['Buongiorno','Buonasera','Buona serata','Ciao'],a:1,ex:'<strong>Buonasera</strong> — добрый вечер. Buona serata — пожелание хорошего вечера при прощании.'},
+  {topic:'greet',tl:'Приветствия',q:'Что означает <span class="it">ALTRETTANTO</span>?',opts:['Спасибо','Взаимно','Пожалуйста','Пока'],a:1,ex:'<strong>Altrettanto</strong> = взаимно. Говорят в ответ на пожелание.'},
+  {topic:'greet',tl:'Приветствия',q:'<span class="it">SCUSAMI PER IL RITARDO</span> = ?',opts:['Извини за шум','Прости за опоздание','Спасибо за ожидание','Добро пожаловать'],a:1,ex:'<strong>Scusami per il ritardo</strong> — прости меня за опоздание. Ritardo = опоздание.'},
+  // ПРОИЗНОШЕНИЕ
+  {topic:'pronun',tl:'Произношение',q:'Как произносится <span class="it">GLI</span>?',opts:['ГЛИ','ДЖИ','ХЛИ','ЛЬИ'],a:2,ex:'<strong>GLI = «ХЛИ»</strong>. Gli amici = «ХЛИ амичи». Особый итальянский звук.'},
+  {topic:'pronun',tl:'Произношение',q:'<span class="it">C + E</span> читается как:',opts:['КЭ','ЧЭ','СЭ','ДЖЭ'],a:1,ex:'<strong>C + E = ЧЭ</strong>. Cena (ужин) = «ЧЕНА». C перед e и i → «Ч».'},
+  {topic:'pronun',tl:'Произношение',q:'Буква H в итальянском:',opts:['читается как «Х»','всегда молчит','читается как «А»','читается как «Э»'],a:1,ex:'<strong>H всегда молчит</strong> в итальянском! Hotel = «отэль». H называется «акка».'},
+  // АРТИКЛИ
+  {topic:'articoli',tl:'Артикли',q:'Артикль для слова <span class="it">«zaino»</span> (рюкзак):',opts:['il zaino','la zaino','lo zaino','l\'zaino'],a:2,ex:'<strong>LO</strong> — перед Z, GN, PS, S+согласная. Lo zaino, lo studente, lo gnomo.'},
+  {topic:'articoli',tl:'Артикли',q:'<span class="it">Lo studente</span> → мн.ч.:',opts:['i studenti','gli studenti','le studenti','il studenti'],a:1,ex:'<strong>GLI</strong> — мн.ч. от lo и l\' (муж.р.). Gli studenti, gli zaini, gli amici.'},
+  {topic:'articoli',tl:'Артикли',q:'<span class="it">La mano</span> → мн.ч.:',opts:['le manos','le mane','le mani','i mani'],a:2,ex:'<strong>Le mani</strong> — исключение! Женский род, но мн.ч. на -i.'},
+  {topic:'articoli',tl:'Артикли',q:'Неопределённый артикль ж.р. перед гласной:',opts:['una','un\'','la','l\''],a:1,ex:'<strong>Un\'</strong> — перед гласной в женском роде. Un\'amica, un\'aula.'},
+  // ПРИЛАГАТЕЛЬНЫЕ
+  {topic:'aggettivi',tl:'Прилагательные',q:'<span class="it">I ragazzi</span> + <span class="it">bello</span> = ?',opts:['bello','bella','belli','belle'],a:2,ex:'<strong>Belli</strong> — муж.р. мн.ч. (-I). Ragazzi → мужской, мн.ч. → belli.'},
+  {topic:'aggettivi',tl:'Прилагательные',q:'Прилагательные на -E в ед.ч.:',opts:['имеют м. и ж. форму','одна форма для обоих родов','только мужской','только женский'],a:1,ex:'Прилагательные на -E <strong>не изменяются по роду</strong>: il ragazzo intelligente = la ragazza intelligente.'},
+  // МЕСТОИМЕНИЯ
+  {topic:'pronomi',tl:'Местоимения',q:'<span class="it">LEI</span> (с большой буквы) означает:',opts:['она','они','формальное «Вы» (1 чел.)','вы (группа)'],a:2,ex:'<strong>Lei</strong> (большая) = формальное Вы для одного человека. К профессору, врачу, незнакомому.'},
+  {topic:'pronomi',tl:'Местоимения',q:'Притяжательное «наш» в жен.р. ед.ч.:',opts:['nostro','nostra','nostri','nostre'],a:1,ex:'<strong>Nostra</strong> — жен.р. ед.ч. Nostra casa = наш дом. Nostro (м.ед.), nostri (м.мн.), nostre (ж.мн.).'},
+  {topic:'pronomi',tl:'Местоимения',q:'<span class="it">LORO</span> (их) как притяжательное:',opts:['меняется по роду','меняется по числу','не изменяется никогда','меняется по роду и числу'],a:2,ex:'<strong>Loro не изменяется!</strong> Меняется только артикль: il loro, la loro, i loro, le loro.'},
+  // ESSERE
+  {topic:'essere',tl:'Essere',q:'<span class="it">VOI essere = ?</span>',opts:['sei','sono','siamo','siete'],a:3,ex:'<strong>Siete</strong> — essere для VOI (вы, группа). IO sono, TU sei, LUI è, NOI siamo, VOI siete, LORO sono.'},
+  {topic:'essere',tl:'Essere',q:'Когда используют ESSERE, а не AVERE?',opts:['голод и жажда','возраст','национальность и профессия','обладание предметами'],a:2,ex:'<strong>ESSERE</strong> — национальность (Sono ucraino), профессия (È medico), прилагательные (Sei stanco), место (Siamo a casa).'},
+  {topic:'essere',tl:'Essere',q:'<span class="it">«Di dove sei?»</span> = ?',opts:['Как тебя зовут?','Откуда ты?','Где ты живёшь?','Когда ты приехал?'],a:1,ex:'<strong>Di dove sei?</strong> = Откуда ты родом? Di dove = из где. Sei = ты есть (essere).'},
+  // AVERE
+  {topic:'avere',tl:'Avere',q:'<span class="it">IO avere = ?</span>',opts:['hai','ha','ho','hanno'],a:2,ex:'<strong>HO</strong> — avere для IO (я). IO ho, TU hai, LUI/LEI ha, NOI abbiamo, VOI avete, LORO hanno.'},
+  {topic:'avere',tl:'Avere',q:'<span class="it">«Ho fretta!»</span> = ?',opts:['Я голоден!','Мне жарко!','Я спешу!','Я хочу пить!'],a:2,ex:'<strong>Avere fretta</strong> = торопиться (иметь спешку). Ho fretta! — Я спешу!'},
+  {topic:'avere',tl:'Avere',q:'Как сказать «у нас нет времени»?',opts:['Non siamo tempo','Non abbiamo tempo','Non avete tempo','Non hanno tempo'],a:1,ex:'<strong>Non abbiamo tempo</strong> — NOI → abbiamo. Avere tempo = иметь время.'},
+  // ВОПРОСЫ
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">PERCHÉ</span> = ?',opts:['где','когда','почему / потому что','как'],a:2,ex:'<strong>Perché</strong> = почему? / потому что. Используется и в вопросе, и в ответе!'},
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">«___ pasta vuoi?»</span> — вставь QUANTO:',opts:['Quanto','Quanta','Quanti','Quante'],a:1,ex:'<strong>Quanta</strong> — pasta женский род ед.ч. С существительными quanto согласуется!'},
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">QUESTO</span> — это:',opts:['эта (ж.р.)','эти (мн.ч.)','этот (м.р. ед.ч.)','эти (ж.р. мн.ч.)'],a:2,ex:'<strong>Questo</strong> — муж.р. ед.ч. Questa (ж.ед.), questi (м.мн.), queste (ж.мн.).'},
+  // ГЛАГОЛЫ
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">NOI parlare = ?</span>',opts:['parliamo','parlate','parlano','parlo'],a:0,ex:'<strong>Parliamo</strong> — parlare для NOI. Parlo (io), parli (tu), parla (lui), parliamo (noi), parlate (voi), parlano (loro).'},
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">LORO dormire = ?</span>',opts:['dormiamo','dormite','dormono','dorme'],a:2,ex:'<strong>Dormono</strong> — dormire для LORO. Dormo (io), dormi (tu), dorme (lui), dormiamo (noi), dormite (voi), dormono (loro).'},
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">DI SOLITO</span> = ?',opts:['завтра','обычно','сейчас','часто'],a:1,ex:'<strong>Di solito</strong> = обычно. Di solito dormo sette ore. — Обычно сплю семь часов.'},
+  // ЧИСЛА
+  {topic:'numeri',tl:'Числа',q:'Как по-итальянски «37»?',opts:['trentasei','trentasette','quarantasette','ventisei'],a:1,ex:'<strong>Trentasette</strong> = 37. Trenta (30) + sette (7). Ho trentasette anni!'},
+  {topic:'numeri',tl:'Числа',q:'Как по-итальянски «12»?',opts:['undici','dodici','tredici','dieci'],a:1,ex:'<strong>Dodici</strong> = 12. Undici (11), dodici (12), tredici (13), quattordici (14)...'},
+  {topic:'numeri',tl:'Числа',q:'<span class="it">«Quanti anni hai?»</span> — правильный ответ:',opts:['Sono trentasette anni','Ho trentasette anni','Avete trentasette anni','Siamo trentasette anni'],a:1,ex:'<strong>Ho ___ anni</strong> — возраст через AVERE. Буквально «имею 37 лет».'},
+];
+
+// ══════════════════════════════════════════════
+// ТЕСТ 2 — 30 вопросов
+// ══════════════════════════════════════════════
+const TEST2 = [
+  // АНТОНИМЫ
+  {topic:'contrari',tl:'Антонимы',q:'Антоним к <span class="it">«caldo»</span> (горячий):',opts:['lento','freddo','vuoto','scuro'],a:1,ex:'<strong>Freddo</strong> — холодный. Caldo ↔ freddo. Ho caldo (жарко) ↔ Ho freddo (холодно).'},
+  {topic:'contrari',tl:'Антонимы',q:'Антоним к <span class="it">«facile»</span> (лёгкий):',opts:['lento','piccolo','difficile','noioso'],a:2,ex:'<strong>Difficile</strong> — сложный. Facile ↔ difficile. Оба прилагательные на -E (без рода).'},
+  {topic:'contrari',tl:'Антонимы',q:'Антоним к <span class="it">«lungo»</span> (длинный):',opts:['basso','corto','piccolo','stretto'],a:1,ex:'<strong>Corto</strong> — короткий. Lungo ↔ corto. Capelli corti = короткие волосы.'},
+  // ПРОИЗНОШЕНИЕ
+  {topic:'pronun',tl:'Произношение',q:'<span class="it">G + N</span> читается как:',opts:['ГН','НЬ','ДЖН','НН'],a:1,ex:'<strong>GN = «НЬ»</strong>. Gnomo = «НЬОМО», signore = «синьорэ». Типичный итальянский звук.'},
+  {topic:'pronun',tl:'Произношение',q:'<span class="it">CH + I</span> читается как:',opts:['ЧИ','ДЖИ','КИ','ШИ'],a:2,ex:'<strong>CH + I = КИ</strong>. Chi = «КИ» (кто). CH всегда даёт твёрдый звук К.'},
+  // АРТИКЛИ
+  {topic:'articoli',tl:'Артикли',q:'Артикль для <span class="it">«psicologo»</span>:',opts:['il','la','lo','un'],a:2,ex:'<strong>LO</strong> — перед PS. Lo psicologo. Также: lo studente (ST), lo zaino (Z), lo gnomo (GN).'},
+  {topic:'articoli',tl:'Артикли',q:'<span class="it">Un</span> или <span class="it">uno</span> перед «zaino»?',opts:['Un zaino','Uno zaino','Una zaino','Un\' zaino'],a:1,ex:'<strong>Uno zaino</strong> — перед Z, GN, PS, S+согл. Un (перед остальными), uno (Z, GN...).'},
+  {topic:'articoli',tl:'Артикли',q:'Схема замены: <span class="it">la/l\'(ж.р.) → ?</span>',opts:['i','gli','le','l\''],a:2,ex:'<strong>Le</strong> — мн.ч. от la и l\' (жен.р.). La ragazza → le ragazze. L\'amica → le amiche.'},
+  // ПРИЛАГАТЕЛЬНЫЕ
+  {topic:'aggettivi',tl:'Прилагательные',q:'<span class="it">Le scarpe</span> + <span class="it">«stretto»</span> = ?',opts:['stretto','stretta','stretti','strette'],a:3,ex:'<strong>Strette</strong> — жен.р. мн.ч. (-E). Scarpe → женский, мн.ч. → strette.'},
+  {topic:'aggettivi',tl:'Прилагательные',q:'<span class="it">Lo zaino</span> + <span class="it">«colorato»</span> = ?',opts:['colorato','colorata','colorati','colorate'],a:0,ex:'<strong>Colorato</strong> — муж.р. ед.ч. (-O). Zaino → мужской, ед.ч. → colorato.'},
+  {topic:'aggettivi',tl:'Прилагательные',q:'<span class="it">Le giacche</span> + <span class="it">«elegante»</span> = ?',opts:['elegante','eleganti','elegantes','eleganta'],a:1,ex:'<strong>Eleganti</strong> — прилагательные на -E: ед.ч. -E, мн.ч. -I. Для обоих родов!'},
+  // МЕСТОИМЕНИЯ
+  {topic:'pronomi',tl:'Местоимения',q:'«Моя» книга по-итальянски:',opts:['il mio libro','la mia libro','la mia libra','il mia libro'],a:1,ex:'<strong>La mia libro</strong> — libro женский? Нет! Libro — мужской! Правильно: <strong>il mio libro</strong>. Притяжательное согласуется с существительным.'},
+  {topic:'pronomi',tl:'Местоимения',q:'«Мой отец» — с артиклем или без?',opts:['il mio padre','mio padre','la mio padre','lo mio padre'],a:1,ex:'<strong>Mio padre</strong> — без артикля! Члены семьи в ед.ч. с mio/tuo/suo → без артикля.'},
+  {topic:'pronomi',tl:'Местоимения',q:'«Их дом» по-итальянски:',opts:['la loro casa','la sue casa','la sua casa','la loro casа (loro не меняется)'],a:0,ex:'<strong>La loro casa</strong> — loro не изменяется! Артикль согласуется с casa (жен.р.).'},
+  // ESSERE
+  {topic:'essere',tl:'Essere',q:'<span class="it">«Io e mia moglie ___ belli»</span>:',opts:['sono','siamo','siete','è'],a:1,ex:'<strong>Siamo</strong> — io e mia moglie = мы двое → NOI → siamo.'},
+  {topic:'essere',tl:'Essere',q:'<span class="it">«Il treno ___ a Firenze»</span>:',opts:['ha','è','sono','avere'],a:1,ex:'<strong>È</strong> — essere для singolare. Местонахождение → essere. Il treno è a Firenze.'},
+  {topic:'essere',tl:'Essere',q:'Профессия после ESSERE — с артиклем или без?',opts:['всегда с артиклем','всегда без артикля','зависит от рода','зависит от числа'],a:1,ex:'<strong>Без артикля!</strong> È medico ✅, è un medico ❌ (в разговорной речи). Suo marito è medico.'},
+  // AVERE
+  {topic:'avere',tl:'Avere',q:'<span class="it">LORO avere = ?</span>',opts:['avete','abbiamo','hanno','ha'],a:2,ex:'<strong>Hanno</strong> — avere для LORO. IO ho, TU hai, LUI ha, NOI abbiamo, VOI avete, LORO hanno.'},
+  {topic:'avere',tl:'Avere',q:'«Я хочу спать» по-итальянски:',opts:['Ho sete','Ho sonno','Ho fame','Ho freddo'],a:1,ex:'<strong>Ho sonno</strong> = хочу спать (имею сон). Il sonno = сон.'},
+  {topic:'avere',tl:'Avere',q:'<span class="it">«(voi) ___ la patente?»</span>',opts:['siete','sono','avete','abbiamo'],a:2,ex:'<strong>Avete</strong> — avere для VOI. La patente = водительские права. Обладание → avere.'},
+  // ВОПРОСЫ
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">«Quanto ___ questa maglia?»</span>',opts:['è','costano','costa','hanno'],a:2,ex:'<strong>Costa</strong> — costare (стоить) для lui/lei/esso. Quanto costa? = Сколько стоит?'},
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">«___ spaghetti mangi?»</span>',opts:['Quanta','Quanto','Quanti','Quante'],a:2,ex:'<strong>Quanti</strong> — spaghetti муж.р. мн.ч. С существительными quanto согласуется!'},
+  {topic:'domande',tl:'Вопросы',q:'<span class="it">QUANDO</span> = ?',opts:['где','почему','когда','как'],a:2,ex:'<strong>Quando</strong> = когда. Quando arrivi? — Когда приедешь? Quando parti? — Когда уезжаешь?'},
+  // ГЛАГОЛЫ
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">TU prendere = ?</span>',opts:['prendo','prendi','prende','prendono'],a:1,ex:'<strong>Prendi</strong> — prendere для TU. Prendo (io), prendi (tu), prende (lui)...'},
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">VOI parlare = ?</span>',opts:['parliamo','parlate','parlano','parli'],a:1,ex:'<strong>Parlate</strong> — parlare для VOI. Parliamo (noi), parlate (voi), parlano (loro).'},
+  {topic:'verbi',tl:'Глаголы',q:'Глагол SCRIVERE (-ERE) для LUI:',opts:['scrivo','scrivi','scrive','scriviamo'],a:2,ex:'<strong>Scrive</strong> — глаголы -ERE для lui/lei: основа + -E. Scrive (lui), scrivono (loro).'},
+  {topic:'verbi',tl:'Глаголы',q:'<span class="it">VORREI</span> = ?',opts:['я хочу','я хотел бы','я хочу есть','я должен'],a:1,ex:'<strong>Vorrei</strong> = я хотел бы (вежливая форма). Vorrei un caffè = я бы хотел кофе.'},
+  // ЧИСЛА
+  {topic:'numeri',tl:'Числа',q:'Как по-итальянски «30»?',opts:['venti','trenta','quaranta','tredici'],a:1,ex:'<strong>Trenta</strong> = 30. Venti (20), trenta (30), quaranta (40), cinquanta (50)...'},
+  {topic:'numeri',tl:'Числа',q:'Как по-итальянски «11»?',opts:['dieci','dodici','undici','tredici'],a:2,ex:'<strong>Undici</strong> = 11. Undici (11), dodici (12), tredici (13), quattordici (14), quindici (15)...'},
+  {topic:'numeri',tl:'Числа',q:'<span class="it">«Ho trentatré anni»</span> = ?',opts:['Мне 30 лет','Мне 37 лет','Мне 33 года','Мне 43 года'],a:2,ex:'<strong>Trentatré</strong> = 33. Trenta (30) + tre (3). Ho trentatré anni = мне 33 года.'},
+];
+
+// ══════════════════════════════════════════════
+// ТЕСТ 3 — ПРЕДЛОЖЕНИЯ ИЗ УРОКА
+// ══════════════════════════════════════════════
+const TEST3 = [
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Loro <span class="blank">___</span> una villa in campagna.</div>',opts:['sono','è','hanno','ha'],a:2,ex:'<strong>Hanno</strong> — обладание (villa = владение) → AVERE. Loro hanno = у них есть.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Luigi <span class="blank">___</span> sempre puntuale.</div>',opts:['ha','è','hanno','sono'],a:1,ex:'<strong>È</strong> — характеристика человека (puntuale = пунктуален) → ESSERE. Luigi è.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Queste maglie non <span class="blank">___</span> pulite.</div>',opts:['hanno','ha','sono','è'],a:2,ex:'<strong>Sono</strong> — прилагательное pulite (чистые) → ESSERE. Queste maglie = они → sono.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Anna e Mario <span class="blank">___</span> un figlio di 5 anni.</div>',opts:['sono','è','ha','hanno'],a:3,ex:'<strong>Hanno</strong> — обладание (figlio = сын) → AVERE. Anna e Mario = loro → hanno.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Suo marito <span class="blank">___</span> medico.</div>',opts:['ha','hanno','è','sono'],a:2,ex:'<strong>È</strong> — профессия → ESSERE. Suo marito = lui → è. Без артикля!'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Io <span class="blank">___</span> un appuntamento alle 10.</div>',opts:['sono','siamo','ho','ha'],a:2,ex:'<strong>Ho</strong> — обладание (appuntamento = встреча) → AVERE. IO → ho.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Oggi il tempo <span class="blank">___</span> bello.</div>',opts:['ha','hanno','è','siamo'],a:2,ex:'<strong>È</strong> — прилагательное bello → ESSERE. Il tempo (ед.ч.) = lui → è.'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Franco <span class="blank">___</span> molti problemi.</div>',opts:['è','sono','ha','hanno'],a:2,ex:'<strong>Ha</strong> — обладание (problemi = проблемы) → AVERE. Franco = lui → ha.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Tu <span class="blank">___</span> pronto?</div>',opts:['hai','ha','sei','siete'],a:2,ex:'<strong>Sei</strong> — прилагательное pronto → ESSERE. TU → sei. Essere pronto = быть готовым.'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Francesca <span class="blank">___</span> mal di testa.</div>',opts:['è','sono','ha','siamo'],a:2,ex:'<strong>Ha</strong> — боль → AVERE. Francesca = lei → ha. Avere mal di testa = болит голова.'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Noi non <span class="blank">___</span> freddo.</div>',opts:['siamo','sono','abbiamo','avete'],a:2,ex:'<strong>Abbiamo</strong> — физическое ощущение (freddo) → AVERE. NOI → abbiamo.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Federica e Maria <span class="blank">___</span> sorelle.</div>',opts:['hanno','ha','siamo','sono'],a:3,ex:'<strong>Sono</strong> — родство/роль → ESSERE. Loro → sono. Без артикля!'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Giulia <span class="blank">___</span> una moto nuova.</div>',opts:['è','sono','ha','siamo'],a:2,ex:'<strong>Ha</strong> — обладание (moto = мотоцикл) → AVERE. Giulia = lei → ha.'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Voi <span class="blank">___</span> fame?</div>',opts:['siete','sono','avete','abbiamo'],a:2,ex:'<strong>Avete</strong> — физическое ощущение (fame = голод) → AVERE. VOI → avete.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Professore, <span class="blank">___</span> un po\' di tempo?</div>',opts:['siete','avete','ha','abbiamo'],a:2,ex:'<strong>Ha</strong> — к профессору обращаются на Lei (формальное Вы) → lei/ha. Avere tempo = иметь время.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Il padre di Alessandro <span class="blank">___</span> medico.</div>',opts:['ha','hanno','è','siamo'],a:2,ex:'<strong>È</strong> — профессия → ESSERE. Il padre = lui → è. Без артикля!'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Io non <span class="blank">___</span> sonno.</div>',opts:['sono','siamo','ho','ha'],a:2,ex:'<strong>Ho</strong> — физическое ощущение (sonno = сон) → AVERE. IO → ho.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Noi <span class="blank">___</span> amici.</div>',opts:['abbiamo','hanno','siamo','sono'],a:2,ex:'<strong>Siamo</strong> — роль/отношения → ESSERE. NOI → siamo. Без артикля!'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Gli amici di Claudio <span class="blank">___</span> giovani.</div>',opts:['hanno','ha','è','sono'],a:3,ex:'<strong>Sono</strong> — прилагательное giovani → ESSERE. Gli amici = loro → sono.'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Stefano <span class="blank">___</span> un buon lavoro.</div>',opts:['è','sono','ha','siamo'],a:2,ex:'<strong>Ha</strong> — обладание (lavoro = работа) → AVERE. Stefano = lui → ha.'},
+  // Урок 08/05
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Parlo in giardino con <span class="blank">___</span> amico.</div>',opts:['il','lo','un','uno'],a:2,ex:'<strong>Un amico</strong> — неопределённый артикль муж.р. перед согласной. Un (+ любая буква, кроме z, gn, s+согл.).'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Parliamo domani, oggi <span class="blank">___</span> stanco!</div>',opts:['ho','hai','sono','siamo'],a:2,ex:'<strong>Sono</strong> — прилагательное stanco → ESSERE. IO → sono. (Говорящий о себе = io)'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Di solito <span class="blank">___</span> sei-sette ore.</div>',opts:['parliamo','prendo','dormo','mangio'],a:2,ex:'<strong>Dormo</strong> — dormire (спать) для IO. Di solito dormo = обычно я сплю.'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Che <span class="blank">___? — Prendo un panino.</span></div>',opts:['dormi','parli','prendi','mangi'],a:2,ex:'<strong>Prendi</strong> — prendere (брать) для TU. Che prendi? = Что возьмёшь?'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Oggi <span class="blank">___</span> in giardino!</div>',opts:['parlate','dormite','dormiamo','parliamo'],a:2,ex:'<strong>Dormiamo</strong> — dormire для NOI (мы). Oggi dormiamo in giardino! — Сегодня мы спим в саду!'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь правильную форму: <div class="q-sentence">Slava, quanto <span class="blank">___</span> di solito?</div>',opts:['dormo','dormi','dorme','dormono'],a:1,ex:'<strong>Dormi</strong> — dormire для TU. Quanto dormi? = Сколько ты спишь? (обращение к Slave = ты)'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Maria <span class="blank">___</span> con la sorella a scuola.</div>',opts:['parlo','parli','parla','parliamo'],a:2,ex:'<strong>Parla</strong> — parlare для LUI/LEI. Maria = lei → parla.'},
+  {topic:'verbi',tl:'Глаголы',q:'Вставь глагол: <div class="q-sentence">Perché non <span class="blank">___</span> con me?</div>',opts:['parlo','parla','parlano','parli'],a:3,ex:'<strong>Parli</strong> — parlare для TU. Perché non parli con me? = Почему ты не говоришь со мной?'},
+  {topic:'avere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Simonetta <span class="blank">___</span> una casa grande.</div>',opts:['è','sono','ha','siamo'],a:2,ex:'<strong>Ha</strong> — обладание (casa) → AVERE. Simonetta = lei → ha.'},
+  {topic:'essere',tl:'Essere/Avere',q:'Вставь глагол: <div class="q-sentence">Voi <span class="blank">___</span> stanche?</div>',opts:['avete','hanno','siete','siamo'],a:2,ex:'<strong>Siete</strong> — прилагательное stanche → ESSERE. VOI → siete. Stanche = жен.р. мн.ч.'},
+];
+
+// ══════════════════════════════════════════════
+// ENGINE
+// ══════════════════════════════════════════════
+const shuffle = a => [...a].sort(() => Math.random() - .5);
+
+let state = {
+  activeTest: 't1',
+  questions: [], current: 0, score: 0,
+  answered: false, userAnswers: []
+};
+
+function switchTest(id) {
+  document.querySelectorAll('.test-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.main-nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.main-nav-btn')[['t1','t2','t3'].indexOf(id)].classList.add('active');
+  state.activeTest = id;
+  document.getElementById('prog-header').style.display = 'none';
+}
+
+function startTest(testId) {
+  const pool = testId === 't1' ? TEST1 : testId === 't2' ? TEST2 : TEST3;
+  state.questions = shuffle(pool);
+  state.current = 0; state.score = 0;
+  state.answered = false; state.userAnswers = [];
+  state.activeTest = testId;
+
+  document.getElementById(`${testId}-start`).style.display = 'none';
+  document.getElementById(`${testId}-result`).style.display = 'none';
+  document.getElementById(`${testId}-quiz`).style.display = 'block';
+
+  const ph = document.getElementById('prog-header');
+  ph.style.display = 'flex';
+  renderQ();
+}
+
+function renderQ() {
+  if (state.current >= state.questions.length) { showResult(); return; }
+  const q = state.questions[state.current];
+  state.answered = false;
+  const pct = Math.round(state.current / state.questions.length * 100);
+  const total = state.questions.length;
+
+  document.getElementById('prog-label').textContent = `${state.current + 1}/${total}`;
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-score').textContent = '✓ ' + state.score;
+
+  // Shuffle options
+  const indices = [0,1,2,3];
+  const shuffled = shuffle(indices.slice(0, q.opts.length));
+  const newCorrect = shuffled.indexOf(q.a);
+  const shuffledOpts = shuffled.map(i => q.opts[i]);
+
+  const qEl = document.getElementById(`${state.activeTest}-quiz`);
+  qEl.innerHTML = `
+    <div class="q-card">
+      <div class="q-meta">
+        <span class="q-num">Вопрос ${state.current + 1} из ${total}</span>
+        <span class="q-topic qt-${q.topic}">${q.tl}</span>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="opts-grid${q.opts.length <= 2 ? ' wide' : ''}">
+        ${shuffledOpts.map((opt, i) => `
+          <button class="opt" data-correct="${i === newCorrect}" onclick="checkAnswer(this, ${i === newCorrect})">
+            ${opt}
+          </button>`).join('')}
+      </div>
+      <div class="feedback" id="qfb"></div>
+      <div class="nav-btns">
+        <button class="btn-skip" id="skip-btn" onclick="skipQ()">Пропустить</button>
+        <button class="btn-next" id="next-btn" onclick="nextQ()">
+          ${state.current < state.questions.length - 1 ? 'Следующий →' : 'Результат 🎉'}
+        </button>
+      </div>
+    </div>`;
+}
+
+function checkAnswer(btn, isCorrect) {
+  if (state.answered) return;
+  state.answered = true;
+  const q = state.questions[state.current];
+  document.querySelectorAll('.opt').forEach(b => b.disabled = true);
+  document.getElementById('skip-btn').style.display = 'none';
+  document.getElementById('next-btn').style.display = 'block';
+  const fb = document.getElementById('qfb');
+  if (isCorrect) {
+    state.score++;
+    btn.classList.add('correct');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✓ Правильно! ' + q.ex;
+    state.userAnswers.push({ q, correct: true, chosen: btn.textContent.trim() });
+  } else {
+    btn.classList.add('wrong');
+    document.querySelector('.opt[data-correct="true"]').classList.add('correct');
+    fb.className = 'feedback err';
+    fb.innerHTML = '✕ Неправильно. ' + q.ex;
+    state.userAnswers.push({ q, correct: false, chosen: btn.textContent.trim() });
+  }
+  document.getElementById('prog-score').textContent = '✓ ' + state.score;
+}
+
+function skipQ() {
+  state.userAnswers.push({ q: state.questions[state.current], correct: false, chosen: '— пропущен —' });
+  nextQ();
+}
+
+function nextQ() { state.current++; renderQ(); }
+
+function showResult() {
+  const tid = state.activeTest;
+  document.getElementById(`${tid}-quiz`).style.display = 'none';
+  document.getElementById(`${tid}-result`).style.display = 'block';
+  document.getElementById('prog-header').style.display = 'none';
+
+  const total = state.questions.length;
+  const pct = Math.round(state.score / total * 100);
+  const color = pct >= 75 ? 'var(--verde)' : pct >= 50 ? 'var(--oro)' : 'var(--rosso)';
+  const emoji = pct >= 90 ? '🏆' : pct >= 75 ? '🎉' : pct >= 60 ? '👍' : pct >= 40 ? '📚' : '🔄';
+  const msg = pct >= 90 ? 'Отлично! Материал всех уроков усвоен!' :
+              pct >= 75 ? 'Хорошо! Основное усвоено — повтори слабые темы.' :
+              pct >= 60 ? 'Неплохо! Ещё немного практики.' :
+              pct >= 40 ? 'Повтори конспекты и попробуй снова.' :
+                          'Вернись к конспектам — ты справишься!';
+
+  const cats = {};
+  state.userAnswers.forEach(({ q, correct }) => {
+    if (!cats[q.tl]) cats[q.tl] = { total: 0, correct: 0, color: '#2d7a4f' };
+    cats[q.tl].total++;
+    if (correct) cats[q.tl].correct++;
+  });
+  const catColors = {
+    'Приветствия':'#2d7a4f','Произношение':'#6040a0','Артикли':'#2855a0',
+    'Прилагательные':'#b8860b','Местоимения':'#5020a0','Essere':'#2d7a4f',
+    'Avere':'#2855a0','Вопросы':'#6040a0','Глаголы':'#205020',
+    'Числа':'#c0392b','Антонимы':'#c0392b','Essere/Avere':'#2d7a4f',
+  };
+
+  const wrong = state.userAnswers.filter(x => !x.correct);
+
+  document.getElementById(`${tid}-result`).innerHTML = `
+    <div class="result-card">
+      <div style="font-size:3rem;margin-bottom:8px">${emoji}</div>
+      <div class="res-pct" style="color:${color}">${pct}%</div>
+      <div class="res-label">${state.score} из ${total} правильно</div>
+      <div class="res-msg">${msg}</div>
+      <div class="divider"></div>
+      <div class="sec-title">📊 По темам</div>
+      <div class="cat-progress">
+        ${Object.entries(cats).map(([name, {total, correct}]) => {
+          const p = Math.round(correct / total * 100);
+          const col = catColors[name] || 'var(--verde)';
+          return `<div class="cp-row">
+            <div class="cp-name">${name}</div>
+            <div class="cp-bar-bg"><div class="cp-bar-fill" style="width:${p}%;background:${col}"></div></div>
+            <div class="cp-score" style="color:${col}">${correct}/${total}</div>
+          </div>`;
+        }).join('')}
+      </div>
+      ${wrong.length > 0 ? `
+      <div class="divider"></div>
+      <div class="sec-title">📋 Разбор ошибок</div>
+      <div class="breakdown">
+        ${wrong.map(({ q, chosen }) => `
+          <div class="bd-err">
+            <div class="bd-q">${q.q.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()}</div>
+            <div style="font-size:.7rem;color:var(--rosso);margin-top:3px">Твой ответ: ${chosen}</div>
+          </div>
+          <div class="bd-ok"><div class="bd-explain">💡 ${q.ex}</div></div>
+        `).join('')}
+      </div>` : `<div style="text-align:center;color:var(--verde);font-weight:700;padding:12px">🎉 Все ответы правильные!</div>`}
+      <button class="btn-restart" onclick="startTest('${tid}')">🔄 Пройти снова</button>
+      <button class="btn-restart" style="background:var(--bg);color:var(--testo);border:2px solid var(--border)" onclick="goToStart('${tid}')">← Выбрать тест</button>
+    </div>`;
+}
+
+function goToStart(tid) {
+  document.getElementById(`${tid}-result`).style.display = 'none';
+  document.getElementById(`${tid}-start`).style.display = 'block';
+  document.getElementById('prog-header').style.display = 'none';
+}
+</script>
+</body>
+</html>
