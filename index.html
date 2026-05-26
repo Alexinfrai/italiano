@@ -1,47 +1,261 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Italiano — материалы</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Italiano — Alex</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; }
-  h1 { margin-bottom: 0.25rem; }
-  .sub { color: #666; margin-top: 0; }
-  ul { list-style: none; padding: 0; }
-  li { margin: 0.5rem 0; }
-  a { display: inline-block; padding: 0.5rem 0.75rem; border: 1px solid #ccc; border-radius: 8px; text-decoration: none; }
-  a:hover { background: #f4f4f4; }
-  h2 { margin-top: 2rem; font-size: 1.1rem; color: #444; }
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;
+  --verde:#2d7a4f;--verde-l:#0a1a10;
+  --oro:#c9a84c;--oro-l:#1a1500;
+  --blu:#2855a0;--blu-l:#080e1a;
+  --viola:#6040a0;--viola-l:#0e0818;
+  --rosso:#c0392b;--rosso-l:#1a0808;
+  --testo:#f0ebe3;--muted:#667;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);
+  padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
+header::after{content:'🇮🇹';position:absolute;font-size:8rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.flag{font-size:2.5rem;margin-bottom:10px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:700;position:relative;line-height:1.2}
+header h1 em{font-style:italic;color:var(--oro)}
+header p{margin-top:8px;font-size:.8rem;color:var(--muted);position:relative;letter-spacing:.1em;text-transform:uppercase}
+.progress-bar{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.pb-item{background:#ffffff0a;border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:.65rem;color:var(--muted);letter-spacing:.06em}
+.pb-item.active{border-color:var(--verde);color:#5ac4a0;background:#2d7a4f18}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+.section-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--oro);margin-bottom:12px;margin-top:28px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.1em}
+.section-title::before{content:'';width:3px;height:16px;background:var(--oro);border-radius:99px}
+
+/* CARDS GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:8px}
+
+/* APP CARD */
+.app-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--testo);transition:all .2s;display:flex;flex-direction:column;position:relative}
+.app-card:hover{border-color:#c9a84c55;transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--oro))}
+.card-top{padding:16px 16px 12px;flex:1}
+.card-icon{font-size:2rem;margin-bottom:8px;display:block}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;line-height:1.3}
+.card-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
+.card-bottom{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#ffffff03}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 7px;border:1px solid}
+.tag-tts{color:#5ac4a0;border-color:#2d7a4f44;background:#2d7a4f11}
+.tag-test{color:#7090e0;border-color:#2855a044;background:#2855a011}
+.tag-train{color:var(--oro);border-color:#c9a84c44;background:#c9a84c11}
+.tag-song{color:#c090e0;border-color:#6040a044;background:#6040a011}
+.card-arrow{font-size:.9rem;color:var(--muted);transition:transform .2s}
+.app-card:hover .card-arrow{transform:translateX(4px);color:var(--oro)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:4px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--oro);line-height:1}
+.stat-lbl{font-size:.62rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+
+/* FOOTER */
+footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:.68rem;color:var(--muted)}
+footer a{color:var(--oro);text-decoration:none}
 </style>
 </head>
 <body>
-<h1>Italiano</h1>
-<p class="sub">Материалы для изучения итальянского</p>
 
-<h2>Конспекты и словари</h2>
-<ul>
-  <li><a href="conspecti.html">Конспекты</a></li>
-  <li><a href="dizionari.html">Словари</a></li>
-</ul>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Italiano <em>di Alex</em></h1>
+  <p>Интерактивные приложения для изучения итальянского</p>
+  <div class="progress-bar">
+    <div class="pb-item active">Уроки 24/04 → 21/05</div>
+    <div class="pb-item active">51 неправильный глагол</div>
+    <div class="pb-item active">Google TTS</div>
+    <div class="pb-item active">GitHub Pages</div>
+  </div>
+</header>
 
-<h2>Глаголы</h2>
-<ul>
-  <li><a href="verbi-irregolari.html">Неправильные глаголы</a></li>
-  <li><a href="verbi-simili.html">Похожие глаголы</a></li>
-  <li><a href="verbi-game.html">Тренажёр глаголов</a></li>
-</ul>
+<div class="main">
 
-<h2>Практика</h2>
-<ul>
-  <li><a href="frasi-test.html">Тест по фразам</a></li>
-</ul>
+  <!-- STATS -->
+  <div class="stats" style="margin-top:4px">
+    <div class="stat"><div class="stat-num">8+</div><div class="stat-lbl">Уроков</div></div>
+    <div class="stat"><div class="stat-num">51</div><div class="stat-lbl">Неправ. глаголов</div></div>
+    <div class="stat"><div class="stat-num">300+</div><div class="stat-lbl">Слов</div></div>
+    <div class="stat"><div class="stat-num">9</div><div class="stat-lbl">Приложений</div></div>
+  </div>
 
-<h2>Песни</h2>
-<ul>
-  <li><a href="songs/mannarino.html">Mannarino</a></li>
-  <li><a href="songs/lucio.html">Lucio</a></li>
-</ul>
+  <!-- УРОКИ -->
+  <div class="section-title">📖 Уроки и конспекты</div>
+  <div class="grid">
+
+    <a href="conspecti.html" class="app-card" style="--accent:var(--verde)">
+      <div class="card-top">
+        <span class="card-icon">📗</span>
+        <div class="card-title">Конспект уроков</div>
+        <div class="card-desc">Все уроки с 24/04 по 21/05 — артикли, глаголы, прилагательные, местоимения, числа, погода, ANDARE, ISC-глаголы, модальные</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">15 вкладок</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="frasi-test.html" class="app-card" style="--accent:var(--blu)">
+      <div class="card-top">
+        <span class="card-icon">💬</span>
+        <div class="card-title">Фразы и тесты</div>
+        <div class="card-desc">Предложения из уроков — essere, avere, verbi, andare, ISC-глаголы. Три теста по 30 вопросов</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">3 теста</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- СЛОВАРИ -->
+  <div class="section-title">📚 Словари</div>
+  <div class="grid">
+
+    <a href="dizionari.html" class="app-card" style="--accent:var(--oro)">
+      <div class="card-top">
+        <span class="card-icon">📒</span>
+        <div class="card-title">Словари</div>
+        <div class="card-desc">100 прилагательных · 50 наречий · 50 предлогов · 50 местоимений · 63 глагола. Фильтры, поиск, ассоциации</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">313 слов</span>
+          <span class="tag tag-test">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ГЛАГОЛЫ -->
+  <div class="section-title">🎬 Глаголы</div>
+  <div class="grid">
+
+    <a href="verbi-irregolari.html" class="app-card" style="--accent:#e07070">
+      <div class="card-top">
+        <span class="card-icon">⚡</span>
+        <div class="card-title">Неправильные глаголы</div>
+        <div class="card-desc">51 глагол — полные спряжения, ассоциации, примеры. Карточки, тренажёр, тест, аудио-марафон с паузами</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 30</span>
+          <span class="tag tag-train">Марафон 🎧</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="verbi-simili.html" class="app-card" style="--accent:var(--viola)">
+      <div class="card-top">
+        <span class="card-icon">🔀</span>
+        <div class="card-title">Похожие глаголы</div>
+        <div class="card-desc">andare/venire · essere/stare · sapere/conoscere · essere/avere · fare/погода · modali · partire/uscire · ISC-глаголы</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 38</span>
+          <span class="tag tag-train">8 пар</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="verbi-game.html" class="app-card" style="--accent:var(--verde)">
+      <div class="card-top">
+        <span class="card-icon">🎮</span>
+        <div class="card-title">Игра — глаголы</div>
+        <div class="card-desc">4 мини-игры: ⚡ Скорость · 🏗️ Постройка · 💬 Диалог · ✍️ Молния. Учись играя!</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-train">4 игры</span>
+          <span class="tag tag-tts">TTS</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ТЕКСТЫ И ПЕСНИ -->
+  <div class="section-title">🎵 Тексты и песни</div>
+  <div class="grid">
+
+    <a href="songs/mannarino.html" class="app-card" style="--accent:#c9a84c">
+      <div class="card-top">
+        <span class="card-icon">🎵</span>
+        <div class="card-title">Mannarino — Me So' Mbriacato</div>
+        <div class="card-desc">Словарь песни · Диалект романеско — правила и отличия от стандартного итальянского · Тренажёр 4 режима</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">Романеско</span>
+          <span class="tag tag-train">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="songs/lucio.html" class="app-card" style="--accent:#5ac4a0">
+      <div class="card-top">
+        <span class="card-icon">🐱</span>
+        <div class="card-title">Lucio — il gatto di Morandi</div>
+        <div class="card-desc">Учебный текст — полный разбор. Слова с ассоциациями · Фразы по грамматике · Тренажёр · Тест 30 вопросов</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 30</span>
+          <span class="tag tag-train">40 слов</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ПОДСКАЗКА TTS -->
+  <div style="background:#1a1500;border:1px solid #c9a84c33;border-radius:12px;padding:14px 16px;margin-top:20px;font-size:.76rem;line-height:1.7;color:#c8b888">
+    🔊 <strong style="color:var(--oro)">Google TTS</strong> — произношение во всех приложениях. Один ключ работает везде.<br>
+    <span style="color:var(--muted)">console.cloud.google.com → Cloud Text-to-Speech API → Create API Key</span>
+  </div>
+
+</div>
+
+<footer>
+  Сделано с ❤️ для изучения итальянского ·
+  <a href="https://github.com/alexinfrai/italiano">GitHub</a>
+</footer>
+
 </body>
 </html>
