@@ -466,6 +466,26 @@ const adjWords = [
   {it:'rumoroso',ph:'[rumoˈroːzo]',forms:'rumorosa/rumorosi',ru:'шумный',sub:'qual',emoji:'🔊',assoc:'Румор — шум',ex:'Il traffico è <strong>rumoroso</strong>.'},
   {it:'silenzioso',ph:'[silentsˈjoːzo]',forms:'silenziosa/silenziosi',ru:'тихий, бесшумный',sub:'qual',emoji:'🤫',assoc:'Силенцио — тишина',ex:'Un posto <strong>silenzioso</strong>.'},
   {it:'importante',ph:'[imporˈtante]',forms:'importante/importanti',ru:'важный',sub:'qual',emoji:'❗',assoc:'Важный — импортантный импорт',ex:'È molto <strong>importante</strong>!'},
+  // ЦВЕТА (из уроков)
+  {it:'bianco',ph:'[ˈbjanko]',forms:'bianca/bianchi/bianche',ru:'белый',sub:'color',emoji:'⬜',assoc:'Бланш — белый (фр.)',ex:'I maglioni <strong>bianchi</strong>.'},
+  {it:'nero',ph:'[ˈneːro]',forms:'nera/neri/nere',ru:'чёрный',sub:'color',emoji:'⬛',assoc:'Неро — чёрное (итал. имя)',ex:'I jeans <strong>neri</strong>.'},
+  {it:'rosso',ph:'[ˈrɔsso]',forms:'rossa/rossi/rosse',ru:'красный',sub:'color',emoji:'🔴',assoc:'Россо — красный. Россия!',ex:'I guanti <strong>rossi</strong>.'},
+  {it:'verde',ph:'[ˈverde]',forms:'verde/verdi',ru:'зелёный',sub:'color',emoji:'🟢',assoc:'Верди — великий итальянский композитор',ex:'I parchi <strong>verdi</strong>.'},
+  {it:'blu',ph:'[bluː]',forms:'blu (неизменяемое!)',ru:'синий (насыщенный)',sub:'color',emoji:'🔵',assoc:'Блю — blue (англ.). Не меняется никогда!',ex:'Il berretto <strong>blu</strong>.'},
+  {it:'azzurro',ph:'[adˈdzurro]',forms:'azzurra/azzurri/azzurre',ru:'голубой, лазурный',sub:'color',emoji:'🩵',assoc:'Лазурный берег — Côte d\'Azur',ex:'Il pigiama <strong>azzurro</strong>.'},
+  {it:'grigio',ph:'[ˈɡriːdʒo]',forms:'grigia/grigi/grigie',ru:'серый',sub:'color',emoji:'🩶',assoc:'Грей — серый (англ.)',ex:'La cravatta <strong>grigia</strong>.'},
+  // НОВЫЕ ИЗ УРОКОВ
+  {it:'felice',ph:'[feˈliːtʃe]',forms:'felice/felici',ru:'счастливый, радостный',sub:'pos',emoji:'😄',assoc:'Феличита — счастье (песня Аль Бано)',ex:'Sono molto <strong>felice</strong>!'},
+  {it:'comodo',ph:'[ˈkɔːmodo]',forms:'comoda/comodi/comode',ru:'удобный, комфортный',sub:'pos',emoji:'🛋️',assoc:'Комод — удобная мебель',ex:'Una poltrona <strong>comoda</strong>.'},
+  {it:'scomodo',ph:'[ˈskɔːmodo]',forms:'scomoda/scomodi/scomode',ru:'неудобный',sub:'neg',emoji:'😣',assoc:'S- = не- + comodo',ex:'Una sedia <strong>scomoda</strong>.'},
+  {it:'lussuoso',ph:'[lusˈswoːzo]',forms:'lussuosa/lussuosi/lussuose',ru:'роскошный',sub:'pos',emoji:'💎',assoc:'Люкс — роскошь',ex:'Un albergo <strong>lussuoso</strong>.'},
+  {it:'impermeabile',ph:'[impermeˈaːbile]',forms:'impermeabile/impermeabili',ru:'непромокаемый',sub:'qual',emoji:'🌧️',assoc:'Imperm- = непроницаемый',ex:'Una giacca <strong>impermeabile</strong>.'},
+  {it:'chiaro',ph:'[ˈkjaːro]',forms:'chiara/chiari/chiare',ru:'светлый, ясный',sub:'pos',emoji:'☀️',assoc:'Кларет — светлое вино',ex:'Un colore <strong>chiaro</strong>.'},
+  {it:'scuro',ph:'[ˈskuːro]',forms:'scura/scuri/scure',ru:'тёмный',sub:'neg',emoji:'🌑',assoc:'Обскура — камера-обскура, темно',ex:'Un colore <strong>scuro</strong>.'},
+  {it:'uguale',ph:'[uˈɡwaːle]',forms:'uguale/uguali',ru:'одинаковый, равный',sub:'pos',emoji:'⚖️',assoc:'Эквал — equal (англ.)',ex:'Sono <strong>uguali</strong>!'},
+  {it:'diverso',ph:'[diˈvɛrso]',forms:'diversa/diversi/diverse',ru:'разный, другой',sub:'neg',emoji:'🔀',assoc:'Диверсификация — разнообразие',ex:'Sono molto <strong>diversi</strong>.'},
+  {it:'sottile',ph:'[sotˈtiːle]',forms:'sottile/sottili',ru:'тонкий',sub:'size',emoji:'📄',assoc:'Субтильный — тонкий',ex:'Un tessuto <strong>sottile</strong>.'},
+  {it:'asciutto',ph:'[aʃˈʃutto]',forms:'asciutta/asciutti/asciutte',ru:'сухой',sub:'qual',emoji:'🏜️',assoc:'Ашутто — высушенный',ex:'Un panno <strong>asciutto</strong>.'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -527,6 +547,19 @@ const advWords = [
   {it:'qualche volta',ph:'[ˈkwalkevolta]',forms:'',ru:'иногда',sub:'time',emoji:'🔀',assoc:'Квалке — какой-то раз',ex:'<strong>Qualche volta</strong> vado a teatro.'},
   {it:'ogni giorno',ph:'[ˈoɲɲi ˈdʒorno]',forms:'',ru:'каждый день',sub:'time',emoji:'📆',assoc:'Ogni = каждый, giorno = день',ex:'Lavoro <strong>ogni giorno</strong>.'},
   {it:'finalmente',ph:'[finalˈmente]',forms:'',ru:'наконец-то',sub:'time',emoji:'🎊',assoc:'Финал — наконец-то финал!',ex:'<strong>Finalmente</strong>! — Наконец-то!'},
+  // НОВЫЕ ИЗ УРОКОВ
+  {it:'proprio',ph:'[ˈprɔprjo]',forms:'',ru:'прямо-таки, именно, совсем',sub:'manner',emoji:'💯',assoc:'Проприо — собственный, именно',ex:'È <strong>proprio</strong> bello!'},
+  {it:'qua',ph:'[ˈkwa]',forms:'',ru:'здесь, сюда (= qui)',sub:'place',emoji:'👇',assoc:'Ква — тут квакает лягушка',ex:'Vieni <strong>qua</strong>!'},
+  {it:'là',ph:'[ˈla]',forms:'',ru:'там, туда (= lì)',sub:'place',emoji:'👉',assoc:'Ля — там за горизонтом',ex:'È <strong>là</strong>.'},
+  {it:'ora',ph:'[ˈɔːra]',forms:'',ru:'сейчас, теперь',sub:'time',emoji:'⏰',assoc:'Ора — сейчас! (как опера)',ex:'<strong>Ora</strong> capisco!'},
+  {it:'ogni',ph:'[ˈɔɲɲi]',forms:'',ru:'каждый (неизменяемое)',sub:'time',emoji:'🔁',assoc:'Оньи — каждый раз',ex:'<strong>Ogni</strong> giorno.'},
+  {it:'così',ph:'[koˈzi]',forms:'',ru:'так, таким образом',sub:'manner',emoji:'👆',assoc:'Кози — вот так! (così fan tutte)',ex:'È <strong>così</strong> bella!'},
+  {it:'per favore',ph:'[per faˈvore]',forms:'',ru:'пожалуйста (при просьбе)',sub:'manner',emoji:'🙏',assoc:'Фаворе — благосклонность',ex:'Un caffè, <strong>per favore</strong>.'},
+  {it:'prego',ph:'[ˈpreːɡo]',forms:'',ru:'пожалуйста (ответ), прошу',sub:'manner',emoji:'🤲',assoc:'Прего — не за что! (итал. формула)',ex:'Grazie! — <strong>Prego</strong>!'},
+  {it:'gratis',ph:'[ˈɡraːtis]',forms:'',ru:'бесплатно',sub:'manner',emoji:'🆓',assoc:'Гратис — звучит как по-русски!',ex:'I bambini entrano <strong>gratis</strong>.'},
+  {it:'meglio',ph:'[ˈmeʎʎo]',forms:'',ru:'лучше (сравн. степень от bene)',sub:'manner',emoji:'⬆️',assoc:'Bene → meglio (нерегулярно!)',ex:'Sto <strong>meglio</strong> oggi.'},
+  {it:'durante',ph:'[duˈrante]',forms:'',ru:'во время, в течение',sub:'time',emoji:'⏳',assoc:'Дюрант — во время матча',ex:'<strong>Durante</strong> le lezioni.'},
+  {it:'dunque',ph:'[ˈduŋkwe]',forms:'',ru:'итак, следовательно, поэтому',sub:'manner',emoji:'🔜',assoc:'Дункве — «ну тогда» по-итальянски',ex:'<strong>Dunque</strong>, andiamo!'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -588,6 +621,15 @@ const prepWords = [
   {it:'grazie a',ph:'[ˈɡrattsje a]',forms:'',ru:'благодаря',sub:'simple',emoji:'🙏',assoc:'Grаzie а — спасибо за...',ex:'<strong>Grazie a</strong> te!'},
   {it:'a causa di',ph:'[a ˈkauza di]',forms:'',ru:'из-за, по причине',sub:'simple',emoji:'⚠️',assoc:'Кауза — причина (cause)',ex:'<strong>A causa di</strong> te.'},
   {it:'secondo',ph:'[seˈkondo]',forms:'',ru:'согласно, по мнению',sub:'simple',emoji:'📖',assoc:'Секондо — второй выход',ex:'<strong>Secondo</strong> me... — По-моему...'},
+  // НОВЫЕ ИЗ УРОКА 26/05 — предлог SU
+  {it:'sul',ph:'[ˈsul]',forms:'su + il',ru:'на (м.р. ед.ч.)',sub:'artprep',emoji:'🔝',assoc:'Сул — sur (фр. на)',ex:'<strong>Sul</strong> tavolo.'},
+  {it:'sullo',ph:'[ˈsullo]',forms:'su + lo',ru:'на (м.р. Z/S+согл.)',sub:'artprep',emoji:'🔝',assoc:'Сулло — на столе',ex:'<strong>Sullo</strong> schermo.'},
+  {it:'sulla',ph:'[ˈsulla]',forms:'su + la',ru:'на (ж.р. ед.ч.)',sub:'artprep',emoji:'🔝',assoc:'Сулла — на поверхности',ex:'<strong>Sulla</strong> sedia.'},
+  {it:"sull'",ph:"[ˈsull]",forms:"su + l'",ru:'на (гласная)',sub:'artprep',emoji:'🔝',assoc:'Суль — на автобусе',ex:"<strong>Sull'</strong>autobus."},
+  {it:'sui',ph:'[ˈsui]',forms:'su + i',ru:'на (м.р. мн.ч.)',sub:'artprep',emoji:'🔝',assoc:'Суй — на них',ex:'<strong>Sui</strong> social.'},
+  {it:'sugli',ph:'[ˈsuʎʎi]',forms:'su + gli',ru:'на (м.р. мн.ч. гласн.)',sub:'artprep',emoji:'🔝',assoc:'Сульи — на полках',ex:'<strong>Sugli</strong> scaffali.'},
+  {it:'sulle',ph:'[ˈsulle]',forms:'su + le',ru:'на (ж.р. мн.ч.)',sub:'artprep',emoji:'🔝',assoc:'Сулле — на стульях',ex:'<strong>Sulle</strong> sedie.'},
+  {it:'prima di',ph:'[ˈpriːma di]',forms:'',ru:'прежде чем, до',sub:'simple',emoji:'1️⃣',assoc:'Прима — первый, раньше',ex:'<strong>Prima di</strong> uscire, chiudi la porta.'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -653,6 +695,11 @@ const pronWords = [
   {it:'ne',ph:'[ˈne]',forms:'',ru:'из/о/него/ней (частица)',sub:'other',emoji:'🔄',assoc:'Нэ — о нём/ней',ex:'<strong>Ne</strong> ho due. — Их у меня двое.'},
   {it:'ci',ph:'[ˈtʃi]',forms:'',ru:'там, здесь / нас',sub:'other',emoji:'📍',assoc:'Чи — ci sono (здесь есть)',ex:'<strong>Ci</strong> sono! — Есть!'},
   {it:'stesso',ph:'[ˈstesso]',forms:'stessa/stessi/stesse',ru:'сам, сама, сами',sub:'other',emoji:'💪',assoc:'Стессо — сам же',ex:'L\'ho fatto io <strong>stesso</strong>.'},
+  // НОВЫЕ ИЗ УРОКОВ
+  {it:'questa',ph:'[ˈkwesta]',forms:'ж.р. от questo',ru:'эта (ж.р.)',sub:'dem',emoji:'👉',assoc:'Квеста — эта вещь',ex:'<strong>Questa</strong> casa è bella.'},
+  {it:'queste',ph:'[ˈkweste]',forms:'мн.ж.р. от questo',ru:'эти (ж.р.)',sub:'dem',emoji:'👉👉',assoc:'Квесте — эти (женского рода)',ex:'<strong>Queste</strong> scarpe.'},
+  {it:'quella',ph:'[ˈkwella]',forms:'ж.р. от quello',ru:'та (ж.р.)',sub:'dem',emoji:'👈',assoc:'Квелла — та вон',ex:'<strong>Quella</strong> ragazza.'},
+  {it:'quelle',ph:'[ˈkwelle]',forms:'мн.ж.р. от quello',ru:'те (ж.р.)',sub:'dem',emoji:'👈👈',assoc:'Квелле — те вон (женского рода)',ex:'<strong>Quelle</strong> valigie sono di pelle.'},
 ];
 
 // ══════════════════════════════════════════════════════
