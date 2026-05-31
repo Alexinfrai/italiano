@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎵 Ricchi e Poveri — Sarà perché ti amo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080f;--card:#10101c;--border:#1e1e32;
+  --verde:#2d7a4f;--verde-l:#0a1a10;
+  --rosso:#c0392b;--rosso-l:#1a0808;
+  --oro:#c9a84c;--oro-l:#1a1500;
+  --blu:#2855a0;--blu-l:#080e1a;
+  --viola:#7c3aed;--viola-l:#150a28;
+  --cielo:#0891b2;--cielo-l:#042330;
+  --rosa:#db2777;--rosa-l:#1c0818;
+  --testo:#f0ebe3;--muted:#6a6a8a;
+  --shadow:0 4px 24px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{
+  background:linear-gradient(135deg,#080810 0%,#100820 40%,#180a30 70%,#0a1020 100%);
+  padding:26px 16px 18px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(124,58,237,.15),transparent 60%)}
+header::after{content:'⭐';position:absolute;font-size:10rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.song-icon{font-size:2.4rem;margin-bottom:8px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,2rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:var(--oro)}
+header .sub{font-size:.72rem;color:var(--oro);margin-top:4px;position:relative;opacity:.9;letter-spacing:.08em}
+header .desc{font-size:.68rem;color:var(--muted);margin-top:6px;position:relative;line-height:1.6}
+.badge-row{display:flex;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.badge{background:#ffffff08;border:1px solid #ffffff12;border-radius:99px;padding:3px 10px;font-size:.6rem;color:var(--muted)}
+.badge.hot{border-color:#7c3aed44;color:#c4b5fd;background:#7c3aed0a}
+.badge.san{border-color:#c9a84c44;color:var(--oro);background:#c9a84c0a}
+
+/* API */
+#ap{background:#060610;border-bottom:1px solid var(--border);padding:9px 13px}
+#ap.conn{border-color:#7c3aed44}
+.at{font-size:.72rem;color:var(--oro);font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.adot{width:6px;height:6px;border-radius:50%;background:#1e1e32;flex-shrink:0}
+.adot.on{background:#c9a84c;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.arow{display:flex;gap:6px;flex-wrap:wrap}
+.ainp{flex:1;min-width:130px;background:#10101c;border:1px solid var(--border);border-radius:7px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
+.ainp::placeholder{color:#3a3a5a}
+.abtns{background:#7c3aed;border:none;border-radius:7px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 12px;cursor:pointer;white-space:nowrap}
+.axbtn{background:var(--card);border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
+#ks{font-size:.64rem;margin-top:3px;min-height:12px}
+#ks.ok{color:#c9a84c}#ks.err{color:#f87171}
+.ahint{font-size:.62rem;color:#3a3a5a;margin-top:4px;line-height:1.5}
+.ahint a{color:var(--oro);text-decoration:none}
+#vss{display:none;margin-top:5px}
+.vrow{display:flex;gap:5px;flex-wrap:wrap}
+.vchip{background:var(--card);border:1px solid var(--border);border-radius:99px;padding:2px 8px;font-size:.6rem;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.on{border-color:#7c3aed55;color:#c4b5fd}
+
+/* NAV */
+.mn{display:flex;overflow-x:auto;background:#060610;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#3a3a5a;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:var(--oro);border-bottom-color:var(--oro)}
+.mnb:hover:not(.on){color:#8a8aaa}
+.sec{display:none}.sec.on{display:block}
+.sw{max-width:720px;margin:0 auto;padding:14px 13px 50px}
+
+/* TEXT */
+.text-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+.text-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;text-align:center;margin-bottom:6px;color:var(--oro)}
+.text-subtitle{font-size:.68rem;color:var(--muted);text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+.strofa{margin-bottom:14px}
+.strofa-label{font-size:.58rem;color:#3a3a5a;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:6px}
+.verso{display:flex;align-items:flex-start;gap:8px;margin-bottom:3px;cursor:pointer;border-radius:7px;padding:3px 6px;transition:background .15s}
+.verso:hover{background:#ffffff05}
+.verso-it{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--testo);font-style:italic;flex:1;line-height:1.5}
+.verso-it .key{color:#c4b5fd;font-style:normal;font-weight:600}
+.vbtn{width:20px;height:20px;border-radius:50%;border:1px solid var(--border);background:none;cursor:pointer;font-size:.55rem;color:var(--muted);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.vbtn:hover,.vbtn.pl{border-color:var(--oro);color:var(--oro)}
+.vbtn.off{opacity:.2;cursor:default}
+.verso-ru{font-size:.68rem;color:var(--muted);line-height:1.5;padding-left:6px;margin-bottom:6px;padding-top:1px}
+.refrain{background:linear-gradient(135deg,#150a28,#10101c);border:1px solid #7c3aed33;border-radius:10px;padding:12px 14px;margin-bottom:14px}
+.refrain-label{font-size:.58rem;color:#c4b5fd;text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:7px}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 5px rgba(201,168,76,0)}}
+.pl{animation:abp .7s infinite}
+
+/* WORD CARDS */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:8px}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:all .2s}
+.wcard:hover{border-color:#7c3aed33;transform:translateY(-2px)}
+.wc-top{padding:13px 13px 10px;border-bottom:1px solid var(--border)}
+.wc-tag{display:inline-flex;border-radius:99px;padding:2px 8px;font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.t-verb{background:var(--verde-l);color:#5ac4a0;border:1px solid #2d7a4f33}
+.t-noun{background:var(--cielo-l);color:#67e8f9;border:1px solid #0891b233}
+.t-adj{background:var(--oro-l);color:var(--oro);border:1px solid #c9a84c33}
+.t-expr{background:var(--viola-l);color:#c4b5fd;border:1px solid #7c3aed33}
+.wc-row{display:flex;justify-content:space-between;align-items:flex-start}
+.wc-it{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--testo);line-height:1}
+.wc-ph{font-size:.63rem;color:var(--muted);font-style:italic;margin:3px 0 5px}
+.wc-ru{font-size:.82rem;color:#c8b8d8;font-weight:300;margin-bottom:6px}
+.wc-ex{background:var(--bg);border-radius:8px;padding:8px 10px;font-family:'Playfair Display',serif;font-size:.84rem;color:#c4b5fd;font-style:italic;line-height:1.6}
+.wc-ex-ru{font-size:.65rem;color:var(--muted);margin-top:3px;font-style:normal;font-family:'Nunito',sans-serif}
+.wc-note{padding:8px 13px 10px;font-size:.68rem;color:var(--muted);line-height:1.6;background:var(--bg)}
+.wc-note strong{color:var(--oro)}
+.abtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);transition:all .15s;flex-shrink:0}
+.abtn:hover,.abtn.pl{border-color:var(--oro);color:var(--oro);background:var(--oro-l)}
+.abtn.off{opacity:.2;cursor:default}
+
+/* PHRASES */
+.ph-item{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 14px;margin-bottom:7px;cursor:pointer;transition:border-color .2s}
+.ph-item:hover{border-color:#7c3aed33}
+.ph-row{display:flex;gap:10px;align-items:flex-start}
+.ph-body{flex:1}
+.ph-it{font-family:'Playfair Display',serif;font-size:1rem;color:#c4b5fd;font-style:italic;display:block;margin-bottom:3px;line-height:1.5}
+.ph-ru{font-size:.76rem;color:var(--muted);display:block;margin-bottom:3px}
+.ph-note{font-size:.66rem;color:var(--oro);font-weight:700;display:block}
+.ph-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);transition:all .15s;flex-shrink:0}
+.ph-btn:hover,.ph-btn.pl{border-color:var(--oro);color:var(--oro)}
+.ph-btn.off{opacity:.2;cursor:default}
+
+/* SECTION HEADER */
+.sh{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--oro);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;margin-top:18px}
+.sh:first-child{margin-top:0}
+.sh span{font-size:.63rem;color:var(--muted);font-family:'Nunito',sans-serif}
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:9px 12px;margin-bottom:10px;font-size:.76rem;line-height:1.7;color:#fde68a}
+.tip strong{color:var(--oro)}
+.tip-v{background:var(--viola-l);border-left-color:#7c3aed;color:#ddd6fe}
+.tip-v strong{color:#c4b5fd}
+
+/* TRAINER */
+.trw{max-width:520px;margin:0 auto;padding:14px 12px 50px}
+.mdg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.mdb{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 8px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.mdb .mi{font-size:1.3rem;display:block;margin-bottom:3px}
+.mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:6px}
+.qbar{width:100%;height:2px;background:var(--border);border-radius:99px;margin-bottom:11px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,#7c3aed,var(--oro));border-radius:99px;transition:width .4s}
+.qt{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.qex{font-family:'Playfair Display',serif;font-size:.95rem;color:#c4b5fd;font-style:italic;background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:11px;line-height:1.7;border:1px solid var(--border)}
+.blank{background:#1e1028;border-bottom:2px solid var(--oro);padding:0 6px;border-radius:4px;color:var(--oro);font-weight:700;font-style:normal}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 8px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;color:var(--testo);line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--oro);background:var(--oro-l);color:var(--oro)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:#5ac4a0}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:#f87171}
+.opt:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6}
+.fb.ok{background:var(--verde-l);border-left:3px solid var(--verde);color:#bbf7d0}
+.fb.err{background:var(--rosso-l);border-left:3px solid var(--rosso);color:#fca5a5}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,#7c3aed,var(--oro));color:var(--bg);border:none;border-radius:9px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
+.fc{position:relative;width:100%;height:170px;transform-style:preserve-3d;transition:transform .45s}
+.fc.fl{transform:rotateY(180deg)}
+.ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
+.f1{background:linear-gradient(135deg,#150a28,#10101c);border:1px solid #7c3aed22}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#10101c);border:1px solid #c9a84c22}
+.fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fw2{font-family:'Playfair Display',serif;font-size:2rem;color:#c4b5fd;font-style:italic}
+.fw2b{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oro)}
+.fs2{font-size:.7rem;color:var(--muted)}
+.qnav{display:flex;gap:5px;margin-top:10px}
+.qnb{flex:1;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.qnb.p{background:linear-gradient(135deg,#7c3aed,var(--oro));border-color:#7c3aed;color:white}
+.qnb:hover:not(.p){border-color:var(--oro)}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center}
+.res-pct{font-family:'Playfair Display',serif;font-size:4.5rem;color:var(--oro);line-height:1}
+.btn-r{background:linear-gradient(135deg,#7c3aed,var(--oro));color:var(--bg);border:none;border-radius:10px;padding:12px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:7px}
+.btn-b{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="song-icon">⭐</div>
+  <h1><em>Sarà perché ti amo</em></h1>
+  <div class="sub">Ricchi e Poveri · Sanremo 1981</div>
+  <div class="desc">Testo: Pupo & Daniele Pace · Musica: Dario Farina · Album: «E penso a te»</div>
+  <div class="badge-row">
+    <div class="badge san">🎤 Sanremo 1981 — 5° posto</div>
+    <div class="badge hot">⭐ Бессмертная классика</div>
+    <div class="badge">🎵 Angela · Angelo · Franco</div>
+  </div>
+</header>
+
+<!-- API -->
+<div id="ap">
+  <div class="at"><div class="adot" id="adot"></div><span id="atext">🔊 Подключи Google TTS — произношение каждого слова и строки</span></div>
+  <div class="arow">
+    <input class="ainp" type="password" id="akey" placeholder="Google API ключ...">
+    <button class="abtns" onclick="ck()">Подключить</button>
+    <button class="axbtn" id="axb" onclick="ckx()" style="display:none">✕</button>
+  </div>
+  <div id="ks"></div>
+  <div id="vss"><div class="vrow">
+    <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)">Wavenet A ♀</div>
+    <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)">Wavenet C ♂</div>
+    <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)">Standard A</div>
+  </div></div>
+  <div class="ahint" id="ahint">Тот же ключ что в других приложениях. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Cloud TTS → Create API Key.</div>
+</div>
+
+<!-- NAV -->
+<div class="mn">
+  <button class="mnb on" onclick="sm('testo')">📖 Текст<br><small style="font-size:.55rem;opacity:.7">С переводом</small></button>
+  <button class="mnb" onclick="sm('vocab')">📚 Слова<br><small style="font-size:.55rem;opacity:.7">40 слов</small></button>
+  <button class="mnb" onclick="sm('frasi')">💬 Фразы<br><small style="font-size:.55rem;opacity:.7">Грамматика</small></button>
+  <button class="mnb" onclick="sm('train')">🎯 Тренажёр<br><small style="font-size:.55rem;opacity:.7">4 режима</small></button>
+</div>
+
+<!-- ══ ТЕКСТ ══ -->
+<div class="sec on" id="testo">
+<div class="sw">
+  <div class="tip tip-v"><strong>Нажимай на 🔊</strong> рядом с любой строкой чтобы услышать произношение. Ключевые слова <span style="color:#c4b5fd;font-weight:700">подсвечены</span>.</div>
+
+  <div class="text-card">
+    <div class="text-title">Sarà perché ti amo</div>
+    <div class="text-subtitle">Ricchi e Poveri · 1981 · Testo: Pupo & Daniele Pace</div>
+
+    <!-- СТРОФА 1 -->
+    <div class="strofa">
+      <div class="strofa-label">Strofa 1</div>
+      <div class="verso" onclick="pl('Che confusione',this.querySelector('.vbtn'))">
+        <span class="verso-it">Che <span class="key">confusione</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Какое смятение</div>
+      <div class="verso" onclick="pl('È un emozione che cresce piano piano',this.querySelector('.vbtn'))">
+        <span class="verso-it">È un'<span class="key">emozione</span> che cresce <span class="key">piano piano</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Это эмоция которая растёт медленно-медленно</div>
+      <div class="verso" onclick="pl('Stringimi forte e stammi più vicino',this.querySelector('.vbtn'))">
+        <span class="verso-it"><span class="key">Stringimi</span> forte e <span class="key">stammi</span> più <span class="key">vicino</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Обними меня крепко и будь рядом</div>
+      <div class="verso" onclick="pl('Se ci sto bene',this.querySelector('.vbtn'))">
+        <span class="verso-it">Se ci <span class="key">sto bene</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Если мне с тобой хорошо</div>
+    </div>
+
+    <!-- СТРОФА 2 -->
+    <div class="strofa">
+      <div class="strofa-label">Strofa 2</div>
+      <div class="verso" onclick="pl('Io canto al ritmo del dolce tuo respiro',this.querySelector('.vbtn'))">
+        <span class="verso-it">Io canto al <span class="key">ritmo</span> del dolce tuo <span class="key">respiro</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Я пою в ритме твоего нежного дыхания</div>
+      <div class="verso" onclick="pl('È primavera',this.querySelector('.vbtn'))">
+        <span class="verso-it">È <span class="key">primavera</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Это весна</div>
+      <div class="verso" onclick="pl('Cade una stella ma dimmi dove siamo',this.querySelector('.vbtn'))">
+        <span class="verso-it">Cade una <span class="key">stella</span>, ma <span class="key">dimmi</span> dove siamo</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Падает звезда, но скажи мне — где мы?</div>
+      <div class="verso" onclick="pl('Che te ne frega',this.querySelector('.vbtn'))">
+        <span class="verso-it">Che te ne <span class="key">frega</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Да какая разница!</div>
+    </div>
+
+    <!-- ПРИПЕВ -->
+    <div class="refrain">
+      <div class="refrain-label">⭐ Ritornello — Припев</div>
+      <div class="verso" onclick="pl('E vola vola si sa sempre più in alto si va',this.querySelector('.vbtn'))">
+        <span class="verso-it">E <span class="key">vola vola</span> si sa, sempre più in <span class="key">alto</span> si va</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">И летит, летит — все знают — всё выше и выше</div>
+      <div class="verso" onclick="pl('E vola vola con me il mondo è matto perché',this.querySelector('.vbtn'))">
+        <span class="verso-it">E vola vola con me, il <span class="key">mondo</span> è <span class="key">matto</span> perché</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">И летит со мной — мир сошёл с ума потому что</div>
+      <div class="verso" onclick="pl('E se l amore non c è basta una sola canzone',this.querySelector('.vbtn'))">
+        <span class="verso-it">E se l'<span class="key">amore</span> non c'è, basta una sola <span class="key">canzone</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">И если любви нет — достаточно одной песни</div>
+      <div class="verso" onclick="pl('Per far confusione fuori e dentro di te',this.querySelector('.vbtn'))">
+        <span class="verso-it">Per far <span class="key">confusione</span> fuori e dentro di te</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Чтобы создать смятение снаружи и внутри тебя</div>
+    </div>
+
+    <!-- СТРОФА 3 -->
+    <div class="strofa">
+      <div class="strofa-label">Strofa 3</div>
+      <div class="verso" onclick="pl('Ma dopo tutto che cosa c è di strano',this.querySelector('.vbtn'))">
+        <span class="verso-it">Ma <span class="key">dopo tutto</span> che cosa c'è di strano</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Но в конце концов — что тут странного?</div>
+      <div class="verso" onclick="pl('È una canzone',this.querySelector('.vbtn'))">
+        <span class="verso-it">È una <span class="key">canzone</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Это просто песня</div>
+      <div class="verso" onclick="pl('Se cade il mondo allora ci spostiamo',this.querySelector('.vbtn'))">
+        <span class="verso-it">Se <span class="key">cade il mondo</span>, allora ci <span class="key">spostiamo</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Если мир рухнет — тогда мы переедем</div>
+    </div>
+
+    <!-- СТРОФА 4 -->
+    <div class="strofa">
+      <div class="strofa-label">Strofa 4</div>
+      <div class="verso" onclick="pl('Stringimi forte e stammi più vicino',this.querySelector('.vbtn'))">
+        <span class="verso-it">Stringimi forte e stammi più vicino</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Обними меня крепко и будь рядом</div>
+      <div class="verso" onclick="pl('È così bello che non mi sembra vero',this.querySelector('.vbtn'))">
+        <span class="verso-it">È così bello che non mi <span class="key">sembra vero</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Это так прекрасно — кажется невероятным</div>
+      <div class="verso" onclick="pl('Se il mondo è matto che cosa c è di strano',this.querySelector('.vbtn'))">
+        <span class="verso-it">Se il mondo è matto che cosa c'è di strano</span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Если мир сошёл с ума — что тут странного?</div>
+      <div class="verso" onclick="pl('Matto per matto almeno noi ci amiamo',this.querySelector('.vbtn'))">
+        <span class="verso-it"><span class="key">Matto per matto</span>, almeno <span class="key">noi ci amiamo</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru">Сумасшедший так сумасшедший — зато мы любим друг друга!</div>
+    </div>
+
+    <!-- РЕФРЕН -->
+    <div class="refrain">
+      <div class="refrain-label">🔁 Ritornello (повтор)</div>
+      <div class="verso" onclick="pl('Sarà perché ti amo',this.querySelector('.vbtn'))">
+        <span class="verso-it" style="font-size:1.1rem;color:var(--oro)"><span class="key" style="color:#c4b5fd">Sarà perché ti amo</span></span>
+        <button class="vbtn off">🔊</button>
+      </div>
+      <div class="verso-ru" style="color:#a090c0">Наверное, потому что я тебя люблю ❤️</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ СЛОВА ══ -->
+<div class="sec" id="vocab">
+<div class="sw">
+  <div class="tip"><strong>О песне:</strong> Написана в 1981 году. Автор текста — <strong>Pupo</strong> (Enzo Ghinazzi). Тема: смятение и радость влюблённости. «Sarà perché ti amo» = «Наверное потому что я тебя люблю» — объяснение всему происходящему!</div>
+
+  <!-- ГЛАГОЛЫ -->
+  <div class="sh">🎬 Глаголы <span>verbi della canzone</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">volare</div><div class="wc-ph">[voˈlaːre]</div><div class="wc-ru">летать, лететь</div></div>
+          <button class="abtn off" onclick="pl('volare',this)">🔊</button>
+        </div>
+        <div class="wc-ex">E <strong>vola vola</strong> si sa, sempre più in alto si va.<div class="wc-ex-ru">И летит, летит — все знают, всё выше.</div></div>
+      </div>
+      <div class="wc-note"><strong>vola vola</strong> = удвоение для эмфазы · il volo = полёт · volare (1958) — другая великая итальянская песня!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">stringere</div><div class="wc-ph">[ˈstrindʒere]</div><div class="wc-ru">сжимать, обнимать</div></div>
+          <button class="abtn off" onclick="pl('stringere',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Stringimi</strong> forte e stammi più vicino.<div class="wc-ex-ru">Обними меня крепко и будь рядом.</div></div>
+      </div>
+      <div class="wc-note"><strong>stringimi</strong> = imperativo + mi (меня) · нерегулярный: stringo/stringi/stringe · stretto = узкий (причастие)</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">stare</div><div class="wc-ph">[ˈstaːre]</div><div class="wc-ru">быть, находиться, оставаться</div></div>
+          <button class="abtn off" onclick="pl('stammi vicino',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Stammi</strong> più vicino. Se ci <strong>sto</strong> bene.<div class="wc-ex-ru">Будь рядом. Если мне тут хорошо.</div></div>
+      </div>
+      <div class="wc-note"><strong>stammi</strong> = stai + mi (imperativo) · sto bene = мне хорошо · come stai? = как дела?</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">crescere</div><div class="wc-ph">[ˈkreʃʃere]</div><div class="wc-ru">расти, увеличиваться</div></div>
+          <button class="abtn off" onclick="pl('crescere',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È un'emozione che <strong>cresce</strong> piano piano.<div class="wc-ex-ru">Это эмоция которая растёт медленно-медленно.</div></div>
+      </div>
+      <div class="wc-note">cresco/cresci/cresce · crescita = рост · sempre più grande = всё больше</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">cadere</div><div class="wc-ph">[kaˈdeːre]</div><div class="wc-ru">падать</div></div>
+          <button class="abtn off" onclick="pl('cadere',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Cade</strong> una stella. Se <strong>cade</strong> il mondo.<div class="wc-ex-ru">Падает звезда. Если мир рухнет.</div></div>
+      </div>
+      <div class="wc-note">cado/cadi/cade · cadere in amore = влюбиться (разг.) · la caduta = падение</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">spostarsi</div><div class="wc-ph">[spoˈstarsi]</div><div class="wc-ru">переезжать, перемещаться</div></div>
+          <button class="abtn off" onclick="pl('spostarsi',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Se cade il mondo, allora ci <strong>spostiamo</strong>.<div class="wc-ex-ru">Если мир рухнет — тогда переедем.</div></div>
+      </div>
+      <div class="wc-note">mi sposto/ti sposti/si sposta · spostare = переместить · юмор песни: если мир рухнет — просто переедем!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">sembrare</div><div class="wc-ph">[semˈbraːre]</div><div class="wc-ru">казаться, представляться</div></div>
+          <button class="abtn off" onclick="pl('sembrare',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Non mi <strong>sembra</strong> vero.<div class="wc-ex-ru">Не верится / кажется невозможным.</div></div>
+      </div>
+      <div class="wc-note">mi sembra = мне кажется · sembri stanco = ты выглядишь устало · come sembra? = как выглядит?</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div><div class="wc-it">fregare</div><div class="wc-ph">[freˈɡaːre]</div><div class="wc-ru">заботить (разг.); обманывать</div></div>
+          <button class="abtn off" onclick="pl('che te ne frega',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Che te ne <strong>frega</strong>!<div class="wc-ex-ru">Да какая разница! Да плевать!</div></div>
+      </div>
+      <div class="wc-note"><strong>che te ne frega</strong> = очень разговорное выражение «тебе-то что?» · più formale: che importa</div>
+    </div>
+
+  </div>
+
+  <!-- СУЩЕСТВИТЕЛЬНЫЕ -->
+  <div class="sh" style="margin-top:14px">📦 Существительные <span>sostantivi</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">la confusione</div><div class="wc-ph">[konfuˈzjoːne]</div><div class="wc-ru">смятение, беспорядок, путаница</div></div>
+          <button class="abtn off" onclick="pl('confusione',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Che <strong>confusione</strong>! Per far <strong>confusione</strong>.<div class="wc-ex-ru">Какое смятение! Чтобы создать смятение.</div></div>
+      </div>
+      <div class="wc-note">жен.р. · ключевое слово песни! · confuso = растерянный · mettere confusione = создавать беспорядок</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">l'emozione</div><div class="wc-ph">[emoˈtsjone]</div><div class="wc-ru">эмоция, волнение</div></div>
+          <button class="abtn off" onclick="pl('emozione',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È un'<strong>emozione</strong> che cresce piano piano.<div class="wc-ex-ru">Это эмоция которая растёт медленно-медленно.</div></div>
+      </div>
+      <div class="wc-note">жен.р. · emozionante = волнующий · essere emozionato = быть взволнованным</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">il respiro</div><div class="wc-ph">[reˈspiːro]</div><div class="wc-ru">дыхание, вздох</div></div>
+          <button class="abtn off" onclick="pl('respiro',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Al ritmo del dolce tuo <strong>respiro</strong>.<div class="wc-ex-ru">В ритме твоего нежного дыхания.</div></div>
+      </div>
+      <div class="wc-note">da respirare (дышать) · prendere un respiro = вздохнуть · senza respiro = задыхаясь</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">la stella</div><div class="wc-ph">[ˈstɛlla]</div><div class="wc-ru">звезда</div></div>
+          <button class="abtn off" onclick="pl('stella',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Cade una <strong>stella</strong>.<div class="wc-ex-ru">Падает звезда.</div></div>
+      </div>
+      <div class="wc-note">жен.р. · le stelle (мн.ч.) · stellato = звёздный · sei la mia stella = ты моя звезда</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">il ritmo</div><div class="wc-ph">[ˈritmo]</div><div class="wc-ru">ритм</div></div>
+          <button class="abtn off" onclick="pl('ritmo',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Canto al <strong>ritmo</strong> del dolce tuo respiro.<div class="wc-ex-ru">Пою в ритме твоего нежного дыхания.</div></div>
+      </div>
+      <div class="wc-note">муж.р. · ritmico = ритмичный · al ritmo di = в ритме · ha un bel ritmo = хороший ритм</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">la primavera</div><div class="wc-ph">[primaˈvɛːra]</div><div class="wc-ru">весна</div></div>
+          <button class="abtn off" onclick="pl('primavera',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È <strong>primavera</strong>.<div class="wc-ex-ru">Это весна.</div></div>
+      </div>
+      <div class="wc-note">жен.р. · in primavera = весной · primaverile = весенний · le quattro stagioni</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">il mondo</div><div class="wc-ph">[ˈmondo]</div><div class="wc-ru">мир, свет</div></div>
+          <button class="abtn off" onclick="pl('mondo',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il <strong>mondo</strong> è matto. Se cade il <strong>mondo</strong>.<div class="wc-ex-ru">Мир сошёл с ума. Если мир рухнет.</div></div>
+      </div>
+      <div class="wc-note">муж.р. · mondiale = мировой · tutto il mondo = весь мир · giro del mondo = кругосветное</div>
+    </div>
+
+  </div>
+
+  <!-- ПРИЛАГАТЕЛЬНЫЕ И ВЫРАЖЕНИЯ -->
+  <div class="sh" style="margin-top:14px">🎨 Прилагательные и выражения <span>aggettivi ed espressioni</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">matto</div><div class="wc-ph">[ˈmatto]</div><div class="wc-ru">сумасшедший, безумный</div></div>
+          <button class="abtn off" onclick="pl('matto',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il mondo è <strong>matto</strong>. <strong>Matto</strong> per matto.<div class="wc-ex-ru">Мир сошёл с ума. Сумасшедший так сумасшедший.</div></div>
+      </div>
+      <div class="wc-note">matta/matti/matte · da matti = сумасшедший (нареч.) · sei matto? = ты сумасшедший?</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">dolce</div><div class="wc-ph">[ˈdoltʃe]</div><div class="wc-ru">сладкий, нежный</div></div>
+          <button class="abtn off" onclick="pl('dolce',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il <strong>dolce</strong> tuo respiro.<div class="wc-ex-ru">Твоё нежное дыхание.</div></div>
+      </div>
+      <div class="wc-note">dolce/dolci · la dolce vita = сладкая жизнь · il dolce = десерт · dolcemente = нежно</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div><div class="wc-it">vicino</div><div class="wc-ph">[viˈtʃiːno]</div><div class="wc-ru">близкий, рядом</div></div>
+          <button class="abtn off" onclick="pl('stammi più vicino',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Stammi più <strong>vicino</strong>.<div class="wc-ex-ru">Будь ближе ко мне.</div></div>
+      </div>
+      <div class="wc-note">contrario: lontano · qui vicino = здесь рядом · più vicino = ближе</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div><div class="wc-it">piano piano</div><div class="wc-ph">[ˈpjano ˈpjano]</div><div class="wc-ru">медленно-медленно, тихо-тихо</div></div>
+          <button class="abtn off" onclick="pl('piano piano',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Che cresce <strong>piano piano</strong>.<div class="wc-ex-ru">Которая растёт медленно-медленно.</div></div>
+      </div>
+      <div class="wc-note">повторение = усиление · = poco a poco · piano = медленно/тихо/рояль!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div><div class="wc-it">sempre più in alto</div><div class="wc-ph"></div><div class="wc-ru">всё выше и выше</div></div>
+          <button class="abtn off" onclick="pl('sempre più in alto si va',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Sempre più in <strong>alto</strong> si va.<div class="wc-ex-ru">Всё выше и выше летишь.</div></div>
+      </div>
+      <div class="wc-note"><strong>sempre più</strong> + прилагательное/наречие = всё более · sempre più bello = всё красивее</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div><div class="wc-it">non mi sembra vero</div><div class="wc-ph"></div><div class="wc-ru">не верится, кажется невероятным</div></div>
+          <button class="abtn off" onclick="pl('non mi sembra vero',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È così bello che <strong>non mi sembra vero</strong>.<div class="wc-ex-ru">Это так прекрасно что не верится.</div></div>
+      </div>
+      <div class="wc-note">sembrare = казаться · mi sembra = мне кажется · non ci credo = не верю</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div><div class="wc-it">noi ci amiamo</div><div class="wc-ph">[noi tʃi aˈmjaːmo]</div><div class="wc-ru">мы любим друг друга</div></div>
+          <button class="abtn off" onclick="pl('noi ci amiamo',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Almeno <strong>noi ci amiamo</strong>.<div class="wc-ex-ru">Зато мы любим друг друга.</div></div>
+      </div>
+      <div class="wc-note"><strong>ci</strong> = друг друга (взаимное) · ci amiamo, ci vogliamo bene, ci capiamo</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div><div class="wc-it">sarà perché</div><div class="wc-ph">[saˈra perˈke]</div><div class="wc-ru">наверное потому что, должно быть потому что</div></div>
+          <button class="abtn off" onclick="pl('sarà perché ti amo',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Sarà perché</strong> ti amo.<div class="wc-ex-ru">Наверное потому что я тебя люблю.</div></div>
+      </div>
+      <div class="wc-note"><strong>sarà</strong> = futuro di essere → предположение/неуверенность · «должно быть так, раз...»</div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ ФРАЗЫ ══ -->
+<div class="sec" id="frasi">
+<div class="sw">
+  <div class="tip tip-v"><strong>Грамматика в песне:</strong> Нажимай 🔊 для произношения!</div>
+
+  <div class="sh">🌀 SARÀ — предположение <span>futuro di probabilità</span></div>
+  <div id="ph-sara"></div>
+
+  <div class="sh" style="margin-top:12px">🫂 IMPERATIVO — просьбы <span>stringimi, stammi</span></div>
+  <div id="ph-imp"></div>
+
+  <div class="sh" style="margin-top:12px">🌍 SE + presente — условие <span>реальное условие</span></div>
+  <div id="ph-se"></div>
+
+  <div class="sh" style="margin-top:12px">⭐ Ключевые выражения <span>espressioni chiave</span></div>
+  <div id="ph-altri"></div>
+</div>
+</div>
+
+<!-- ══ ТРЕНАЖЁР ══ -->
+<div class="sec" id="train">
+<div class="trw">
+  <div id="tpick">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:11px">🎯 Тренажёр</h2>
+    <div class="mdg">
+      <button class="mdb" onclick="startTR('meaning')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">слово → значение</small></button>
+      <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">переворачивай</small></button>
+      <button class="mdb" onclick="startTR('fill')"><span class="mi">✍️</span>Пропуски<br><small style="color:var(--muted)">вставь слово</small></button>
+      <button class="mdb" onclick="startTR('audio')"><span class="mi">👂</span>На слух<br><small style="color:var(--muted)">звук → слово</small></button>
+    </div>
+  </div>
+  <div id="tarea" style="display:none"></div>
+</div>
+</div>
+
+<script>
+// ══ TTS ══════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>c.classList.remove('on'));
+  chip.classList.add('on');
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+async function pl(text,btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.abtn,.ph-btn,.vbtn').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    const clean=text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    if(!ttsCache[clean]){
+      const body={input:{text:clean},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.85}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json(); ttsCache[clean]=d.audioContent;
+    }
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[clean]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){if(btn)btn.classList.remove('pl');setKS('❌ '+e.message,'err');}
+}
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json(); ttsCache['ciao']=d.audioContent; ttsKey=k;
+    document.getElementById('adot').classList.add('on');
+    document.getElementById('atext').textContent='✅ Нажимай 🔊 на любую строку или слово!';
+    document.getElementById('ap').classList.add('conn');
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('[onclick="ck()"]').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    document.querySelectorAll('.abtn,.ph-btn,.vbtn').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+function ckx(){
+  ttsKey=''; Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  document.getElementById('akey').style.display='block';
+  document.querySelector('[onclick="ck()"]').style.display='block';
+  document.getElementById('ahint').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').classList.remove('on');
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — произношение каждого слова и строки';
+  document.getElementById('ap').classList.remove('conn');
+  setKS('','');
+  document.querySelectorAll('.abtn,.ph-btn,.vbtn').forEach(b=>b.classList.add('off'));
+}
+function setKS(m,t){const el=document.getElementById('ks');el.textContent=m;el.className=t;}
+
+// ══ PHRASES ══════════════════════════════════════════
+const PHRASES={
+  sara:[
+    {it:'Sarà perché ti amo.',ru:'Наверное потому что я тебя люблю.',note:'SARÀ = futuro di essere → предположение. «Должно быть так, потому что...»'},
+    {it:'Sarà perché ti amo, che confusione!',ru:'Наверное потому что люблю тебя — какое смятение!',note:'sarà perché = наверное потому что · используется когда не уверен в причине'},
+    {it:'È primavera, sarà perché ti amo.',ru:'Это весна — наверное потому что я тебя люблю.',note:'Всё происходящее объясняется одним: «потому что люблю»'},
+    {it:'Se cade il mondo, sarà perché ti amo.',ru:'Если мир рухнет — наверное потому что я тебя люблю.',note:'Рефрен: одно объяснение для всего'},
+  ],
+  imp:[
+    {it:'Stringimi forte!',ru:'Обними меня крепко!',note:'IMPERATIVO: stringere + mi (меня) · stringi + mi = stringimi'},
+    {it:'Stammi più vicino.',ru:'Будь рядом со мной / ближе.',note:'IMPERATIVO: stare + mi = stai + mi → stammi · più vicino = ближе'},
+    {it:'Dimmi dove siamo.',ru:'Скажи мне где мы.',note:'IMPERATIVO: dire + mi = di + mi → dimmi · нерегулярный imperativo!'},
+  ],
+  se:[
+    {it:'Se ci sto bene, sarà perché ti amo.',ru:'Если мне с тобой хорошо — наверное потому что люблю.',note:'SE + presente → presente/futuro · реальное условие'},
+    {it:'Se cade il mondo, allora ci spostiamo.',ru:'Если мир рухнет — тогда мы переедем.',note:'Юмор: серьёзная ситуация + лёгкое решение'},
+    {it:'Se il mondo è matto, che cosa c\'è di strano?',ru:'Если мир сошёл с ума — что тут странного?',note:'Риторический вопрос · che cosa c\'è di strano = что странного'},
+  ],
+  altri:[
+    {it:'È un\'emozione che cresce piano piano.',ru:'Это эмоция которая растёт медленно-медленно.',note:'piano piano = медленно-медленно (повторение = усиление)'},
+    {it:'E vola vola si sa, sempre più in alto si va.',ru:'И летит, летит — все знают, всё выше и выше.',note:'vola vola = повторение для эффекта · sempre più = всё более'},
+    {it:'Basta una sola canzone per far confusione.',ru:'Достаточно одной песни чтобы создать смятение.',note:'basta = достаточно · per + infinito = чтобы'},
+    {it:'Matto per matto, almeno noi ci amiamo.',ru:'Сумасшедший так сумасшедший — зато мы любим друг друга!',note:'almeno = хотя бы, зато · ci amiamo = мы любим друг друга (взаимное)'},
+    {it:'È così bello che non mi sembra vero.',ru:'Это так прекрасно что не верится.',note:'così...che = настолько...что · non mi sembra vero = кажется невероятным'},
+  ]
+};
+
+const WORDS=[
+  {it:'volare',ru:'летать, лететь',ex:'E vola vola si sa.',assoc:'Volare — другая великая итальянская песня!'},
+  {it:'stringere',ru:'сжимать, обнимать',ex:'Stringimi forte!',assoc:'stretto = узкий (причастие)'},
+  {it:'stare',ru:'быть, находиться',ex:'Stammi più vicino. Se ci sto bene.',assoc:'come stai? = как дела?'},
+  {it:'crescere',ru:'расти, увеличиваться',ex:'Emozione che cresce piano piano.',assoc:'crescita = рост'},
+  {it:'cadere',ru:'падать',ex:'Cade una stella. Se cade il mondo.',assoc:'cadere in amore = влюбиться'},
+  {it:'spostarsi',ru:'переезжать, перемещаться',ex:'Allora ci spostiamo.',assoc:'spostare = переместить'},
+  {it:'sembrare',ru:'казаться',ex:'Non mi sembra vero.',assoc:'mi sembra = мне кажется'},
+  {it:'la confusione',ru:'смятение, беспорядок',ex:'Che confusione! Per far confusione.',assoc:'confuso = растерянный'},
+  {it:"l'emozione",ru:'эмоция, волнение',ex:"È un'emozione che cresce piano piano.",assoc:'emozionante = волнующий'},
+  {it:'il respiro',ru:'дыхание, вздох',ex:'Al ritmo del dolce tuo respiro.',assoc:'respirare = дышать'},
+  {it:'la stella',ru:'звезда',ex:'Cade una stella.',assoc:'stellato = звёздный'},
+  {it:'il ritmo',ru:'ритм',ex:'Canto al ritmo del tuo respiro.',assoc:'ritmico = ритмичный'},
+  {it:'la primavera',ru:'весна',ex:'È primavera.',assoc:'primaverile = весенний'},
+  {it:'il mondo',ru:'мир, свет',ex:'Il mondo è matto.',assoc:'mondiale = мировой'},
+  {it:'matto',ru:'сумасшедший, безумный',ex:'Il mondo è matto. Matto per matto.',assoc:'da matti = сумасшедший'},
+  {it:'dolce',ru:'сладкий, нежный',ex:'Il dolce tuo respiro.',assoc:'la dolce vita!'},
+  {it:'vicino',ru:'близкий, рядом',ex:'Stammi più vicino.',assoc:'contrario: lontano'},
+  {it:'piano piano',ru:'медленно-медленно',ex:'Che cresce piano piano.',assoc:'повторение = усиление'},
+  {it:'sempre più',ru:'всё более, всё больше',ex:'Sempre più in alto si va.',assoc:'sempre più bello = всё красивее'},
+  {it:'non mi sembra vero',ru:'не верится, кажется невозможным',ex:'È così bello che non mi sembra vero.',assoc:'sembrare = казаться'},
+  {it:'noi ci amiamo',ru:'мы любим друг друга',ex:'Almeno noi ci amiamo.',assoc:'ci = друг друга (взаимное)'},
+  {it:'sarà perché',ru:'наверное потому что',ex:'Sarà perché ti amo.',assoc:'futuro = предположение'},
+  {it:'che te ne frega',ru:'да какая разница! да плевать!',ex:'Che te ne frega!',assoc:'разговорное · più formale: che importa'},
+  {it:'almeno',ru:'хотя бы, зато',ex:'Almeno noi ci amiamo.',assoc:'almeno = по крайней мере'},
+  {it:'basta',ru:'достаточно, хватит',ex:'Basta una sola canzone.',assoc:'basta! = хватит! (восклицание)'},
+];
+
+const FILL_Q=[
+  {sent:"È un'emozione che ___ piano piano.",blank:'cresce',opts:['cresce','vola','cade','sembra'],ru:'Это эмоция которая ___ медленно-медленно.'},
+  {sent:'Stringimi forte e ___ più vicino.',blank:'stammi',opts:['stammi','dimmi','vieni','resta'],ru:'Обними меня крепко и ___ рядом.'},
+  {sent:'E vola vola si sa, sempre più in ___ si va.',blank:'alto',opts:['alto','basso','lontano','vicino'],ru:'И летит, всё выше и ___ летишь.'},
+  {sent:'Cade una ___.',blank:'stella',opts:['stella','luna','primavera','emozione'],ru:'Падает ___.'},
+  {sent:'Il mondo è ___.',blank:'matto',opts:['matto','bello','dolce','vero'],ru:'Мир ___.'},
+  {sent:'Se cade il mondo, allora ci ___.',blank:'spostiamo',opts:['spostiamo','amiamo','fermiamo','sentiamo'],ru:'Если мир рухнет — тогда мы ___.'},
+  {sent:'È così bello che non mi ___ vero.',blank:'sembra',opts:['sembra','piace','fa','viene'],ru:'Это так прекрасно что не ___ возможным.'},
+  {sent:'Matto per matto, almeno noi ci ___.',blank:'amiamo',opts:['amiamo','conosciamo','vediamo','sentiamo'],ru:'Сумасшедший так сумасшедший — зато мы ___.'},
+  {sent:'Io canto al ritmo del dolce tuo ___.',blank:'respiro',opts:['respiro','cuore','sorriso','ritmo'],ru:'Пою в ритме твоего нежного ___.'},
+  {sent:'___ una sola canzone per far confusione.',blank:'Basta',opts:['Basta','Serve','Viene','Cade'],ru:'Достаточно одной песни чтобы создать смятение.'},
+];
+
+// ══ RENDER PHRASES ═══════════════════════════════════
+function renderPhrases(){
+  const off=ttsKey?'':'off';
+  function mkPh(arr,id){
+    document.getElementById(id).innerHTML=arr.map(p=>{
+      const safe=p.it.replace(/'/g,"'").replace(/"/g,'&quot;');
+      return `<div class="ph-item" onclick="pl('${safe}',this.querySelector('.ph-btn'))">
+        <div class="ph-row">
+          <div class="ph-body">
+            <span class="ph-it">${p.it}</span>
+            <span class="ph-ru">${p.ru}</span>
+            ${p.note?`<span class="ph-note">💡 ${p.note}</span>`:''}
+          </div>
+          <button class="ph-btn ${off}" onclick="event.stopPropagation();pl('${safe}',this)">🔊</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  mkPh(PHRASES.sara,'ph-sara');
+  mkPh(PHRASES.imp,'ph-imp');
+  mkPh(PHRASES.se,'ph-se');
+  mkPh(PHRASES.altri,'ph-altri');
+}
+
+// ══ TRAINER ══════════════════════════════════════════
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+let trMode='',trWords=[],trIdx=0,trSc=0,trAns=false;
+
+function startTR(mode){
+  trMode=mode; trIdx=0; trSc=0; trAns=false;
+  trWords=mode==='fill'?shuf(FILL_Q):shuf(WORDS);
+  document.getElementById('tpick').style.display='none';
+  document.getElementById('tarea').style.display='block';
+  renderTQ();
+}
+function stopTR(){
+  document.getElementById('tpick').style.display='block';
+  document.getElementById('tarea').style.display='none';
+}
+function prog(pct){
+  return `<div class="qprog"><span>${trIdx+1}/${trWords.length}</span><span>✓ ${trSc}</span></div>
+  <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>`;
+}
+function nav(){
+  return `<div class="navrow">
+    <button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+    <button class="btn-next" id="nxtb" onclick="trNext()">Дальше →</button>
+  </div>`;
+}
+function renderTQ(){
+  if(trIdx>=trWords.length){renderTRes();return;}
+  trAns=false;
+  const pct=Math.round(trIdx/trWords.length*100);
+  if(trMode==='meaning') trMeaning(pct);
+  else if(trMode==='flip') trFlip(pct);
+  else if(trMode==='fill') trFill(pct);
+  else trAudio(pct);
+}
+
+function trMeaning(pct){
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  window._trEx=w.ex;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Что означает:</div>
+    <div style="text-align:center;font-family:'Playfair Display',serif;font-size:1.4rem;color:#c4b5fd;font-style:italic;padding:12px;background:var(--bg);border-radius:9px;margin-bottom:11px">${w.it}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.ru}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(w.it.split(' ').filter(x=>!["la","il","lo","l'","i","gli","le","un'","un","una"].includes(x.toLowerCase()))[0]||w.it,null),300);
+}
+
+function trFlip(pct){
+  const w=trWords[trIdx];
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:8px">Нажми чтобы перевернуть</div>
+    <div class="fw" onclick="this.querySelector('.fc').classList.toggle('fl')">
+      <div class="fc">
+        <div class="ff2 f1">
+          <div class="fl2">Итальянский</div>
+          <div class="fw2">${w.it}</div>
+          <div style="font-size:.62rem;color:var(--muted);font-style:italic;text-align:center">«${w.assoc}»</div>
+        </div>
+        <div class="ff2 f2">
+          <div class="fl2">Перевод</div>
+          <div class="fw2b">${w.ru}</div>
+          <div class="fs2" style="margin-top:5px;font-style:italic">${w.ex}</div>
+        </div>
+      </div>
+    </div>
+    <div class="qnav">
+      <button class="qnb" onclick="pl('${w.it}',null)">🔊</button>
+      <button class="qnb" onclick="trSkip()">✕</button>
+      <button class="qnb p" onclick="trSc++;trNext()">✓ Знал</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(w.it,null),300);
+}
+
+function trFill(pct){
+  const q=trWords[trIdx];
+  const opts=shuf(q.opts);
+  const nc=opts.indexOf(q.blank);
+  window._trEx='Правильно: <em>'+q.blank+'</em>';
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Вставь правильное слово:</div>
+    <div class="qex">${q.sent.replace('___','<span class="blank">___</span>')}<br>
+    <span style="font-size:.65rem;color:var(--muted);font-style:normal;font-family:Nunito">${q.ru}</span></div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+}
+
+function trAudio(pct){
+  if(!ttsKey){
+    document.getElementById('tarea').innerHTML=`<div class="qcard" style="text-align:center;padding:30px 16px">
+      <div style="font-size:2rem;margin-bottom:10px">🔊</div>
+      <div style="color:var(--muted);font-size:.86rem;line-height:1.7">Подключи Google TTS для режима «На слух»</div>
+      <button class="btn-b" style="margin-top:16px" onclick="stopTR()">← Назад</button>
+    </div>`;
+    return;
+  }
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  window._trEx=w.ex;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">На слух — что произносится?</div>
+    <div style="text-align:center;margin:10px 0 14px">
+      <button class="qnb p" style="padding:14px 24px;font-size:.9rem;display:inline-flex;align-items:center;gap:8px" onclick="pl('${w.it}',null)">🔊 Слушать</button>
+    </div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.it}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+  setTimeout(()=>pl(w.it,null),400);
+}
+
+function trChk(btn,ok){
+  if(trAns)return; trAns=true;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('skipb').style.display='none';
+  document.getElementById('nxtb').style.display='block';
+  const fb=document.getElementById('fb');
+  const ex=window._trEx||'';
+  if(ok){trSc++;btn.classList.add('correct');fb.className='fb ok';fb.innerHTML='✓ Правильно! '+ex;}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-ok="true"]').classList.add('correct');fb.className='fb err';fb.innerHTML='✕ Неправильно. '+ex;}
+}
+function trSkip(){trIdx++;renderTQ();}
+function trNext(){trIdx++;renderTQ();}
+
+function renderTRes(){
+  const pct=Math.round(trSc/trWords.length*100);
+  const col=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const msg=pct>=90?'🏆 Sarà perché sei bravo!':pct>=75?'⭐ Molto bene!':pct>=50?'👍 Bene!':'📚 Повтори слова.';
+  document.getElementById('tarea').innerHTML=`<div class="qcard" style="text-align:center">
+    <div style="font-size:2.8rem;margin-bottom:8px">⭐</div>
+    <div class="res-pct" style="color:${col}">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:10px">${trSc} из ${trWords.length}</div>
+    <div style="font-size:.9rem;margin-bottom:14px">${msg}</div>
+    <button class="btn-r" onclick="startTR('${trMode}')">🔄 Ещё раз</button>
+    <button class="btn-b" onclick="stopTR()">← Выбрать режим</button>
+  </div>`;
+}
+
+// ══ NAV ══════════════════════════════════════════════
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  ['testo','vocab','frasi','train'].forEach((s,i)=>{
+    if(s===id) document.querySelectorAll('.mnb')[i].classList.add('on');
+  });
+  if(id==='train') stopTR();
+}
+
+// INIT
+renderPhrases();
+</script>
+</body>
+</html>
