@@ -217,6 +217,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
         <button class="spb" id="sp-adv" onclick="setS('adv')">⚡ Наречия</button>
         <button class="spb" id="sp-prep" onclick="setS('prep')">🔗 Предлоги</button>
         <button class="spb" id="sp-pron" onclick="setS('pron')">👤 Местоимения</button>
+        <button class="spb" id="sp-verb" onclick="setS('verb')">🎬 Глаголы</button>
       </div>
       <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">Режим:</div>
       <div class="mdg">
@@ -887,10 +888,10 @@ let trSec='adj', trMode='', trWords=[], trIdx=0, trSc=0, trTotal=0, trAns=false;
 
 function setS(s){
   trSec=s;
-  ['adj','adv','prep','pron'].forEach(x=>document.getElementById('sp-'+x).classList.toggle('on',x===s));
+  ['adj','adv','prep','pron','verb'].forEach(x=>document.getElementById('sp-'+x).classList.toggle('on',x===s));
 }
 function getPool(){
-  return trSec==='adj'?adjWords:trSec==='adv'?advWords:trSec==='prep'?prepWords:pronWords;
+  return trSec==='adj'?adjWords:trSec==='adv'?advWords:trSec==='prep'?prepWords:trSec==='verb'?verbWords:pronWords;
 }
 function getClean(w){return w.it.replace(/\/.+/,'').split(' ')[0].trim();}
 
