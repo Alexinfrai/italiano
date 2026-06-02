@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Test · Compiti 24/04–26/05</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#13110f;
+  --bg2:#1c1916;
+  --card:#161b22;
+  --card2:#1b2230;
+  --line:#21262d;
+  --txt:#f0ebe3;
+  --muted:#7d8694;
+  --gold:#c9a84c;
+  --gold2:#e0c068;
+  --green:#5ac4a0;
+  --red:#e07070;
+  --blu:#2855a0;
+  --green-bg:rgba(45,122,79,.16);
+  --red-bg:rgba(192,57,43,.16);
+  --shadow:0 8px 30px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0;padding:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:'Nunito',system-ui,sans-serif;
+  line-height:1.55;
+  min-height:100vh;
+}
+.wrap{max-width:820px;margin:0 auto;padding:26px 18px 90px}
+header.top{
+  text-align:center;margin:-26px -18px 22px;
+  padding:38px 20px 28px;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);
+  border-bottom:1px solid var(--line);
+}
+header.top::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
+header.top::after{content:'🇮🇹';position:absolute;font-size:8rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+header.top .flag{font-size:2.4rem;letter-spacing:.3em;opacity:.95;position:relative}
+header.top h1{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(1.8rem,5vw,3rem);margin:.18em 0 .14em;
+  color:var(--gold2);letter-spacing:.5px;line-height:1.1;position:relative;
+}
+header.top p{margin:0;color:var(--muted);font-size:.9rem;position:relative;letter-spacing:.04em}
+header.top .sub{font-style:italic;font-family:'Playfair Display',serif;color:var(--muted)}
+
+/* score bar */
+.scorebar{
+  position:sticky;top:0;z-index:30;margin:0 -18px 18px;padding:12px 18px;
+  background:rgba(13,17,23,.9);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.scorebar .label{font-weight:800;color:var(--gold);font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+.bar{flex:1;min-width:120px;height:9px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .5s ease}
+.scorebar .nums{font-weight:800;font-variant-numeric:tabular-nums;font-size:.95rem;color:var(--txt)}
+.scorebar .nums b{color:var(--green)}
+
+/* nav chips */
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{
+  border:1px solid var(--line);background:var(--card);color:var(--muted);
+  padding:7px 13px;border-radius:99px;font-family:'Nunito';font-weight:700;
+  font-size:.82rem;cursor:pointer;transition:.18s;white-space:nowrap;
+}
+.chip:hover{border-color:var(--gold);color:var(--txt)}
+.chip.active{background:var(--gold);color:#0d1117;border-color:var(--gold)}
+
+/* section */
+section.lez{margin-bottom:30px;animation:fade .4s ease both}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.lez > h2{
+  font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;
+  color:var(--gold2);margin:0 0 2px;display:flex;align-items:baseline;gap:10px;
+}
+.lez > h2 .date{
+  font-family:'Nunito';font-weight:800;font-size:.72rem;letter-spacing:.06em;
+  background:var(--card2);border:1px solid var(--line);color:var(--gold);
+  padding:3px 9px;border-radius:7px;
+}
+.lez > .instr{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;margin:0 0 14px;font-size:.97rem}
+
+/* question card */
+.q{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:14px 16px;margin-bottom:11px;box-shadow:var(--shadow);
+  transition:border-color .25s;
+}
+.q.ok{border-color:var(--green)}
+.q.no{border-color:var(--red)}
+.q .text{font-size:1.08rem;line-height:1.95}
+.q .text .ru{display:block;color:var(--muted);font-size:.86rem;font-style:italic;margin-top:3px;line-height:1.4}
+
+/* пропуск в тексте */
+.gap{
+  display:inline-block;min-width:54px;text-align:center;
+  border-bottom:2px dashed var(--gold);color:var(--muted);
+  padding:0 6px;margin:0 2px;font-weight:800;letter-spacing:2px;
+}
+.gap.filled{color:var(--green);border-bottom-style:solid;border-bottom-color:var(--green);letter-spacing:0}
+.gap.wrong{color:var(--red);border-bottom-style:solid;border-bottom-color:var(--red);letter-spacing:0}
+
+/* строка вариантов */
+.mcrow{display:flex;align-items:center;gap:8px;margin-top:10px}
+.blabel{
+  flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+  background:var(--card2);border:1px solid var(--line);color:var(--gold);
+  font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;
+}
+.opts{display:flex;gap:7px;flex-wrap:wrap}
+.opts.col{flex-direction:column;margin-top:10px}
+.opt{
+  position:relative;text-align:left;background:var(--card2);border:1px solid var(--line);
+  color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;
+  font-family:'Nunito';font-weight:700;font-size:.96rem;transition:.15s;
+}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.dim{opacity:.4}
+.opt .say{margin-left:8px;opacity:.5;font-size:.85rem}
+.opt .say:hover{opacity:1}
+
+/* controls row */
+.ctrl{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+button.act{
+  border:1px solid var(--line);background:var(--card2);color:var(--txt);
+  font-family:'Nunito';font-weight:700;font-size:.83rem;padding:7px 14px;
+  border-radius:9px;cursor:pointer;transition:.16s;
+}
+button.act:hover{border-color:var(--gold);color:var(--gold2)}
+button.tts{padding:4px 9px;font-size:1rem;border:none;background:transparent}
+button.tts.inline{margin-left:6px;vertical-align:middle;opacity:.6}
+button.tts.inline:hover{opacity:1}
+.fb{font-weight:700;font-size:.9rem;margin-left:2px;display:inline-block;margin-top:8px}
+.fb.ok{color:var(--green)}
+.fb.no{color:var(--red)}
+.solution{
+  margin-top:9px;font-size:.95rem;color:var(--green);
+  background:var(--green-bg);border-left:3px solid var(--green);
+  padding:7px 12px;border-radius:0 8px 8px 0;display:none;
+}
+.solution.show{display:block}
+.solution b{color:var(--gold2)}
+
+footer.btm{text-align:center;color:var(--muted);font-size:.82rem;margin-top:30px;padding-top:18px;border-top:1px solid var(--line)}
+footer.btm a{color:var(--gold)}
+.bigbtn{display:inline-block;margin:14px auto 0;}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(60px);
+  background:var(--gold);color:#0d1117;font-weight:800;padding:12px 22px;border-radius:99px;
+  box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.95rem;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="flag">🇮🇹</div>
+    <h1>Test · Compiti</h1>
+    <p>Нажимай правильный вариант — фраза озвучится</p>
+    <p class="sub">Lezioni dal 24/04 al 26/05</p>
+  </header>
+
+  <div class="scorebar">
+    <span class="label">Risultato</span>
+    <div class="bar"><i id="barFill"></i></div>
+    <span class="nums"><b id="scoreOk">0</b> / <span id="scoreTot">0</span></span>
+  </div>
+
+  <div class="nav" id="nav"></div>
+
+  <div id="content"></div>
+
+  <div style="text-align:center">
+    <button class="act bigbtn" onclick="resetAll()">↺ Ricomincia</button>
+  </div>
+
+  <footer class="btm">
+    👆 Нажми вариант — он подсветится и произнесётся. 🔊 у фразы читает всё предложение.<br>
+    Сгенерировано из конспекта · <a href="index.html">← Главная</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ ДАННЫЕ: все compiti из конспекта ============
+   тип "fill":  blanks — массив; каждый blank = массив допустимых ответов
+   тип "choice": opts — варианты; correct — индекс верного               */
+
+const DATA = [
+{
+  date:"27/04", id:"l27a", title:"Articolo indeterminativo + aggettivo",
+  instr:"Completa con l'articolo indeterminativo e un aggettivo adatto.",
+  items:[
+    {t:"@ ragazzo @", b:[["un"],["intelligente"]], ru:"умный парень"},
+    {t:"@ giornata @", b:[["una"],["fredda"]], ru:"холодный день"},
+    {t:"@ cucina @", b:[["una"],["antica"]], ru:"старинная кухня"},
+    {t:"@ lavoro @", b:[["un"],["facile"]], ru:"лёгкая работа"},
+    {t:"@ porta @", b:[["una"],["chiusa"]], ru:"закрытая дверь"},
+    {t:"@ poltrona @", b:[["una"],["comoda"]], ru:"удобное кресло"},
+    {t:"@ bicchiere @", b:[["un"],["pulito"]], ru:"чистый стакан"},
+    {t:"@ mobile @", b:[["un"],["vuoto"]], ru:"пустой шкаф"},
+    {t:"@ amica @", b:[["un'","un"],["americana"]], ru:"подруга-американка"},
+    {t:"@ camicia @", b:[["una"],["pulita","piccola"]], ru:"чистая / маленькая рубашка"},
+  ]
+},
+{
+  date:"27/04", id:"l27b", title:"Articolo determinativo + aggettivo",
+  instr:"Completa con l'articolo determinativo e l'aggettivo tra parentesi.",
+  items:[
+    {t:"@ giacca (corto) @", b:[["la"],["corta"]], ru:"короткая куртка"},
+    {t:"@ magliette (colorato) @", b:[["le"],["colorate"]], ru:"цветные футболки"},
+    {t:"@ cappello (elegante) @", b:[["il"],["elegante"]], ru:"элегантная шляпа"},
+    {t:"@ scarponi (pesante) @", b:[["gli"],["pesanti"]], ru:"тяжёлые ботинки"},
+    {t:"@ vestito (lungo) @", b:[["il"],["lungo"]], ru:"длинное платье"},
+    {t:"@ cintura (nero) @", b:[["la"],["nera"]], ru:"чёрный ремень"},
+    {t:"@ occhiali (moderno) @", b:[["gli"],["moderni"]], ru:"современные очки"},
+    {t:"@ felpa (comodo) @", b:[["la"],["comoda"]], ru:"удобная толстовка"},
+    {t:"@ pantaloncini (corto) @", b:[["i"],["corti"]], ru:"короткие шорты"},
+    {t:"@ giubbotti (invernale) @", b:[["i"],["invernali"]], ru:"зимние куртки"},
+    {t:"@ casa (accogliente) @", b:[["la"],["accogliente"]], ru:"уютный дом"},
+    {t:"@ negozi (costoso) @", b:[["i"],["costosi"]], ru:"дорогие магазины"},
+    {t:"@ città (antico) @", b:[["la"],["antica"]], ru:"старинный город"},
+    {t:"@ musei (interessante) @", b:[["i"],["interessanti"]], ru:"интересные музеи"},
+    {t:"@ spiaggia (affollato) @", b:[["la"],["affollata"]], ru:"многолюдный пляж"},
+    {t:"@ montagne (alto) @", b:[["le"],["alte"]], ru:"высокие горы"},
+    {t:"@ lago (tranquillo) @", b:[["il"],["tranquillo"]], ru:"спокойное озеро"},
+    {t:"@ parchi (verde) @", b:[["i"],["verdi"]], ru:"зелёные парки"},
+    {t:"@ piazza (grande) @", b:[["la"],["grande"]], ru:"большая площадь"},
+    {t:"@ alberghi (lussuoso) @", b:[["gli"],["lussuosi"]], ru:"роскошные отели"},
+    {t:"@ anello (prezioso) @", b:[["l'","l"],["prezioso"]], ru:"драгоценное кольцо"},
+    {t:"@ stivali (nero) @", b:[["gli"],["neri"]], ru:"чёрные сапоги"},
+    {t:"@ camicia (bianco) @", b:[["la"],["bianca"]], ru:"белая рубашка"},
+    {t:"@ gonne (corto) @", b:[["le"],["corte"]], ru:"короткие юбки"},
+    {t:"@ giacchetta (leggero) @", b:[["la"],["leggera"]], ru:"лёгкая курточка"},
+    {t:"@ sandalo (comodo) @", b:[["il"],["comodo"]], ru:"удобная сандалия"},
+    {t:"@ calzini (colorato) @", b:[["i"],["colorati"]], ru:"цветные носки"},
+    {t:"@ sciarpa (caldo) @", b:[["la"],["calda"]], ru:"тёплый шарф"},
+    {t:"@ orologio (costoso) @", b:[["l'","l"],["costoso"]], ru:"дорогие часы"},
+    {t:"@ cappotti (lungo) @", b:[["i"],["lunghi"]], ru:"длинные пальто"},
+  ]
+},
+{
+  date:"04/05", id:"l04", title:"Essere o avere",
+  instr:"Completa le frasi con il verbo essere o il verbo avere.",
+  items:[
+    {t:"Loro @ una villa in campagna.", b:[["hanno"]], full:"Loro hanno una villa in campagna."},
+    {t:"Luigi @ sempre puntuale.", b:[["è","e"]], full:"Luigi è sempre puntuale."},
+    {t:"Queste maglie non @ pulite.", b:[["sono"]], full:"Queste maglie non sono pulite."},
+    {t:"Anna e Mario @ un figlio di 5 anni.", b:[["hanno"]], full:"Anna e Mario hanno un figlio di 5 anni."},
+    {t:"Che ore @?", b:[["sono"]], full:"Che ore sono?"},
+    {t:"Suo marito @ medico.", b:[["è","e"]], full:"Suo marito è medico."},
+    {t:"(io) @ un appuntamento alle 10.", b:[["ho"]], full:"Ho un appuntamento alle dieci."},
+    {t:"Oggi il tempo @ bello.", b:[["è","e"]], full:"Oggi il tempo è bello."},
+    {t:"Franco @ molti problemi.", b:[["ha"]], full:"Franco ha molti problemi."},
+    {t:"(tu) @ pronto?", b:[["sei"]], full:"Sei pronto?"},
+    {t:"Francesca @ mal di testa.", b:[["ha"]], full:"Francesca ha mal di testa."},
+    {t:"(noi) non @ freddo.", b:[["abbiamo"]], full:"Non abbiamo freddo."},
+    {t:"Federica e Maria @ sorelle.", b:[["sono"]], full:"Federica e Maria sono sorelle."},
+    {t:"Giulia @ una moto nuova.", b:[["ha"]], full:"Giulia ha una moto nuova."},
+    {t:"Quanti anni (tu) @?", b:[["hai"]], full:"Quanti anni hai?"},
+    {t:"Simonetta @ una casa grande.", b:[["ha"]], full:"Simonetta ha una casa grande."},
+    {t:"(voi) @ fame?", b:[["avete"]], full:"Avete fame?"},
+    {t:"Professore, @ un po' di tempo?", b:[["ha"]], full:"Professore, ha un po' di tempo?"},
+    {t:"Il padre di Alessandro @ medico.", b:[["è","e"]], full:"Il padre di Alessandro è medico."},
+    {t:"(io) non @ sonno.", b:[["ho"]], full:"Non ho sonno."},
+    {t:"(noi) @ amici.", b:[["siamo"]], full:"Siamo amici."},
+    {t:"Gli amici di Claudio @ giovani.", b:[["sono"]], full:"Gli amici di Claudio sono giovani."},
+    {t:"Stefano @ un buon lavoro.", b:[["ha"]], full:"Stefano ha un buon lavoro."},
+    {t:"(voi) @ stanche?", b:[["siete"]], full:"Siete stanche?"},
+    {t:"Questo treno @ veloce.", b:[["è","e"]], full:"Questo treno è veloce."},
+    {t:"Luca e Isa @ una stanza piccola.", b:[["hanno"]], full:"Luca e Isa hanno una stanza piccola."},
+    {t:"Silvana @ gli occhi scuri.", b:[["ha"]], full:"Silvana ha gli occhi scuri."},
+    {t:"(noi) @ stranieri.", b:[["siamo"]], full:"Siamo stranieri."},
+    {t:"Signora Belli, @ sete?", b:[["ha"]], full:"Signora Belli, ha sete?"},
+    {t:"(tu) @ simpatico.", b:[["sei"]], full:"Sei simpatico."},
+  ]
+},
+{
+  date:"08/05", id:"l08", title:"Verbi al presente",
+  instr:"Completa le frasi con i verbi tra parentesi.",
+  items:[
+    {t:"Quando (tu vedere) @ Marco?", b:[["vedi"]], full:"Quando vedi Marco?"},
+    {t:"(noi incontrare) @ i nostri amici in discoteca.", b:[["incontriamo"]], full:"Incontriamo i nostri amici in discoteca."},
+    {t:"(io prendere) @ l'autobus ogni mattina alle 7.", b:[["prendo"]], full:"Prendo l'autobus ogni mattina alle sette."},
+    {t:"Domani (noi cenare) @ da Stefano, io (portare) @ il vino, tu cosa (portare) @?", b:[["ceniamo"],["porto"],["porti"]], full:"Domani ceniamo da Stefano, io porto il vino, tu cosa porti?"},
+    {t:"(voi parlare) @ inglese?", b:[["parlate"]], full:"Parlate inglese?"},
+    {t:"(io telefonare) @ a mia madre e poi (preparare) @ la cena.", b:[["telefono"],["preparo"]], full:"Telefono a mia madre e poi preparo la cena."},
+    {t:"(noi sentire) @ ancora questo CD e poi (noi decidere) @ quale regalare a Elena.", b:[["sentiamo"],["decidiamo"]], full:"Sentiamo ancora questo CD e poi decidiamo quale regalare a Elena."},
+    {t:"Dove (lavorare) @ tuo fratello?", b:[["lavora"]], full:"Dove lavora tuo fratello?"},
+    {t:"Lorenzo e Jane (abitare) @ in periferia.", b:[["abitano"]], full:"Lorenzo e Jane abitano in periferia."},
+    {t:"Tina (cominciare) @ a lavorare la prossima settimana.", b:[["comincia"]], full:"Tina comincia a lavorare la prossima settimana."},
+    {t:"I nostri amici non (partire) @ subito, prima (aspettare) @ la telefonata di Gianni.", b:[["partono"],["aspettano"]], full:"I nostri amici non partono subito, prima aspettano la telefonata di Gianni."},
+    {t:"Non (io ricordare) @ il nome del negozio.", b:[["ricordo"]], full:"Non ricordo il nome del negozio."},
+    {t:"Di solito (noi mangiare) @ a casa.", b:[["mangiamo"]], full:"Di solito mangiamo a casa."},
+    {t:"(io leggere) @ i messaggi e-mail alla sera.", b:[["leggo"]], full:"Leggo i messaggi e-mail alla sera."},
+    {t:"Adesso non abbiamo tempo, (noi scrivere) @ la relazione più tardi.", b:[["scriviamo"]], full:"Adesso non abbiamo tempo, scriviamo la relazione più tardi."},
+    {t:"(voi prendere) @ un aperitivo con noi?", b:[["prendete"]], full:"Prendete un aperitivo con noi?"},
+    {t:"Il museo non è lontano, (io conoscere) @ la strada.", b:[["conosco"]], full:"Il museo non è lontano, conosco la strada."},
+    {t:"La bambina (dormire) @.", b:[["dorme"]], full:"La bambina dorme."},
+    {t:"Silvano (leggere) @ un libro alla settimana.", b:[["legge"]], full:"Silvano legge un libro alla settimana."},
+    {t:"(tu mangiare) @ poco. Non hai fame?", b:[["mangi"]], full:"Mangi poco. Non hai fame?"},
+    {t:"(voi cercare) @ casa?", b:[["cercate"]], full:"Cercate casa?"},
+    {t:"Il negozio (aprire) @ alle 9,30.", b:[["apre"]], full:"Il negozio apre alle nove e mezza."},
+    {t:"(io comprare) @ il pane e il latte.", b:[["compro"]], full:"Compro il pane e il latte."},
+    {t:"Oggi non (noi studiare) @.", b:[["studiamo"]], full:"Oggi non studiamo."},
+    {t:"(noi viaggiare) @ spesso per lavoro.", b:[["viaggiamo"]], full:"Viaggiamo spesso per lavoro."},
+    {t:"L'ascensore non (funzionare) @.", b:[["funziona"]], full:"L'ascensore non funziona."},
+  ]
+},
+{
+  date:"12/05", id:"l12a", title:"Verbo adatto",
+  instr:"Completa le frasi con il verbo adatto (abitate · ascoltiamo · cerchiamo · gioco · guidi · lavora · leggi · mangiano · parto · vive).",
+  items:[
+    {t:"Antoine @ in Francia.", b:[["vive"]], full:"Antoine vive in Francia."},
+    {t:"(io) @ domani mattina.", b:[["parto"]], full:"Parto domani mattina."},
+    {t:"Rita @ in banca.", b:[["lavora"]], full:"Rita lavora in banca."},
+    {t:"(noi) @ la radio al mattino.", b:[["ascoltiamo"]], full:"Ascoltiamo la radio al mattino."},
+    {t:"(tu) non @ mai i giornali.", b:[["leggi"]], full:"Non leggi mai i giornali."},
+    {t:"Giulia e Susy non @ carne.", b:[["mangiano"]], full:"Giulia e Susy non mangiano carne."},
+    {t:"(voi) @ vicino a casa di Nicoletta.", b:[["abitate"]], full:"Abitate vicino a casa di Nicoletta."},
+    {t:"(noi) @ un dizionario inglese-italiano.", b:[["cerchiamo"]], full:"Cerchiamo un dizionario inglese-italiano."},
+    {t:"(io) non @ a tennis.", b:[["gioco"]], full:"Non gioco a tennis."},
+    {t:"(tu) @ in modo pericoloso.", b:[["guidi"]], full:"Guidi in modo pericoloso."},
+  ]
+},
+{
+  date:"12/05", id:"l12b", title:"Verbi dati",
+  instr:"Completa le frasi con i verbi dati (accende · aprono · chiudono · disturbano · entrano · lavori · prendiamo · racconta · restate · suono · vince).",
+  items:[
+    {t:"I bambini sotto i 10 anni @ gratis.", b:[["entrano"]], full:"I bambini sotto i dieci anni entrano gratis."},
+    {t:"La maestra @ una storia ai bambini.", b:[["racconta"]], full:"La maestra racconta una storia ai bambini."},
+    {t:"Mauro, @ ancora in quel ristorante in centro?", b:[["lavori"]], full:"Mauro, lavori ancora in quel ristorante in centro?"},
+    {t:"Io, invece, @ il violino.", b:[["suono"]], full:"Io, invece, suono il violino."},
+    {t:"Perché non @ ancora un po'?", b:[["restate"]], full:"Perché non restate ancora un po'?"},
+    {t:"Molti negozi @ per ferie in agosto.", b:[["chiudono"]], full:"Molti negozi chiudono per ferie in agosto."},
+    {t:"Luigi @ la televisione per vedere il telegiornale.", b:[["accende"]], full:"Luigi accende la televisione per vedere il telegiornale."},
+    {t:"Io e Carolina @ un risotto alla pescatora.", b:[["prendiamo"]], full:"Io e Carolina prendiamo un risotto alla pescatora."},
+    {t:"I nostri vicini sono tranquilli. Non @ mai.", b:[["disturbano"]], full:"I nostri vicini di casa sono molto tranquilli. Non disturbano mai."},
+    {t:"Luca è bravissimo a scacchi. @ sempre.", b:[["vince"]], full:"Luca è bravissimo a giocare a scacchi. Vince sempre."},
+    {t:"Dopo la cena di Natale i bambini @ i regali.", b:[["aprono"]], full:"Dopo la cena di Natale i bambini aprono i regali."},
+  ]
+},
+{
+  date:"12/05", id:"l12c", title:"Indicativo presente",
+  instr:"Metti i verbi all'indicativo presente.",
+  items:[
+    {t:"Marco (studiare) @ all'università.", b:[["studia"]], full:"Marco studia all'università."},
+    {t:"Sandro e Giulia (usare) @ sempre i mezzi pubblici.", b:[["usano"]], full:"Sandro e Giulia usano sempre i mezzi pubblici."},
+    {t:"Io e mio marito (amare) @ molto i cani.", b:[["amiamo"]], full:"Io e mio marito amiamo molto i cani."},
+    {t:"La sera (leggere) @ sempre qualcosa.", b:[["leggo"]], full:"La sera leggo sempre qualcosa."},
+    {t:"I miei cugini (dormire) @ spesso da me.", b:[["dormono"]], full:"I miei cugini dormono spesso da me."},
+    {t:"Laura (credere) @ molto nell'amicizia.", b:[["crede"]], full:"Laura crede molto nell'amicizia."},
+    {t:"Signor Ricci, (prendere) @ un aperitivo con noi?", b:[["prende"]], full:"Signor Ricci, prende un aperitivo con noi?"},
+    {t:"Le mie amiche (seguire) @ un corso di ceramica.", b:[["seguono"]], full:"Le mie amiche seguono un corso di ceramica."},
+    {t:"Il professor Scotti (parcheggiare) @ sempre davanti casa mia.", b:[["parcheggia"]], full:"Il professor Scotti parcheggia sempre la macchina davanti casa mia."},
+    {t:"Io ed i miei amici non (vincere) @ mai a calcetto.", b:[["vinciamo"]], full:"Io ed i miei amici non vinciamo mai a calcetto."},
+    {t:"Francesco, perché (mettere) @ tutto quel formaggio sulla pasta?", b:[["metti"]], full:"Francesco, perché metti tutto quel formaggio sulla pasta?"},
+  ]
+},
+{
+  date:"14/05", id:"l14a", title:"Forma corretta dei verbi",
+  instr:"Completa le frasi con la forma corretta dei verbi.",
+  items:[
+    {t:"Io (preferire) @ il vestito rosso, è più bello.", b:[["preferisco"]], full:"Io preferisco il vestito rosso, è più bello."},
+    {t:"La lezione (finire) @ alle 11.", b:[["finisce"]], full:"La lezione finisce alle undici."},
+    {t:"Francesco e io (prendere) @ il treno.", b:[["prendiamo"]], full:"Francesco e io prendiamo il treno."},
+    {t:"Marta (cucinare) @ molto bene.", b:[["cucina"]], full:"Marta cucina molto bene."},
+    {t:"Ragazzi, (aprire) @ le finestre, per favore?", b:[["aprite"]], full:"Ragazzi, aprite le finestre, per favore?"},
+    {t:"Loro (lavorare) @ ogni giorno dalle 9 alle 18.", b:[["lavorano"]], full:"Loro lavorano ogni giorno dalle nove alle diciotto."},
+    {t:"Lucien, (scrivere) @ bene in italiano!", b:[["scrivi"]], full:"Lucien, scrivi bene in italiano! Complimenti!"},
+    {t:"Noi (parlare) @ lo spagnolo e (capire) @ un po' l'italiano.", b:[["parliamo"],["capiamo"]], full:"Noi parliamo lo spagnolo e capiamo un po' l'italiano."},
+  ]
+},
+{
+  date:"14/05", id:"l14b", title:"Mini dialoghi",
+  instr:"Completa i mini dialoghi con la forma corretta dei verbi.",
+  items:[
+    {t:"Cosa (prendere) @? — Io (prendere) @ un caffè, Maria (prendere) @ un gelato.", b:[["prendete"],["prendo"],["prende"]], full:"Cosa prendete? Io prendo un caffè, Maria prende un gelato."},
+    {t:"Giulia, (parlare) @ l'inglese? — Sì, (parlare) @ l'inglese e (capire) @ anche il francese.", b:[["parli"],["parlo"],["capisco"]], full:"Giulia, parli l'inglese? Sì, parlo l'inglese e capisco anche il francese."},
+    {t:"Tu e Maria (aprire) @ un ristorante? — Sì, (aprire) @ un ristorante in centro.", b:[["aprite"],["apriamo"]], full:"Tu e Maria aprite un ristorante? Sì, apriamo un ristorante in centro."},
+    {t:"Luca, (offrire) @ io la pizza! — Grazie!", b:[["offro"]], full:"Luca, offro io la pizza! Grazie!"},
+    {t:"A che ora (partire) @ il treno? — Alle 10:23.", b:[["parte"]], full:"A che ora parte il treno? Alle dieci e ventitré."},
+    {t:"Ragazze, cosa (mangiare) @? — (mangiare) @ una pizza.", b:[["mangiate"],["mangiamo"]], full:"Ragazze, cosa mangiate? Mangiamo una pizza."},
+    {t:"Dove sono i ragazzi? — Sono qui, (leggere) @ un libro.", b:[["leggono"]], full:"Dove sono i ragazzi? Sono qui, leggono un libro."},
+    {t:"Di dove siete? — Siamo di Firenze, ma (abitare) @ a Genova.", b:[["abitiamo"]], full:"Di dove siete? Siamo di Firenze, ma abitiamo a Genova."},
+  ]
+},
+{
+  date:"14/05", id:"l14c", title:"Singolare → plurale",
+  instr:"Completa al plurale, come nell'esempio.",
+  items:[
+    {t:"Margaret capisce → Margaret e Monique @ bene l'italiano.", b:[["capiscono"]], full:"Margaret e Monique capiscono bene l'italiano."},
+    {t:"Sara non prende → Sara e Tiziana non @ l'autobus.", b:[["prendono"]], full:"Sara e Tiziana non prendono l'autobus."},
+    {t:"Francesca telefona → Francesca e Piera @ a Sergio ogni giorno.", b:[["telefonano"]], full:"Francesca e Piera telefonano a Sergio ogni giorno."},
+    {t:"Andrea parla → Patrizia e Giovanna @ molto.", b:[["parlano"]], full:"Patrizia e Giovanna parlano molto."},
+    {t:"Gianni pulisce → Gianni e Gigi @ la casa ogni sabato.", b:[["puliscono"]], full:"Gianni e Gigi puliscono la casa ogni sabato."},
+    {t:"Aldo legge → Aldo e Luisa @ il giornale.", b:[["leggono"]], full:"Aldo e Luisa leggono il giornale."},
+  ]
+},
+{
+  date:"18/05", id:"l18a", title:"Forma negativa o affermativa",
+  instr:"Completa con l'indicativo presente (forma negativa o affermativa).",
+  items:[
+    {t:"Sono a dieta. Da oggi (mangiare) @ la pasta.", b:[["non mangio"]], full:"Sono a dieta. Da oggi non mangio la pasta."},
+    {t:"Mia madre è bravissima. (parlare) @ tre lingue straniere.", b:[["parla"]], full:"Mia madre è bravissima. Parla tre lingue straniere."},
+    {t:"La macchina (partire) @. Non funziona la batteria.", b:[["non parte"]], full:"La macchina non parte. Non funziona la batteria."},
+    {t:"Mamma mia, quanta nebbia. (io vedere) @ niente.", b:[["non vedo"]], full:"Mamma mia, quanta nebbia. Non vedo niente."},
+    {t:"(lavare) @ io i piatti stasera. Tu sei stanca.", b:[["lavo"]], full:"Lavo io i piatti stasera. Tu sei stanca."},
+    {t:"Io e mia moglie (cominciare) @ mai a cenare prima delle nove.", b:[["non cominciamo"]], full:"Io e mia moglie non cominciamo mai a cenare prima delle nove."},
+    {t:"Mi dai la tua penna? La mia (scrivere) @ male.", b:[["scrive"]], full:"Mi dai la tua penna? La mia scrive male."},
+    {t:"Il sabato Filippo (dormire) @ fino a tardi perché non va a lavorare.", b:[["dorme"]], full:"Il sabato Filippo dorme fino a tardi perché non va a lavorare."},
+    {t:"Devo preparare una cena vegetariana perché Paola (mangiare) @ carne.", b:[["non mangia"]], full:"Devo preparare una cena vegetariana perché Paola non mangia carne."},
+    {t:"Forse Alessio dorme… (rispondere) @ al telefono.", b:[["non risponde"]], full:"Forse Alessio dorme, non risponde al telefono."},
+    {t:"Devo comprare un nuovo telefonino. Questo (funzionare) @ bene.", b:[["non funziona"]], full:"Devo comprare un nuovo telefonino. Questo non funziona bene."},
+  ]
+},
+{
+  date:"18/05", id:"l18b", title:"Trasforma le frasi",
+  instr:"Trasforma le frasi cambiando il soggetto, come nell'esempio.",
+  items:[
+    {t:"Mangio al ristorante → Ragazzi, perché @ al ristorante ogni giorno?", b:[["mangiate"]], full:"Ragazzi, perché mangiate al ristorante ogni giorno?"},
+    {t:"Comincio e finisco → Voi @ a lavorare alle 9 e @ alle 2.", b:[["cominciate"],["finite"]], full:"Voi cominciate a lavorare alle nove e finite alle due."},
+    {t:"Torno e cucino → Tu quando @ a casa la sera @?", b:[["torni"],["cucini"]], full:"Tu quando torni a casa la sera cucini?"},
+    {t:"Vivo e non capisco → Marcelo @ in Italia da un anno, ma non @ bene l'italiano.", b:[["vive"],["capisce"]], full:"Marcelo vive in Italia da un anno, ma non capisce bene l'italiano."},
+    {t:"Ho tempo e preferisco → Noi quando @ tempo, @ leggere un libro.", b:[["abbiamo"],["preferiamo"]], full:"Noi quando abbiamo tempo, preferiamo leggere un libro."},
+  ]
+},
+{
+  date:"18/05", id:"l18c", title:"Rispondi con lo stesso verbo",
+  instr:"Rispondi alle domande usando lo stesso verbo.",
+  items:[
+    {t:"Studi informatica? — No, @ matematica.", b:[["studio"]], full:"No, studio matematica."},
+    {t:"Quante lingue parla, Dottore? — @ tre lingue.", b:[["parlo"]], full:"Parlo tre lingue."},
+    {t:"Prendi un caffè? — No, @ un latte macchiato.", b:[["prendo"]], full:"No, prendo un latte macchiato."},
+    {t:"Lavorano alla Fiat? — Sì, @ lì da due anni.", b:[["lavorano"]], full:"Sì, lavorano lì da due anni."},
+    {t:"Ritornate questa sera? — Sì, @ verso le 8.", b:[["ritorniamo"]], full:"Sì, ritorniamo verso le otto."},
+    {t:"Legge molto, Signor Bini? — No, @ pochissimo.", b:[["leggo"]], full:"No, leggo pochissimo."},
+    {t:"Mangiate al ristorante? — No, @ a casa.", b:[["mangiamo"]], full:"No, mangiamo a casa."},
+    {t:"Abita lontano, Signorina? — No, @ qui vicino.", b:[["abito"]], full:"No, abito qui vicino."},
+  ]
+},
+{
+  date:"18/05", id:"l18d", title:"Abbina domande e risposte", type:"choice",
+  instr:"Abbina ogni domanda alla risposta giusta.",
+  items:[
+    {t:"Guardate il film alla televisione stasera?", opts:["No, ceniamo fuori.","No, di solito telefono.","No, resto a casa."], correct:0},
+    {t:"Perché non parlate?", opts:["Prendo il treno domani.","Non abbiamo niente da dire.","No, ceniamo fuori."], correct:1},
+    {t:"Scrivi spesso ai tuoi genitori?", opts:["No, di solito telefono.","No, resto a casa.","Non abbiamo niente da dire."], correct:0},
+    {t:"Quando parte, Avvocato?", opts:["No, resto a casa.","Prendo il treno domani mattina alle 7.","No, ceniamo fuori."], correct:1},
+    {t:"Usi l'auto oggi pomeriggio?", opts:["No, resto a casa.","No, di solito telefono.","Prendo il treno domani."], correct:0},
+  ]
+},
+{
+  date:"21/05", id:"l21a", title:"Scegli il verbo modale",
+  instr:"Completa con il verbo modale corretto (potere · volere · dovere).",
+  items:[
+    {t:"Dopo cena (noi) @ mangiare un buon gelato.", b:[["possiamo"]], full:"Dopo cena possiamo mangiare un buon gelato."},
+    {t:"(tu) @ uscire questa sera? — No, non @ uscire perché @ lavorare.", b:[["puoi"],["posso"],["devo"]], full:"Puoi uscire questa sera? No, non posso uscire perché devo lavorare."},
+    {t:"(noi) @ studiare molto, se @ imparare bene l'italiano.", b:[["dobbiamo"],["vogliamo"]], full:"Dobbiamo studiare molto, se vogliamo imparare bene l'italiano."},
+    {t:"Io @ andare a piedi, mi piace camminare.", b:[["voglio"]], full:"Io voglio andare a piedi, mi piace camminare."},
+    {t:"Luca non viene, @ restare a casa a studiare.", b:[["vuole"]], full:"Luca non viene, vuole restare a casa a studiare."},
+    {t:"Se (tu) @ avere informazioni, @ telefonare a questo numero.", b:[["puoi"],["devi"]], full:"Se puoi avere informazioni, devi telefonare a questo numero."},
+    {t:"Maria vuole giocare a tennis: @ venire anche tu?", b:[["puoi","vuoi"]], full:"Maria vuole giocare a tennis questo pomeriggio: puoi venire anche tu?"},
+    {t:"Mio fratello non @ guidare la macchina, non ha la patente.", b:[["può","puo"]], full:"Mio fratello non può guidare la macchina, non ha ancora la patente."},
+    {t:"Il frigo è vuoto, (noi) @ comprare qualcosa per cena.", b:[["possiamo"]], full:"Il frigo è vuoto, possiamo comprare qualcosa per cena."},
+    {t:"Questa sera Carlo e Luigi @ andare al cinema.", b:[["possono"]], full:"Questa sera Carlo e Luigi possono andare al cinema."},
+    {t:"È tardi, (io) @ proprio tornare a casa.", b:[["voglio"]], full:"È tardi, voglio proprio tornare a casa."},
+    {t:"(voi) @ ripetere, per favore?", b:[["potete"]], full:"Potete ripetere, per favore?"},
+  ]
+},
+{
+  date:"21/05", id:"l21b", title:"Coniuga i verbi modali",
+  instr:"Coniuga al presente i verbi tra parentesi.",
+  items:[
+    {t:"Voi non (potere) @ ancora entrare.", b:[["potete"]], full:"Voi non potete ancora entrare."},
+    {t:"Mario e Giovanni (dovere) @ lavare i piatti.", b:[["devono"]], full:"Mario e Giovanni devono lavare i piatti."},
+    {t:"Elena (volere) @ comprare un nuovo paio di scarpe.", b:[["vuole"]], full:"Elena vuole comprare un nuovo paio di scarpe."},
+    {t:"Cosa (tu volere) @ da mangiare?", b:[["vuoi"]], full:"Cosa vuoi da mangiare?"},
+    {t:"Noi non (potere) @ uscire stasera, il babbo non (volere) @.", b:[["possiamo"],["vuole"]], full:"Noi non possiamo uscire stasera, il babbo non vuole."},
+    {t:"Chi (volere) @ ancora il dolce?", b:[["vuole"]], full:"Chi vuole ancora avere il dolce?"},
+    {t:"Signora Neri, (volere) @ lo zucchero nel tè?", b:[["vuole"]], full:"Signora Neri, vuole lo zucchero nel tè?"},
+    {t:"Sono ingrassata, non (potere) @ più mettermi questi pantaloni.", b:[["posso"]], full:"Sono ingrassata, non posso più mettermi questi pantaloni."},
+    {t:"Oggi noi (dovere) @ andare a letto presto, se (volere) @ alzarci presto.", b:[["dobbiamo"],["vogliamo"]], full:"Oggi noi dobbiamo andare a letto presto, se vogliamo alzarci presto domattina."},
+    {t:"Perché (voi) non (volere) @ venire alla festa?", b:[["volete"]], full:"Perché non volete venire alla festa?"},
+    {t:"Hai i capelli troppo lunghi, (dovere) @ andare dal parrucchiere.", b:[["devi"]], full:"Hai i capelli troppo lunghi, devi andare dal parrucchiere."},
+    {t:"Arturo (dovere) @ andare a Milano in auto, anche se non (volere) @.", b:[["deve"],["vuole"]], full:"Arturo deve andare a Milano in auto, anche se non vuole."},
+  ]
+},
+{
+  date:"26/05", id:"l26a", title:"C'è o ci sono",
+  instr:"Completa le frasi con c'è o ci sono.",
+  items:[
+    {t:"In questa casa @ 3 camere da letto.", b:[["ci sono"]], full:"In questa casa ci sono tre camere da letto."},
+    {t:"Alle 9 @ un film in televisione.", b:[["c'è","c'e"]], full:"Alle nove c'è un film in televisione."},
+    {t:"@ un problema da risolvere.", b:[["c'è","c'e"]], full:"C'è un problema da risolvere."},
+    {t:"@ dei biscotti sul tavolo.", b:[["ci sono"]], full:"Ci sono dei biscotti sul tavolo."},
+    {t:"Non @ tempo da perdere.", b:[["c'è","c'e"]], full:"Non c'è tempo da perdere."},
+    {t:"Cosa @? Perché siete arrabbiati?", b:[["c'è","c'e"]], full:"Cosa c'è? Perché siete arrabbiati?"},
+    {t:"@ qualcosa da mangiare?", b:[["c'è","c'e"]], full:"C'è qualcosa da mangiare?"},
+    {t:"Alla reception @ due signori cinesi.", b:[["ci sono"]], full:"Alla reception ci sono due signori cinesi."},
+    {t:"@ diverse cose da fare.", b:[["ci sono"]], full:"Ci sono diverse cose da fare."},
+    {t:"@ un buon ristorante qui vicino?", b:[["c'è","c'e"]], full:"C'è un buon ristorante qui vicino?"},
+  ]
+},
+{
+  date:"26/05", id:"l26b", title:"Nel frigorifero",
+  instr:"Usando c'è o ci sono, indica cosa c'è nel frigo (scrivi tutta la frase).",
+  items:[
+    {t:"(banana: 2) → @", b:[["ci sono due banane"]], full:"Ci sono due banane."},
+    {t:"(yogurt: 1) → @", b:[["c'è un yogurt","c'e un yogurt"]], full:"C'è un yogurt."},
+    {t:"(uovo: 6) → @", b:[["ci sono sei uova"]], full:"Ci sono sei uova."},
+    {t:"(bistecca: 3) → @", b:[["ci sono tre bistecche"]], full:"Ci sono tre bistecche."},
+    {t:"(mozzarella: 1) → @", b:[["c'è una mozzarella","c'e una mozzarella"]], full:"C'è una mozzarella."},
+    {t:"(torta: 1) → @", b:[["c'è una torta","c'e una torta"]], full:"C'è una torta."},
+    {t:"(bottiglia di vino: 2) → @", b:[["ci sono due bottiglie di vino"]], full:"Ci sono due bottiglie di vino."},
+    {t:"(scatoletta di tonno: 1) → @", b:[["c'è una scatoletta di tonno","c'e una scatoletta di tonno"]], full:"C'è una scatoletta di tonno."},
+    {t:"(pera: 4) → @", b:[["ci sono quattro pere"]], full:"Ci sono quattro pere."},
+    {t:"(pomodoro: 4) → @", b:[["ci sono quattro pomodori"]], full:"Ci sono quattro pomodori."},
+  ]
+},
+{
+  date:"26/05", id:"l26c", title:"Trasforma in negative",
+  instr:"Trasforma le frasi in negative (scrivi tutta la frase).",
+  items:[
+    {t:"Hai la macchina? → @", b:[["non hai la macchina"]], full:"Non hai la macchina?"},
+    {t:"Avete 5 minuti per me? → @", b:[["non avete 5 minuti per me","non avete cinque minuti per me"]], full:"Non avete cinque minuti per me?"},
+    {t:"Quelle valigie sono di pelle. → @", b:[["quelle valigie non sono di pelle"]], full:"Quelle valigie non sono di pelle."},
+    {t:"Marie Cristine è francese? → @", b:[["marie cristine non è francese","marie cristine non e francese"]], full:"Marie Cristine non è francese?"},
+    {t:"Oggi i negozi sono aperti. → @", b:[["oggi i negozi non sono aperti"]], full:"Oggi i negozi non sono aperti."},
+    {t:"Abbiamo voglia di uscire. → @", b:[["non abbiamo voglia di uscire"]], full:"Non abbiamo voglia di uscire."},
+    {t:"Siete in ritardo. → @", b:[["non siete in ritardo"]], full:"Non siete in ritardo."},
+    {t:"Sono felice. → @", b:[["non sono felice"]], full:"Non sono felice."},
+    {t:"Questa sedia è comoda. → @", b:[["questa sedia non è comoda","questa sedia non e comoda"]], full:"Questa sedia non è comoda."},
+  ]
+},
+];
+
+/* ============ НОРМАЛИЗАЦИЯ ОТВЕТА ============ */
+function norm(s){
+  return (s||"").toLowerCase().trim()
+    .replace(/[''`’]/g,"'")
+    .replace(/\s+/g," ")
+    .normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .replace(/[.?!,;]+$/,"");
+}
+
+/* ============ ОЗВУЧКА ============
+   Встроенный синтез речи браузера (it-IT) с выбором самого «живого» голоса.
+   Если захочешь подключить свой Google TTS (Neural2 / WaveNet) — он звучит
+   ещё естественнее: замени тело speakNow() на свой вызов.               */
+let _itVoice=null;
+function pickItalianVoice(){
+  const voices=window.speechSynthesis.getVoices().filter(v=>/^it(\b|[-_])/i.test(v.lang));
+  if(!voices.length) return null;
+  // приоритет: «живые» онлайн-голоса Google → премиум/enhanced → конкретные приятные имена → любой it
+  const score=v=>{
+    const n=(v.name||"").toLowerCase();
+    let s=0;
+    if(/google/.test(n))            s+=60;   // самые естественные в Chrome
+    if(/natural|neural|premium|enhanced|wavenet/.test(n)) s+=50;
+    if(/(alice|federica|luca|elsa|cosimo|chiara|isabella)/.test(n)) s+=20;
+    if(v.localService===false)      s+=15;   // облачные обычно качественнее
+    if(/it-it/i.test(v.lang))       s+=5;
+    return s;
+  };
+  return voices.slice().sort((a,b)=>score(b)-score(a))[0];
+}
+function refreshVoice(){ _itVoice=pickItalianVoice()||_itVoice; }
+if('speechSynthesis' in window){
+  refreshVoice();
+  window.speechSynthesis.onvoiceschanged=refreshVoice;
+}
+function speakNow(text){
+  const synth=window.speechSynthesis;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang="it-IT";
+  u.rate=0.96;     // чуть медленнее обычного — речь спокойнее
+  u.pitch=1.0;     // естественная высота
+  u.volume=1.0;
+  if(!_itVoice) refreshVoice();
+  if(_itVoice) u.voice=_itVoice;
+  synth.speak(u);
+}
+function speak(text){
+  try{
+    const synth=window.speechSynthesis;
+    synth.cancel();                 // прерываем предыдущее
+    // короткая пауза, чтобы движок «выдохнул» — убирает обрывистость в Chrome
+    setTimeout(()=>speakNow(text), 60);
+  }catch(e){}
+}
+
+/* ============ РЕНДЕР: тест с вариантами ============ */
+let TOTAL=0;
+const correctSet=new Set();      // ключи карточек, решённых полностью
+const cardState={};              // ключ карточки -> массив bool по пропускам
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* пулы дистракторов: по каждой секции и по позиции пропуска */
+function buildPools(sec){
+  if(sec.type==="choice") return null;
+  const byPos={}, all=[];
+  sec.items.forEach(it=>{
+    (it.b||[]).forEach((arr,pos)=>{
+      const disp=arr[0];
+      (byPos[pos]=byPos[pos]||[]).push(disp);
+      all.push(disp);
+    });
+  });
+  return {byPos,all};
+}
+function uniqByNorm(list){
+  const seen=new Set(), out=[];
+  list.forEach(x=>{const n=norm(x); if(!seen.has(n)){seen.add(n); out.push(x);}});
+  return out;
+}
+/* 4 варианта для пропуска: верный + 3 правдоподобных */
+function optionsFor(correctArr, pos, pools){
+  const correctDisp=correctArr[0];
+  const correctNorms=correctArr.map(norm);
+  let pool=uniqByNorm((pools.byPos[pos]||[]).concat(pools.all))
+            .filter(x=>!correctNorms.includes(norm(x)));
+  shuffle(pool);
+  const distract=pool.slice(0,3);
+  const opts=shuffle([correctDisp,...distract]);
+  return opts;
+}
+
+function buildMC(item, sec, sIdx, qIdx, pools){
+  const key=sIdx+"_"+qIdx;
+  const nBlanks=(item.b||[]).length;
+  cardState[key]=new Array(nBlanks).fill(false);
+  let bi=0;
+  // текст с подсвеченными пропусками
+  const text=esc(item.t).replace(/@/g,()=>{
+    const g=`<span class="gap" id="gap_${key}_${bi}">·····</span>`;
+    bi++; return g;
+  });
+  const ru=item.ru?`<span class="ru">${esc(item.ru)}</span>`:"";
+  const full=item.full||item.t.replace(/@/g, (item.b&&item.b[0]?item.b[0][0]:""))||item.ru||"";
+  // группы вариантов по каждому пропуску
+  let groups="";
+  (item.b||[]).forEach((arr,pos)=>{
+    const opts=optionsFor(arr,pos,pools);
+    const label=nBlanks>1?`<span class="blabel">${pos+1}</span>`:"";
+    const btns=opts.map(o=>
+      `<button class="opt" data-k="${key}" data-pos="${pos}"
+        onclick="pick(this,'${key}',${pos},${JSON.stringify(arr.map(norm)).replace(/"/g,'&quot;')})"
+        data-w="${esc(o)}">${esc(o)}</button>`).join("");
+    groups+=`<div class="mcrow">${label}<div class="opts">${btns}</div></div>`;
+  });
+  return `<div class="q" id="q_${key}">
+    <div class="text">${text}${ru}
+      <button class="act tts inline" title="Ascolta la frase" onclick="speak(this.dataset.s)" data-s="${esc(full)}">🔊</button>
+    </div>
+    ${groups}
+    <div class="solution" id="sol_${key}"></div>
+  </div>`;
+}
+
+function buildChoice(item, sec, sIdx, qIdx){
+  const key=sIdx+"_"+qIdx;
+  cardState[key]=[false];
+  const opts=shuffle(item.opts.map((o,i)=>({o,i})));
+  const btns=opts.map(({o,i})=>
+    `<button class="opt" data-k="${key}"
+       onclick="pickChoice(this,'${key}',${i},${item.correct})"
+       data-w="${esc(o)}">${esc(o)}
+       <span class="say" onclick="event.stopPropagation();speak(this.parentNode.dataset.w)">🔊</span></button>`).join("");
+  return `<div class="q" id="q_${key}">
+    <div class="text">${esc(item.t)}
+      <button class="act tts inline" title="Ascolta" onclick="speak(this.dataset.s)" data-s="${esc(item.t)}">🔊</button>
+    </div>
+    <div class="opts col">${btns}</div>
+    <span class="fb" id="fb_${key}"></span>
+  </div>`;
+}
+
+let currentFilter=null;
+function render(filter){
+  currentFilter=filter;
+  const nav=document.getElementById("nav");
+  const content=document.getElementById("content");
+  let chips=`<button class="chip ${!filter?'active':''}" onclick="render(null)">Все</button>`;
+  DATA.forEach(s=>{chips+=`<button class="chip ${filter===s.id?'active':''}" onclick="render('${s.id}')">${s.date}</button>`;});
+  nav.innerHTML=chips;
+  const shown=filter?DATA.filter(s=>s.id===filter):DATA;
+  let html="";
+  shown.forEach(s=>{
+    const sIdx=DATA.indexOf(s);
+    const pools=buildPools(s);
+    let qs="";
+    s.items.forEach((it,qIdx)=>{
+      qs += s.type==="choice" ? buildChoice(it,s,sIdx,qIdx) : buildMC(it,s,sIdx,qIdx,pools);
+    });
+    html+=`<section class="lez">
+      <h2><span class="date">${s.date}</span>${esc(s.title)}</h2>
+      <p class="instr">${esc(s.instr)}</p>
+      ${qs}
+    </section>`;
+  });
+  content.innerHTML=html;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* подсчёт всех заданий один раз */
+DATA.forEach(s=>s.items.forEach(()=>TOTAL++));
+document.getElementById("scoreTot").textContent=TOTAL;
+
+function updateScore(){
+  const ok=correctSet.size;
+  document.getElementById("scoreOk").textContent=ok;
+  document.getElementById("barFill").style.width=(TOTAL?ok/TOTAL*100:0)+"%";
+}
+
+/* выбор варианта в обычном задании */
+function pick(btn,key,pos,acceptedNorms){
+  speak(btn.dataset.w);
+  const good=acceptedNorms.includes(norm(btn.dataset.w));
+  // подсветить кнопки этой группы
+  const group=[...document.querySelectorAll(`.opt[data-k="${key}"][data-pos="${pos}"]`)];
+  group.forEach(b=>b.classList.remove("ok","no","dim"));
+  if(good){
+    btn.classList.add("ok");
+    group.forEach(b=>{if(b!==btn)b.classList.add("dim");});
+  }else{
+    btn.classList.add("no");
+    group.forEach(b=>{if(acceptedNorms.includes(norm(b.dataset.w)))b.classList.add("ok");});
+  }
+  // заполнить пропуск в тексте
+  const gap=document.getElementById(`gap_${key}_${pos}`);
+  if(gap){gap.textContent=good?btn.dataset.w:btn.dataset.w; gap.className="gap "+(good?"filled":"wrong");}
+  // состояние карточки
+  cardState[key][pos]=good;
+  const allOk=cardState[key].every(Boolean);
+  const q=document.getElementById("q_"+key);
+  q.classList.toggle("ok",allOk);
+  if(allOk){
+    correctSet.add(key);
+    const sol=document.getElementById("sol_"+key);
+    const tts=document.querySelector(`#q_${key} .tts`);
+    if(sol&&tts){sol.innerHTML=`✓ <b>${esc(tts.dataset.s)}</b>`; sol.classList.add("show");}
+  }else{
+    correctSet.delete(key);
+  }
+  updateScore();
+}
+
+/* выбор варианта в задании "соедини" */
+function pickChoice(btn,key,i,correct){
+  const btns=[...document.querySelectorAll(`.opt[data-k="${key}"]`)];
+  btns.forEach(b=>b.classList.remove("ok","no","dim"));
+  const good=(i===correct);
+  if(good){
+    btn.classList.add("ok");
+    btns.forEach(b=>{if(b!==btn)b.classList.add("dim");});
+  }else{
+    btn.classList.add("no");
+  }
+  speak(btn.dataset.w);
+  const fb=document.getElementById("fb_"+key);
+  fb.className="fb "+(good?"ok":"no");
+  fb.textContent=good?"✓ Esatto!":"✗ Riprova";
+  cardState[key][0]=good;
+  if(good)correctSet.add(key); else correctSet.delete(key);
+  updateScore();
+}
+
+function resetAll(){
+  correctSet.clear();
+  Object.keys(cardState).forEach(k=>delete cardState[k]);
+  render(currentFilter);
+  updateScore();
+  toast("Ricominciamo! 💪");
+}
+
+function toast(msg){
+  const t=document.getElementById("toast");
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+render(null);
+updateScore();
+
+</script>
+</body>
+</html>
