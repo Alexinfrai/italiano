@@ -170,7 +170,7 @@ footer.btm a{color:var(--gold)}
     <div class="flag">🇮🇹</div>
     <h1>Test · Compiti</h1>
     <p>Нажимай правильный вариант — фраза озвучится</p>
-    <p class="sub">Lezioni dal 24/04 al 26/05</p>
+    <p class="sub">Lezioni dal 24/04 al 04/06</p>
   </header>
 
   <div class="scorebar">
@@ -547,6 +547,151 @@ const DATA = [
     {t:"Questa sedia è comoda. → @", b:[["questa sedia non è comoda","questa sedia non e comoda"]], full:"Questa sedia non è comoda."},
   ]
 },
+{
+  date:"27/05", id:"l2705a", title:"Andare o venire",
+  instr:"Completa con il presente di andare o venire.",
+  items:[
+    {t:"Ma perché Tiziana e Mauro @ in centro a quest'ora?", b:[["vengono"]], full:"Ma perché Tiziana e Mauro vengono in centro a quest'ora?"},
+    {t:"Ragazzi, stasera noi @ a ballare, voi che fate?", b:[["andiamo"]], full:"Ragazzi, stasera noi andiamo a ballare, voi che fate?"},
+    {t:"Perché non @ anche voi al cinema?", b:[["venite","andate"]], full:"Perché non venite anche voi al cinema?"},
+    {t:"Carla, a che ora @ a scuola la mattina?", b:[["vai"]], full:"Carla, a che ora vai a scuola la mattina?"},
+    {t:"Quando @ all'aeroporto Paolo?", b:[["viene"]], full:"Quando viene all'aeroporto Paolo?"},
+    {t:"Domani @ con te a Milano.", b:[["vengo"]], full:"Domani vengo con te a Milano."},
+  ]
+},
+{
+  date:"27/05", id:"l2705b", title:"Invitare / Accettare / Rifiutare", type:"choice",
+  instr:"Per ogni espressione scegli la funzione giusta: invitare, accettare o rifiutare.",
+  items:[
+    {t:"Andiamo al mare?", opts:["Invitare","Accettare","Rifiutare"], correct:0},
+    {t:"Vieni con me al cinema?", opts:["Invitare","Accettare","Rifiutare"], correct:0},
+    {t:"Vuoi venire?", opts:["Invitare","Accettare","Rifiutare"], correct:0},
+    {t:"Che ne dici di andare a teatro?", opts:["Invitare","Accettare","Rifiutare"], correct:0},
+    {t:"Sì, grazie! / D'accordo!", opts:["Invitare","Accettare","Rifiutare"], correct:1},
+    {t:"Sì, certo!", opts:["Invitare","Accettare","Rifiutare"], correct:1},
+    {t:"Sì, volentieri!", opts:["Invitare","Accettare","Rifiutare"], correct:1},
+    {t:"Perché no?", opts:["Invitare","Accettare","Rifiutare"], correct:1},
+    {t:"Buona idea! / Perfetto!", opts:["Invitare","Accettare","Rifiutare"], correct:1},
+    {t:"Purtroppo non posso.", opts:["Invitare","Accettare","Rifiutare"], correct:2},
+    {t:"Non posso, devo lavorare.", opts:["Invitare","Accettare","Rifiutare"], correct:2},
+    {t:"Ho già un impegno.", opts:["Invitare","Accettare","Rifiutare"], correct:2},
+    {t:"No, voglio restare a casa.", opts:["Invitare","Accettare","Rifiutare"], correct:2},
+    {t:"Perché sono stanco.", opts:["Invitare","Accettare","Rifiutare"], correct:2},
+  ]
+},
+{
+  date:"27/05", id:"l2705c", title:"Completa i mini dialoghi",
+  instr:"Scegli la risposta adatta all'invito.",
+  items:[
+    {t:"Vieni con noi in discoteca stasera? → @", b:[["Purtroppo non posso, devo studiare."]], full:"Purtroppo non posso, devo studiare.", ru:"(откажись с причиной)"},
+    {t:"Domani pensiamo di andare a teatro. Vuoi venire? → @", b:[["Certo! È da tempo che non vado a teatro!"]], full:"Certo! È da tempo che non vado a teatro!", ru:"(согласись с радостью)"},
+    {t:"Che ne dici di andare alla Scala stasera? Ho due biglietti! → @", b:[["No, mi dispiace. Magari un'altra volta."]], full:"No, mi dispiace. Magari un'altra volta.", ru:"(вежливо откажись)"},
+    {t:"Che fai domani? Andiamo al mare? → @", b:[["Sì, volentieri!"]], full:"Sì, volentieri!", ru:"(согласись)"},
+  ]
+},
+{
+  date:"02/06", id:"l0206a", title:"Forma giusta del verbo",
+  instr:"Completa le frasi con la forma giusta del verbo tra parentesi.",
+  items:[
+    {t:"Voi @ con il treno delle due o delle sette? (partire)", b:[["partite"]], full:"Voi partite con il treno delle due o delle sette?"},
+    {t:"Noi @ il menù di pesce. (prendere)", b:[["prendiamo"]], full:"Noi prendiamo il menù di pesce."},
+    {t:"Sergio @ un anello per il compleanno della moglie. (comprare)", b:[["compra"]], full:"Sergio compra un anello per il compleanno della moglie."},
+    {t:"Carlo, possibile che tu @ sempre la luce accesa? (lasciare)", b:[["lasci"]], full:"Carlo, possibile che tu lasci sempre la luce accesa?"},
+    {t:"Loro @ molto, specialmente libri di storia. (leggere)", b:[["leggono"]], full:"Loro leggono molto, specialmente libri di storia."},
+    {t:"Ti dispiace se @ la finestra? (chiudere)", b:[["chiudo"]], full:"Ti dispiace se chiudo la finestra?"},
+    {t:"Io non @ mai al ristorante. (mangiare)", b:[["mangio"]], full:"Io non mangio mai al ristorante."},
+    {t:"I signori Tommasi @ il negozio alle 9. (aprire)", b:[["aprono"]], full:"I signori Tommasi aprono il negozio alle nove."},
+    {t:"Tu @ mia zia Luciana, vero? (conoscere)", b:[["conosci"]], full:"Tu conosci mia zia Luciana, vero?"},
+    {t:"Voi @ sempre in ritardo! (arrivare)", b:[["arrivate"]], full:"Voi arrivate sempre in ritardo!"},
+    {t:"Noi @ una casa in Sicilia, per le vacanze. (affittare)", b:[["affittiamo"]], full:"Noi affittiamo una casa in Sicilia, per le vacanze."},
+    {t:"Andrea @ 10 km tutti i giorni! (correre)", b:[["corre"]], full:"Andrea corre dieci chilometri tutti i giorni!"},
+  ]
+},
+{
+  date:"02/06", id:"l0206b", title:"Verbi al presente (vari)",
+  instr:"Completa con il verbo al presente.",
+  items:[
+    {t:"Tu @ per questa azienda? (lavorare)", b:[["lavori"]], full:"Tu lavori per questa azienda?"},
+    {t:"Voi @ inglese? (parlare)", b:[["parlate"]], full:"Voi parlate inglese?"},
+    {t:"Mi scusi, Lei @ alla prossima fermata? (scendere)", b:[["scende"]], full:"Mi scusi, Lei scende alla prossima fermata?"},
+    {t:"Scusate, @ un buon ristorante qui vicino? (conoscere)", b:[["conoscete"]], full:"Scusate, conoscete un buon ristorante qui vicino?"},
+    {t:"La banca @ alle otto e mezza e @ alle quattro. (aprire / chiudere)", b:[["apre"],["chiude"]], full:"La banca apre alle otto e mezza e chiude alle quattro."},
+    {t:"Chi @ i piatti stasera? (pulire)", b:[["pulisce"]], full:"Chi pulisce i piatti stasera?"},
+    {t:"Loro @ un sacco di soldi per cose inutili. (spendere)", b:[["spendono"]], full:"Loro spendono un sacco di soldi per cose inutili."},
+    {t:"Ragazze, @ da me verso mezzogiorno? (passare)", b:[["passate"]], full:"Ragazze, passate da me verso mezzogiorno?"},
+    {t:"Mia zia @ lo stile minimalista. (preferire)", b:[["preferisce"]], full:"Mia zia preferisce lo stile minimalista."},
+    {t:"Tu @ la piazza e poi @ subito a destra. (attraversare / girare)", b:[["attraversi"],["giri"]], full:"Tu attraversi la piazza e poi giri subito a destra."},
+    {t:"Lui non mi @ più e io non @ perché! (chiamare / capire)", b:[["chiama"],["capisco"]], full:"Lui non mi chiama più e io non capisco perché!"},
+    {t:"Franco, @ il computer e @ la chiavetta, per favore? (accendere / inserire)", b:[["accendi"],["inserisci"]], full:"Franco, accendi il computer e inserisci la chiavetta, per favore?"},
+  ]
+},
+{
+  date:"02/06", id:"l0206c", title:"Ricostruisci i dialoghi",
+  instr:"Completa con il verbo al presente.",
+  items:[
+    {t:"Insomma, tu non @ mai il bagno! (pulire)", b:[["pulisci"]], full:"Insomma, tu non pulisci mai il bagno!"},
+    {t:"Perché tu non mi @ mai di farlo! (chiedere)", b:[["chiedi"]], full:"Perché tu non mi chiedi mai di farlo!"},
+    {t:"Io non @ la moglie di Enrico. (conoscere)", b:[["conosco"]], full:"Io non conosco la moglie di Enrico."},
+    {t:"Scusi, a che ora @ il film? (finire)", b:[["finisce"]], full:"Scusi, a che ora finisce il film?"},
+    {t:"Noi @ in un coro gospel. (cantare)", b:[["cantiamo"]], full:"Noi cantiamo in un coro gospel."},
+    {t:"Secondo te, quanto @ Alberto? (guadagnare)", b:[["guadagna"]], full:"Secondo te, quanto guadagna Alberto?"},
+    {t:"Loro non @ mai l'aereo? (prendere)", b:[["prendono"]], full:"Loro non prendono mai l'aereo?"},
+    {t:"Hanno paura. @ il treno. (prendere)", b:[["prendono"]], full:"Hanno paura. Prendono il treno."},
+    {t:"Molto, @ in una villa magnifica! (abitare)", b:[["abita"]], full:"Molto, abita in una villa magnifica!"},
+    {t:"Io sì, noi @ lo stesso corso di inglese. (frequentare)", b:[["frequentiamo"]], full:"Io sì, noi frequentiamo lo stesso corso di inglese."},
+    {t:"Io sono stonato però @ la chitarra. (suonare)", b:[["suono"]], full:"Io sono stonato però suono la chitarra."},
+  ]
+},
+{
+  date:"04/06", id:"l0406a", title:"Verbi riflessivi (1)",
+  instr:"Completa con la forma riflessiva corretta (particella + verbo).",
+  items:[
+    {t:"Quanti giorni @ a Venezia? (fermarsi — voi)", b:[["vi fermate"]], full:"Quanti giorni vi fermate a Venezia?"},
+    {t:"Dario e io @ da tanti anni. (conoscersi)", b:[["ci conosciamo"]], full:"Dario e io ci conosciamo da tanti anni."},
+    {t:"Complimenti ragazzi! @ davvero bene! (esprimersi — voi)", b:[["vi esprimete"]], full:"Complimenti ragazzi! Vi esprimete davvero bene!"},
+    {t:"La mia collega arriva sempre in ritardo e neanche @. (scusarsi)", b:[["si scusa"]], full:"La mia collega arriva sempre in ritardo e neanche si scusa."},
+    {t:"Spesso @ verso mezzanotte. (addormentarsi — io)", b:[["mi addormento"]], full:"Spesso mi addormento verso mezzanotte."},
+    {t:"La mamma appena arriva a casa @ a fare le pulizie. (mettersi)", b:[["si mette"]], full:"La mamma appena arriva a casa si mette a fare le pulizie."},
+    {t:"Quando @ finalmente di smettere di fumare? (decidersi — tu)", b:[["ti decidi"]], full:"Quando ti decidi finalmente di smettere di fumare?"},
+    {t:"I bambini di oggi spesso @ se non possono guardare la TV. (annoiarsi)", b:[["si annoiano"]], full:"I bambini di oggi spesso si annoiano se non possono guardare la TV."},
+    {t:"A che ora @ normalmente? (alzarsi — tu)", b:[["ti alzi"]], full:"A che ora ti alzi normalmente?"},
+  ]
+},
+{
+  date:"04/06", id:"l0406b", title:"Verbi riflessivi (2)",
+  instr:"Completa con la forma riflessiva corretta (particella + verbo).",
+  items:[
+    {t:"Ogni mattina, io e Marco @ alle sette. (svegliarsi)", b:[["ci svegliamo"]], full:"Ogni mattina, io e Marco ci svegliamo alle sette."},
+    {t:"Prima di uscire, @ sempre i capelli. (pettinarsi — io)", b:[["mi pettino"]], full:"Prima di uscire, mi pettino sempre i capelli."},
+    {t:"Dopo cena, mia nonna @ sul divano e legge un libro. (sedersi)", b:[["si siede"]], full:"Dopo cena, mia nonna si siede sul divano e legge un libro."},
+    {t:"Tu, quando hai un problema, @ dei tuoi amici? (fidarsi)", b:[["ti fidi"]], full:"Tu, quando hai un problema, ti fidi dei tuoi amici?"},
+    {t:"Noi @ molto a giocare a calcio al parco. (divertirsi)", b:[["ci divertiamo"]], full:"Noi ci divertiamo molto a giocare a calcio al parco."},
+    {t:"Lei @ le mani prima di mangiare. (lavarsi)", b:[["si lava"]], full:"Lei si lava le mani prima di mangiare."},
+    {t:"Io @ al mare con i miei amici. (divertirsi)", b:[["mi diverto"]], full:"Io mi diverto al mare con i miei amici."},
+    {t:"Lui @ la doccia prima di andare a letto. (farsi)", b:[["si fa"]], full:"Lui si fa la doccia prima di andare a letto."},
+    {t:"Lui @ sempre di tutto! (lamentarsi)", b:[["si lamenta"]], full:"Lui si lamenta sempre di tutto!"},
+    {t:"A volte, io @ solo. (sentirsi)", b:[["mi sento"]], full:"A volte, io mi sento solo."},
+    {t:"L'autobus @ al semaforo. (fermarsi)", b:[["si ferma"]], full:"L'autobus si ferma al semaforo."},
+    {t:"Il vaso cade e @ sul pavimento. (rompersi)", b:[["si rompe"]], full:"Il vaso cade e si rompe sul pavimento."},
+  ]
+},
+{
+  date:"04/06", id:"l0406c", title:"Verbi modali",
+  instr:"Completa con il verbo modale al presente.",
+  items:[
+    {t:"Mamma, @ andare da Gianni? (noi — potere)", b:[["possiamo"]], full:"Mamma, possiamo andare da Gianni?"},
+    {t:"@ venire in Spagna quest'estate? (voi — volere)", b:[["volete"]], full:"Volete venire in Spagna quest'estate?"},
+    {t:"Oggi @ fare i compiti. (tu — dovere)", b:[["devi"]], full:"Oggi devi fare i compiti."},
+    {t:"Noi non @ il dessert. (volere)", b:[["vogliamo"]], full:"Noi non vogliamo il dessert."},
+    {t:"Laura non ha la patente quindi non @ guidare. (potere)", b:[["può","puo"]], full:"Laura non ha la patente quindi non può guidare."},
+    {t:"Stasera @ andare ad una festa. (noi — dovere)", b:[["dobbiamo"]], full:"Stasera dobbiamo andare ad una festa."},
+    {t:"Oggi non @ andare a scuola, sto male! (io — potere)", b:[["posso"]], full:"Oggi non posso andare a scuola, sto male!"},
+    {t:"@ guardare un film? (tu — volere)", b:[["vuoi"]], full:"Vuoi guardare un film?"},
+    {t:"Licia e Mauro @ prendere il treno per Milano. (dovere)", b:[["devono"]], full:"Licia e Mauro devono prendere il treno per Milano."},
+    {t:"Io non @ uscire! (volere)", b:[["voglio"]], full:"Io non voglio uscire!"},
+    {t:"Sara e Linda @ dormire qui stanotte? (potere)", b:[["possono"]], full:"Sara e Linda possono dormire qui stanotte?"},
+  ]
+},
 ];
 
 /* ============ НОРМАЛИЗАЦИЯ ОТВЕТА ============ */
@@ -653,7 +798,13 @@ function buildMC(item, sec, sIdx, qIdx, pools){
     bi++; return g;
   });
   const ru=item.ru?`<span class="ru">${esc(item.ru)}</span>`:"";
-  const full=item.full||item.t.replace(/@/g, (item.b&&item.b[0]?item.b[0][0]:""))||item.ru||"";
+  // полная фраза: каждый @ -> ответ СВОЕГО пропуска по порядку; убираем подсказки в скобках
+  let fi=0;
+  const full = item.full || (
+    item.t.replace(/@/g, ()=> (item.b&&item.b[fi]?item.b[fi++][0]:""))
+          .replace(/\s*\([^)]*\)/g,"")
+          .replace(/\s+/g," ").trim()
+  ) || item.ru || "";
   // группы вариантов по каждому пропуску
   let groups="";
   (item.b||[]).forEach((arr,pos)=>{
