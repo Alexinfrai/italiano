@@ -259,7 +259,7 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 <header>
   <div class="flag">🇮🇹</div>
   <h1><em>Italiano</em> — Полный конспект</h1>
-  <p>Уроки 24/04 · 27/04 · 30/04 · 04/05 · 08/05 · 12/05 · 14/05 · 21/05</p>
+  <p>Уроки 24/04 · 27/04 · 30/04 · 04/05 · 08/05 · 12/05 · 14/05 · 21/05 · 26/05 · 27/05 · 02/06 · 04/06</p>
 </header>
 
 <!-- API PANEL -->
@@ -303,7 +303,10 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
   <button class="tab" onclick="show('andare')">🚶 Andare/Venire</button>
   <button class="tab" onclick="show('lezione1405')">📗 Урок 14/05</button>
   <button class="tab" onclick="show('lezione2105')">📘 Урок 21/05</button>
-  <button class="tab" onclick="show('lezione2605')">📙 Урок 26/05 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione2605')">📙 Урок 26/05</button>
+  <button class="tab" onclick="show('lezione2705')">📕 Урок 27/05 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione0206')">📗 Урок 02/06 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione0406')">📘 Урок 04/06 <span class="nbadge">NEW</span></button>
 </div>
 
 <!-- ══ ПРИВЕТСТВИЯ ══ -->
@@ -1127,7 +1130,7 @@ function show(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605'];
+  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406'];
   document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
   if(id==='lezione1405') renderISC();
   if(id==='lezione2105') renderModali();
@@ -1554,6 +1557,183 @@ function renderModali(){
     </div>
   </div>
 
+</div>
+
+<!-- ══ УРОК 27/05 ══ -->
+<div class="section" id="lezione2705">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#2d4a8f)">📅 Урок 27/05 — НОВОЕ</div>
+  <h2>Приглашения · Andare/Venire · Форма «Lei»</h2>
+
+  <!-- ПРИГЛАШЕНИЯ -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">🎉 Пригласить · Принять · Отказать</h3>
+    <div class="tip tip-v"><strong>Invitare</strong> (пригласить) → <strong>Accettare</strong> (принять) → <strong>Rifiutare</strong> (отказать)</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr">
+      <div class="vocab-item" onclick="play('Andiamo al mare?')"><span class="vocab-it">📨 Andiamo al mare? · Vieni con me? · Vuoi venire?</span><span class="vocab-ru">Пригласить: «Пойдём…? / Хочешь пойти?»</span></div>
+      <div class="vocab-item" onclick="play('Che ne dici di andare a teatro?')"><span class="vocab-it">📨 Che ne dici di andare a teatro?</span><span class="vocab-ru">Как насчёт того, чтобы…?</span></div>
+      <div class="vocab-item" onclick="play('Sì, volentieri!')"><span class="vocab-it">✅ Sì, volentieri! · Sì, certo! · Perché no? · Buona idea!</span><span class="vocab-ru">Принять: «С удовольствием! / Конечно! / Почему нет!»</span></div>
+      <div class="vocab-item" onclick="play('Purtroppo non posso, devo lavorare.')"><span class="vocab-it">❌ Purtroppo non posso. · Ho già un impegno.</span><span class="vocab-ru">Отказать: «К сожалению, не могу. / У меня уже дело.»</span></div>
+      <div class="vocab-item" onclick="play('Mi dispiace, magari un altra volta.')"><span class="vocab-it">❌ Mi dispiace, magari un'altra volta.</span><span class="vocab-ru">Жаль, может в другой раз.</span></div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">— Andiamo al mare? — <strong>Sì, volentieri!</strong></div><div class="ru">— Поедем на море? — С удовольствием!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">— Vieni con noi in discoteca? — <strong>Purtroppo non posso, devo studiare.</strong></div><div class="ru">— Пойдёшь с нами на дискотеку? — К сожалению, не могу, надо учиться.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">— Che ne dici di andare a Venezia? — <strong>È da tempo che non vado a Venezia!</strong></div><div class="ru">— Как насчёт Венеции? — Давно там не был!</div></div></div>
+    </div>
+  </div>
+
+  <!-- ANDARE / VENIRE -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🚶 ANDARE vs VENIRE</h3>
+    <div class="tip"><strong>ANDARE</strong> = идти/ехать (от себя, в какое-то место) · <strong>VENIRE</strong> = приходить/приезжать (к собеседнику, с кем-то)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Stasera noi <strong>andiamo</strong> a ballare.</div><div class="ru">Сегодня мы идём танцевать.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Domani <strong>vengo</strong> con te a Milano.</div><div class="ru">Завтра я поеду с тобой в Милан.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Perché non <strong>venite</strong> anche voi al cinema?</div><div class="ru">Почему бы и вам не пойти в кино?</div></div></div>
+    </div>
+  </div>
+
+  <!-- ФОРМА LEI -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🎩 Форма вежливости «Lei»</h3>
+    <div class="tip tip-v">Вежливое «вы» к одному человеку = <strong>Lei</strong> + глагол в <strong>3-м лице ед.ч.</strong> (как «он/она»)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">tu sei → <strong>Lei è</strong> · tu hai → <strong>Lei ha</strong></div><div class="ru">ты → вы (формально)</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sei di Madrid? → <strong>Lei è di Madrid?</strong></div><div class="ru">Вы из Мадрида?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Hai il mio indirizzo? → <strong>Lei ha il mio indirizzo?</strong></div><div class="ru">У вас есть мой адрес?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Scusi, sa dov'è via Alberti?</div><div class="ru">Простите, вы знаете, где улица Альберти? (Scusi/sa — форма Lei)</div></div></div>
+    </div>
+  </div>
+
+  <!-- НОВЫЕ СЛОВА -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 27/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('davvero')"><span class="vocab-it">DAVVERO</span><span class="vocab-ru">правда, действительно</span></div>
+      <div class="vocab-item" onclick="play('anche se')"><span class="vocab-it">ANCHE SE</span><span class="vocab-ru">даже если, хотя</span></div>
+      <div class="vocab-item" onclick="play('la prima volta')"><span class="vocab-it">LA PRIMA VOLTA</span><span class="vocab-ru">первый раз</span></div>
+      <div class="vocab-item" onclick="play('l ufficio')"><span class="vocab-it">L'UFFICIO</span><span class="vocab-ru">офис</span></div>
+      <div class="vocab-item" onclick="play('iniziare')"><span class="vocab-it">INIZIARE = COMINCIARE</span><span class="vocab-ru">начинать</span></div>
+      <div class="vocab-item" onclick="play('magari')"><span class="vocab-it">MAGARI</span><span class="vocab-ru">может быть; вот бы!</span></div>
+      <div class="vocab-item" onclick="play('un impegno')"><span class="vocab-it">UN IMPEGNO</span><span class="vocab-ru">дело, обязательство</span></div>
+      <div class="vocab-item" onclick="play('volentieri')"><span class="vocab-it">VOLENTIERI</span><span class="vocab-ru">охотно, с удовольствием</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 02/06 ══ -->
+<div class="section" id="lezione0206">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 02/06 — НОВОЕ</div>
+  <h2>Настоящее время · новые глаголы и лексика</h2>
+
+  <!-- НАПОМИНАНИЕ -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Окончания настоящего времени</h3>
+    <div class="vocab-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="vocab-item"><span class="vocab-it">-ARE</span><span class="vocab-ru">parlo, parli, parla…</span></div>
+      <div class="vocab-item"><span class="vocab-it">-ERE</span><span class="vocab-ru">prendo, prendi, prende…</span></div>
+      <div class="vocab-item"><span class="vocab-it">-IRE</span><span class="vocab-ru">apro, apri, apre…</span></div>
+    </div>
+    <div class="tip">Помни про <strong>ISC-глаголы</strong> (capire → cap<strong>isc</strong>o, pulire → pul<strong>isc</strong>o, inserire → inser<strong>isc</strong>o).</div>
+  </div>
+
+  <!-- НОВЫЕ ГЛАГОЛЫ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🎬 Новые глаголы урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('lasciare')"><span class="vocab-it">LASCIARE</span><span class="vocab-ru">оставлять, бросать</span></div>
+      <div class="vocab-item" onclick="play('affittare')"><span class="vocab-it">AFFITTARE</span><span class="vocab-ru">снимать жильё</span></div>
+      <div class="vocab-item" onclick="play('noleggiare')"><span class="vocab-it">NOLEGGIARE</span><span class="vocab-ru">арендовать (транспорт)</span></div>
+      <div class="vocab-item" onclick="play('correre')"><span class="vocab-it">CORRERE</span><span class="vocab-ru">бегать</span></div>
+      <div class="vocab-item" onclick="play('spendere')"><span class="vocab-it">SPENDERE</span><span class="vocab-ru">тратить (деньги)</span></div>
+      <div class="vocab-item" onclick="play('guadagnare')"><span class="vocab-it">GUADAGNARE</span><span class="vocab-ru">зарабатывать</span></div>
+      <div class="vocab-item" onclick="play('attraversare')"><span class="vocab-it">ATTRAVERSARE</span><span class="vocab-ru">переходить, пересекать</span></div>
+      <div class="vocab-item" onclick="play('girare')"><span class="vocab-it">GIRARE</span><span class="vocab-ru">поворачивать</span></div>
+      <div class="vocab-item" onclick="play('accendere')"><span class="vocab-it">ACCENDERE</span><span class="vocab-ru">включать ↔ spegnere выключать</span></div>
+      <div class="vocab-item" onclick="play('inserire')"><span class="vocab-it">INSERIRE</span><span class="vocab-ru">вставлять (ISC)</span></div>
+      <div class="vocab-item" onclick="play('frequentare')"><span class="vocab-it">FREQUENTARE</span><span class="vocab-ru">посещать (курс)</span></div>
+      <div class="vocab-item" onclick="play('conoscere')"><span class="vocab-it">CONOSCERE</span><span class="vocab-ru">знать, быть знакомым</span></div>
+      <div class="vocab-item" onclick="play('restare')"><span class="vocab-it">RESTARE = RIMANERE</span><span class="vocab-ru">оставаться</span></div>
+      <div class="vocab-item" onclick="play('funzionare')"><span class="vocab-it">FUNZIONARE</span><span class="vocab-ru">работать (об устройстве)</span></div>
+    </div>
+  </div>
+
+  <!-- SALIRE / SCENDERE + лексика -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">⬆️⬇️ SALIRE / SCENDERE — ловушка</h3>
+    <div class="tip tip-v"><strong>SALIRE</strong> = подниматься / <strong>садиться</strong> в транспорт · <strong>SCENDERE</strong> = спускаться / <strong>выходить</strong> из транспорта</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Lei <strong>scende</strong> alla prossima fermata?</div><div class="ru">Вы выходите на следующей остановке?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Conoscere</strong> = знать человека/место · <strong>sapere</strong> = знать факт/уметь</div><div class="ru">Conosco Maria. — Знаю Марию. / So la verità. — Знаю правду.</div></div></div>
+    </div>
+    <div class="vocab-grid" style="margin-top:8px">
+      <div class="vocab-item" onclick="play('insomma')"><span class="vocab-it">INSOMMA</span><span class="vocab-ru">в общем, короче</span></div>
+      <div class="vocab-item" onclick="play('specialmente')"><span class="vocab-it">SPECIALMENTE</span><span class="vocab-ru">особенно</span></div>
+      <div class="vocab-item" onclick="play('in ritardo')"><span class="vocab-it">IN RITARDO</span><span class="vocab-ru">с опозданием</span></div>
+      <div class="vocab-item" onclick="play('in orario')"><span class="vocab-it">IN ORARIO = IN TEMPO</span><span class="vocab-ru">вовремя</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 04/06 ══ -->
+<div class="section" id="lezione0406">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#3a1a55,#6040a0)">📅 Урок 04/06 — НОВОЕ</div>
+  <h2>Возвратные глаголы — Verbi riflessivi</h2>
+
+  <!-- ПРАВИЛО -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Что такое возвратный глагол</h3>
+    <div class="tip tip-v">Действие направлено <strong>на самого себя</strong>. Перед глаголом ставится частица:<br><strong>mi · ti · si</strong> (ед.ч.) · <strong>ci · vi · si</strong> (мн.ч.)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">svegliare = будить (кого-то) → <strong>svegliarsi</strong> = просыпаться (себя)</div><div class="ru">lavare мыть → lavarsi мыться</div></div></div>
+    </div>
+  </div>
+
+  <!-- СПРЯЖЕНИЕ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🔄 SVEGLIARSI — спряжение (образец)</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('io mi sveglio')"><span class="vocab-it">io <strong>mi</strong> sveglio</span><span class="vocab-ru">я просыпаюсь</span></div>
+      <div class="vocab-item" onclick="play('tu ti svegli')"><span class="vocab-it">tu <strong>ti</strong> svegli</span><span class="vocab-ru">ты просыпаешься</span></div>
+      <div class="vocab-item" onclick="play('lui si sveglia')"><span class="vocab-it">lui/lei <strong>si</strong> sveglia</span><span class="vocab-ru">он/она просыпается</span></div>
+      <div class="vocab-item" onclick="play('noi ci svegliamo')"><span class="vocab-it">noi <strong>ci</strong> svegliamo</span><span class="vocab-ru">мы просыпаемся</span></div>
+      <div class="vocab-item" onclick="play('voi vi svegliate')"><span class="vocab-it">voi <strong>vi</strong> svegliate</span><span class="vocab-ru">вы просыпаетесь</span></div>
+      <div class="vocab-item" onclick="play('loro si svegliano')"><span class="vocab-it">loro <strong>si</strong> svegliano</span><span class="vocab-ru">они просыпаются</span></div>
+    </div>
+  </div>
+
+  <!-- СПИСОК -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Возвратные глаголы урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('svegliarsi')"><span class="vocab-it">SVEGLIARSI</span><span class="vocab-ru">просыпаться</span></div>
+      <div class="vocab-item" onclick="play('alzarsi')"><span class="vocab-it">ALZARSI</span><span class="vocab-ru">вставать</span></div>
+      <div class="vocab-item" onclick="play('lavarsi')"><span class="vocab-it">LAVARSI</span><span class="vocab-ru">мыться</span></div>
+      <div class="vocab-item" onclick="play('vestirsi')"><span class="vocab-it">VESTIRSI</span><span class="vocab-ru">одеваться</span></div>
+      <div class="vocab-item" onclick="play('pettinarsi')"><span class="vocab-it">PETTINARSI</span><span class="vocab-ru">причёсываться</span></div>
+      <div class="vocab-item" onclick="play('farsi la doccia')"><span class="vocab-it">FARSI la doccia</span><span class="vocab-ru">принимать душ</span></div>
+      <div class="vocab-item" onclick="play('mettersi')"><span class="vocab-it">METTERSI</span><span class="vocab-ru">надевать; приниматься</span></div>
+      <div class="vocab-item" onclick="play('sedersi')"><span class="vocab-it">SEDERSI</span><span class="vocab-ru">садиться</span></div>
+      <div class="vocab-item" onclick="play('addormentarsi')"><span class="vocab-it">ADDORMENTARSI</span><span class="vocab-ru">засыпать</span></div>
+      <div class="vocab-item" onclick="play('divertirsi')"><span class="vocab-it">DIVERTIRSI</span><span class="vocab-ru">веселиться</span></div>
+      <div class="vocab-item" onclick="play('annoiarsi')"><span class="vocab-it">ANNOIARSI</span><span class="vocab-ru">скучать</span></div>
+      <div class="vocab-item" onclick="play('lamentarsi')"><span class="vocab-it">LAMENTARSI</span><span class="vocab-ru">жаловаться</span></div>
+      <div class="vocab-item" onclick="play('sentirsi')"><span class="vocab-it">SENTIRSI</span><span class="vocab-ru">чувствовать себя</span></div>
+      <div class="vocab-item" onclick="play('fidarsi')"><span class="vocab-it">FIDARSI</span><span class="vocab-ru">доверять</span></div>
+      <div class="vocab-item" onclick="play('fermarsi')"><span class="vocab-it">FERMARSI</span><span class="vocab-ru">останавливаться</span></div>
+      <div class="vocab-item" onclick="play('scusarsi')"><span class="vocab-it">SCUSARSI</span><span class="vocab-ru">извиняться</span></div>
+    </div>
+  </div>
+
+  <!-- РАСПОРЯДОК ДНЯ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🌅 La mia giornata — мой день</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Ogni giorno <strong>mi sveglio</strong> alle quattro e <strong>mi alzo</strong> dieci minuti dopo.</div><div class="ru">Каждый день просыпаюсь в 4 и встаю через 10 минут.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vado in bagno e <strong>mi lavo</strong> i denti e la faccia. Poi <strong>mi vesto</strong>.</div><div class="ru">Иду в ванную, чищу зубы и умываюсь. Потом одеваюсь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Faccio colazione, vado al lavoro e <strong>mi diverto</strong> con i colleghi.</div><div class="ru">Завтракаю, иду на работу и веселюсь с коллегами.</div></div></div>
+    </div>
+  </div>
 </div>
 
 </body>
