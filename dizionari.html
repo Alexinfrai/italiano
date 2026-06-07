@@ -65,6 +65,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .adv-card{border-top:3px solid var(--verde)}
 .prep-card{border-top:3px solid var(--blu)}
 .pron-card{border-top:3px solid var(--viola)}
+.noun-card{border-top:3px solid var(--teal)}
 .emoji-wrap{text-align:center;padding:12px 8px 2px;font-size:2.3rem;line-height:1}
 .assoc-wrap{text-align:center;font-size:.58rem;color:var(--oro);font-style:italic;padding:2px 8px 6px;line-height:1.4;min-height:22px}
 .cbody{padding:8px 11px 10px}
@@ -173,7 +174,8 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
   <button class="mnb" onclick="sm('adv')">⚡ Наречия<br><small style="font-size:.55rem;opacity:.7">50 слов</small></button>
   <button class="mnb" onclick="sm('prep')">🔗 Предлоги<br><small style="font-size:.55rem;opacity:.7">50 слов</small></button>
   <button class="mnb" onclick="sm('pron')">👤 Местоимения<br><small style="font-size:.55rem;opacity:.7">50 слов</small></button>
-  <button class="mnb" onclick="sm('verb')">🎬 Глаголы<br><small style="font-size:.55rem;opacity:.7">63 глагола</small></button>
+  <button class="mnb" onclick="sm('noun')">📦 Существительные<br><small style="font-size:.55rem;opacity:.7">66 слов</small></button>
+  <button class="mnb" onclick="sm('verb')">🎬 Глаголы<br><small style="font-size:.55rem;opacity:.7">107 глаголов</small></button>
   <button class="mnb" onclick="sm('train')">🎯 Тренажёр</button>
 </div>
 
@@ -201,9 +203,15 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
   <div class="grid" id="pron-g"></div>
 </div>
 
+<div class="sec" id="noun">
+  <div class="ctrl"><div class="fb" id="noun-fb"></div><div class="sw"><input type="text" id="noun-s" placeholder="🔍 Поиск по итальянски или по-русски..."></div></div>
+  <div class="stt"><span id="noun-cnt">66 слов</span><span>🔊 нажми для произношения</span></div>
+  <div class="grid" id="noun-g"></div>
+</div>
+
 <div class="sec" id="verb">
   <div class="ctrl" style="background:#0e1018"><div class="fb" id="verb-fb" style="background:#0e1018"></div><div class="sw" style="background:#0e1018;border-color:#252d38"><input type="text" id="verb-s" style="background:#1a2030;border:1px solid #252d38;color:#f0ebe3" placeholder="🔍 Поиск..."></div></div>
-  <div class="stt" style="background:#0e1018;color:#667"><span id="verb-cnt">63 глагола</span><span>🔊 нажми для произношения</span></div>
+  <div class="stt" style="background:#0e1018;color:#667"><span id="verb-cnt">107 глаголов</span><span>🔊 нажми для произношения</span></div>
   <div class="grid" id="verb-g"></div>
 </div>
 
@@ -217,6 +225,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
         <button class="spb" id="sp-adv" onclick="setS('adv')">⚡ Наречия</button>
         <button class="spb" id="sp-prep" onclick="setS('prep')">🔗 Предлоги</button>
         <button class="spb" id="sp-pron" onclick="setS('pron')">👤 Местоимения</button>
+        <button class="spb" id="sp-noun" onclick="setS('noun')">📦 Существительные</button>
         <button class="spb" id="sp-verb" onclick="setS('verb')">🎬 Глаголы</button>
       </div>
       <div style="font-size:.72rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px">Режим:</div>
@@ -233,7 +242,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 
 <script>
 // ══════════════════════════════════════════════════════
-// DATA — 63 ГЛАГОЛА
+// DATA — 107 ГЛАГОЛОВ
 // ══════════════════════════════════════════════════════
 const verbWords = [
   // ОСНОВНЫЕ
@@ -307,6 +316,53 @@ const verbWords = [
   {it:'vedere',   conj:'io vedo / tu vedi',     ph:'[ˈveːdere]', ru:'видеть',                 cat:'home', emoji:'👁️', assoc:'Видео — смотришь и видишь',                ex:'Quando <strong>vedi</strong> Marco?'},
   {it:'costruire',conj:'io costruisco',         ph:'[kostruˈiːre]',ru:'строить',              cat:'home', emoji:'🏗️', assoc:'Конструктор — строить (ISC-глагол!)',      ex:'<strong>Costruisce</strong> una casa.'},
   {it:'spedire',  conj:'io spedisco',           ph:'[speˈdiːre]',ru:'отправлять (почту)',      cat:'home', emoji:'📬', assoc:'Спедizione — отправка (ISC-глагол!)',      ex:'<strong>Spedisco</strong> una lettera.'},
+
+  // НОВЫЕ ГЛАГОЛЫ (уроки 27/05–04/06)
+  {it:'conoscere',conj:'io conosco / tu conosci',ph:'[koˈnoʃʃere]',ru:'знать, быть знакомым',cat:'talk', emoji:'🤝', assoc:'Знать человека (а sapere — знать факт)',     ex:'Tu <strong>conosci</strong> mia zia?'},
+  {it:'offrire',  conj:'io offro / tu offri',   ph:'[ofˈfriːre]',ru:'предлагать, угощать',     cat:'talk', emoji:'🎁', assoc:'Оффер — предложение угостить',             ex:'<strong>Offro</strong> io la pizza!'},
+  {it:'ripetere', conj:'io ripeto / tu ripeti', ph:'[riˈpɛːtere]',ru:'повторять',              cat:'talk', emoji:'🔁', assoc:'Репетиция — повторять',                    ex:'<strong>Puoi ripetere</strong>, per favore?'},
+  {it:'pagare',   conj:'io pago / tu paghi',    ph:'[paˈɡaːre]', ru:'платить',                cat:'daily',emoji:'💳', assoc:'Pagare — оплата (как «пэй»)',              ex:'<strong>Pago</strong> io!'},
+  {it:'spendere', conj:'io spendo / tu spendi', ph:'[ˈspɛndere]',ru:'тратить (деньги)',        cat:'daily',emoji:'💸', assoc:'Spend — тратить (англ. spend)',            ex:'<strong>Spendono</strong> molti soldi.'},
+  {it:'guadagnare',conj:'io guadagno',          ph:'[ɡwadaɲˈɲaːre]',ru:'зарабатывать',        cat:'work', emoji:'💰', assoc:'Gain — выгода, заработок',                ex:'Quanto <strong>guadagna</strong> Alberto?'},
+  {it:'lasciare', conj:'io lascio / tu lasci',  ph:'[laʃˈʃaːre]',ru:'оставлять, бросать',       cat:'daily',emoji:'🫳', assoc:'Лишь — оставить «лишнее»',                 ex:'<strong>Lascio</strong> i soldi sul tavolo.'},
+  {it:'restare',  conj:'io resto / tu resti',   ph:'[reˈstaːre]',ru:'оставаться (= rimanere)',  cat:'daily',emoji:'🛋️', assoc:'Rest — отдых, остаться на месте',         ex:'Voglio <strong>restare</strong> a casa.'},
+  {it:'affittare',conj:'io affitto',            ph:'[affitˈtaːre]',ru:'снимать, арендовать (жильё)',cat:'home',emoji:'🏠', assoc:'Affitto — аренда',                      ex:'<strong>Affittiamo</strong> una casa in Sicilia.'},
+  {it:'funzionare',conj:'lui funziona',         ph:'[funtsjoˈnaːre]',ru:'работать (об устройстве)',cat:'home',emoji:'⚙️', assoc:'Функционировать',                       ex:'Il forno non <strong>funziona</strong>.'},
+  {it:'accendere',conj:'io accendo / tu accendi',ph:'[atˈtʃɛndere]',ru:'включать, зажигать',    cat:'home', emoji:'💡', assoc:'Acceso — включённый',                     ex:'<strong>Accendi</strong> il computer.'},
+  {it:'cenare',   conj:'io ceno / tu ceni',     ph:'[tʃeˈnaːre]',ru:'ужинать',                 cat:'daily',emoji:'🍽️', assoc:'Cena — ужин',                            ex:'Stasera <strong>ceniamo</strong> fuori.'},
+  {it:'correre',  conj:'io corro / tu corri',   ph:'[ˈkorrere]', ru:'бегать, бежать',          cat:'move', emoji:'🏃', assoc:'Курьер — corriere, тот кто бежит',         ex:'<strong>Corre</strong> 10 km ogni giorno.'},
+  {it:'salire',   conj:'io salgo / tu sali',    ph:'[saˈliːre]', ru:'подниматься, садиться (в транспорт)',cat:'move',emoji:'⬆️', assoc:'Sali — поднимайся',              ex:'<strong>Salgo</strong> sull\'autobus.'},
+  {it:'scendere', conj:'io scendo / tu scendi', ph:'[ˈʃɛndere]', ru:'спускаться, выходить (из транспорта)',cat:'move',emoji:'⬇️', assoc:'Шендо — вниз, выходить',          ex:'<strong>Scende</strong> alla prossima fermata?'},
+  {it:'attraversare',conj:'io attraverso',      ph:'[attraverˈsaːre]',ru:'переходить, пересекать',cat:'move',emoji:'🚸', assoc:'Траверс — пересечь',                    ex:'<strong>Attraversi</strong> la piazza.'},
+  {it:'girare',   conj:'io giro / tu giri',     ph:'[dʒiˈraːre]',ru:'поворачивать, крутить',    cat:'move', emoji:'↩️', assoc:'Гироскоп — вращение',                    ex:'<strong>Giri</strong> subito a destra.'},
+  {it:'parcheggiare',conj:'io parcheggio',      ph:'[parkedˈdʒaːre]',ru:'парковать(ся)',        cat:'move', emoji:'🅿️', assoc:'Парковка — parcheggio',                 ex:'<strong>Parcheggia</strong> davanti casa.'},
+  {it:'seguire',  conj:'io seguo / tu segui',   ph:'[seˈɡwiːre]',ru:'следовать; посещать (курс)',cat:'work', emoji:'📖', assoc:'Сегвей — следует за тобой',               ex:'<strong>Seguono</strong> un corso di ceramica.'},
+  {it:'frequentare',conj:'io frequento',        ph:'[frekwenˈtaːre]',ru:'посещать, ходить (на курсы)',cat:'work',emoji:'🎓', assoc:'Frequent — часто посещать',          ex:'<strong>Frequentiamo</strong> lo stesso corso.'},
+  {it:'inserire', conj:'io inserisco',          ph:'[inseˈriːre]',ru:'вставлять, вводить',      cat:'daily',emoji:'🔌', assoc:'Инсерт — вставить (ISC-глагол!)',          ex:'<strong>Inserisci</strong> la chiavetta.'},
+  {it:'cantare',  conj:'io canto / tu canti',   ph:'[kanˈtaːre]',ru:'петь',                   cat:'feel', emoji:'🎤', assoc:'Кантата — петь',                          ex:'<strong>Cantiamo</strong> in un coro.'},
+  {it:'suonare',  conj:'io suono / tu suoni',   ph:'[swoˈnaːre]',ru:'играть (на инструменте), звонить',cat:'daily',emoji:'🎸', assoc:'Sound — звук',                    ex:'<strong>Suono</strong> la chitarra.'},
+  {it:'vincere',  conj:'io vinco / tu vinci',   ph:'[ˈvintʃere]',ru:'побеждать, выигрывать',    cat:'feel', emoji:'🏆', assoc:'Винчи (как «win») — побеждать',           ex:'Luca <strong>vince</strong> sempre.'},
+  {it:'perdere',  conj:'io perdo / tu perdi',   ph:'[ˈpɛrdere]', ru:'терять; проигрывать; опаздывать',cat:'daily',emoji:'❌', assoc:'Потеря — perdere',                   ex:'Non c\'è tempo da <strong>perdere</strong>.'},
+  {it:'riposare', conj:'io riposo / tu riposi', ph:'[ripoˈzaːre]',ru:'отдыхать',               cat:'daily',emoji:'😌', assoc:'Repose — покой, отдых',                   ex:'Voglio <strong>riposare</strong> a casa.'},
+
+  // ВОЗВРАТНЫЕ ГЛАГОЛЫ — verbi riflessivi (mi/ti/si · ci/vi/si)
+  {it:'svegliarsi',conj:'io mi sveglio / tu ti svegli',ph:'[zveʎˈʎarsi]',ru:'просыпаться',     cat:'daily',emoji:'🌅', assoc:'Возвратный: «бужу себя» = просыпаюсь',     ex:'Mi <strong>sveglio</strong> alle sette.'},
+  {it:'addormentarsi',conj:'io mi addormento',  ph:'[addormenˈtarsi]',ru:'засыпать',           cat:'daily',emoji:'😴', assoc:'Возвратный: «усыпляю себя» = засыпаю',     ex:'Mi <strong>addormento</strong> a mezzanotte.'},
+  {it:'mettersi', conj:'io mi metto / tu ti metti',ph:'[ˈmettersi]',ru:'надевать на себя; приниматься',cat:'daily',emoji:'👔', assoc:'Возвратный от mettere',              ex:'Si <strong>mette</strong> a fare le pulizie.'},
+  {it:'pettinarsi',conj:'io mi pettino',        ph:'[pettiˈnarsi]',ru:'причёсываться',         cat:'daily',emoji:'💇', assoc:'Возвратный: причёсываю себя',             ex:'Mi <strong>pettino</strong> i capelli.'},
+  {it:'farsi',    conj:'io mi faccio / tu ti fai',ph:'[ˈfarsi]', ru:'делать себе (душ и т.п.)', cat:'daily',emoji:'🚿', assoc:'Возвратный от fare: farsi la doccia',     ex:'Si <strong>fa</strong> la doccia.'},
+  {it:'sedersi',  conj:'io mi siedo / tu ti siedi',ph:'[seˈdersi]',ru:'садиться',              cat:'daily',emoji:'🪑', assoc:'Возвратный: сажаю себя = сажусь',          ex:'La nonna si <strong>siede</strong> sul divano.'},
+  {it:'fermarsi', conj:'io mi fermo / tu ti fermi',ph:'[ferˈmarsi]',ru:'останавливаться',      cat:'move', emoji:'🛑', assoc:'Возвратный: «торможу себя»',              ex:'L\'autobus si <strong>ferma</strong> al semaforo.'},
+  {it:'rompersi', conj:'lui si rompe',          ph:'[ˈrompersi]',ru:'ломаться, разбиваться',   cat:'home', emoji:'💥', assoc:'Возвратный: ломает само себя',            ex:'Il vaso si <strong>rompe</strong>.'},
+  {it:'divertirsi',conj:'io mi diverto / tu ti diverti',ph:'[diverˈtirsi]',ru:'развлекаться, веселиться',cat:'feel',emoji:'🎉', assoc:'Диверсия — развлечение для себя',  ex:'Mi <strong>diverto</strong> al mare.'},
+  {it:'annoiarsi',conj:'io mi annoio',          ph:'[annoˈjarsi]',ru:'скучать',                cat:'feel', emoji:'😒', assoc:'Annoy — надоедать, скучать',              ex:'I bambini si <strong>annoiano</strong>.'},
+  {it:'lamentarsi',conj:'io mi lamento',        ph:'[lamenˈtarsi]',ru:'жаловаться',            cat:'feel', emoji:'😤', assoc:'Ламентация — жалоба',                     ex:'Si <strong>lamenta</strong> sempre di tutto!'},
+  {it:'sentirsi', conj:'io mi sento / tu ti senti',ph:'[senˈtirsi]',ru:'чувствовать себя',     cat:'feel', emoji:'💭', assoc:'Возвратный от sentire',                  ex:'A volte mi <strong>sento</strong> solo.'},
+  {it:'fidarsi',  conj:'io mi fido / tu ti fidi',ph:'[fiˈdarsi]',ru:'доверять',                cat:'feel', emoji:'🤝', assoc:'Fede — вера, доверие',                    ex:'Ti <strong>fidi</strong> dei tuoi amici?'},
+  {it:'decidersi',conj:'io mi decido',          ph:'[deˈtʃidersi]',ru:'решаться',              cat:'feel', emoji:'✅', assoc:'Возвратный от decidere',                  ex:'Quando ti <strong>decidi</strong>?'},
+  {it:'scusarsi', conj:'io mi scuso / tu ti scusi',ph:'[skuˈzarsi]',ru:'извиняться',           cat:'talk', emoji:'🙇', assoc:'Scusa — извини; scusarsi — извиняться',    ex:'Non si <strong>scusa</strong> mai.'},
+  {it:'esprimersi',conj:'io mi esprimo',        ph:'[esˈprimersi]',ru:'выражаться, изъясняться',cat:'talk', emoji:'🗣️', assoc:'Экспрессия — выражать себя',             ex:'Vi <strong>esprimete</strong> davvero bene!'},
+  {it:'conoscersi',conj:'noi ci conosciamo',    ph:'[koˈnoʃʃersi]',ru:'быть знакомыми (друг с другом)',cat:'talk',emoji:'👥', assoc:'Возвратно-взаимный от conoscere',     ex:'Dario e io ci <strong>conosciamo</strong> da anni.'},
 ];
 
 const verbCatLabels2 = {base:'Основные',move:'Движение',daily:'Быт',talk:'Общение',work:'Учёба/Работа',feel:'Чувства',home:'Дом'};
@@ -490,7 +546,7 @@ const adjWords = [
 ];
 
 // ══════════════════════════════════════════════════════
-// DATA — 50 НАРЕЧИЙ
+// DATA — 54 НАРЕЧИЯ
 // ══════════════════════════════════════════════════════
 const advWords = [
   // ВРЕМЯ
@@ -561,10 +617,15 @@ const advWords = [
   {it:'meglio',ph:'[ˈmeʎʎo]',forms:'',ru:'лучше (сравн. степень от bene)',sub:'manner',emoji:'⬆️',assoc:'Bene → meglio (нерегулярно!)',ex:'Sto <strong>meglio</strong> oggi.'},
   {it:'durante',ph:'[duˈrante]',forms:'',ru:'во время, в течение',sub:'time',emoji:'⏳',assoc:'Дюрант — во время матча',ex:'<strong>Durante</strong> le lezioni.'},
   {it:'dunque',ph:'[ˈduŋkwe]',forms:'',ru:'итак, следовательно, поэтому',sub:'manner',emoji:'🔜',assoc:'Дункве — «ну тогда» по-итальянски',ex:'<strong>Dunque</strong>, andiamo!'},
+  // НОВЫЕ (уроки 27/05–04/06)
+  {it:'insomma',ph:'[inˈsomma]',forms:'',ru:'в общем, короче говоря',sub:'manner',emoji:'🤷',assoc:'«Insomma» — подытоживаешь: в общем…',ex:'<strong>Insomma</strong>, tu non pulisci mai!'},
+  {it:'specialmente',ph:'[spetʃalˈmente]',forms:'',ru:'особенно, в особенности',sub:'manner',emoji:'⭐',assoc:'Специально — особенно',ex:'Leggo molto, <strong>specialmente</strong> di storia.'},
+  {it:'normalmente',ph:'[normalˈmente]',forms:'',ru:'обычно, как правило',sub:'time',emoji:'🔄',assoc:'Нормально = обычно',ex:'A che ora ti alzi <strong>normalmente</strong>?'},
+  {it:'magari',ph:'[maˈɡaːri]',forms:'',ru:'может быть; хорошо бы!',sub:'affirm',emoji:'🤞',assoc:'Магари — «вот бы!» / «как-нибудь»',ex:'<strong>Magari</strong> un\'altra volta.'},
 ];
 
 // ══════════════════════════════════════════════════════
-// DATA — 50 ПРЕДЛОГОВ И СОЮЗОВ
+// DATA — 52 ПРЕДЛОГА И СОЮЗА
 // ══════════════════════════════════════════════════════
 const prepWords = [
   // ПРОСТЫЕ ПРЕДЛОГИ
@@ -631,6 +692,9 @@ const prepWords = [
   {it:'sugli',ph:'[ˈsuʎʎi]',forms:'su + gli',ru:'на (м.р. мн.ч. гласн.)',sub:'artprep',emoji:'🔝',assoc:'Сульи — на полках',ex:'<strong>Sugli</strong> scaffali.'},
   {it:'sulle',ph:'[ˈsulle]',forms:'su + le',ru:'на (ж.р. мн.ч.)',sub:'artprep',emoji:'🔝',assoc:'Сулле — на стульях',ex:'<strong>Sulle</strong> sedie.'},
   {it:'prima di',ph:'[ˈpriːma di]',forms:'',ru:'прежде чем, до',sub:'simple',emoji:'1️⃣',assoc:'Прима — первый, раньше',ex:'<strong>Prima di</strong> uscire, chiudi la porta.'},
+  // НОВЫЕ союзы (уроки 27/05–04/06)
+  {it:'anche se',ph:'[ˈaŋke se]',forms:'',ru:'даже если, хотя',sub:'conj',emoji:'➰',assoc:'«anche se» — даже если',ex:'Vado <strong>anche se</strong> piove.'},
+  {it:'se',ph:'[ˈse]',forms:'',ru:'если',sub:'conj',emoji:'❓',assoc:'Se — если (условие)',ex:'<strong>Se</strong> vuoi, possiamo uscire.'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -704,18 +768,104 @@ const pronWords = [
 ];
 
 // ══════════════════════════════════════════════════════
+// DATA — 60 СУЩЕСТВИТЕЛЬНЫХ
+// it = артикль + слово (так лучше запоминается род), forms = мн. число
+// ══════════════════════════════════════════════════════
+const nounWords = [
+  // ЛЮДИ И СЕМЬЯ
+  {it:"l'amico",ph:'[laˈmiːko]',forms:'gli amici',ru:'друг',sub:'fam',emoji:'🧑‍🤝‍🧑',assoc:'Амиго — друг',ex:"<strong>L'amico</strong> di Claudio."},
+  {it:"l'amica",ph:'[laˈmiːka]',forms:'le amiche',ru:'подруга',sub:'fam',emoji:'👯',assoc:'Амика — подруга',ex:"Un'<strong>amica</strong> americana."},
+  {it:'il ragazzo',ph:'[raˈɡattso]',forms:'i ragazzi',ru:'парень',sub:'fam',emoji:'👦',assoc:'Рагаццо — парень',ex:'Un <strong>ragazzo</strong> intelligente.'},
+  {it:'la ragazza',ph:'[raˈɡattsa]',forms:'le ragazze',ru:'девушка',sub:'fam',emoji:'👧',assoc:'Рагацца — девушка',ex:'Una <strong>ragazza</strong> simpatica.'},
+  {it:'il fratello',ph:'[fraˈtɛllo]',forms:'i fratelli',ru:'брат',sub:'fam',emoji:'👨',assoc:'Фрателло — брат',ex:'Dove lavora tuo <strong>fratello</strong>?'},
+  {it:'la sorella',ph:'[soˈrɛlla]',forms:'le sorelle',ru:'сестра',sub:'fam',emoji:'👩',assoc:'Сорелла — сестра',ex:'Io ho una <strong>sorella</strong>.'},
+  {it:'la moglie',ph:'[ˈmoʎʎe]',forms:'le mogli',ru:'жена',sub:'fam',emoji:'👰',assoc:'Молье — жена',ex:'Mia <strong>moglie</strong> è ucraina.'},
+  {it:'il marito',ph:'[maˈriːto]',forms:'i mariti',ru:'муж',sub:'fam',emoji:'🤵',assoc:'Марито — муж',ex:'Suo <strong>marito</strong> è medico.'},
+  {it:'il figlio',ph:'[ˈfiʎʎo]',forms:'i figli',ru:'сын',sub:'fam',emoji:'👶',assoc:'Фильо — сын',ex:'Un <strong>figlio</strong> di 5 anni.'},
+  {it:'la persona',ph:'[perˈsoːna]',forms:'le persone',ru:'человек',sub:'fam',emoji:'🧍',assoc:'Персона — человек',ex:"C'è una <strong>persona</strong> sull'autobus."},
+  {it:'la gente',ph:'[ˈdʒɛnte]',forms:'(только ед.ч.)',ru:'люди, народ',sub:'fam',emoji:'👥',assoc:'Дженте — люди (ж.р., ед.ч.!)',ex:'Quanta <strong>gente</strong> qui!'},
+  {it:'lo studente',ph:'[stuˈdɛnte]',forms:'gli studenti',ru:'студент',sub:'fam',emoji:'🎓',assoc:'Студенте — студент (lo + st)',ex:'Lo <strong>studente</strong> studia.'},
+  {it:'il medico',ph:'[ˈmɛːdiko]',forms:'i medici',ru:'врач',sub:'fam',emoji:'👨‍⚕️',assoc:'Медик — врач',ex:'Suo padre è <strong>medico</strong>.'},
+
+  // ЕДА И НАПИТКИ
+  {it:'il caffè',ph:'[kafˈfɛ]',forms:'i caffè',ru:'кофе',sub:'food',emoji:'☕',assoc:'Каффе — кофе (не меняется во мн.ч.)',ex:'Prendo un <strong>caffè</strong>.'},
+  {it:'il latte',ph:'[ˈlatte]',forms:'(обычно ед.ч.)',ru:'молоко',sub:'food',emoji:'🥛',assoc:'Латте — молоко',ex:'Compro il pane e il <strong>latte</strong>.'},
+  {it:'il pane',ph:'[ˈpaːne]',forms:'i pani',ru:'хлеб',sub:'food',emoji:'🍞',assoc:'Панэ — хлеб (панини!)',ex:'Compro il <strong>pane</strong>.'},
+  {it:'la carne',ph:'[ˈkarne]',forms:'le carni',ru:'мясо',sub:'food',emoji:'🥩',assoc:'Карне — мясо (карнавал)',ex:'Paola non mangia <strong>carne</strong>.'},
+  {it:'la frutta',ph:'[ˈfrutta]',forms:'(собир.)',ru:'фрукты',sub:'food',emoji:'🍎',assoc:'Фрутта — фрукты',ex:'La <strong>frutta</strong> fresca.'},
+  {it:'la verdura',ph:'[verˈduːra]',forms:'le verdure',ru:'овощи',sub:'food',emoji:'🥦',assoc:'Вердура — зелень, овощи (verde)',ex:'Compro un po\' di <strong>verdura</strong>.'},
+  {it:"l'uovo",ph:'[ˈlwɔːvo]',forms:'le uova (ж.р.!)',ru:'яйцо',sub:'food',emoji:'🥚',assoc:'Уово → мн. le uova (меняет род!)',ex:'Ci sono sei <strong>uova</strong>.'},
+  {it:'la mela',ph:'[ˈmeːla]',forms:'le mele',ru:'яблоко',sub:'food',emoji:'🍏',assoc:'Мела — яблоко',ex:"C'è una <strong>mela</strong> sul tavolo."},
+  {it:'il vino',ph:'[ˈviːno]',forms:'i vini',ru:'вино',sub:'food',emoji:'🍷',assoc:'Вино — вино',ex:'Io porto il <strong>vino</strong>.'},
+  {it:'il gelato',ph:'[dʒeˈlaːto]',forms:'i gelati',ru:'мороженое',sub:'food',emoji:'🍨',assoc:'Джелато — мороженое',ex:'Maria prende un <strong>gelato</strong>.'},
+  {it:'la pizza',ph:'[ˈpittsa]',forms:'le pizze',ru:'пицца',sub:'food',emoji:'🍕',assoc:'Пицца — пицца',ex:'Offro io la <strong>pizza</strong>!'},
+  {it:'il panino',ph:'[paˈniːno]',forms:'i panini',ru:'бутерброд',sub:'food',emoji:'🥪',assoc:'Панино — бутерброд',ex:'Prendo un <strong>panino</strong>.'},
+  {it:'la colazione',ph:'[kolatˈtsjoːne]',forms:'le colazioni',ru:'завтрак',sub:'food',emoji:'🥐',assoc:'Колационе — завтрак',ex:'Faccio <strong>colazione</strong>.'},
+  {it:'il pranzo',ph:'[ˈprantso]',forms:'i pranzi',ru:'обед',sub:'food',emoji:'🍝',assoc:'Пранцо — обед',ex:'Dopo il <strong>pranzo</strong>.'},
+  {it:'la cena',ph:'[ˈtʃeːna]',forms:'le cene',ru:'ужин',sub:'food',emoji:'🍽️',assoc:'Чена — ужин',ex:'Preparo la <strong>cena</strong>.'},
+
+  // ДОМ И ВЕЩИ
+  {it:'la casa',ph:'[ˈkaːza]',forms:'le case',ru:'дом',sub:'obj',emoji:'🏠',assoc:'Каза — дом',ex:'Resto a <strong>casa</strong>.'},
+  {it:'la stanza',ph:'[ˈstantsa]',forms:'le stanze',ru:'комната (= la camera)',sub:'obj',emoji:'🚪',assoc:'Станца — комната',ex:'Una <strong>stanza</strong> piccola.'},
+  {it:'il tavolo',ph:'[ˈtaːvolo]',forms:'i tavoli',ru:'стол',sub:'obj',emoji:'🪑',assoc:'Таволо — стол',ex:'Sul <strong>tavolo</strong> c\'è una mela.'},
+  {it:'il letto',ph:'[ˈlɛtto]',forms:'i letti',ru:'кровать',sub:'obj',emoji:'🛏️',assoc:'Летто — кровать',ex:'Vado a <strong>letto</strong> presto.'},
+  {it:'la porta',ph:'[ˈpɔrta]',forms:'le porte',ru:'дверь',sub:'obj',emoji:'🚪',assoc:'Порта — дверь (портал)',ex:'Una <strong>porta</strong> chiusa.'},
+  {it:'la finestra',ph:'[fiˈnɛstra]',forms:'le finestre',ru:'окно',sub:'obj',emoji:'🪟',assoc:'Финестра — окно',ex:'Aprite le <strong>finestre</strong>!'},
+  {it:'il telefono',ph:'[teˈlɛːfono]',forms:'i telefoni',ru:'телефон',sub:'obj',emoji:'📱',assoc:'Телефоно — телефон',ex:'Rispondo al <strong>telefono</strong>.'},
+  {it:'il libro',ph:'[ˈliːbro]',forms:'i libri',ru:'книга',sub:'obj',emoji:'📕',assoc:'Либро — книга (библио)',ex:'Leggo un <strong>libro</strong>.'},
+  {it:'la macchina',ph:'[ˈmakkina]',forms:'le macchine',ru:'машина',sub:'obj',emoji:'🚗',assoc:'Маккина — машина',ex:'La <strong>macchina</strong> non parte.'},
+  {it:'il portafoglio',ph:'[portaˈfɔʎʎo]',forms:'i portafogli',ru:'кошелёк',sub:'obj',emoji:'👛',assoc:'Porta+foglio — «носит листы» = кошелёк',ex:"C'è un euro nel mio <strong>portafoglio</strong>."},
+  {it:'i soldi',ph:'[ˈsɔldi]',forms:'(всегда мн.ч.)',ru:'деньги',sub:'obj',emoji:'💶',assoc:'Сольди — деньги (всегда мн.ч.!)',ex:'Ci sono molti <strong>soldi</strong>.'},
+  {it:'il vestito',ph:'[veˈstiːto]',forms:'i vestiti (= одежда)',ru:'платье; одежда',sub:'obj',emoji:'👗',assoc:'Веститo — одежда (vestirsi)',ex:'Preferisco il <strong>vestito</strong> rosso.'},
+  {it:'il quaderno',ph:'[kwaˈdɛrno]',forms:'i quaderni',ru:'тетрадь',sub:'obj',emoji:'📓',assoc:'Quaderno — тетрадь (4 = quad)',ex:'Compro un <strong>quaderno</strong> nuovo.'},
+  {it:"l'anello",ph:'[laˈnɛllo]',forms:'gli anelli',ru:'кольцо',sub:'obj',emoji:'💍',assoc:'Анелло — кольцо',ex:'Un <strong>anello</strong> prezioso.'},
+
+  // ГОРОД И МЕСТА
+  {it:'la città',ph:'[tʃitˈta]',forms:'le città',ru:'город',sub:'city',emoji:'🏙️',assoc:'Читта — город (не меняется!)',ex:'La <strong>città</strong> antica.'},
+  {it:'la scuola',ph:'[ˈskwɔːla]',forms:'le scuole',ru:'школа',sub:'city',emoji:'🏫',assoc:'Скуола — школа',ex:'Vai a <strong>scuola</strong> la mattina.'},
+  {it:"l'ufficio",ph:'[lufˈfittʃo]',forms:'gli uffici',ru:'офис',sub:'city',emoji:'🏢',assoc:'Уффичо — офис',ex:"L'<strong>ufficio</strong> apre alle 9."},
+  {it:'il negozio',ph:'[neˈɡɔttsjo]',forms:'i negozi',ru:'магазин',sub:'city',emoji:'🏬',assoc:'Негоцио — магазин',ex:'I <strong>negozi</strong> sono aperti.'},
+  {it:'la banca',ph:'[ˈbaŋka]',forms:'le banche',ru:'банк',sub:'city',emoji:'🏦',assoc:'Банка — банк',ex:'Rita lavora in <strong>banca</strong>.'},
+  {it:'il treno',ph:'[ˈtrɛːno]',forms:'i treni',ru:'поезд',sub:'city',emoji:'🚆',assoc:'Трено — поезд',ex:'A che ora parte il <strong>treno</strong>?'},
+  {it:"l'autobus",ph:'[ˈautobus]',forms:'gli autobus',ru:'автобус',sub:'city',emoji:'🚌',assoc:'Аутобус — автобус',ex:"Prendo l'<strong>autobus</strong>."},
+  {it:'il mare',ph:'[ˈmaːre]',forms:'i mari',ru:'море',sub:'city',emoji:'🌊',assoc:'Маре — море',ex:'Andiamo al <strong>mare</strong>?'},
+  {it:'la montagna',ph:'[monˈtaɲɲa]',forms:'le montagne',ru:'гора',sub:'city',emoji:'⛰️',assoc:'Монтанья — гора',ex:'Le <strong>montagne</strong> alte.'},
+  {it:'il giardino',ph:'[dʒarˈdiːno]',forms:'i giardini',ru:'сад',sub:'city',emoji:'🌳',assoc:'Джардино — сад',ex:'Dormiamo in <strong>giardino</strong>!'},
+  {it:'il ristorante',ph:'[ristoˈrante]',forms:'i ristoranti',ru:'ресторан',sub:'city',emoji:'🍴',assoc:'Ристоранте — ресторан',ex:'Un <strong>ristorante</strong> in centro.'},
+
+  // ВРЕМЯ И ПРИРОДА
+  {it:'il giorno',ph:'[ˈdʒorno]',forms:'i giorni',ru:'день',sub:'ntime',emoji:'📆',assoc:'Джорно — день (buongiorno)',ex:'Ogni <strong>giorno</strong>.'},
+  {it:'la mattina',ph:'[matˈtiːna]',forms:'le mattine',ru:'утро',sub:'ntime',emoji:'🌅',assoc:'Маттина — утро',ex:'Parto domani <strong>mattina</strong>.'},
+  {it:'la sera',ph:'[ˈseːra]',forms:'le sere',ru:'вечер',sub:'ntime',emoji:'🌆',assoc:'Сера — вечер (buonasera)',ex:'Alla <strong>sera</strong> leggo.'},
+  {it:'la settimana',ph:'[settiˈmaːna]',forms:'le settimane',ru:'неделя',sub:'ntime',emoji:'🗓️',assoc:'Семь дней — settimana (sette)',ex:'La prossima <strong>settimana</strong>.'},
+  {it:'il tempo',ph:'[ˈtɛmpo]',forms:'i tempi',ru:'время; погода',sub:'ntime',emoji:'⏳',assoc:'Темпо — время и погода',ex:'Che <strong>tempo</strong> fa?'},
+  {it:"l'ora",ph:'[ˈloːra]',forms:'le ore',ru:'час; время',sub:'ntime',emoji:'🕐',assoc:'Ора — час (который час?)',ex:'Che <strong>ore</strong> sono?'},
+  {it:'la volta',ph:'[ˈvɔlta]',forms:'le volte',ru:'раз',sub:'ntime',emoji:'🔂',assoc:'Вольта — раз (due volte)',ex:'Per la prima <strong>volta</strong>.'},
+
+  // ПОНЯТИЯ
+  {it:'il lavoro',ph:'[laˈvoːro]',forms:'i lavori',ru:'работа',sub:'abstr',emoji:'💼',assoc:'Лаворо — работа',ex:'Stefano ha un buon <strong>lavoro</strong>.'},
+  {it:'il problema',ph:'[proˈblɛːma]',forms:'i problemi (м.р.!)',ru:'проблема',sub:'abstr',emoji:'⚠️',assoc:'На -ma → м.р., мн. -i: i problemi',ex:'Franco ha molti <strong>problemi</strong>.'},
+  {it:'il programma',ph:'[proˈɡramma]',forms:'i programmi (м.р.!)',ru:'программа, план',sub:'abstr',emoji:'📋',assoc:'На -ma → м.р.: i programmi',ex:'Che <strong>programmi</strong> hai?'},
+  {it:"l'appuntamento",ph:'[appuntaˈmento]',forms:'gli appuntamenti',ru:'встреча, запись',sub:'abstr',emoji:'📅',assoc:'Аппунтаменто — назначенная встреча',ex:'Ho un <strong>appuntamento</strong> alle 10.'},
+  {it:"l'impegno",ph:'[limˈpeɲɲo]',forms:'gli impegni',ru:'дело, обязательство',sub:'abstr',emoji:'🗒️',assoc:'Импеньо — занятость, дело',ex:'Ho già un <strong>impegno</strong>.'},
+  {it:'la patente',ph:'[paˈtɛnte]',forms:'le patenti',ru:'водительские права',sub:'abstr',emoji:'🪪',assoc:'Патенте — права',ex:'Non ha ancora la <strong>patente</strong>.'},
+];
+
+// ══════════════════════════════════════════════════════
 // CATEGORY LABELS
 // ══════════════════════════════════════════════════════
 const adjCats = {pos:'Положительные',neg:'Отрицательные',size:'Размер',char:'Характер',feel:'Состояние',app:'Внешность',qual:'Качество',temp:'Температура',taste:'Вкус',time:'Время'};
 const advCats = {time:'Время',place:'Место',qty:'Степень',manner:'Способ',affirm:'Да/Нет'};
 const prepCats = {simple:'Простые',artprep:'Слитные',place:'Место',conj:'Союзы'};
 const pronCats = {pers:'Личные',direct:'Дополнение',poss:'Притяжательные',dem:'Указательные',indef:'Неопределённые',interr:'Вопросительные',rel:'Относительные',refl:'Возвратные',other:'Прочие'};
+const nounCats = {fam:'Люди',food:'Еда',obj:'Дом и вещи',city:'Город',ntime:'Время',abstr:'Понятия'};
 
 const pillMap = {
   pos:'p-pos',neg:'p-neg',size:'p-size',char:'p-char',feel:'p-feel',app:'p-adj',qual:'p-adj',temp:'p-feel',taste:'p-feel',
   time:'p-time',place:'p-place',qty:'p-qty',manner:'p-manner',affirm:'p-adj',
   simple:'p-simple',artprep:'p-artprep',conj:'p-conj',
-  pers:'p-pers',direct:'p-pers',poss:'p-poss',dem:'p-dem',indef:'p-indef',interr:'p-adj',rel:'p-rel',refl:'p-dem',other:'p-adj'
+  pers:'p-pers',direct:'p-pers',poss:'p-poss',dem:'p-dem',indef:'p-indef',interr:'p-adj',rel:'p-rel',refl:'p-dem',other:'p-adj',
+  fam:'p-pers',food:'p-feel',obj:'p-place',city:'p-artprep',ntime:'p-time',abstr:'p-rel'
 };
 
 // ══════════════════════════════════════════════════════
@@ -801,13 +951,15 @@ function setKS(m,t){const el=document.getElementById('ks');el.textContent=m;el.c
 // RENDER
 // ══════════════════════════════════════════════════════
 const shuf=a=>[...a].sort(()=>Math.random()-.5);
-let filters={adj:'all',adv:'all',prep:'all',pron:'all'};
-let searches={adj:'',adv:'',prep:'',pron:''};
+let filters={adj:'all',adv:'all',prep:'all',pron:'all',noun:'all'};
+let searches={adj:'',adv:'',prep:'',pron:'',noun:''};
 
 function mkCard(w, catType, cardClass){
-  const cleanWord = w.it.replace(/\/.+/,'').split(' ')[0].trim();
+  const cleanWord = catType==='noun'
+    ? w.it.replace(/\/.+/,'').trim()
+    : w.it.replace(/\/.+/,'').split(' ')[0].trim();
   const off = ttsKey?'':'off';
-  const catLabels = catType==='adj'?adjCats:catType==='adv'?advCats:catType==='prep'?prepCats:pronCats;
+  const catLabels = catType==='adj'?adjCats:catType==='adv'?advCats:catType==='prep'?prepCats:catType==='noun'?nounCats:pronCats;
   const catLabel = catLabels[w.sub]||w.sub||catType;
   const pill = pillMap[w.sub]||'p-adj';
   return `<div class="wcard ${cardClass}">
@@ -856,11 +1008,12 @@ function render(secId){
   else if(secId==='adv') renderSection('adv',advWords,'adv-g','adv-cnt','adv-fb',advCats,'adv-card','adv');
   else if(secId==='prep') renderSection('prep',prepWords,'prep-g','prep-cnt','prep-fb',prepCats,'prep-card','prep');
   else if(secId==='pron') renderSection('pron',pronWords,'pron-g','pron-cnt','pron-fb',pronCats,'pron-card','pron');
+  else if(secId==='noun') renderSection('noun',nounWords,'noun-g','noun-cnt','noun-fb',nounCats,'noun-card','noun');
 }
-function renderAll(){render('adj');render('adv');render('prep');render('pron');}
+function renderAll(){render('adj');render('adv');render('prep');render('pron');render('noun');}
 
 // SEARCH
-['adj','adv','prep','pron'].forEach(s=>{
+['adj','adv','prep','pron','noun'].forEach(s=>{
   document.getElementById(s+'-s').addEventListener('input',e=>{searches[s]=e.target.value;render(s);});
 });
 
@@ -871,13 +1024,14 @@ function sm(id){
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
   document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
   document.getElementById(id).classList.add('on');
-  const idx=['adj','adv','prep','pron','verb','train'].indexOf(id);
+  const idx=['adj','adv','prep','pron','noun','verb','train'].indexOf(id);
   document.querySelectorAll('.mnb')[idx].classList.add('on');
   if(id==='verb') renderVerbs();
   if(id==='adj') render('adj');
   if(id==='adv') render('adv');
   if(id==='prep') render('prep');
   if(id==='pron') render('pron');
+  if(id==='noun') render('noun');
   if(id==='train') stopTR();
 }
 
@@ -888,12 +1042,15 @@ let trSec='adj', trMode='', trWords=[], trIdx=0, trSc=0, trTotal=0, trAns=false;
 
 function setS(s){
   trSec=s;
-  ['adj','adv','prep','pron','verb'].forEach(x=>document.getElementById('sp-'+x).classList.toggle('on',x===s));
+  ['adj','adv','prep','pron','noun','verb'].forEach(x=>document.getElementById('sp-'+x).classList.toggle('on',x===s));
 }
 function getPool(){
-  return trSec==='adj'?adjWords:trSec==='adv'?advWords:trSec==='prep'?prepWords:trSec==='verb'?verbWords:pronWords;
+  return trSec==='adj'?adjWords:trSec==='adv'?advWords:trSec==='prep'?prepWords:trSec==='noun'?nounWords:trSec==='verb'?verbWords:pronWords;
 }
-function getClean(w){return w.it.replace(/\/.+/,'').split(' ')[0].trim();}
+function getClean(w){
+  if(trSec==='noun') return w.it.replace(/\/.+/,'').trim();
+  return w.it.replace(/\/.+/,'').split(' ')[0].trim();
+}
 
 function startTR(mode){
   trMode=mode; trWords=shuf(getPool());
