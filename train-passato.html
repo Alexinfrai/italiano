@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Тренажёр · Passato Prossimo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--shadow:0 10px 32px rgba(0,0,0,.45)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh}
+header{text-align:center;padding:28px 18px 18px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'🇮🇹';position:absolute;font-size:7rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,5vw,2.5rem);color:var(--gold2);margin:.1em 0 .05em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Playfair Display',serif;position:relative}
+#api{background:#0e1422;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.64rem;color:#667;margin-top:5px}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px 80px}
+.modes{display:flex;gap:7px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:7px 13px;border-radius:99px;font-weight:700;font-size:.78rem;cursor:pointer}
+.chip.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
+.prog .n{font-weight:800;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--green)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:240px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.q::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.q .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.q .aux{font-size:.8rem;color:var(--viola);font-weight:800;letter-spacing:.05em;margin-bottom:4px;visibility:hidden}
+.q .aux.show{visibility:visible}
+.q .verb{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--txt)}
+.q .verb small{display:block;color:var(--muted);font-size:.9rem;font-weight:400}
+.q .who{margin-top:8px;font-size:1.05rem;color:var(--gold2);font-weight:800}
+.q .ans{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--green);margin-top:12px;display:none}
+.q .ans.show{display:block;animation:pop .25s}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1}}
+.q .ans .spk{font-size:1rem;margin-left:8px;cursor:pointer;opacity:.6;color:var(--viola)}
+.typebox{margin-top:14px;display:none}.typebox.show{display:block}
+.typebox input{width:100%;background:var(--card2);border:1px solid var(--line);border-bottom:2px solid var(--gold);border-radius:8px;color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;text-align:center;padding:10px;outline:none}
+.typebox .fb{margin-top:7px;font-weight:700;font-size:.9rem;min-height:18px}.typebox .fb.ok{color:var(--green)}.typebox .fb.no{color:var(--red)}
+.btns{display:flex;gap:10px;margin-top:16px}
+.big{flex:1;border:none;border-radius:12px;font-family:'Nunito';font-weight:800;font-size:1rem;padding:14px;cursor:pointer;transition:.15s}
+.big.reveal{background:var(--gold);color:#0d1117}.big.reveal:hover{background:var(--gold2)}
+.big.no{background:rgba(224,112,112,.16);color:var(--red);border:1px solid var(--red)}
+.big.ok{background:rgba(90,196,160,.16);color:var(--green);border:1px solid var(--green)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;font-family:'Nunito';font-size:.78rem;text-decoration:underline}
+.sub button:hover{color:var(--gold)}
+footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:22px}footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#0d1117;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Тренажёр · Passato Prossimo</h1>
+  <p>Поставь глагол в прошедшее время</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="modes" id="modes">
+    <button class="chip on" onclick="setMode('reveal')">🃏 Вспоминаю</button>
+    <button class="chip" onclick="setMode('type')">⌨️ Печатаю</button>
+  </div>
+  <div class="modes" id="filters">
+    <button class="chip on" onclick="setF('all')">Все</button>
+    <button class="chip" onclick="setF('avere')">avere</button>
+    <button class="chip" onclick="setF('essere')">essere</button>
+    <button class="chip" onclick="setF('irr')">неправильные</button>
+  </div>
+  <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+  <div class="q" id="card"></div>
+  <div class="sub"><button onclick="next()">→ Пропустить</button><button onclick="resetStats()">↺ Сброс</button></div>
+  <footer>Активная отработка прошедшего времени · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* aux: 'a'=avere, 'e'=essere; irr:true — неправильное причастие */
+const VERBS=[
+ {inf:'mangiare',ru:'кушать',pp:'mangiato',aux:'a'},
+ {inf:'parlare',ru:'разговаривать',pp:'parlato',aux:'a'},
+ {inf:'comprare',ru:'покупать',pp:'comprato',aux:'a'},
+ {inf:'dormire',ru:'спать',pp:'dormito',aux:'a'},
+ {inf:'pagare',ru:'платить',pp:'pagato',aux:'a'},
+ {inf:'dimenticare',ru:'забывать',pp:'dimenticato',aux:'a'},
+ {inf:'avere',ru:'иметь',pp:'avuto',aux:'a'},
+ {inf:'lavorare',ru:'работать',pp:'lavorato',aux:'a'},
+ {inf:'ascoltare',ru:'слушать',pp:'ascoltato',aux:'a'},
+ {inf:'capire',ru:'понимать',pp:'capito',aux:'a'},
+ {inf:'fare',ru:'делать',pp:'fatto',aux:'a',irr:true},
+ {inf:'dire',ru:'говорить',pp:'detto',aux:'a',irr:true},
+ {inf:'chiudere',ru:'закрывать',pp:'chiuso',aux:'a',irr:true},
+ {inf:'aprire',ru:'открывать',pp:'aperto',aux:'a',irr:true},
+ {inf:'andare',ru:'идти/ехать',pp:'andat',aux:'e'},
+ {inf:'venire',ru:'приходить',pp:'venut',aux:'e',irr:true},
+ {inf:'tornare',ru:'возвращаться',pp:'tornat',aux:'e'},
+ {inf:'arrivare',ru:'прибывать',pp:'arrivat',aux:'e'},
+ {inf:'partire',ru:'уезжать',pp:'partit',aux:'e'},
+ {inf:'uscire',ru:'выходить',pp:'uscit',aux:'e'},
+ {inf:'entrare',ru:'входить',pp:'entrat',aux:'e'},
+ {inf:'stare',ru:'быть/находиться',pp:'stat',aux:'e'},
+ {inf:'rimanere',ru:'оставаться',pp:'rimast',aux:'e',irr:true},
+ {inf:'restare',ru:'оставаться',pp:'restat',aux:'e'},
+ {inf:'diventare',ru:'становиться',pp:'diventat',aux:'e'},
+ {inf:'nascere',ru:'рождаться',pp:'nat',aux:'e',irr:true},
+ {inf:'morire',ru:'умирать',pp:'mort',aux:'e',irr:true},
+];
+/* субъекты: [подпись, форма avere/essere-вспом, окончание для essere, есть ли род-варианты] */
+const SUBJ=[
+ {ru:'io (я, м.)',a:'ho',e:'sono',end:'o'},
+ {ru:'io (я, ж.)',a:'ho',e:'sono',end:'a'},
+ {ru:'tu (ты, м.)',a:'hai',e:'sei',end:'o'},
+ {ru:'tu (ты, ж.)',a:'hai',e:'sei',end:'a'},
+ {ru:'lui (он)',a:'ha',e:'è',end:'o'},
+ {ru:'lei (она)',a:'ha',e:'è',end:'a'},
+ {ru:'noi (мы, м.)',a:'abbiamo',e:'siamo',end:'i'},
+ {ru:'noi (мы, ж.)',a:'abbiamo',e:'siamo',end:'e'},
+ {ru:'voi (вы, м.)',a:'avete',e:'siete',end:'i'},
+ {ru:'loro (они, м.)',a:'hanno',e:'sono',end:'i'},
+ {ru:'loro (они, ж.)',a:'hanno',e:'sono',end:'e'},
+];
+function formOf(v,s){
+  if(v.aux==='a') return s.a+' '+v.pp;          // причастие неизменно
+  return s.e+' '+v.pp+s.end;                     // essere: + окончание
+}
+
+/* TTS */
+let ttsKey=localStorage.getItem('it_tts_key')||'';let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Wavenet-A';const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.9}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.9;const v=speechSynthesis.getVoices().find(x=>/^it/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+
+/* логика */
+let mode='reveal',filt='all',cur=null,okCount=0,streak=0,total=0;
+function setMode(m){mode=m;[...document.querySelectorAll('#modes .chip')].forEach((c,i)=>c.classList.toggle('on',(m==='reveal')===(i===0)));next();}
+function setF(f){filt=f;[...document.querySelectorAll('#filters .chip')].forEach(c=>c.classList.remove('on'));event.target.classList.add('on');next();}
+function pool(){
+  if(filt==='avere')return VERBS.filter(v=>v.aux==='a');
+  if(filt==='essere')return VERBS.filter(v=>v.aux==='e');
+  if(filt==='irr')return VERBS.filter(v=>v.irr);
+  return VERBS;
+}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function pick(){const p=pool();const v=p[Math.floor(Math.random()*p.length)];const s=SUBJ[Math.floor(Math.random()*SUBJ.length)];
+  // для avere род субъекта не важен — упрощаем подпись
+  return {v,s};}
+function next(){
+  cur=pick();
+  const {v,s}=cur;
+  const typeMode=mode==='type';
+  const auxLabel=v.aux==='a'?'AVERE':'ESSERE';
+  document.getElementById('card').innerHTML=`
+    <span class="tag">${v.aux==='a'?'avere':'essere'}${v.irr?' · неправ.':''}</span>
+    <div class="aux" id="aux">вспомогательный: ${auxLabel}</div>
+    <div class="verb">${v.inf}<small>${v.ru}</small></div>
+    <div class="who">${s.ru}</div>
+    <div class="ans" id="ans">${formOf(v,s)}<span class="spk" onclick="speak('${formOf(v,s).replace(/'/g,"\\'")}')">🔊</span></div>
+    <div class="typebox ${typeMode?'show':''}" id="tb"><input id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="...">
+      <div class="fb" id="fb"></div></div>
+    <div class="btns" id="btns">${typeMode?`<button class="big reveal" onclick="checkType()">Проверить</button>`:`<button class="big reveal" onclick="reveal()">Показать</button>`}</div>`;
+  if(typeMode){const i=document.getElementById('inp');i.focus();i.addEventListener('keydown',e=>{if(e.key==='Enter')checkType();});}
+}
+function reveal(){
+  document.getElementById('aux').classList.add('show');
+  document.getElementById('ans').classList.add('show');
+  speak(formOf(cur.v,cur.s));
+  document.getElementById('btns').innerHTML=`<button class="big no" onclick="grade(false)">✗ Не вспомнил</button><button class="big ok" onclick="grade(true)">✓ Вспомнил</button>`;
+}
+function checkType(){
+  const val=document.getElementById('inp').value;
+  const correct=formOf(cur.v,cur.s);
+  const good=norm(val)===norm(correct);
+  document.getElementById('aux').classList.add('show');
+  document.getElementById('ans').classList.add('show');
+  const fb=document.getElementById('fb');fb.className='fb '+(good?'ok':'no');fb.textContent=good?'✓ Верно!':'✗ Правильно: '+correct;
+  speak(correct);
+  document.getElementById('btns').innerHTML=`<button class="big ${good?'ok':'no'}" onclick="grade(${good})">Дальше →</button>`;
+}
+function grade(ok){total++;if(ok){okCount++;streak++;if(streak&&streak%5===0)toast('🔥 Серия '+streak+'!');}else streak=0;
+  document.getElementById('ok').textContent=okCount;
+  document.getElementById('fill').style.width=(total?okCount/total*100:0)+'%';
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';
+  next();}
+function resetStats(){okCount=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';next();toast('Сброшено');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1600);}
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+next();
+</script>
+</body>
+</html>

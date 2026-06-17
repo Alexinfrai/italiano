@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Test · Passato Prossimo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--green-bg:rgba(45,122,79,.16);--red-bg:rgba(192,57,43,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 90px}
+header.top{text-align:center;margin:0 -18px 22px;padding:36px 20px 26px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header.top::after{content:'🇮🇹';position:absolute;font-size:7rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%)}
+header.top .flag{font-size:2rem;letter-spacing:.3em;position:relative}
+header.top h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.7rem,5.5vw,2.8rem);color:var(--gold2);margin:.12em 0 .05em;position:relative}
+header.top p{color:var(--muted);font-size:.9rem;position:relative}
+header.top .sub{font-style:italic;font-family:'Playfair Display',serif}
+.scorebar{position:sticky;top:0;z-index:30;margin:0 -18px 18px;padding:11px 18px;background:rgba(13,17,23,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.scorebar .label{font-weight:800;color:var(--gold);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+.bar{flex:1;min-width:110px;height:9px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .5s}
+.scorebar .nums{font-weight:800;font-size:.95rem}.scorebar .nums b{color:var(--green)}
+#api{background:#0e1422;border:1px solid var(--line);border-radius:12px;padding:10px 13px;margin-bottom:16px;font-size:.74rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.68rem;margin-top:4px;min-height:13px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.66rem;color:#667;margin-top:5px}
+section.lez{margin-bottom:26px}
+.lez>h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:var(--gold2);margin:0 0 3px;display:flex;align-items:baseline;gap:9px}
+.lez>.instr{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;margin:0 0 13px;font-size:.95rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:11px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--green)}
+.q .text{font-size:1.06rem;line-height:1.9}
+.q .text .ru{display:block;color:var(--muted);font-size:.84rem;font-style:italic;margin-top:2px}
+.gap{display:inline-block;min-width:60px;text-align:center;border-bottom:2px dashed var(--gold);color:var(--muted);padding:0 6px;margin:0 2px;font-weight:800;letter-spacing:2px}
+.gap.filled{color:var(--green);border-bottom-style:solid;border-bottom-color:var(--green);letter-spacing:0}
+.gap.wrong{color:var(--red);border-bottom-style:solid;border-bottom-color:var(--red);letter-spacing:0}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;transition:.15s}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.dim{opacity:.4}
+.tts{margin-left:6px;background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.6;vertical-align:middle}.tts:hover{opacity:1}
+.sol{margin-top:9px;font-size:.95rem;color:var(--green);background:var(--green-bg);border-left:3px solid var(--green);padding:7px 12px;border-radius:0 8px 8px 0;display:none}.sol.show{display:block}.sol b{color:var(--gold2)}
+.bigbtn{display:inline-block;margin:14px 6px 0;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Nunito';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+.bigbtn:hover{border-color:var(--gold);color:var(--gold2)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+footer a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="flag">🇮🇹</div>
+    <h1>Test · Passato Prossimo</h1>
+    <p>Прошедшее время — урок 16/06</p>
+    <p class="sub">Нажимай правильный вариант — фраза озвучится</p>
+  </header>
+
+  <div class="scorebar">
+    <span class="label">Risultato</span>
+    <div class="bar"><i id="fill"></i></div>
+    <span class="nums"><b id="ok">0</b> / <span id="tot">0</span></span>
+  </div>
+
+  <div id="api">
+    <div class="api-row">
+      <span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+      <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+      <button class="btn-c" onclick="connectKey()">OK</button>
+      <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button>
+    </div>
+    <div id="st"></div>
+    <div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+  </div>
+
+  <div id="content"></div>
+
+  <div style="text-align:center">
+    <button class="bigbtn" onclick="resetAll()">↺ Ricomincia</button>
+  </div>
+  <footer>👆 Нажми вариант — он подсветится и произнесётся. <a href="index.html">← Главная</a></footer>
+</div>
+
+<script>
+const DATA=[
+{title:"Avere o essere?", instr:"Выбери правильный вспомогательный глагол.",
+ items:[
+  {t:"Io @ mangiato un panino.", b:[["ho"]], opts:["ho","sono"], full:"Ho mangiato un panino."},
+  {t:"Maria @ andata al mare.", b:[["è","e"]], opts:["ha","è"], full:"Maria è andata al mare."},
+  {t:"Noi @ comprato i biglietti.", b:[["abbiamo"]], opts:["abbiamo","siamo"], full:"Abbiamo comprato i biglietti."},
+  {t:"Loro @ tornati tardi.", b:[["sono"]], opts:["hanno","sono"], full:"Loro sono tornati tardi."},
+  {t:"Tu @ dormito bene?", b:[["hai"]], opts:["hai","sei"], full:"Hai dormito bene?"},
+  {t:"Lei @ partita ieri.", b:[["è","e"]], opts:["ha","è"], full:"Lei è partita ieri."},
+  {t:"Voi @ pagato il conto?", b:[["avete"]], opts:["avete","siete"], full:"Avete pagato il conto?"},
+  {t:"Carlo @ uscito di casa.", b:[["è","e"]], opts:["ha","è"], full:"Carlo è uscito di casa."},
+ ]},
+{title:"Причастие (participio)", instr:"Выбери правильную форму причастия.",
+ items:[
+  {t:"Ho @ con mia madre. (parlare)", b:[["parlato"]], opts:["parlato","parlito","parluto"], full:"Ho parlato con mia madre."},
+  {t:"Abbiamo @ tutta la notte. (dormire)", b:[["dormito"]], opts:["dormato","dormito","dormuto"], full:"Abbiamo dormito tutta la notte."},
+  {t:"Hai @ il caffè? (avere)", b:[["avuto"]], opts:["avato","avito","avuto"], full:"Hai avuto il caffè?"},
+  {t:"Ho @ il portafoglio. (dimenticare)", b:[["dimenticato"]], opts:["dimenticato","dimenticuto","dimenticito"], full:"Ho dimenticato il portafoglio."},
+ ]},
+{title:"Неправильные причастия", instr:"Выбери правильное причастие неправильного глагола.",
+ items:[
+  {t:"Ho @ i compiti. (fare)", b:[["fatto"]], opts:["fatto","facuto","farito"], full:"Ho fatto i compiti."},
+  {t:"Ha @ la verità. (dire)", b:[["detto"]], opts:["ditto","detto","dicuto"], full:"Ha detto la verità."},
+  {t:"Abbiamo @ la porta. (chiudere)", b:[["chiuso"]], opts:["chiuduto","chiuso","chiudito"], full:"Abbiamo chiuso la porta."},
+  {t:"Hanno @ le finestre. (aprire)", b:[["aperto"]], opts:["aprito","aperto","apruto"], full:"Hanno aperto le finestre."},
+  {t:"Lei è @ a casa. (rimanere)", b:[["rimasta"]], opts:["rimanuta","rimasta","rimanita"], full:"Lei è rimasta a casa."},
+  {t:"È @ nel 1990. (nascere)", b:[["nato"]], opts:["nasciuto","nato","nascuto"], full:"È nato nel millenovecentonovanta."},
+ ]},
+{title:"Согласование с ESSERE", instr:"С глаголом essere причастие согласуется по роду и числу. Выбери верное окончание.",
+ items:[
+  {t:"Maria è @ al cinema. (andare)", b:[["andata"]], opts:["andato","andata","andate"], full:"Maria è andata al cinema."},
+  {t:"I ragazzi sono @ tardi. (arrivare)", b:[["arrivati"]], opts:["arrivato","arrivati","arrivate"], full:"I ragazzi sono arrivati tardi."},
+  {t:"Le ragazze sono @ presto. (uscire)", b:[["uscite"]], opts:["uscito","usciti","uscite"], full:"Le ragazze sono uscite presto."},
+  {t:"Marco è @ a casa. (restare)", b:[["restato"]], opts:["restato","restata","restati"], full:"Marco è restato a casa."},
+  {t:"Anna e Lucia sono @ ieri. (partire)", b:[["partite"]], opts:["partiti","partite","partito"], full:"Anna e Lucia sono partite ieri."},
+  {t:"Noi (ragazzi) siamo @ amici. (diventare)", b:[["diventati"]], opts:["diventato","diventati","diventate"], full:"Noi siamo diventati amici."},
+ ]},
+{title:"Собери фразу целиком", instr:"Выбери правильный вариант прошедшего времени.",
+ items:[
+  {t:"Вчера я купил машину → @", b:[["ho comprato una macchina"]], opts:["ho comprato una macchina","sono comprato una macchina","ho comprito una macchina"], full:"Ho comprato una macchina."},
+  {t:"Мы пошли на море → @", b:[["siamo andati al mare"]], opts:["abbiamo andato al mare","siamo andati al mare","siamo andato al mare"], full:"Siamo andati al mare."},
+  {t:"Она поговорила с отцом → @", b:[["ha parlato con suo padre"]], opts:["è parlata con suo padre","ha parlato con suo padre","ha parlata con suo padre"], full:"Ha parlato con suo padre."},
+  {t:"Ты хорошо спал? → @", b:[["hai dormito bene"]], opts:["sei dormito bene","hai dormito bene","hai dormuto bene"], full:"Hai dormito bene?"},
+ ]},
+];
+
+/* TTS */
+let ttsKey=localStorage.getItem('it_tts_key')||'';let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Wavenet-A';const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.92}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.92;const v=speechSynthesis.getVoices().find(x=>/^it/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+
+/* норм */
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+let TOTAL=0;const done=new Set();
+function build(){
+  let html='';
+  DATA.forEach((s,si)=>{
+    let qs='';
+    s.items.forEach((it,qi)=>{TOTAL++;
+      const key=si+'_'+qi;
+      const text=esc(it.t).replace('@',`<span class="gap" id="g_${key}">·····</span>`);
+      const opts=shuffle(it.opts.slice());
+      const accepted=JSON.stringify(it.b[0].map(norm)).replace(/"/g,'&quot;');
+      const btns=opts.map(o=>`<button class="opt" data-k="${key}" data-w="${esc(o)}" onclick="pick(this,'${key}',${accepted})">${esc(o)}</button>`).join('');
+      qs+=`<div class="q" id="q_${key}"><div class="text">${text}
+        <button class="tts" onclick="speak('${esc(it.full).replace(/'/g,"\\'")}')">🔊</button></div>
+        <div class="opts">${btns}</div>
+        <div class="sol" id="sol_${key}">✓ <b>${esc(it.full)}</b></div></div>`;
+    });
+    html+=`<section class="lez"><h2>${esc(s.title)}</h2><p class="instr">${esc(s.instr)}</p>${qs}</section>`;
+  });
+  document.getElementById('content').innerHTML=html;
+  document.getElementById('tot').textContent=TOTAL;
+}
+function pick(btn,key,accepted){
+  speak(btn.dataset.w);
+  const good=accepted.includes(norm(btn.dataset.w));
+  const group=[...document.querySelectorAll(`.opt[data-k="${key}"]`)];
+  group.forEach(b=>b.classList.remove('ok','no','dim'));
+  if(good){btn.classList.add('ok');group.forEach(b=>{if(b!==btn)b.classList.add('dim');});}
+  else{btn.classList.add('no');group.forEach(b=>{if(accepted.includes(norm(b.dataset.w)))b.classList.add('ok');});}
+  const gap=document.getElementById('g_'+key);gap.textContent=btn.dataset.w;gap.className='gap '+(good?'filled':'wrong');
+  const q=document.getElementById('q_'+key);q.classList.toggle('ok',good);
+  if(good){done.add(key);document.getElementById('sol_'+key).classList.add('show');}else done.delete(key);
+  document.getElementById('ok').textContent=done.size;
+  document.getElementById('fill').style.width=(done.size/TOTAL*100)+'%';
+}
+function resetAll(){done.clear();TOTAL=0;build();document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';}
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+build();
+</script>
+</body>
+</html>

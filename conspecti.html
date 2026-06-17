@@ -308,6 +308,7 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
   <button class="tab" onclick="show('lezione0206')">🔁 Презенс-практика <span class="nbadge">NEW</span></button>
   <button class="tab" onclick="show('lezione0406')">🔄 Возвратные <span class="nbadge">NEW</span></button>
   <button class="tab" onclick="show('irregolari')">⚡ Неправильные глаголы <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('passato')">⏪ Passato Prossimo <span class="nbadge">NEW</span></button>
 </div>
 
 <!-- ══ ПРИВЕТСТВИЯ ══ -->
@@ -1131,7 +1132,7 @@ function show(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406','irregolari'];
+  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406','irregolari','passato'];
   document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
   if(id==='lezione1405') renderISC();
   if(id==='lezione2105') renderModali();
@@ -1252,6 +1253,8 @@ window.addEventListener('load', function(){
   renderAndare();
   renderISC();
   renderModali();
+  // открыть вкладку по якорю (#passato, #irregolari и т.д.)
+  if(location.hash){ try{ show(location.hash.slice(1)); }catch(e){} }
 });
 
 // ── МОДАЛЬНЫЕ ГЛАГОЛЫ (урок 21/05) ──
@@ -1793,6 +1796,95 @@ function renderModali(){
     <div class="tip tip-v">Нажми на любую форму — услышишь произношение. 🟡 Жёлтым выделены формы, где меняется основа.</div>
   </div>
   <div id="irreg-grid"></div>
+</div>
+
+<!-- ══ PASSATO PROSSIMO (16/06) ══ -->
+<div class="section" id="passato">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#7c3aed)">📅 Урок 16/06 — НОВОЕ</div>
+  <h2>Passato Prossimo — прошедшее время</h2>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Как строится</h3>
+    <div class="tip tip-v"><strong>Вспомогательный глагол</strong> (avere или essere) в настоящем времени <strong>+ причастие</strong> (participio passato).</div>
+    <div class="vocab-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="vocab-item"><span class="vocab-it">-ARE → <strong>-ATO</strong></span><span class="vocab-ru">mangiare → mangiato</span></div>
+      <div class="vocab-item"><span class="vocab-it">-ERE → <strong>-UTO</strong></span><span class="vocab-ru">avere → avuto</span></div>
+      <div class="vocab-item"><span class="vocab-it">-IRE → <strong>-ITO</strong></span><span class="vocab-ru">dormire → dormito</span></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">①  С AVERE — причастие НЕ меняется</h3>
+    <div class="tip">Большинство глаголов. Спрягаем <strong>avere</strong> (ho, hai, ha, abbiamo, avete, hanno) + причастие.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('ho mangiato un panino')"><span class="vocab-it">Ho <strong>mangiato</strong></span><span class="vocab-ru">я поел</span></div>
+      <div class="vocab-item" onclick="play('hai parlato con tua madre')"><span class="vocab-it">Hai <strong>parlato</strong></span><span class="vocab-ru">ты поговорил</span></div>
+      <div class="vocab-item" onclick="play('ha comprato una macchina')"><span class="vocab-it">Ha <strong>comprato</strong></span><span class="vocab-ru">он купил</span></div>
+      <div class="vocab-item" onclick="play('abbiamo dormito bene')"><span class="vocab-it">Abbiamo <strong>dormito</strong></span><span class="vocab-ru">мы поспали</span></div>
+      <div class="vocab-item" onclick="play('avete pagato il conto')"><span class="vocab-it">Avete <strong>pagato</strong></span><span class="vocab-ru">вы оплатили</span></div>
+      <div class="vocab-item" onclick="play('hanno comprato i biglietti')"><span class="vocab-it">Hanno <strong>comprato</strong></span><span class="vocab-ru">они купили</span></div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it"><strong>Hai dormito</strong> bene questa notte? — <strong>Ho dormito</strong> come un bambino!</div><div class="ru">Хорошо спал этой ночью? — Спал как младенец!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Hai pagato</strong> il conto? — No, <strong>ho dimenticato</strong> il portafoglio.</div><div class="ru">Ты оплатил счёт? — Нет, я забыл кошелёк.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Cosa <strong>avete comprato</strong> al supermercato?</div><div class="ru">Что вы купили в супермаркете?</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">②  Неправильные причастия — учим наизусть</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('fatto')"><span class="vocab-it">fare → <strong>fatto</strong></span><span class="vocab-ru">делать → сделал</span></div>
+      <div class="vocab-item" onclick="play('detto')"><span class="vocab-it">dire → <strong>detto</strong></span><span class="vocab-ru">говорить → сказал</span></div>
+      <div class="vocab-item" onclick="play('chiuso')"><span class="vocab-it">chiudere → <strong>chiuso</strong></span><span class="vocab-ru">закрывать → закрыл</span></div>
+      <div class="vocab-item" onclick="play('aperto')"><span class="vocab-it">aprire → <strong>aperto</strong></span><span class="vocab-ru">открывать → открыл</span></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">③  С ESSERE — причастие СОГЛАСУЕТСЯ</h3>
+    <div class="tip tip-v">Глаголы движения и состояния. Спрягаем <strong>essere</strong> (sono, sei, è...) + причастие, которое меняет окончание по роду и числу: <strong>-o / -a / -i / -e</strong>.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('sono andato')"><span class="vocab-it">io sono <strong>andato/a</strong></span><span class="vocab-ru">я пошёл / пошла</span></div>
+      <div class="vocab-item" onclick="play('sei andato')"><span class="vocab-it">tu sei <strong>andato/a</strong></span><span class="vocab-ru">ты пошёл / пошла</span></div>
+      <div class="vocab-item" onclick="play('lei è andata')"><span class="vocab-it">lui è andato / lei è <strong>andata</strong></span><span class="vocab-ru">он пошёл / она пошла</span></div>
+      <div class="vocab-item" onclick="play('siamo andati')"><span class="vocab-it">noi siamo <strong>andati/e</strong></span><span class="vocab-ru">мы пошли</span></div>
+      <div class="vocab-item" onclick="play('siete andati')"><span class="vocab-it">voi siete <strong>andati/e</strong></span><span class="vocab-ru">вы пошли</span></div>
+      <div class="vocab-item" onclick="play('loro sono andate')"><span class="vocab-it">loro sono <strong>andati/e</strong></span><span class="vocab-ru">они пошли</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Глаголы с ESSERE — учим наизусть</h3>
+    <div class="tip">Движение и изменение состояния. У некоторых причастие неправильное (в скобках).</div>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('andare')"><span class="vocab-it">ANDARE</span><span class="vocab-ru">идти/ехать → andato</span></div>
+      <div class="vocab-item" onclick="play('venire')"><span class="vocab-it">VENIRE</span><span class="vocab-ru">приходить → <b>venuto</b></span></div>
+      <div class="vocab-item" onclick="play('tornare')"><span class="vocab-it">TORNARE</span><span class="vocab-ru">возвращаться → tornato</span></div>
+      <div class="vocab-item" onclick="play('arrivare')"><span class="vocab-it">ARRIVARE</span><span class="vocab-ru">прибывать → arrivato</span></div>
+      <div class="vocab-item" onclick="play('partire')"><span class="vocab-it">PARTIRE</span><span class="vocab-ru">уезжать → partito</span></div>
+      <div class="vocab-item" onclick="play('uscire')"><span class="vocab-it">USCIRE</span><span class="vocab-ru">выходить → uscito</span></div>
+      <div class="vocab-item" onclick="play('entrare')"><span class="vocab-it">ENTRARE</span><span class="vocab-ru">входить → entrato</span></div>
+      <div class="vocab-item" onclick="play('stare')"><span class="vocab-it">STARE</span><span class="vocab-ru">быть → stato</span></div>
+      <div class="vocab-item" onclick="play('rimanere')"><span class="vocab-it">RIMANERE</span><span class="vocab-ru">оставаться → <b>rimasto</b></span></div>
+      <div class="vocab-item" onclick="play('restare')"><span class="vocab-it">RESTARE</span><span class="vocab-ru">оставаться → restato</span></div>
+      <div class="vocab-item" onclick="play('diventare')"><span class="vocab-it">DIVENTARE</span><span class="vocab-ru">становиться → diventato</span></div>
+      <div class="vocab-item" onclick="play('nascere')"><span class="vocab-it">NASCERE</span><span class="vocab-ru">рождаться → <b>nato</b></span></div>
+      <div class="vocab-item" onclick="play('morire')"><span class="vocab-it">MORIRE</span><span class="vocab-ru">умирать → <b>morto</b></span></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📖 Новые слова</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('piove')"><span class="vocab-it">PIOVE</span><span class="vocab-ru">идёт дождь</span></div>
+      <div class="vocab-item" onclick="play('la pioggia')"><span class="vocab-it">LA PIOGGIA</span><span class="vocab-ru">дождь</span></div>
+      <div class="vocab-item" onclick="play('pagare il conto')"><span class="vocab-it">PAGARE IL CONTO</span><span class="vocab-ru">оплатить счёт</span></div>
+      <div class="vocab-item" onclick="play('dimenticare')"><span class="vocab-it">DIMENTICARE</span><span class="vocab-ru">забывать</span></div>
+      <div class="vocab-item" onclick="play('stabile')"><span class="vocab-it">STABILE</span><span class="vocab-ru">стабильный</span></div>
+      <div class="vocab-item" onclick="play('niente di nuovo')"><span class="vocab-it">NIENTE DI NUOVO</span><span class="vocab-ru">ничего нового</span></div>
+    </div>
+  </div>
 </div>
 
 </body>
