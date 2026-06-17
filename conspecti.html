@@ -50,8 +50,8 @@ header p{margin-top:3px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 .vchip.active{border-color:#2d7a4f;color:#5ac4a0}
 
 /* TABS */
-.tabs{display:flex;overflow-x:auto;background:white;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.tab{flex-shrink:0;padding:10px 11px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;letter-spacing:.03em}
+.tabs{display:flex;flex-wrap:wrap;gap:2px 4px;justify-content:center;background:white;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:4px 6px}
+.tab{padding:9px 11px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.03em;border-radius:7px 7px 0 0}
 .tab.active{color:var(--verde);border-bottom-color:var(--verde)}
 .nbadge{background:var(--rosso);color:white;border-radius:99px;padding:1px 5px;font-size:.5rem;margin-left:2px;vertical-align:top}
 
