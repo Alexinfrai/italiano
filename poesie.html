@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Poesie — стихи для запоминания</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0e0b14;--bg2:#16111f;--card:#1a1426;--card2:#221a31;
+  --line:#2e2440;--txt:#f3ecf7;--muted:#9b8db0;
+  --gold:#d9b45a;--gold2:#f0cf80;--viola:#b18cf0;--verde:#6fc99a;--rosa:#e08ab0;
+  --shadow:0 10px 34px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:
+  radial-gradient(1000px 560px at 15% -6%,rgba(177,140,240,.14),transparent 60%),
+  radial-gradient(820px 480px at 100% 0%,rgba(217,180,90,.10),transparent 55%),
+  var(--bg);
+  color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:60px}
+
+/* HEADER */
+header{text-align:center;padding:34px 18px 22px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+header .flag{font-size:2.1rem;letter-spacing:.3em}
+header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,7vw,3.2rem);color:var(--gold2);margin:.1em 0 .05em;line-height:1.05}
+header h1 em{font-style:italic;color:var(--viola)}
+header p{color:var(--muted);font-size:.92rem;font-family:'Playfair Display',serif;font-style:italic}
+
+/* API PANEL */
+#api{background:#120d1a;border-bottom:1px solid var(--line);padding:11px 16px}
+#api.ok{background:#0f1410;border-color:#2a4a32}
+.api-t{font-size:.76rem;color:var(--gold);font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:#5a4a6a;flex-shrink:0}
+.dot.on{background:var(--verde);box-shadow:0 0 8px var(--verde)}
+.api-row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:160px;background:#221a2e;border:1px solid var(--line);border-radius:8px;color:var(--txt);font-family:'Nunito';font-size:.8rem;padding:8px 11px;outline:none}
+.api-in::placeholder{color:#6a5a7a}
+.btn-c{background:var(--viola);border:none;border-radius:8px;color:#1a0f2a;font-family:'Nunito';font-weight:800;font-size:.78rem;padding:8px 15px;cursor:pointer;white-space:nowrap}
+.btn-x{background:#221a2e;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-size:.78rem;padding:8px 11px;cursor:pointer}
+#st{font-size:.7rem;margin-top:5px;min-height:14px}
+#st.ok{color:var(--verde)}#st.err{color:#e88}
+.hint{font-size:.68rem;color:#7a6a8a;margin-top:6px;line-height:1.5}
+.hint a{color:var(--gold)}
+#voices{display:none;margin-top:7px}
+.vrow{display:flex;gap:5px;flex-wrap:wrap}
+.vchip{background:#221a2e;border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.66rem;color:var(--muted);cursor:pointer}
+.vchip.on{border-color:var(--viola);color:var(--viola2,#c9a8ff)}
+
+/* WRAP */
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 40px}
+
+/* INDEX CHIPS */
+.idx{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:22px;justify-content:center}
+.ichip{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:6px 12px;border-radius:99px;font-weight:700;font-size:.76rem;cursor:pointer;transition:.16s}
+.ichip:hover{border-color:var(--gold);color:var(--gold2);transform:translateY(-1px)}
+
+/* POEM CARD */
+.poem{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px 18px 16px;margin-bottom:20px;box-shadow:var(--shadow);scroll-margin-top:14px;position:relative;overflow:hidden}
+.poem::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.poem .num{font-family:'Playfair Display',serif;font-size:.8rem;color:var(--gold);letter-spacing:.1em;font-weight:700}
+.poem h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.5rem;color:var(--gold2);margin:2px 0 2px;line-height:1.15}
+.poem .sub{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;font-size:.92rem;margin-bottom:14px}
+.lines{margin-top:6px}
+.ln{padding:7px 10px;border-radius:10px;cursor:pointer;transition:background .15s;display:flex;gap:9px;align-items:flex-start}
+.ln:hover{background:var(--card2)}
+.ln .spk{flex:0 0 auto;color:var(--viola);font-size:.95rem;opacity:.55;margin-top:1px;transition:.15s}
+.ln:hover .spk{opacity:1}
+.ln.playing{background:rgba(177,140,240,.14)}
+.ln.playing .spk{opacity:1;color:var(--gold2)}
+.ln .tx{flex:1}
+.ln .it{font-size:1.08rem;color:var(--txt);line-height:1.5;font-family:'Playfair Display',serif}
+.ln .it b{color:var(--gold2);font-weight:700}
+.ln .ru{display:block;color:var(--muted);font-size:.82rem;line-height:1.4;margin-top:1px}
+.poem .play-all{margin-top:12px;background:var(--card2);border:1px solid var(--line);color:var(--gold2);font-family:'Nunito';font-weight:700;font-size:.82rem;padding:9px 16px;border-radius:10px;cursor:pointer;transition:.16s;display:inline-flex;gap:7px;align-items:center}
+.poem .play-all:hover{border-color:var(--gold)}
+.poem .play-all.busy{color:var(--viola);border-color:var(--viola)}
+
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin:24px auto 0;max-width:760px;padding:18px 16px 0;border-top:1px solid var(--line)}
+footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--viola);color:#1a0f2a;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Poesie <em>per ricordare</em></h1>
+  <p>Десять стихов из слов нашего словаря</p>
+</header>
+
+<!-- API PANEL -->
+<div id="api">
+  <div class="api-t"><span class="dot" id="dot"></span><span id="api-title">🔊 Подключи Google TTS — и нажимай на строки, чтобы слушать</span></div>
+  <div class="api-row">
+    <input class="api-in" id="key" type="password" placeholder="Вставь свой Google API ключ">
+    <button class="btn-c" onclick="connectKey()">Подключить</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">Сбросить</button>
+  </div>
+  <div id="st"></div>
+  <div class="hint" id="hint">Тот же ключ, что в словаре и конспекте. Без ключа строки читаются голосом браузера.</div>
+  <div id="voices">
+    <div class="vrow" id="vrow"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="idx" id="idx"></div>
+  <div id="poems"></div>
+
+  <footer>
+    🎧 Нажми на строку — услышишь её. ▶ — весь стих подряд.<br>
+    Стихи из слов словаря · <a href="index.html">← Главная</a>
+  </footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ========= ДАННЫЕ: 10 стихов ========= */
+const POEMS = [
+{title:"La mia giornata", sub:"Мой день · возвратные глаголы", lines:[
+  {it:"Ogni mattina <b>mi sveglio</b> presto,", ru:"Каждое утро просыпаюсь рано,"},
+  {it:"<b>mi alzo</b>, <b>mi lavo</b>, e sono pronto.", ru:"встаю, моюсь — и я готов."},
+  {it:"<b>Mi vesto</b> in fretta, <b>mi pettino</b> i capelli,", ru:"Одеваюсь быстро, причёсываю волосы,"},
+  {it:"<b>faccio</b> colazione, saluto i fratelli.", ru:"завтракаю, здороваюсь с братьями."},
+  {it:"<b>Esco</b> di casa, <b>prendo</b> l'autobus,", ru:"Выхожу из дома, сажусь на автобус,"},
+  {it:"<b>salgo</b> e poi <b>scendo</b>, non aspetto più.", ru:"поднимаюсь и выхожу, больше не жду."},
+  {it:"La sera <b>torno</b>, <b>cucino</b> e <b>riposo</b>,", ru:"Вечером возвращаюсь, готовлю и отдыхаю,"},
+  {it:"<b>mi addormento</b> felice e silenzioso.", ru:"засыпаю счастливый и тихий."},
+]},
+{title:"Il caffè italiano", sub:"Еда и напитки", lines:[
+  {it:"Al mattino <b>bevo</b> un <b>caffè</b>,", ru:"Утром пью кофе,"},
+  {it:"<b>mangio</b> il <b>pane</b>, e penso a te.", ru:"ем хлеб и думаю о тебе."},
+  {it:"A pranzo <b>prendo</b> un bel <b>panino</b>,", ru:"На обед беру хороший бутерброд,"},
+  {it:"con la <b>frutta</b> e un buon <b>vino</b>.", ru:"с фруктами и хорошим вином."},
+  {it:"La sera <b>cucino</b> la <b>pasta</b>,", ru:"Вечером готовлю пасту,"},
+  {it:"una <b>pizza</b> calda — e mi basta!", ru:"горячую пиццу — и мне хватает!"},
+  {it:"Il <b>gelato</b> è il mio amore,", ru:"Мороженое — моя любовь,"},
+  {it:"dolce e fresco, che sapore!", ru:"сладкое и свежее, какой вкус!"},
+]},
+{title:"Andare e venire", sub:"Движение и город", lines:[
+  {it:"<b>Vado</b> al <b>mare</b>, <b>vado</b> in <b>città</b>,", ru:"Еду на море, еду в город,"},
+  {it:"<b>vieni</b> con me? Che bella età!", ru:"поедешь со мной? Какой прекрасный возраст!"},
+  {it:"<b>Cammino</b>, <b>corro</b>, <b>giro</b> a destra,", ru:"Иду пешком, бегу, поворачиваю направо,"},
+  {it:"<b>attraverso</b> la piazza, guardo la finestra.", ru:"перехожу площадь, смотрю в окно."},
+  {it:"Il <b>treno</b> parte, l'<b>autobus</b> va,", ru:"Поезд отправляется, автобус едет,"},
+  {it:"<b>arrivo</b> presto, eccomi qua!", ru:"приезжаю рано, вот и я!"},
+]},
+{title:"Essere e avere", sub:"Две главные опоры", lines:[
+  {it:"Io <b>sono</b> qui, tu <b>sei</b> con me,", ru:"Я здесь, ты со мной,"},
+  {it:"lui <b>è</b> felice, e noi <b>siamo</b> in tre.", ru:"он счастлив, и нас трое."},
+  {it:"<b>Ho</b> una casa, <b>hai</b> un amico,", ru:"У меня дом, у тебя друг,"},
+  {it:"<b>ha</b> un sogno grande e antico.", ru:"у него мечта большая и давняя."},
+  {it:"<b>Abbiamo</b> tempo, <b>avete</b> cuore,", ru:"У нас есть время, у вас есть сердце,"},
+  {it:"<b>hanno</b> la voglia e tanto amore.", ru:"у них желание и много любви."},
+]},
+{title:"I vestiti e i colori", sub:"Одежда и прилагательные", lines:[
+  {it:"Una <b>giacca rossa</b>, un <b>vestito blu</b>,", ru:"Красная куртка, синее платье,"},
+  {it:"<b>scarpe nere</b> e niente più.", ru:"чёрные туфли — и больше ничего."},
+  {it:"Il cappello è <b>elegante</b> e <b>nuovo</b>,", ru:"шляпа элегантная и новая,"},
+  {it:"la <b>borsa vecchia</b> non la trovo.", ru:"старую сумку не нахожу."},
+  {it:"Pantaloni <b>lunghi</b>, gonne <b>corte</b>,", ru:"длинные брюки, короткие юбки,"},
+  {it:"<b>colori belli</b>, di ogni sorte.", ru:"красивые цвета, всех видов."},
+]},
+{title:"Che tempo fa", sub:"Погода", lines:[
+  {it:"Oggi <b>fa caldo</b>, <b>c'è il sole</b>,", ru:"Сегодня жарко, светит солнце,"},
+  {it:"domani <b>piove</b>, se Dio vuole.", ru:"завтра дождь, бог даст."},
+  {it:"<b>Fa freddo</b>, <b>nevica</b>, che gelo!", ru:"Холодно, идёт снег, какой мороз!"},
+  {it:"Venti gradi e un bel cielo.", ru:"Двадцать градусов и красивое небо."},
+  {it:"<b>C'è il vento</b>, <b>fa brutto tempo</b>,", ru:"Дует ветер, плохая погода,"},
+  {it:"ma con te sto bene, e non <b>mi lamento</b>.", ru:"но с тобой мне хорошо, и я не жалуюсь."},
+]},
+{title:"Potere, volere, dovere", sub:"Модальные глаголы", lines:[
+  {it:"<b>Posso</b> uscire? <b>Voglio</b> andare!", ru:"Могу выйти? Хочу пойти!"},
+  {it:"<b>Devo</b> prima studiare e lavorare.", ru:"Сначала должен учиться и работать."},
+  {it:"<b>Puoi</b> venire, <b>vuoi</b> restare,", ru:"Можешь прийти, хочешь остаться,"},
+  {it:"<b>dobbiamo</b> solo cominciare.", ru:"нам надо только начать."},
+  {it:"<b>Vogliamo</b> vivere, <b>possiamo</b> sognare,", ru:"Хотим жить, можем мечтать,"},
+  {it:"ma <b>dovete</b> sempre provare!", ru:"но вы всегда должны пробовать!"},
+]},
+{title:"La famiglia", sub:"Семья и люди", lines:[
+  {it:"Mio <b>padre</b> legge, mia <b>madre</b> canta,", ru:"Отец читает, мать поёт,"},
+  {it:"mia <b>sorella</b> ride, la <b>gente</b> è tanta.", ru:"сестра смеётся, людей много."},
+  {it:"Mio <b>fratello</b> gioca con l'<b>amico</b>,", ru:"Брат играет с другом,"},
+  {it:"mia <b>moglie</b> cucina, te lo dico.", ru:"жена готовит, говорю тебе."},
+  {it:"Il <b>figlio</b> dorme, la nonna riposa,", ru:"Сын спит, бабушка отдыхает,"},
+  {it:"la famiglia unita è una bella cosa.", ru:"дружная семья — прекрасная вещь."},
+]},
+{title:"C'è e ci sono", sub:"Есть / находится", lines:[
+  {it:"<b>C'è</b> un <b>libro</b> sul <b>tavolo</b>,", ru:"На столе книга,"},
+  {it:"<b>ci sono</b> due penne e un <b>quaderno</b>.", ru:"две ручки и тетрадь."},
+  {it:"<b>C'è</b> una <b>mela</b>, <b>ci sono</b> le <b>uova</b>,", ru:"Есть яблоко, есть яйца,"},
+  {it:"nel frigo <b>c'è</b> sempre roba nuova.", ru:"в холодильнике всегда что-то новое."},
+  {it:"<b>C'è qualcuno</b>? Non <b>c'è nessuno</b>.", ru:"Есть кто-нибудь? Никого нет."},
+  {it:"<b>Ci sono</b> i <b>soldi</b> nel <b>portafoglio</b>.", ru:"В кошельке есть деньги."},
+]},
+{title:"Come mi sento", sub:"Чувства и характер", lines:[
+  {it:"<b>Mi sento</b> bene, sono <b>contento</b>,", ru:"Чувствую себя хорошо, я доволен,"},
+  {it:"non sono <b>triste</b>, non <b>mi lamento</b>.", ru:"не грустный, не жалуюсь."},
+  {it:"A volte <b>stanco</b>, a volte <b>solo</b>,", ru:"Иногда уставший, иногда одинокий,"},
+  {it:"ma poi sorrido e quasi volo.", ru:"но потом улыбаюсь и почти лечу."},
+  {it:"<b>Mi diverto</b>, rido, vivo piano,", ru:"Веселюсь, смеюсь, живу неспешно,"},
+  {it:"<b>felice</b> e <b>libero</b>, oggi e domani.", ru:"счастливый и свободный, сегодня и завтра."},
+]},
+];
+
+/* ========= TTS (Google + запасной голос браузера) ========= */
+let ttsKey = localStorage.getItem('it_tts_key') || '';
+let ttsVoice = localStorage.getItem('it_tts_voice') || 'it-IT-Wavenet-A';
+const VOICES = [
+  ['it-IT-Wavenet-A','Алиса (ж)'],['it-IT-Wavenet-B','Джулия (ж)'],
+  ['it-IT-Wavenet-C','Лука (м)'],['it-IT-Wavenet-D','Марко (м)'],
+];
+const cache = {};
+let curAudio=null, stopSeq=false;
+
+function stripTags(s){return s.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();}
+
+async function gtts(text){
+  if(cache[text]) return cache[text];
+  const body={input:{text},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.84}};
+  const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+    {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Errore');}
+  const d=await r.json();
+  cache[text]=d.audioContent;
+  return d.audioContent;
+}
+
+function browserSpeak(text){
+  return new Promise(res=>{
+    try{
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang='it-IT'; u.rate=0.92;
+      const v=speechSynthesis.getVoices().find(x=>/^it/i.test(x.lang));
+      if(v) u.voice=v;
+      u.onend=res; u.onerror=res;
+      speechSynthesis.speak(u);
+    }catch(e){res();}
+  });
+}
+
+async function speak(text, lineEl){
+  text = stripTags(text);
+  if(curAudio){curAudio.pause();curAudio=null;}
+  document.querySelectorAll('.ln.playing').forEach(l=>l.classList.remove('playing'));
+  if(lineEl) lineEl.classList.add('playing');
+  try{
+    if(ttsKey){
+      const b64=await gtts(text);
+      await new Promise(res=>{
+        const a=new Audio('data:audio/mp3;base64,'+b64);
+        curAudio=a; a.onended=res; a.onerror=res; a.play();
+      });
+    }else{
+      await browserSpeak(text);
+    }
+  }catch(e){ setStatus('❌ '+e.message,'err'); }
+  if(lineEl) lineEl.classList.remove('playing');
+}
+
+async function playPoem(idx, btn){
+  if(btn.classList.contains('busy')){ stopSeq=true; return; }
+  stopSeq=false;
+  btn.classList.add('busy'); btn.textContent='⏸ Стоп';
+  const lines=[...document.querySelectorAll('#poem'+idx+' .ln')];
+  for(const ln of lines){
+    if(stopSeq) break;
+    await speak(ln.dataset.it, ln);
+    await new Promise(r=>setTimeout(r,180));
+  }
+  btn.classList.remove('busy'); btn.textContent='▶ Весь стих';
+  document.querySelectorAll('.ln.playing').forEach(l=>l.classList.remove('playing'));
+}
+
+/* ========= РЕНДЕР ========= */
+function render(){
+  const idx=document.getElementById('idx');
+  const wrap=document.getElementById('poems');
+  idx.innerHTML = POEMS.map((p,i)=>`<button class="ichip" onclick="document.getElementById('poem${i}').scrollIntoView({behavior:'smooth'})">${i+1}. ${p.title}</button>`).join('');
+  wrap.innerHTML = POEMS.map((p,i)=>{
+    const lines=p.lines.map(l=>
+      `<div class="ln" data-it="${stripTags(l.it).replace(/"/g,'&quot;')}" onclick="speak(this.dataset.it,this)">
+         <span class="spk">🔊</span>
+         <span class="tx"><span class="it">${l.it}</span><span class="ru">${l.ru}</span></span>
+       </div>`).join('');
+    return `<div class="poem" id="poem${i}">
+      <div class="num">${String(i+1).padStart(2,'0')} · POESIA</div>
+      <h2>${p.title}</h2>
+      <div class="sub">${p.sub}</div>
+      <div class="lines">${lines}</div>
+      <button class="play-all" onclick="playPoem(${i},this)">▶ Весь стих</button>
+    </div>`;
+  }).join('');
+}
+
+/* ========= API КЛЮЧ ========= */
+function renderVoices(){
+  document.getElementById('vrow').innerHTML = VOICES.map(([v,n])=>
+    `<button class="vchip ${v===ttsVoice?'on':''}" onclick="setVoice('${v}')">${n}</button>`).join('');
+}
+function setVoice(v){ ttsVoice=v; localStorage.setItem('it_tts_voice',v); renderVoices(); }
+
+async function connectKey(){
+  const k=document.getElementById('key').value.trim();
+  if(!k){setStatus('Введи ключ','err');return;}
+  setStatus('⏳ Проверяю...','');
+  try{
+    const tmp=ttsKey; ttsKey=k; delete cache['ciao'];
+    await gtts('ciao');
+    localStorage.setItem('it_tts_key',k);
+    markConnected();
+    setStatus('✅ Ключ принят и сохранён!','ok');
+    new Audio('data:audio/mp3;base64,'+cache['ciao']).play();
+  }catch(e){ ttsKey=''; setStatus('❌ '+e.message,'err'); }
+}
+function markConnected(){
+  document.getElementById('dot').classList.add('on');
+  document.getElementById('api').classList.add('ok');
+  document.getElementById('api-title').textContent='✅ Звук подключён — нажимай на строки!';
+  document.getElementById('clr').style.display='block';
+  document.getElementById('voices').style.display='block';
+  document.getElementById('hint').style.display='none';
+  document.getElementById('key').style.display='none';
+  document.querySelector('.btn-c').style.display='none';
+  renderVoices();
+}
+function clearKey(){
+  ttsKey=''; localStorage.removeItem('it_tts_key');
+  document.getElementById('dot').classList.remove('on');
+  document.getElementById('api').classList.remove('ok');
+  document.getElementById('api-title').textContent='🔊 Подключи Google TTS — и нажимай на строки, чтобы слушать';
+  document.getElementById('clr').style.display='none';
+  document.getElementById('voices').style.display='none';
+  document.getElementById('hint').style.display='block';
+  document.getElementById('key').style.display='block';
+  document.getElementById('key').value='';
+  document.querySelector('.btn-c').style.display='block';
+  setStatus('','');
+}
+function setStatus(m,t){const el=document.getElementById('st');el.textContent=m;el.className=t;}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),2200);}
+
+/* INIT */
+render();
+if('speechSynthesis' in window){ speechSynthesis.getVoices(); }
+if(ttsKey){ markConnected(); }
+</script>
+</body>
+</html>
