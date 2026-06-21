@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎤 Propaganda — Fabri Fibra · разбор</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d0b10;--bg2:#141019;--card:#171320;--card2:#1e1830;--line:#2a2238;--txt:#f0ebf3;--muted:#8d83a0;--gold:#d9b45a;--gold2:#f0cf80;--viola:#b18cf0;--green:#5ac4a0;--red:#e07070;--shadow:0 10px 32px rgba(0,0,0,.5)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh}
+header{text-align:center;padding:34px 18px 22px;background:linear-gradient(135deg,#0d0b10,#2a1145 55%,#3a1a2a);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'🎤';position:absolute;font-size:8rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.7rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.9rem,6vw,3rem);color:var(--gold2);margin:.08em 0 .02em;position:relative;line-height:1.05}
+header .art{color:var(--viola);font-style:italic;font-family:'Playfair Display',serif;font-size:1rem;position:relative}
+header p{color:var(--muted);font-size:.86rem;margin-top:6px;position:relative}
+#api{background:#120d1a;border-bottom:1px solid var(--line);padding:9px 14px;font-size:.74rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1e1830;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1e1830;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.64rem;color:#776a8a;margin-top:5px}.hint a{color:var(--gold)}
+.wrap{max-width:680px;margin:0 auto;padding:18px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;position:sticky;top:0;z-index:30;background:rgba(13,11,16,.92);backdrop-filter:blur(8px);padding:10px 0}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.about{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.about::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.about h3{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin-bottom:7px}
+.about p{font-size:.92rem;color:#d5cce0;line-height:1.6;margin-bottom:7px}
+.about .src{font-size:.78rem;color:var(--muted);margin-top:8px}
+.about a{display:inline-block;margin-top:9px;background:var(--card2);border:1px solid var(--line);color:var(--gold2);text-decoration:none;font-weight:700;font-size:.84rem;padding:9px 15px;border-radius:9px}
+.about a:hover{border-color:var(--gold)}
+/* строки разбора */
+.ln{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.ln .it{font-family:'Playfair Display',serif;font-size:1.18rem;color:var(--gold2);font-weight:700;line-height:1.4;cursor:pointer;display:flex;gap:9px;align-items:flex-start}
+.ln .it .spk{font-size:.95rem;color:var(--viola);opacity:.6;flex:0 0 auto;margin-top:2px}
+.ln .it:hover .spk{opacity:1}
+.ln .ru{color:var(--muted);font-size:.92rem;margin:5px 0 8px;font-style:italic;font-family:'Playfair Display',serif}
+.ln .note{font-size:.86rem;color:#cabfdc;line-height:1.6;border-left:3px solid var(--viola);padding:3px 0 3px 11px;background:rgba(177,140,240,.07);border-radius:0 8px 8px 0}
+.ln .note b{color:var(--gold2)}
+/* словарь */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+@media(max-width:520px){.vgrid{grid-template-columns:1fr}}
+.vit{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:11px 13px;cursor:pointer;transition:.15s}
+.vit:hover{border-color:var(--gold);transform:translateY(-1px)}
+.vit .w{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold2);font-size:1.05rem}
+.vit .ph{font-size:.72rem;color:var(--viola);margin-left:5px}
+.vit .r{color:var(--muted);font-size:.84rem;margin-top:2px}
+/* тренажёр */
+.tr{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.tr::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.tr .ru{font-size:1.6rem;font-weight:800;margin-bottom:6px}
+.tr .sub{color:var(--muted);font-size:.82rem;font-style:italic;font-family:'Playfair Display',serif}
+.tr .it{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--green);margin-top:12px;display:none}
+.tr .it.show{display:block;animation:pop .25s}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1}}
+.tr .it .spk{font-size:1rem;margin-left:8px;cursor:pointer;opacity:.6;color:var(--viola)}
+.trbtns{display:flex;gap:10px;margin-top:16px}
+.big{flex:1;border:none;border-radius:12px;font-family:'Nunito';font-weight:800;font-size:1rem;padding:14px;cursor:pointer;transition:.15s}
+.big.reveal{background:var(--gold);color:#1a0f2a}.big.reveal:hover{background:var(--gold2)}
+.big.no{background:rgba(224,112,112,.16);color:var(--red);border:1px solid var(--red)}
+.big.ok{background:rgba(90,196,160,.16);color:var(--green);border:1px solid var(--green)}
+.trprog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
+.trprog .n{font-weight:800;font-size:.8rem;color:var(--muted)}.trprog .n b{color:var(--green)}
+.subc{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.subc button{background:none;border:none;color:var(--muted);cursor:pointer;font-family:'Nunito';text-decoration:underline;font-size:.78rem}
+footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#1a0f2a;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹 🎤</div>
+  <h1>Propaganda</h1>
+  <div class="art">Fabri Fibra · Colapesce · Dimartino</div>
+  <p>Разбор песни · словарь · тренажёр</p>
+</header>
+
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div>
+  <div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('analisi',this)">📖 Разбор</button>
+    <button class="nb" onclick="tab('dizio',this)">📚 Словарь</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+  </div>
+
+  <!-- РАЗБОР -->
+  <div class="tab on" id="analisi">
+    <div class="about">
+      <h3>🎯 О чём песня</h3>
+      <p>Сатира на политику. Герой — «обычный человек» (l'uomo qualunque), задавленный проблемами и работой. Перед выборами в нём вспыхивает надежда на политика, который всё решит, но «пропаганда» остаётся пустыми словами.</p>
+      <p>Сам Фибра говорил, что хотел показать, как политическая пропаганда обманывает людей, и что «у каждого из нас своя личная пропаганда». Альбом <i>Caos</i> (2022).</p>
+      <p class="src">Ниже — разбор отдельных строк (не весь текст). Полный текст и аудио — по ссылке:</p>
+      <a href="https://genius.com/Fabri-fibra-propaganda-lyrics" target="_blank" rel="noopener">📄 Полный текст на Genius →</a>
+    </div>
+    <div id="lines"></div>
+  </div>
+
+  <!-- СЛОВАРЬ -->
+  <div class="tab" id="dizio">
+    <div class="vgrid" id="vgrid"></div>
+  </div>
+
+  <!-- ТРЕНАЖЁР -->
+  <div class="tab" id="train">
+    <div class="trprog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="tr" id="card"></div>
+    <div class="subc"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <footer>🎧 Нажми строку/слово — услышишь. Учебный разбор, без копии текста. <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== строки разбора ===== */
+const LINES=[
+ {it:"La mia vita è piena di problemi", ru:"Моя жизнь полна проблем", note:"<b>piena di</b> — «полна чего-то» (di + сущ.). Прилаг. pieno согласуется: vita ж.р. → pien<b>a</b>."},
+ {it:"Mi muovo da solo, senza mezzi", ru:"Передвигаюсь сам, без транспорта", note:"<b>muoversi</b> — возвратный (mi muovo, ti muovi). <b>da solo</b> = один/сам. <b>i mezzi</b> = транспорт, средства передвижения."},
+ {it:"Gli italiani rubano il parcheggio", ru:"Итальянцы воруют парковку", note:"Ироничный ответ на клише. <b>rubare</b> = воровать. <b>il parcheggio</b> = парковка."},
+ {it:"Il mio capo mi tratta male", ru:"Начальник плохо со мной обращается", note:"<b>il capo</b> = начальник. <b>trattare</b> = обращаться (с кем-то). В песне дальше — come se non mi avesse visto (как будто не видел) — оборот come se + congiuntivo, «как будто»."},
+ {it:"Così perdo pure l'autostima", ru:"Так я ещё и теряю самооценку", note:"<b>perdere</b> = терять. <b>pure</b> = тоже, ещё и. <b>l'autostima</b> = самооценка."},
+ {it:"Troppe tasse, devo licenziarti", ru:"Слишком много налогов, я должен тебя уволить", note:"<b>le tasse</b> = налоги. <b>licenziare</b> = увольнять. <b>devo</b> + инфинитив (модальный dovere)."},
+ {it:"Servirebbe qualcuno che salvi il Paese", ru:"Нужен был бы кто-то, кто спас бы страну", note:"<b>servirebbe</b> = condizionale «было бы нужно». <b>il Paese</b> (с большой буквы) = страна, государство."},
+ {it:"Magiche le elezioni, a fare promesse siamo i campioni", ru:"Волшебные выборы, в обещаниях мы чемпионы", note:"<b>le elezioni</b> = выборы. <b>la promessa</b> → le promesse = обещания. <b>il campione</b> = чемпион."},
+ {it:"Non c'è più niente che mi manca", ru:"Мне больше ничего не не хватает", note:"<b>mancare</b> работает «наоборот»: mi manca = «мне не хватает». <b>non… più</b> = больше не."},
+ {it:"Sono passati degli anni e tutto è ancora uguale a prima", ru:"Прошли годы, а всё по-прежнему как раньше", note:"<b>sono passati</b> — passato prossimo с essere (passare→passato, согласование: anni мн. → passat<b>i</b>). <b>ancora</b> = всё ещё. <b>uguale a</b> = такой же, как."},
+ {it:"Sono sempre senza lavoro e con meno autostima", ru:"Я всё так же без работы и с меньшей самооценкой", note:"<b>senza</b> = без. <b>meno</b> = меньше. Тема: ничего не меняется."},
+ {it:"Accendo la tele, un politico parla", ru:"Включаю телевизор, говорит политик", note:"<b>accendere</b> = включать (↔ spegnere). <b>la tele</b> = телек (разг. от televisione). <b>il politico</b> = политик."},
+ {it:"Sicuro alle prossime lo voterò", ru:"Уж на следующих точно за него проголосую", note:"<b>voterò</b> — futuro (будущее) от votare. <b>lo</b> = за него. <b>alle prossime</b> (elezioni) = на следующих."},
+];
+
+/* ===== словарь песни ===== */
+const VOCAB=[
+ {w:"la vita",ph:"[ˈviːta]",r:"жизнь",tts:"la vita"},
+ {w:"il problema",ph:"[proˈblɛːma]",r:"проблема (мн. i problemi)",tts:"il problema"},
+ {w:"muoversi",ph:"[ˈmwɔversi]",r:"двигаться, передвигаться",tts:"muoversi"},
+ {w:"da solo",ph:"[da ˈsoːlo]",r:"один, сам",tts:"da solo"},
+ {w:"i mezzi",ph:"[ˈmɛddzi]",r:"транспорт, средства",tts:"i mezzi"},
+ {w:"rubare",ph:"[ruˈbaːre]",r:"воровать, красть",tts:"rubare"},
+ {w:"il parcheggio",ph:"[parˈkeddʒo]",r:"парковка",tts:"il parcheggio"},
+ {w:"il capo",ph:"[ˈkaːpo]",r:"начальник, шеф",tts:"il capo"},
+ {w:"trattare",ph:"[tratˈtaːre]",r:"обращаться (с кем-то)",tts:"trattare"},
+ {w:"perdere",ph:"[ˈpɛrdere]",r:"терять",tts:"perdere"},
+ {w:"pure",ph:"[ˈpuːre]",r:"тоже, ещё и",tts:"pure"},
+ {w:"l'autostima",ph:"[autoˈstiːma]",r:"самооценка",tts:"l'autostima"},
+ {w:"le tasse",ph:"[ˈtasse]",r:"налоги",tts:"le tasse"},
+ {w:"licenziare",ph:"[litʃenˈtsjaːre]",r:"увольнять",tts:"licenziare"},
+ {w:"salvare",ph:"[salˈvaːre]",r:"спасать",tts:"salvare"},
+ {w:"il Paese",ph:"[paˈeːze]",r:"страна, государство",tts:"il Paese"},
+ {w:"le elezioni",ph:"[eletˈtsjoːni]",r:"выборы",tts:"le elezioni"},
+ {w:"la promessa",ph:"[proˈmessa]",r:"обещание",tts:"la promessa"},
+ {w:"il campione",ph:"[kamˈpjoːne]",r:"чемпион",tts:"il campione"},
+ {w:"mancare",ph:"[manˈkaːre]",r:"недоставать, не хватать",tts:"mancare"},
+ {w:"uguale",ph:"[uˈɡwaːle]",r:"одинаковый, такой же",tts:"uguale"},
+ {w:"accendere",ph:"[atˈtʃɛndere]",r:"включать",tts:"accendere"},
+ {w:"il politico",ph:"[poˈliːtiko]",r:"политик",tts:"il politico"},
+ {w:"la gente",ph:"[ˈdʒɛnte]",r:"люди (ед.ч.!)",tts:"la gente"},
+ {w:"votare",ph:"[voˈtaːre]",r:"голосовать",tts:"votare"},
+ {w:"la felpa",ph:"[ˈfelpa]",r:"толстовка",tts:"la felpa"},
+ {w:"la speranza",ph:"[speˈrantsa]",r:"надежда",tts:"la speranza"},
+ {w:"il ritmo",ph:"[ˈritmo]",r:"ритм",tts:"il ritmo"},
+];
+
+/* ===== TTS ===== */
+let ttsKey=localStorage.getItem('it_tts_key')||'';let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Wavenet-A';const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.9}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.9;const v=speechSynthesis.getVoices().find(x=>/^it/i.test(x.lang));if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return t.replace(/'/g,"\\'");}
+
+/* ===== РЕНДЕР разбор + словарь ===== */
+function renderLines(){
+  document.getElementById('lines').innerHTML=LINES.map(l=>`
+    <div class="ln">
+      <div class="it" onclick="speak('${sp(l.it)}')"><span class="spk">🔊</span><span>${esc(l.it)}</span></div>
+      <div class="ru">${esc(l.ru)}</div>
+      <div class="note">${l.note}</div>
+    </div>`).join('');
+}
+function renderVocab(){
+  document.getElementById('vgrid').innerHTML=VOCAB.map(v=>`
+    <div class="vit" onclick="speak('${sp(v.tts)}')">
+      <div class="w">${esc(v.w)}<span class="ph">${esc(v.ph)}</span></div>
+      <div class="r">${esc(v.r)}</div>
+    </div>`).join('');
+}
+function tab(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  if(id==='train'&&!curT)nextT();
+}
+
+/* ===== ТРЕНАЖЁР (по словарю песни) ===== */
+let curT=null,okC=0,streak=0,total=0;
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function pickT(){let c=VOCAB[Math.floor(Math.random()*VOCAB.length)];if(c===curT&&VOCAB.length>1)return pickT();return c;}
+function nextT(){curT=pickT();const v=curT;
+  document.getElementById('card').innerHTML=`
+    <div class="ru">${esc(v.r)}</div>
+    <div class="sub">вспомни итальянское слово</div>
+    <div class="it" id="ans">${esc(v.w)}<span class="spk" onclick="speak('${sp(v.tts)}')">🔊</span></div>
+    <div class="trbtns" id="tb"><button class="big reveal" onclick="revealT()">Показать</button></div>`;
+}
+function revealT(){document.getElementById('ans').classList.add('show');speak(curT.tts);
+  document.getElementById('tb').innerHTML=`<button class="big no" onclick="gradeT(false)">✗ Не вспомнил</button><button class="big ok" onclick="gradeT(true)">✓ Вспомнил</button>`;}
+function gradeT(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;document.getElementById('fill').style.width=(total?okC/total*100:0)+'%';
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';nextT();toast('Сброшено');}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1600);}
+
+/* INIT */
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderLines();renderVocab();
+</script>
+</body>
+</html>
