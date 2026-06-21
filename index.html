@@ -3,360 +3,1889 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇮🇹 Italiano — Alex</title>
+<title>Italiano — Полный конспект</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0d1117;--card:#161b22;--border:#21262d;
-  --verde:#2d7a4f;--verde-l:#0a1a10;
-  --oro:#c9a84c;--oro-l:#1a1500;
-  --blu:#2855a0;--blu-l:#080e1a;
-  --viola:#6040a0;--viola-l:#0e0818;
-  --rosso:#c0392b;--rosso-l:#1a0808;
-  --testo:#f0ebe3;--muted:#667;
+  --bg:#faf8f4;--card:#fff;--border:#e8e2d9;
+  --verde:#2d7a4f;--verde-l:#e8f5ee;
+  --rosso:#c0392b;--rosso-l:#fdecea;
+  --oro:#b8860b;--oro-l:#fdf5e0;
+  --blu:#2855a0;--blu-l:#e8eef8;
+  --viola:#6040a0;--viola-l:#f0eaf8;
+  --arancio:#c06010;--arancio-l:#fef0e0;
+  --testo:#2a2218;--muted:#887868;
+  --shadow:0 2px 12px rgba(0,0,0,.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:70px}
 
-/* HEADER */
-header{
-  background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);
-  padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;
-  border-bottom:1px solid var(--border);
-}
-header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
-header::after{content:'🇮🇹';position:absolute;font-size:8rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
-.flag{font-size:2.5rem;margin-bottom:10px;position:relative}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:700;position:relative;line-height:1.2}
-header h1 em{font-style:italic;color:var(--oro)}
-header p{margin-top:8px;font-size:.8rem;color:var(--muted);position:relative;letter-spacing:.1em;text-transform:uppercase}
-.progress-bar{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
-.pb-item{background:#ffffff0a;border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:.65rem;color:var(--muted);letter-spacing:.06em}
-.pb-item.active{border-color:var(--verde);color:#5ac4a0;background:#2d7a4f18}
+header{background:linear-gradient(135deg,#1a3a28 0%,#2d7a4f 55%,#1a2855 100%);color:white;padding:22px 16px 16px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(255,255,255,.03) 24px,rgba(255,255,255,.03) 25px)}
+header .flag{font-size:1.6rem;margin-bottom:3px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4.5vw,2.1rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:#f0d060}
+header p{margin-top:3px;font-size:.7rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
 
-/* MAIN */
-.main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
-.section-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--oro);margin-bottom:12px;margin-top:28px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.1em}
-.section-title::before{content:'';width:3px;height:16px;background:var(--oro);border-radius:99px}
+/* API PANEL */
+#api-panel{background:#0d1a10;border-bottom:2px solid #1a3a22;padding:10px 14px}
+#api-panel.connected{background:#0a1a0a;border-color:#2a5a2a}
+.api-title{font-size:.74rem;color:#c9a84c;font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.api-dot{width:7px;height:7px;border-radius:50%;background:#555;flex-shrink:0}
+.api-dot.active{background:#5ac4a0;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.api-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.api-input{flex:1;min-width:150px;background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.76rem;padding:7px 10px;outline:none}
+.api-input::placeholder{color:#556;font-size:.7rem}
+.api-btn-conn{background:#2d7a4f;border:none;border-radius:7px;color:white;font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:700;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.api-btn-clear{background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#889;font-family:'Nunito',sans-serif;font-size:.74rem;padding:7px 10px;cursor:pointer}
+#key-status{font-size:.68rem;margin-top:4px;min-height:14px}
+#key-status.ok{color:#5ac4a0}
+#key-status.err{color:#e07070}
+.api-hint{font-size:.66rem;color:#667;margin-top:6px;line-height:1.5}
+.api-hint a{color:#c9a84c;text-decoration:none}
+#voice-section{display:none;margin-top:6px}
+.voice-row{display:flex;gap:5px;flex-wrap:wrap}
+.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:3px 9px;font-size:.64rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.active{border-color:#2d7a4f;color:#5ac4a0}
 
-/* CARDS GRID */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:8px}
+/* TABS */
+.tabs{display:flex;flex-wrap:wrap;gap:2px 4px;justify-content:center;background:white;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:4px 6px}
+.tab{padding:9px 11px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.03em;border-radius:7px 7px 0 0}
+.tab.active{color:var(--verde);border-bottom-color:var(--verde)}
+.nbadge{background:var(--rosso);color:white;border-radius:99px;padding:1px 5px;font-size:.5rem;margin-left:2px;vertical-align:top}
 
-/* APP CARD */
-.app-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--testo);transition:all .2s;display:flex;flex-direction:column;position:relative}
-.app-card:hover{border-color:#c9a84c55;transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--oro))}
-.card-top{padding:16px 16px 12px;flex:1}
-.card-icon{font-size:2rem;margin-bottom:8px;display:block}
-.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;line-height:1.3}
-.card-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
-.card-bottom{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#ffffff03}
-.card-tags{display:flex;gap:4px;flex-wrap:wrap}
-.tag{font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 7px;border:1px solid}
-.tag-tts{color:#5ac4a0;border-color:#2d7a4f44;background:#2d7a4f11}
-.tag-test{color:#7090e0;border-color:#2855a044;background:#2855a011}
-.tag-train{color:var(--oro);border-color:#c9a84c44;background:#c9a84c11}
-.tag-song{color:#c090e0;border-color:#6040a044;background:#6040a011}
-.card-arrow{font-size:.9rem;color:var(--muted);transition:transform .2s}
-.app-card:hover .card-arrow{transform:translateX(4px);color:var(--oro)}
+/* SECTIONS */
+.section{display:none;padding:12px 13px 20px;max-width:720px;margin:0 auto}
+.section.active{display:block}
+h2{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:11px;color:var(--testo)}
+h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:4px}
-.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
-.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--oro);line-height:1}
-.stat-lbl{font-size:.62rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+.lesson-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 11px;font-size:.65rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
+.bv{background:var(--verde);color:white}
+.bn{background:var(--arancio);color:white}
+.bb{background:var(--blu);color:white}
 
-/* FOOTER */
-footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:.68rem;color:var(--muted)}
-footer a{color:var(--oro);text-decoration:none}
+.card{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:14px;margin-bottom:9px;box-shadow:var(--shadow)}
+.cav{border-top:3px solid var(--verde)}
+.cab{border-top:3px solid var(--blu)}
+.cao{border-top:3px solid var(--oro)}
+.car{border-top:3px solid var(--rosso)}
+.cav2{border-top:3px solid var(--viola)}
+.caa{border-top:3px solid var(--arancio)}
+
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:9px 12px;margin-bottom:9px;font-size:.78rem;line-height:1.6}
+.tip strong{color:var(--oro)}
+.tip-r{background:var(--rosso-l);border-left-color:var(--rosso)}
+.tip-r strong{color:var(--rosso)}
+.tip-v{background:var(--verde-l);border-left-color:var(--verde)}
+.tip-v strong{color:var(--verde)}
+.tip-b{background:var(--blu-l);border-left-color:var(--blu)}
+.tip-b strong{color:var(--blu)}
+
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.vocab-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;transition:all .15s}
+.vocab-item:hover{border-color:var(--verde);background:var(--verde-l)}
+.vocab-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
+.vocab-ru{font-size:.7rem;color:var(--muted);display:block}
+.vocab-time{font-size:.58rem;color:var(--oro);font-weight:700;display:block;margin-top:1px}
+
+/* TTS inline button */
+.tts{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;font-size:.6rem;vertical-align:middle;margin-left:3px;transition:all .15s;padding:0}
+.tts:hover{border-color:var(--verde);background:var(--verde-l)}
+.tts.tp{border-color:var(--verde);background:var(--verde-l);animation:tpulse .7s infinite}
+.tts.tl{border-color:var(--oro);background:var(--oro-l)}
+.tts.toff{opacity:.25;cursor:default}
+@keyframes tpulse{0%,100%{box-shadow:0 0 0 0 rgba(45,122,79,.4)}50%{box-shadow:0 0 0 3px rgba(45,122,79,0)}}
+
+/* CONJUGATION CARDS */
+.conj-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.cj{border-radius:11px;padding:12px 9px;text-align:center;border:1px solid;position:relative}
+.cj-essere{background:var(--verde-l);border-color:#a0cca8}
+.cj-avere{background:var(--blu-l);border-color:#a0b8d8}
+.cj-parlare{background:#f0f4ff;border-color:#b0c0e8}
+.cj-prendere{background:#fff0f8;border-color:#e0b0d0}
+.cj-dormire{background:#f0fff8;border-color:#a0d8b8}
+.cj-pro{font-size:.6rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.cj-it{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700}
+.cj-it.ec{color:var(--verde)}
+.cj-it.ac{color:var(--blu)}
+.cj-it.pc{color:#3040a0}
+.cj-it.dc{color:#20806a}
+.cj-ru{font-size:.6rem;color:var(--muted);margin-top:1px}
+.cj-play{position:absolute;top:6px;right:6px;background:white;border:1px solid var(--border);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.65rem;transition:all .15s}
+.cj-play:hover{border-color:var(--verde);color:var(--verde)}
+.cj-play.playing{border-color:var(--verde);animation:tpulse .7s infinite}
+.cj-play.loading{opacity:.6}
+.cj-play.off{opacity:.2;cursor:default}
+
+/* PRONOMI TABLE */
+.pronomi-table{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:8px}
+.pronomi-table th{background:var(--verde);color:white;padding:7px 9px;text-align:left;font-weight:800;font-size:.66rem}
+.pronomi-table th:first-child{border-radius:7px 0 0 0}
+.pronomi-table th:last-child{border-radius:0 7px 0 0}
+.pronomi-table td{padding:8px 9px;border-bottom:1px solid var(--border);vertical-align:middle}
+.pronomi-table tr:nth-child(even) td{background:#faf7f2}
+.pronomi-table tr:last-child td{border-bottom:none}
+.p-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--verde);font-weight:700}
+.p-ru{font-size:.72rem;color:var(--muted)}
+.p-ex{font-size:.68rem;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* ART TABLE */
+.art-table{width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:7px}
+.art-table th{background:var(--verde);color:white;padding:6px 8px;text-align:left;font-weight:800;font-size:.64rem}
+.art-table th:first-child{border-radius:7px 0 0 0}
+.art-table th:last-child{border-radius:0 7px 0 0}
+.art-table td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.art-table tr:nth-child(even) td{background:#faf7f2}
+.art-table tr:last-child td{border-bottom:none}
+.art-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700}
+.art-ex{font-size:.62rem;color:var(--muted);font-style:italic;margin-top:1px}
+
+/* SCHEMA */
+.schema-box{background:linear-gradient(135deg,var(--oro-l),#fff);border:2px solid var(--oro);border-radius:12px;padding:12px;margin-bottom:9px}
+.schema-title{font-size:.63rem;color:var(--oro);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
+.schema-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.schema-cell{background:white;border-radius:7px;padding:8px;text-align:center;border:1px solid var(--border)}
+.schema-label{font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.schema-end{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--verde);font-weight:700}
+
+/* CONTRARI */
+.ci{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:9px;margin-bottom:5px;cursor:pointer;transition:all .15s}
+.ci:hover,.ci.clicked{background:var(--verde-l);border-color:var(--verde)}
+.cw{flex:1;font-family:'Playfair Display',serif;font-size:.9rem;color:var(--verde);font-weight:700}
+.cr-s{font-size:.6rem;color:var(--muted);display:block}
+.ca{color:var(--rosso);font-size:.9rem}
+.co{flex:1;font-family:'Playfair Display',serif;font-size:.9rem;color:var(--rosso);font-weight:700;text-align:right}
+
+/* DIALOGUES */
+.dialogo{background:linear-gradient(135deg,var(--verde-l),var(--viola-l));border:1px solid #d0c8e0;border-radius:12px;padding:12px;margin-bottom:9px}
+.dl{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.dl:last-child{margin-bottom:0}
+.sb{background:white;border-radius:9px;padding:7px 11px;font-size:.8rem;box-shadow:0 1px 4px rgba(0,0,0,.06);flex:1}
+.sb .it{font-family:'Playfair Display',serif;color:var(--verde);font-style:italic}
+.sb .ru{font-size:.68rem;color:var(--muted);margin-top:2px}
+.spk{font-size:.58rem;color:var(--muted);font-weight:800;text-transform:uppercase;min-width:24px;padding-top:9px}
+
+/* AVERE ESPRESSIONI */
+.esp{display:flex;gap:8px;align-items:flex-start;padding:9px 11px;background:var(--blu-l);border:1px solid #c0d0e8;border-radius:9px;margin-bottom:5px}
+.esp-it{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--blu);font-weight:700;min-width:150px;flex-shrink:0}
+.esp-ru{font-size:.74rem;color:var(--testo);line-height:1.5}
+.esp-ex{font-size:.64rem;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* DOMANDE */
+.dom{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--viola-l);border:1px solid #d0c0e8;border-radius:9px;margin-bottom:5px}
+.dom-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--viola);font-weight:700;min-width:85px}
+.dom-ru{font-size:.76rem;color:var(--testo);font-weight:600}
+.dom-ex{font-size:.64rem;color:var(--muted);font-style:italic;margin-top:2px}
+
+/* QUESTO */
+.questo-g{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.qi{background:var(--arancio-l);border:1px solid #e0c090;border-radius:9px;padding:9px;text-align:center}
+.qi-it{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--arancio);font-weight:700}
+.qi-label{font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.qi-ru{font-size:.68rem;color:var(--testo);margin-top:2px}
+
+/* COMPARE */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cmp-col{background:var(--bg);border-radius:11px;padding:11px;border:2px solid var(--border)}
+.cmp-col.cv{border-color:#b0d8c0}
+.cmp-col.cb{border-color:#b0c8e8}
+.cmp-title{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:7px;text-align:center}
+.cmp-title.vt{color:var(--verde)}
+.cmp-title.bt{color:var(--blu)}
+.cmp-item{font-size:.76rem;padding:3px 0;border-bottom:1px solid var(--border);line-height:1.4}
+.cmp-item:last-child{border-bottom:none}
+.cmp-item em{font-family:'Playfair Display',serif;font-style:italic}
+
+/* QUANTO */
+.q4{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px}
+.q4i{background:white;border-radius:7px;padding:7px;text-align:center;border:1px solid var(--border)}
+.q4-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700}
+.q4-label{font-size:.55rem;color:var(--muted);text-transform:uppercase}
+.qb{background:var(--verde-l);border:1px solid #b0d8c0;border-radius:10px;padding:11px;margin-bottom:7px}
+.qb-rule{font-size:.78rem;font-weight:700;color:var(--verde);margin-bottom:5px}
+.qb-ex{font-family:'Playfair Display',serif;font-size:.9rem;font-style:italic;display:block;margin-bottom:2px}
+.qb-ru{font-size:.68rem;color:var(--muted)}
+
+/* NUMERI */
+.numeri-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+.num-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 5px;text-align:center;cursor:pointer;transition:all .15s}
+.num-item:hover{border-color:var(--verde);background:var(--verde-l)}
+.num-n{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--verde);font-weight:700;display:block}
+.num-it{font-size:.72rem;color:var(--testo);font-weight:600;display:block}
+.num-ru{font-size:.6rem;color:var(--muted);display:block}
+
+/* VERBI TABLE */
+.verbi-section{margin-bottom:14px}
+.verbi-section h3{margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.verbi-badge{font-size:.62rem;font-weight:800;border-radius:6px;padding:2px 7px;color:white}
+.vb-are{background:#2d7a4f}
+.vb-ere{background:#2855a0}
+.vb-ire{background:#6040a0}
+.verb-conj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
+.vc{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px;text-align:center;cursor:pointer;transition:all .15s}
+.vc:hover{border-color:var(--verde);background:var(--verde-l)}
+.vc-pro{font-size:.58rem;color:var(--muted);text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px}
+.vc-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
+
+/* QUIZ */
+.quiz-q{font-size:.88rem;font-weight:700;margin-bottom:9px;line-height:1.4}
+.quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.quiz-opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 7px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.quiz-opt:hover{border-color:var(--verde)}
+.quiz-opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
+.quiz-opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
+.quiz-opt:disabled{cursor:default}
+.quiz-fb{font-size:.76rem;font-weight:700;margin-top:7px;min-height:16px}
+.quiz-fb.ok{color:var(--verde)}
+.quiz-fb.err{color:var(--rosso)}
+.qprog{font-size:.68rem;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.qbar-bg{width:100%;height:3px;background:var(--border);border-radius:99px;margin-bottom:12px;overflow:hidden}
+.qbar-fill{height:100%;background:var(--verde);border-radius:99px;transition:width .4s}
+.btn-p{background:var(--verde);color:white;border:none;border-radius:9px;padding:9px 18px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;margin-top:7px}
+.btn-s{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--testo);width:100%;margin-top:6px}
+
+/* ESERCIZI */
+.ex-item{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:5px}
+.ex-it{font-family:'Playfair Display',serif;color:var(--verde);font-style:italic;font-size:.95rem;display:block;margin-bottom:3px}
+.ex-ru{font-size:.72rem;color:var(--muted)}
+
+.divider{height:1px;background:var(--border);margin:10px 0}
 </style>
 </head>
 <body>
 
 <header>
   <div class="flag">🇮🇹</div>
-  <h1>Italiano <em>di Alex</em></h1>
-  <p>Интерактивные приложения для изучения итальянского</p>
-  <div class="progress-bar">
-    <div class="pb-item active">Уроки 24/04 → 04/06</div>
-    <div class="pb-item active">51 неправильный глагол</div>
-    <div class="pb-item active">Google TTS</div>
-    <div class="pb-item active">GitHub Pages</div>
-  </div>
+  <h1><em>Italiano</em> — Полный конспект</h1>
+  <p>Уроки 24/04 · 27/04 · 30/04 · 04/05 · 08/05 · 12/05 · 14/05 · 21/05 · 26/05 · 27/05 · 02/06 · 04/06</p>
 </header>
 
-<div class="main">
+<!-- API PANEL -->
+<div id="api-panel">
+  <div class="api-title">
+    <div class="api-dot" id="api-dot"></div>
+    <span id="api-title-text">🔊 Подключи Google TTS — нажимай на любое слово и слушай произношение</span>
+  </div>
+  <div class="api-row">
+    <input class="api-input" type="password" id="api-key" placeholder="Google API ключ...">
+    <button class="api-btn-conn" onclick="connectKey()">Подключить</button>
+    <button class="api-btn-clear" id="clear-btn" onclick="clearKey()" style="display:none">✕</button>
+  </div>
+  <div id="key-status"></div>
+  <div id="voice-section">
+    <div class="voice-row">
+      <div class="vchip active" data-voice="it-IT-Wavenet-A" onclick="selVoice(this)">Wavenet A ♀</div>
+      <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="selVoice(this)">Wavenet C ♂</div>
+      <div class="vchip" data-voice="it-IT-Standard-A" onclick="selVoice(this)">Standard A</div>
+    </div>
+  </div>
+  <div class="api-hint" id="api-hint">
+    Тот же ключ что в других приложениях. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Cloud Text-to-Speech API → Create API Key → загрузи на <a href="https://app.netlify.com/drop" target="_blank">Netlify</a>.
+  </div>
+</div>
 
-  <!-- STATS -->
-  <div class="stats" style="margin-top:4px">
-    <div class="stat"><div class="stat-num">13</div><div class="stat-lbl">Уроков</div></div>
-    <div class="stat"><div class="stat-num">51</div><div class="stat-lbl">Неправ. глаголов</div></div>
-    <div class="stat"><div class="stat-num">471</div><div class="stat-lbl">Слов</div></div>
-    <div class="stat"><div class="stat-num">4</div><div class="stat-lbl">Песни и тексты</div></div>
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="show('greet')">👋 Привет</button>
+  <button class="tab" onclick="show('pronun')">🗣 Произн.</button>
+  <button class="tab" onclick="show('articoli')">📖 Артикли</button>
+  <button class="tab" onclick="show('aggettivi')">🎨 Прилагат.</button>
+  <button class="tab" onclick="show('pronomi')">👤 Местоим. <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('essere')">✦ Essere</button>
+  <button class="tab" onclick="show('avere')">💎 Avere</button>
+  <button class="tab" onclick="show('domande')">❓ Вопросы</button>
+  <button class="tab" onclick="show('verbi')">🎬 Глаголы <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('numeri')">🔢 Числа <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('contrari')">↔ Антонимы</button>
+  <button class="tab" onclick="show('pogoda')">🌤 Погода <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('andare')">🚶 Andare/Venire</button>
+  <button class="tab" onclick="show('lezione1405')">🔤 ISC-глаголы</button>
+  <button class="tab" onclick="show('lezione2105')">🔑 Модальные</button>
+  <button class="tab" onclick="show('lezione2605')">📍 C’è / Ci sono</button>
+  <button class="tab" onclick="show('lezione2705')">🎉 Приглашения <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione0206')">🔁 Презенс-практика <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione0406')">🔄 Возвратные <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('irregolari')">⚡ Неправильные глаголы <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('passato')">⏪ Passato Prossimo <span class="nbadge">NEW</span></button>
+</div>
+
+<!-- ══ ПРИВЕТСТВИЯ ══ -->
+<div class="section active" id="greet">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Урок 24/04</div>
+  <h2>Приветствия и прощания</h2>
+  <div class="card cav">
+    <h3>🌅 По времени суток</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('buongiorno')"><span class="vocab-it">BUONGIORNO</span><span class="vocab-ru">Добрый день</span><span class="vocab-time">05:00–17:00</span></div>
+      <div class="vocab-item" onclick="play('buon pomeriggio')"><span class="vocab-it">BUON POMERIGGIO</span><span class="vocab-ru">Добрый полдень</span><span class="vocab-time">12:00–17:00</span></div>
+      <div class="vocab-item" onclick="play('buonasera')"><span class="vocab-it">BUONASERA</span><span class="vocab-ru">Добрый вечер</span><span class="vocab-time">17:00–00:00</span></div>
+      <div class="vocab-item" onclick="play('buonanotte')"><span class="vocab-it">BUONANOTTE</span><span class="vocab-ru">Спокойной ночи</span></div>
+      <div class="vocab-item" onclick="play('buona giornata')"><span class="vocab-it">BUONA GIORNATA</span><span class="vocab-ru">Хорошего дня</span><span class="vocab-time">05:00–17:00</span></div>
+      <div class="vocab-item" onclick="play('buona serata')"><span class="vocab-it">BUONA SERATA</span><span class="vocab-ru">Хорошего вечера</span><span class="vocab-time">17:00–22:00</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🤝 Универсальные</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('salve')"><span class="vocab-it">SALVE</span><span class="vocab-ru">Здравствуйте</span></div>
+      <div class="vocab-item" onclick="play('ciao')"><span class="vocab-it">CIAO</span><span class="vocab-ru">Привет / Пока</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>❓ Как дела? — 3 формы</h3>
+    <div class="tip"><strong>Запомни:</strong> три разные формы «Вы»!</div>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('come stai')"><span class="vocab-it">COME STAI?</span><span class="vocab-ru">Как дела? (ты)</span></div>
+      <div class="vocab-item" onclick="play('come sta')"><span class="vocab-it">COME STA?</span><span class="vocab-ru">Как дела? (Вы)</span></div>
+      <div class="vocab-item" style="grid-column:1/-1" onclick="play('come state')"><span class="vocab-it">COME STATE?</span><span class="vocab-ru">Как дела? (вы, группа)</span></div>
+      <div class="vocab-item" onclick="play('bene')"><span class="vocab-it">BENE</span><span class="vocab-ru">Хорошо</span></div>
+      <div class="vocab-item" onclick="play('molto bene')"><span class="vocab-it">MOLTO BENE</span><span class="vocab-ru">Очень хорошо</span></div>
+      <div class="vocab-item" onclick="play('tutto bene')"><span class="vocab-it">TUTTO BENE</span><span class="vocab-ru">Всё хорошо</span></div>
+      <div class="vocab-item" onclick="play('così così')"><span class="vocab-it">COSÌ COSÌ</span><span class="vocab-ru">Так себе</span></div>
+      <div class="vocab-item" onclick="play('male')"><span class="vocab-it">MALE</span><span class="vocab-ru">Плохо</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>🙏 Вежливые фразы</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('grazie')"><span class="vocab-it">GRAZIE</span><span class="vocab-ru">Спасибо</span></div>
+      <div class="vocab-item" onclick="play('prego')"><span class="vocab-it">PREGO</span><span class="vocab-ru">Пожалуйста / Не за что</span></div>
+      <div class="vocab-item" onclick="play('per favore')"><span class="vocab-it">PER FAVORE</span><span class="vocab-ru">Пожалуйста (просьба)</span></div>
+      <div class="vocab-item" onclick="play('scusa')"><span class="vocab-it">SCUSA / SCUSI</span><span class="vocab-ru">Прости / Простите</span></div>
+      <div class="vocab-item" onclick="play('scusami per il ritardo')"><span class="vocab-it">SCUSAMI PER IL RITARDO</span><span class="vocab-ru">Прости за опоздание</span></div>
+      <div class="vocab-item" onclick="play('altrettanto')"><span class="vocab-it">ALTRETTANTO</span><span class="vocab-ru">Взаимно</span></div>
+      <div class="vocab-item" onclick="play('buon fine settimana')"><span class="vocab-it">BUON FINE SETTIMANA</span><span class="vocab-ru">Хороших выходных!</span></div>
+      <div class="vocab-item" onclick="play('anche a te')"><span class="vocab-it">ANCHE A TE</span><span class="vocab-ru">Тебе тоже!</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>💬 Типичный диалог</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="spk">A</div><div class="sb"><div class="it">Ciao Oleksii, come stai?</div><div class="ru">Привет Олексий, как дела?</div></div></div>
+      <div class="dl"><div class="spk">B</div><div class="sb"><div class="it">Tutto bene, e tu?</div><div class="ru">Всё хорошо, а ты?</div></div></div>
+      <div class="dl"><div class="spk">A</div><div class="sb"><div class="it">Scusami per il ritardo!</div><div class="ru">Прости за опоздание!</div></div></div>
+      <div class="dl"><div class="spk">B</div><div class="sb"><div class="it">Altrettanto! Buona giornata!</div><div class="ru">Взаимно! Хорошего дня!</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ПРОИЗНОШЕНИЕ ══ -->
+<div class="section" id="pronun">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Урок 24/04</div>
+  <h2>Правила произношения</h2>
+  <div class="tip"><strong>Главное:</strong> итальянский читается почти так, как пишется! Исключений мало.</div>
+  <div class="card cav2">
+    <h3>Буква C</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('ciao')"><span class="vocab-it">C + I = ЧИ</span><span class="vocab-ru">ciao → «ЧАО»</span></div>
+      <div class="vocab-item" onclick="play('cena')"><span class="vocab-it">C + E = ЧЭ</span><span class="vocab-ru">cena → «ЧЕНА»</span></div>
+      <div class="vocab-item" onclick="play('chi')"><span class="vocab-it">CH + I = КИ</span><span class="vocab-ru">chi → «КИ» (кто)</span></div>
+      <div class="vocab-item" onclick="play('che')"><span class="vocab-it">CH + E = КЭ</span><span class="vocab-ru">che → «КЭ» (что)</span></div>
+    </div>
+  </div>
+  <div class="card cav">
+    <h3>Буква G</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('Giorgio')"><span class="vocab-it">G + I = ДЖИ</span><span class="vocab-ru">Giorgio → «ДЖОРДЖО»</span></div>
+      <div class="vocab-item" onclick="play('gelato')"><span class="vocab-it">G + E = ДЖЭ</span><span class="vocab-ru">gelato → «ДЖЕЛАТО»</span></div>
+      <div class="vocab-item" onclick="play('gnomo')"><span class="vocab-it">GN = НЬ</span><span class="vocab-ru">gnomo → «НЬОМО»</span></div>
+      <div class="vocab-item" onclick="play('gli')"><span class="vocab-it">GLI = ХЛИ</span><span class="vocab-ru">gli → артикль «ХЛИ»</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Другие правила</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('bene')"><span class="vocab-it">E = Э</span><span class="vocab-ru">bene → «БЭНЭ»</span></div>
+      <div class="vocab-item"><span class="vocab-it">H = молчит!</span><span class="vocab-ru">hotel → «ОТЭЛЬ»</span></div>
+      <div class="vocab-item" onclick="play('chi')"><span class="vocab-it">chi [КИ]</span><span class="vocab-ru">кто?</span></div>
+      <div class="vocab-item" onclick="play('che')"><span class="vocab-it">che [КЭ]</span><span class="vocab-ru">что?</span></div>
+    </div>
+    <div class="tip tip-v" style="margin-top:9px;margin-bottom:0"><strong>Нажимай на карточки</strong> — слышишь правильное произношение!</div>
+  </div>
+</div>
+
+<!-- ══ АРТИКЛИ ══ -->
+<div class="section" id="articoli">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Уроки 24/04 · 27/04</div>
+  <h2>Артикли</h2>
+  <div class="tip"><strong>Запомни:</strong> артикль зависит от рода, числа и первой буквы слова.</div>
+  <h3 style="margin-bottom:8px">Определённые (il/la/i/le)</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="art-table">
+      <tr><th>Род/Число</th><th>Артикль</th><th>Когда</th><th>Пример</th></tr>
+      <tr><td rowspan="3"><strong>Муж.ед.</strong></td><td><span class="art-it">il</span></td><td>согласная</td><td><span class="art-ex">il tavolo, il ragazzo</span></td></tr>
+      <tr><td><span class="art-it">l'</span></td><td>гласная</td><td><span class="art-ex">l'amico, l'edificio</span></td></tr>
+      <tr><td><span class="art-it">lo</span></td><td>Z, GN, PS, S+согл.</td><td><span class="art-ex">lo studente, lo zio</span></td></tr>
+      <tr><td rowspan="2"><strong>Жен.ед.</strong></td><td><span class="art-it">la</span></td><td>согласная</td><td><span class="art-ex">la ragazza, la musica</span></td></tr>
+      <tr><td><span class="art-it">l'</span></td><td>гласная</td><td><span class="art-ex">l'amica, l'anatra</span></td></tr>
+      <tr><td rowspan="2"><strong>Муж.мн.</strong></td><td><span class="art-it">i</span></td><td>согласная</td><td><span class="art-ex">i tavoli, i ragazzi</span></td></tr>
+      <tr><td><span class="art-it">gli</span></td><td>гласная/Z/GN/S+согл.</td><td><span class="art-ex">gli amici, gli studenti</span></td></tr>
+      <tr><td><strong>Жен.мн.</strong></td><td><span class="art-it">le</span></td><td>всегда</td><td><span class="art-ex">le ragazze, le amiche</span></td></tr>
+    </table>
+  </div>
+  <div class="tip"><strong>Схема замены:</strong> il→i · lo/l'(м)→gli · la/l'(ж)→le</div>
+  <h3 style="margin-bottom:8px">Неопределённые (un/una)</h3>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="art-table">
+      <tr><th>Род</th><th>Артикль</th><th>Когда</th><th>Пример</th></tr>
+      <tr><td rowspan="2"><strong>Мужской</strong></td><td><span class="art-it">un</span></td><td>любая буква</td><td><span class="art-ex">un amico, un telefono</span></td></tr>
+      <tr><td><span class="art-it">uno</span></td><td>Z, GN, PS, S+согл.</td><td><span class="art-ex">uno studente, uno zaino</span></td></tr>
+      <tr><td rowspan="2"><strong>Женский</strong></td><td><span class="art-it">una</span></td><td>согласная</td><td><span class="art-ex">una ragazza, una tazza</span></td></tr>
+      <tr><td><span class="art-it">un'</span></td><td>гласная</td><td><span class="art-ex">un'amica, un'aula</span></td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">⚠️ Исключения</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item"><span class="vocab-it">il bicchiere</span><span class="vocab-ru">→ i bicchieri</span></div>
+      <div class="vocab-item"><span class="vocab-it">lo studente</span><span class="vocab-ru">→ gli studenti</span></div>
+      <div class="vocab-item"><span class="vocab-it">la classe</span><span class="vocab-ru">→ le classi</span></div>
+      <div class="vocab-item"><span class="vocab-it">la mano</span><span class="vocab-ru">→ le mani ⚠️</span></div>
+      <div class="vocab-item"><span class="vocab-it">il problema</span><span class="vocab-ru">→ i problemi</span></div>
+      <div class="vocab-item"><span class="vocab-it">il programma</span><span class="vocab-ru">→ i programmi</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ПРИЛАГАТЕЛЬНЫЕ ══ -->
+<div class="section" id="aggettivi">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Уроки 27/04 · 30/04</div>
+  <h2>Прилагательные</h2>
+  <div class="tip"><strong>Главное:</strong> прилагательное согласуется с существительным по роду и числу!</div>
+  <div class="schema-box">
+    <div class="schema-title">Окончания прилагательных</div>
+    <div class="schema-grid">
+      <div class="schema-cell"><div class="schema-label">Муж. ед.</div><div class="schema-end">-O</div><div style="font-size:.68rem;color:var(--muted)">bello, buono</div></div>
+      <div class="schema-cell"><div class="schema-label">Муж. мн.</div><div class="schema-end">-I</div><div style="font-size:.68rem;color:var(--muted)">belli, buoni</div></div>
+      <div class="schema-cell"><div class="schema-label">Жен. ед.</div><div class="schema-end">-A</div><div style="font-size:.68rem;color:var(--muted)">bella, buona</div></div>
+      <div class="schema-cell"><div class="schema-label">Жен. мн.</div><div class="schema-end">-E</div><div style="font-size:.68rem;color:var(--muted)">belle, buone</div></div>
+    </div>
+    <div style="margin-top:9px;background:white;border-radius:7px;padding:9px;border:1px solid var(--border)">
+      <div class="schema-label" style="margin-bottom:5px">Прилагательные на -E (без рода)</div>
+      <div style="display:flex;gap:7px">
+        <div class="schema-cell" style="flex:1"><div class="schema-label">Ед.ч.</div><div class="schema-end" style="font-size:1.15rem">-E</div><div style="font-size:.66rem;color:var(--muted)">intelligente</div></div>
+        <div class="schema-cell" style="flex:1"><div class="schema-label">Мн.ч.</div><div class="schema-end" style="font-size:1.15rem">-I</div><div style="font-size:.66rem;color:var(--muted)">intelligenti</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:9px">Примеры из урока</h3>
+    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--verde)">Il ragazzo bello</span> → <span style="font-family:'Playfair Display',serif;color:var(--verde)">i ragazzi belli</span></div>
+    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--verde)">La ragazza bella</span> → <span style="font-family:'Playfair Display',serif;color:var(--verde)">le ragazze belle</span></div>
+    <div style="background:var(--blu-l);border-radius:9px;padding:10px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--blu)">Il ragazzo intelligente</span> → <span style="font-family:'Playfair Display',serif;color:var(--blu)">i ragazzi intelligenti</span></div>
+  </div>
+</div>
+
+<!-- ══ МЕСТОИМЕНИЯ (NEW) ══ -->
+<div class="section" id="pronomi">
+  <div class="lesson-badge bn" style="margin-top:10px">📅 Все уроки — НОВОЕ</div>
+  <h2>Местоимения</h2>
+  <div class="tip"><strong>Местоимения</strong> — основа любого предложения. Нажимай на строку — слышишь произношение!</div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:10px">Личные местоимения — Pronomi personali</h3>
+    <table class="pronomi-table">
+      <tr><th>Местоимение</th><th>Перевод</th><th>Пример</th></tr>
+      <tr onclick="play('io sono italiano')" style="cursor:pointer">
+        <td><span class="p-it">IO</span></td>
+        <td><span class="p-ru">я</span></td>
+        <td><span class="p-ex">Io sono italiano.</span></td>
+      </tr>
+      <tr onclick="play('tu sei bello')" style="cursor:pointer">
+        <td><span class="p-it">TU</span></td>
+        <td><span class="p-ru">ты</span></td>
+        <td><span class="p-ex">Tu sei bello.</span></td>
+      </tr>
+      <tr onclick="play('lui è stanco')" style="cursor:pointer">
+        <td><span class="p-it">LUI</span></td>
+        <td><span class="p-ru">он</span></td>
+        <td><span class="p-ex">Lui è stanco.</span></td>
+      </tr>
+      <tr onclick="play('lei è bella')" style="cursor:pointer">
+        <td><span class="p-it">LEI</span></td>
+        <td><span class="p-ru">она / Вы (формально)</span></td>
+        <td><span class="p-ex">Lei è bella. / Lei ha tempo?</span></td>
+      </tr>
+      <tr onclick="play('noi siamo amici')" style="cursor:pointer">
+        <td><span class="p-it">NOI</span></td>
+        <td><span class="p-ru">мы</span></td>
+        <td><span class="p-ex">Noi siamo amici.</span></td>
+      </tr>
+      <tr onclick="play('voi siete italiani')" style="cursor:pointer">
+        <td><span class="p-it">VOI</span></td>
+        <td><span class="p-ru">вы (группа)</span></td>
+        <td><span class="p-ex">Voi siete italiani?</span></td>
+      </tr>
+      <tr onclick="play('loro hanno una villa')" style="cursor:pointer">
+        <td><span class="p-it">LORO</span></td>
+        <td><span class="p-ru">они</span></td>
+        <td><span class="p-ex">Loro hanno una villa.</span></td>
+      </tr>
+    </table>
+    <div class="tip tip-b" style="margin-top:9px;margin-bottom:0"><strong>LEI</strong> (с большой буквы) = формальное «Вы» для одного человека. Используй с профессором, врачом, незнакомым.</div>
   </div>
 
-  <!-- УРОКИ -->
-  <div class="section-title">📖 Уроки и конспекты</div>
-  <div class="grid">
-
-    <a href="conspecti.html" class="app-card" style="--accent:var(--verde)">
-      <div class="card-top">
-        <span class="card-icon">📗</span>
-        <div class="card-title">Конспект уроков</div>
-        <div class="card-desc">Все уроки с 24/04 по 26/05 — артикли, глаголы, прилагательные, местоимения, числа, погода, ANDARE, ISC-глаголы, модальные, c'è/ci sono</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-train">15 вкладок</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="frasi-test.html" class="app-card" style="--accent:var(--blu)">
-      <div class="card-top">
-        <span class="card-icon">💬</span>
-        <div class="card-title">Фразы и тесты</div>
-        <div class="card-desc">Предложения из уроков — essere, avere, verbi, andare, ISC-глаголы. Три теста по 30 вопросов</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-test">3 теста</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="test-compiti.html" class="app-card" style="--accent:var(--blu)">
-      <div class="card-top">
-        <span class="card-icon">📝</span>
-        <div class="card-title">Тест — Compiti</div>
-        <div class="card-desc">Все домашние задания из конспекта 24/04 → 04/06 — артикли, essere/avere, презенс, модальные, возвратные. С вариантами ответов и озвучкой</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-test">323 фразы</span>
-          <span class="tag tag-train">28 блоков</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
+  <div class="card cab">
+    <h3 style="margin-bottom:10px">Притяжательные местоимения — Aggettivi possessivi</h3>
+    <div class="tip tip-b"><strong>Правило:</strong> местоимение согласуется с существительным (не с владельцем)! И почти всегда с артиклем.</div>
+    <table class="pronomi-table">
+      <tr><th>Лицо</th><th>Муж.ед.</th><th>Жен.ед.</th><th>Муж.мн.</th><th>Жен.мн.</th></tr>
+      <tr onclick="play('il mio libro')" style="cursor:pointer">
+        <td><strong>IO</strong> (мой/моя)</td>
+        <td><span class="p-it">mio</span></td><td><span class="p-it">mia</span></td>
+        <td><span class="p-it">miei</span></td><td><span class="p-it">mie</span></td>
+      </tr>
+      <tr onclick="play('il tuo libro')" style="cursor:pointer">
+        <td><strong>TU</strong> (твой/твоя)</td>
+        <td><span class="p-it">tuo</span></td><td><span class="p-it">tua</span></td>
+        <td><span class="p-it">tuoi</span></td><td><span class="p-it">tue</span></td>
+      </tr>
+      <tr onclick="play('il suo libro')" style="cursor:pointer">
+        <td><strong>LUI/LEI</strong> (его/её)</td>
+        <td><span class="p-it">suo</span></td><td><span class="p-it">sua</span></td>
+        <td><span class="p-it">suoi</span></td><td><span class="p-it">sue</span></td>
+      </tr>
+      <tr onclick="play('il nostro libro')" style="cursor:pointer">
+        <td><strong>NOI</strong> (наш/наша)</td>
+        <td><span class="p-it">nostro</span></td><td><span class="p-it">nostra</span></td>
+        <td><span class="p-it">nostri</span></td><td><span class="p-it">nostre</span></td>
+      </tr>
+      <tr onclick="play('il vostro libro')" style="cursor:pointer">
+        <td><strong>VOI</strong> (ваш/ваша)</td>
+        <td><span class="p-it">vostro</span></td><td><span class="p-it">vostra</span></td>
+        <td><span class="p-it">vostri</span></td><td><span class="p-it">vostre</span></td>
+      </tr>
+      <tr onclick="play('il loro libro')" style="cursor:pointer">
+        <td><strong>LORO</strong> (их)</td>
+        <td colspan="4" style="text-align:center"><span class="p-it">loro</span> <span style="font-size:.65rem;color:var(--rosso)">не изменяется!</span></td>
+      </tr>
+    </table>
+    <div class="tip tip-r" style="margin-top:9px;margin-bottom:0"><strong>⚠️ Члены семьи без артикля!</strong> mio padre (не il mio padre), mia madre, tuo fratello. НО: i miei fratelli (мн.ч. — с артиклем).</div>
   </div>
 
-  <!-- СЛОВАРИ -->
-  <div class="section-title">📚 Словари</div>
-  <div class="grid">
+  <div class="card cao">
+    <h3 style="margin-bottom:10px">Указательные — QUESTO/QUELLO</h3>
+    <div class="questo-g">
+      <div class="qi" onclick="play('questo')"><div class="qi-label">Муж.ед.</div><div class="qi-it">QUESTO</div><div class="qi-ru">этот</div></div>
+      <div class="qi" onclick="play('questa')"><div class="qi-label">Жен.ед.</div><div class="qi-it">QUESTA</div><div class="qi-ru">эта</div></div>
+      <div class="qi" onclick="play('questi')"><div class="qi-label">Муж.мн.</div><div class="qi-it">QUESTI</div><div class="qi-ru">эти (м.р.)</div></div>
+      <div class="qi" onclick="play('queste')"><div class="qi-label">Жен.мн.</div><div class="qi-it">QUESTE</div><div class="qi-ru">эти (ж.р.)</div></div>
+    </div>
+    <div style="margin-top:8px;font-size:.78rem;color:var(--muted);font-style:italic">
+      <em>Questo posto è libero.</em> — Это место свободно.<br>
+      <em>Queste scarpe sono belle.</em> — Эти туфли красивые.
+    </div>
+  </div>
+</div>
 
-    <a href="dizionari.html" class="app-card" style="--accent:var(--oro)">
-      <div class="card-top">
-        <span class="card-icon">📒</span>
-        <div class="card-title">Словари</div>
-        <div class="card-desc">117 прилагательных · 107 глаголов · 66 существительных · 66 наречий · 61 предлог · 54 местоимения. Фильтры, поиск, ассоциации, тренажёр</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-train">471 слово</span>
-          <span class="tag tag-test">Тренажёр</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
+<!-- ══ ESSERE ══ -->
+<div class="section" id="essere">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Урок 30/04</div>
+  <h2>Глагол ESSERE — быть</h2>
+  <div class="tip"><strong>ESSERE</strong> — самый важный глагол. Нажимай 🔊 на каждой форме!</div>
+  <div class="card cav" style="padding:14px">
+    <h3 style="margin-bottom:10px;color:var(--verde)">ESSERE — спряжение</h3>
+    <div class="conj-grid" id="essere-cards"></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:9px">Примеры из урока</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Io sono bello!</div><div class="ru">Я красивый!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Tatiana, sei bella!</div><div class="ru">Татьяна, ты красивая!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Voi non siete italiani, siete stranieri, vero?</div><div class="ru">Вы не итальянцы, вы иностранцы, правда?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Noi siamo in Italia per studiare la lingua italiana.</div><div class="ru">Мы в Италии чтобы учить итальянский.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Di dove sei? Sono ucraino.</div><div class="ru">Откуда ты? Я украинец.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Oggi non sono a casa.</div><div class="ru">Сегодня я не дома.</div></div></div>
+    </div>
+  </div>
+</div>
 
+<!-- ══ AVERE ══ -->
+<div class="section" id="avere">
+  <div class="lesson-badge bn" style="margin-top:10px">📅 Урок 04/05</div>
+  <h2>Глагол AVERE — иметь</h2>
+  <div class="tip"><strong>AVERE</strong> — второй важнейший глагол. Нажимай 🔊 на каждой форме!</div>
+  <div class="card cab" style="padding:14px">
+    <h3 style="margin-bottom:10px;color:var(--blu)">AVERE — спряжение</h3>
+    <div class="conj-grid" id="avere-cards"></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:9px">Выражения с AVERE</h3>
+    <div class="tip-b" style="background:var(--blu-l);border-left:3px solid var(--blu);border-radius:0 8px 8px 0;padding:9px 12px;margin-bottom:9px;font-size:.78rem"><strong>Итальянцы «имеют» голод, холод, страх</strong> — там где русские «чувствуют»!</div>
+    <div class="esp" onclick="play('ho fame')"><div class="esp-it">AVERE FAME</div><div><div class="esp-ru">быть голодным</div><div class="esp-ex">Ho fame! — Я голоден!</div></div></div>
+    <div class="esp" onclick="play('hai sete')"><div class="esp-it">AVERE SETE</div><div><div class="esp-ru">хотеть пить</div><div class="esp-ex">Hai sete? — Ты хочешь пить?</div></div></div>
+    <div class="esp" onclick="play('ho caldo')"><div class="esp-it">AVERE CALDO</div><div><div class="esp-ru">быть жарко</div><div class="esp-ex">Ho caldo. — Мне жарко.</div></div></div>
+    <div class="esp" onclick="play('ho freddo')"><div class="esp-it">AVERE FREDDO</div><div><div class="esp-ru">быть холодно</div><div class="esp-ex">Ho freddo. — Мне холодно.</div></div></div>
+    <div class="esp" onclick="play('ho fretta')"><div class="esp-it">AVERE FRETTA</div><div><div class="esp-ru">торопиться</div><div class="esp-ex">Ho fretta! — Я спешу!</div></div></div>
+    <div class="esp" onclick="play('ho sonno')"><div class="esp-it">AVERE SONNO</div><div><div class="esp-ru">хотеть спать</div><div class="esp-ex">Ho sonno. — Хочу спать.</div></div></div>
+    <div class="esp" onclick="play('non ho tempo')"><div class="esp-it">AVERE TEMPO</div><div><div class="esp-ru">иметь время</div><div class="esp-ex">Non ho tempo! — У меня нет времени!</div></div></div>
+    <div class="esp" onclick="play('ho mal di testa')"><div class="esp-it">AVERE MAL DI TESTA</div><div><div class="esp-ru">болит голова</div><div class="esp-ex">Ho mal di testa. — Голова болит.</div></div></div>
+    <div class="esp" onclick="play('ho voglia di un caffè')"><div class="esp-it">AVERE VOGLIA DI</div><div><div class="esp-ru">хотеть чего-то</div><div class="esp-ex">Ho voglia di un caffè. — Хочу кофе.</div></div></div>
+    <div class="esp" onclick="play('quanti anni hai')"><div class="esp-it">QUANTI ANNI HAI?</div><div><div class="esp-ru">Сколько тебе лет?</div><div class="esp-ex">Ho trentasette anni!</div></div></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:8px">ESSERE vs AVERE</h3>
+    <div class="cmp">
+      <div class="cmp-col cv">
+        <div class="cmp-title vt">ESSERE — быть</div>
+        <div class="cmp-item" style="color:var(--verde)">Нац-ть: <em>Sono ucraino.</em></div>
+        <div class="cmp-item" style="color:var(--verde)">Профессия: <em>È medico.</em></div>
+        <div class="cmp-item" style="color:var(--verde)">Прилагат.: <em>Sei stanco.</em></div>
+        <div class="cmp-item" style="color:var(--verde)">Место: <em>Siamo a casa.</em></div>
+      </div>
+      <div class="cmp-col cb">
+        <div class="cmp-title bt">AVERE — иметь</div>
+        <div class="cmp-item" style="color:var(--blu)">Обладание: <em>Ho una macchina.</em></div>
+        <div class="cmp-item" style="color:var(--blu)">Возраст: <em>Hai 30 anni.</em></div>
+        <div class="cmp-item" style="color:var(--blu)">Голод/жажда: <em>Ho fame.</em></div>
+        <div class="cmp-item" style="color:var(--blu)">Жарко/холодно: <em>Ho caldo.</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ВОПРОСЫ ══ -->
+<div class="section" id="domande">
+  <div class="lesson-badge bn" style="margin-top:10px">📅 Урок 04/05</div>
+  <h2>Вопросительные слова</h2>
+  <div class="card cav2">
+    <div class="dom" onclick="play('dove sei')"><div class="dom-it">DOVE</div><div><div class="dom-ru">где? куда?</div><div class="dom-ex">Dove sei? — Где ты?</div></div></div>
+    <div class="dom" onclick="play('quando arrivi')"><div class="dom-it">QUANDO</div><div><div class="dom-ru">когда?</div><div class="dom-ex">Quando arrivi? — Когда приедешь?</div></div></div>
+    <div class="dom" onclick="play('perché sei triste')"><div class="dom-it">PERCHÉ</div><div><div class="dom-ru">почему? / потому что</div><div class="dom-ex">Perché sei triste? — Почему грустишь?</div></div></div>
+    <div class="dom" onclick="play('che cosa fai')"><div class="dom-it">CHE COSA</div><div><div class="dom-ru">что?</div><div class="dom-ex">Che cosa fai? — Что делаешь?</div></div></div>
+    <div class="dom" onclick="play('chi sei')"><div class="dom-it">CHI</div><div><div class="dom-ru">кто?</div><div class="dom-ex">Chi sei? — Кто ты?</div></div></div>
+    <div class="dom" onclick="play('come stai')"><div class="dom-it">COME</div><div><div class="dom-ru">как?</div><div class="dom-ex">Come stai? — Как дела?</div></div></div>
+    <div class="dom" onclick="play('di dove sei')"><div class="dom-it">DI DOVE</div><div><div class="dom-ru">откуда?</div><div class="dom-ex">Di dove sei? — Откуда ты?</div></div></div>
+  </div>
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">QUANTO — сколько (4 формы)</h3>
+    <div class="q4">
+      <div class="q4i" onclick="play('quanto costa')"><div class="q4-label">Муж.ед.</div><div class="q4-it">QUANTO</div></div>
+      <div class="q4i" onclick="play('quanta pasta')"><div class="q4-label">Жен.ед.</div><div class="q4-it">QUANTA</div></div>
+      <div class="q4i" onclick="play('quanti spaghetti')"><div class="q4-label">Муж.мн.</div><div class="q4-it">QUANTI</div></div>
+      <div class="q4i" onclick="play('quante scarpe')"><div class="q4-label">Жен.мн.</div><div class="q4-it">QUANTE</div></div>
+    </div>
+    <div class="qb">
+      <div class="qb-rule">С существительными → согласуется</div>
+      <span class="qb-ex">Quanti spaghetti mangi?</span><span class="qb-ru">Сколько спагетти ты съешь?</span>
+    </div>
+    <div class="qb" style="background:#f0f8f0;border-color:#b0d8c0">
+      <div class="qb-rule">С глаголами → всегда QUANTO</div>
+      <span class="qb-ex">Quanto costa questa maglia?</span><span class="qb-ru">Сколько стоит эта кофта?</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ГЛАГОЛЫ (NEW) ══ -->
+<div class="section" id="verbi">
+  <div class="lesson-badge bb" style="margin-top:10px">📅 Урок 08/05 — НОВОЕ</div>
+  <h2>Presente Indicativo — Настоящее время</h2>
+  <div class="tip"><strong>Три типа спряжения</strong> по окончанию инфинитива: -ARE, -ERE, -IRE. Нажимай на форму — слышишь произношение!</div>
+
+  <!-- PARLARE -->
+  <div class="card cav verbi-section">
+    <h3><span class="verbi-badge vb-are">-ARE</span> PARLARE — говорить</h3>
+    <div class="verb-conj-grid" id="parlare-grid"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Parlo in giardino con un amico.</div><div class="ru">Я разговариваю в саду с другом.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Perché non parli con me?</div><div class="ru">Почему ты не разговариваешь со мной?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Parliamo domani, oggi sono stanco!</div><div class="ru">Поговорим завтра, сегодня я уставший!</div></div></div>
+    </div>
   </div>
 
-  <!-- ПРАКТИКА -->
-  <div class="section-title">🧠 Практика и запоминание</div>
-  <div class="grid">
-
-    <a href="passato.html" class="app-card" style="--accent:#9b7fe0">
-      <div class="card-top">
-        <span class="card-icon">⏪</span>
-        <div class="card-title">Passato Prossimo</div>
-        <div class="card-desc">Прошедшее время — всё в одном: конспект, тест и тренажёр. Avere/essere, причастия, согласование</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-train">Конспект</span>
-          <span class="tag tag-test">Тест</span>
-          <span class="tag tag-tts">Тренажёр</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="active.html" class="app-card" style="--accent:#7c3aed">
-      <div class="card-top">
-        <span class="card-icon">🧠</span>
-        <div class="card-title">Актив — RU → IT</div>
-        <div class="card-desc">Вспоминай итальянское слово по русскому. Интервальное повторение, два режима, прогресс сохраняется. Лечит «знаю, но не вспоминаю»</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-train">471 слово</span>
-          <span class="tag tag-test">Интервалы</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="poesie.html" class="app-card" style="--accent:#c090e0">
-      <div class="card-top">
-        <span class="card-icon">🎭</span>
-        <div class="card-title">Стихи для запоминания</div>
-        <div class="card-desc">10 стихов из слов словаря — распорядок дня, еда, погода, модальные, возвратные. Каждая строка с переводом и озвучкой</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-song">10 стихов</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
+  <!-- PRENDERE -->
+  <div class="card cab verbi-section">
+    <h3><span class="verbi-badge vb-ere">-ERE</span> PRENDERE — брать</h3>
+    <div class="verb-conj-grid" id="prendere-grid"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Prendo tre caffè al giorno.</div><div class="ru">Я беру три кофе в день.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Che prendi? — Prendo un panino.</div><div class="ru">Что возьмёшь? — Беру бутерброд.</div></div></div>
+    </div>
   </div>
 
-  <!-- ГЛАГОЛЫ -->
-  <div class="section-title">🎬 Глаголы</div>
-  <div class="grid">
-
-    <a href="verbi-irregolari.html" class="app-card" style="--accent:#e07070">
-      <div class="card-top">
-        <span class="card-icon">⚡</span>
-        <div class="card-title">Неправильные глаголы</div>
-        <div class="card-desc">51 глагол — полные спряжения, ассоциации, примеры. Карточки, тренажёр, тест, аудио-марафон с паузами</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-test">Тест 30</span>
-          <span class="tag tag-train">Марафон 🎧</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="verbi-simili.html" class="app-card" style="--accent:var(--viola)">
-      <div class="card-top">
-        <span class="card-icon">🔀</span>
-        <div class="card-title">Похожие глаголы</div>
-        <div class="card-desc">andare/venire · essere/stare · sapere/conoscere · essere/avere · fare/погода · modali · partire/uscire · ISC-глаголы</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-test">Тест 38</span>
-          <span class="tag tag-train">8 пар</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="verbi-game.html" class="app-card" style="--accent:var(--verde)">
-      <div class="card-top">
-        <span class="card-icon">🎮</span>
-        <div class="card-title">Игра — глаголы</div>
-        <div class="card-desc">4 мини-игры: ⚡ Скорость · 🏗️ Постройка · 💬 Диалог · ✍️ Молния. Учись играя!</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-train">4 игры</span>
-          <span class="tag tag-tts">TTS</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
+  <!-- DORMIRE -->
+  <div class="card cav2 verbi-section">
+    <h3><span class="verbi-badge vb-ire">-IRE</span> DORMIRE — спать</h3>
+    <div class="verb-conj-grid" id="dormire-grid"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Oggi dormiamo in giardino!</div><div class="ru">Сегодня мы спим в саду!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Di solito dormo sei-sette ore.</div><div class="ru">Обычно сплю шесть-семь часов.</div></div></div>
+    </div>
   </div>
 
-  <!-- ПЕСНИ И ТЕКСТЫ -->
-  <div class="section-title">🎵 Песни и тексты</div>
-  <div class="grid">
-
-    <a href="songs/mannarino.html" class="app-card" style="--accent:#e07a20">
-      <div class="card-top">
-        <span class="card-icon">🎸</span>
-        <div class="card-title">Mannarino — Me So' Mbriacato</div>
-        <div class="card-desc">Текст с переводом · Словарь · Диалект романеско (Рим) · Фразы · Тренажёр 4 режима</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-song">Романеско</span>
-          <span class="tag tag-train">Тренажёр</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="songs/confessa.html" class="app-card" style="--accent:#8b2020">
-      <div class="card-top">
-        <span class="card-icon">🎵</span>
-        <div class="card-title">Celentano — Confessa</div>
-        <div class="card-desc">Текст с переводом · Словарь · Метафоры Mogol · Фразы · Тренажёр — режим «Метафоры»</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-song">Баллада 2002</span>
-          <span class="tag tag-train">Метафоры</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="songs/sara-perche.html" class="app-card" style="--accent:#7c3aed">
-      <div class="card-top">
-        <span class="card-icon">⭐</span>
-        <div class="card-title">Ricchi e Poveri — Sarà perché ti amo</div>
-        <div class="card-desc">Текст с переводом · Словарь · SARÀ как предположение · Imperativo · Тренажёр «На слух»</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-song">Sanremo 1981</span>
-          <span class="tag tag-train">На слух</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <a href="songs/lucio.html" class="app-card" style="--accent:#5ac4a0">
-      <div class="card-top">
-        <span class="card-icon">🐱</span>
-        <div class="card-title">Lucio — il gatto di Morandi</div>
-        <div class="card-desc">Учебный текст — полный разбор. Слова с ассоциациями · Фразы по грамматике · Тренажёр · Тест 30 вопросов</div>
-      </div>
-      <div class="card-bottom">
-        <div class="card-tags">
-          <span class="tag tag-tts">TTS</span>
-          <span class="tag tag-test">Тест 30</span>
-          <span class="tag tag-train">40 слов</span>
-        </div>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
+  <!-- Другие глаголы из урока -->
+  <div class="card cao">
+    <h3 style="margin-bottom:10px">Другие глаголы урока 08/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('cantare')"><span class="vocab-it">CANTARE</span><span class="vocab-ru">петь (-ARE)</span></div>
+      <div class="vocab-item" onclick="play('saltare')"><span class="vocab-it">SALTARE</span><span class="vocab-ru">прыгать (-ARE)</span></div>
+      <div class="vocab-item" onclick="play('spostare')"><span class="vocab-it">SPOSTARE</span><span class="vocab-ru">переставлять (-ARE)</span></div>
+      <div class="vocab-item" onclick="play('scrivere')"><span class="vocab-it">SCRIVERE</span><span class="vocab-ru">писать (-ERE)</span></div>
+      <div class="vocab-item" onclick="play('perdere')"><span class="vocab-it">PERDERE</span><span class="vocab-ru">терять (-ERE)</span></div>
+      <div class="vocab-item" onclick="play('leggere')"><span class="vocab-it">LEGGERE</span><span class="vocab-ru">читать (-ERE)</span></div>
+      <div class="vocab-item" onclick="play('partire')"><span class="vocab-it">PARTIRE</span><span class="vocab-ru">уезжать (-IRE)</span></div>
+      <div class="vocab-item" onclick="play('aprire')"><span class="vocab-it">APRIRE</span><span class="vocab-ru">открывать (-IRE)</span></div>
+    </div>
   </div>
 
-  <!-- ПОДСКАЗКА TTS -->
-  <div style="background:#1a1500;border:1px solid #c9a84c33;border-radius:12px;padding:14px 16px;margin-top:20px;font-size:.76rem;line-height:1.7;color:#c8b888">
-    🔊 <strong style="color:var(--oro)">Google TTS</strong> — произношение во всех приложениях. Один ключ работает везде.<br>
-    <span style="color:var(--muted)">console.cloud.google.com → Cloud Text-to-Speech API → Create API Key</span>
+  <div class="card">
+    <h3 style="margin-bottom:9px">Новые слова урока 08/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('di solito')"><span class="vocab-it">DI SOLITO</span><span class="vocab-ru">обычно</span></div>
+      <div class="vocab-item" onclick="play('domani')"><span class="vocab-it">DOMANI</span><span class="vocab-ru">завтра</span></div>
+      <div class="vocab-item" onclick="play('vorrei')"><span class="vocab-it">VORREI</span><span class="vocab-ru">я хотел бы</span></div>
+      <div class="vocab-item" onclick="play('il panino')"><span class="vocab-it">IL PANINO</span><span class="vocab-ru">бутерброд</span></div>
+      <div class="vocab-item" onclick="play('scusami per il ritardo')"><span class="vocab-it">SCUSAMI PER IL RITARDO</span><span class="vocab-ru">прости за опоздание</span></div>
+      <div class="vocab-item" onclick="play('altrettanto')"><span class="vocab-it">ALTRETTANTO</span><span class="vocab-ru">взаимно</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ЧИСЛА (NEW) ══ -->
+<div class="section" id="numeri">
+  <div class="lesson-badge bb" style="margin-top:10px">📅 Урок 08/05 — НОВОЕ</div>
+  <h2>Числа — I numeri</h2>
+  <div class="tip"><strong>Возраст</strong> через AVERE: <em>Ho trentasette anni!</em> — Мне 37 лет!</div>
+  <div class="card cav">
+    <h3 style="margin-bottom:10px">1 – 10</h3>
+    <div class="numeri-grid" id="numeri-1-10"></div>
+  </div>
+  <div class="card cab">
+    <h3 style="margin-bottom:10px">11 – 20</h3>
+    <div class="numeri-grid" id="numeri-11-20"></div>
+  </div>
+  <div class="card cao">
+    <h3 style="margin-bottom:10px">Десятки</h3>
+    <div class="numeri-grid" id="numeri-tens"></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:9px">Примеры с возрастом</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Quanti anni hai?</div><div class="ru">Сколько тебе лет?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ho trentasette anni, e tu?</div><div class="ru">Мне 37 лет, а ты?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ho trentatré anni!</div><div class="ru">Мне 33 года!</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ АНТОНИМЫ ══ -->
+<div class="section" id="contrari">
+  <div class="lesson-badge bv" style="margin-top:10px">📅 Урок 30/04</div>
+  <h2>Антонимы — Il contrario</h2>
+  <div class="tip">Нажми на пару — подсветится. Нажми на слово — слышишь произношение!</div>
+  <div class="card"><h3 style="margin-bottom:7px">Группа A</h3><div id="ca"></div></div>
+  <div class="card"><h3 style="margin-bottom:7px">Группа B</h3><div id="cb"></div></div>
+  <div class="card"><h3 style="margin-bottom:7px">Группа C</h3><div id="cc"></div></div>
+</div>
+
+<!-- ══ ПОГОДА (NEW 12/05) ══ -->
+<div class="section" id="pogoda">
+  <div class="lesson-badge bn" style="margin-top:10px">📅 Урок 12/05 — НОВОЕ</div>
+  <h2>Погода — Che tempo fa?</h2>
+  <div class="tip"><strong>Погода</strong> строится на глаголе FARE (делать): <em>fa bello, fa freddo</em>. Или ESSERE: <em>è soleggiato</em>. Нажимай на карточки!</div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:10px">❓ Вопросы о погоде</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('che tempo fa')"><span class="vocab-it">CHE TEMPO FA?</span><span class="vocab-ru">Какая погода?</span></div>
+      <div class="vocab-item" onclick="play('che tempo fa da voi')"><span class="vocab-it">CHE TEMPO FA DA VOI?</span><span class="vocab-ru">Какая погода у вас?</span></div>
+      <div class="vocab-item" style="grid-column:1/-1" onclick="play('quanti gradi ci sono')"><span class="vocab-it">QUANTI GRADI CI SONO?</span><span class="vocab-ru">Сколько градусов?</span></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:10px">🌤 Выражения погоды с FARE</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('fa bello')"><span class="vocab-it">FA BELLO</span><span class="vocab-ru">Хорошая погода</span></div>
+      <div class="vocab-item" onclick="play('fa brutto')"><span class="vocab-it">FA BRUTTO</span><span class="vocab-ru">Плохая погода</span></div>
+      <div class="vocab-item" onclick="play('fa caldo')"><span class="vocab-it">FA CALDO</span><span class="vocab-ru">Жарко</span></div>
+      <div class="vocab-item" onclick="play('fa freddo')"><span class="vocab-it">FA FREDDO</span><span class="vocab-ru">Холодно</span></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:10px">☀️ Другие выражения</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('è soleggiato')"><span class="vocab-it">È SOLEGGIATO</span><span class="vocab-ru">Солнечно</span></div>
+      <div class="vocab-item" onclick="play('c\'è il sole')"><span class="vocab-it">C'È IL SOLE</span><span class="vocab-ru">Светит солнце</span></div>
+      <div class="vocab-item" onclick="play('piove')"><span class="vocab-it">PIOVE</span><span class="vocab-ru">Идёт дождь</span></div>
+      <div class="vocab-item" onclick="play('nevica')"><span class="vocab-it">NEVICA</span><span class="vocab-ru">Идёт снег</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">C'È vs CI SONO</h3>
+    <div class="tip tip-v"><strong>C'È</strong> = есть что-то в ед.ч. · <strong>CI SONO</strong> = есть что-то во мн.ч.</div>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('c\'è una mela sul tavolo')">
+        <span class="vocab-it">C'È</span>
+        <span class="vocab-ru">есть (ед.ч.)</span>
+      </div>
+      <div class="vocab-item" onclick="play('ci sono cinque mele sul tavolo')">
+        <span class="vocab-it">CI SONO</span>
+        <span class="vocab-ru">есть (мн.ч.)</span>
+      </div>
+    </div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">C'è una mela sul tavolo.</div><div class="ru">На столе есть яблоко.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ci sono cinque mele sul tavolo.</div><div class="ru">На столе пять яблок.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ci sono undici gradi.</div><div class="ru">Одиннадцать градусов.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">💬 Диалог о погоде</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="spk">A</div><div class="sb"><div class="it">Che tempo fa da voi?</div><div class="ru">Какая погода у вас?</div></div></div>
+      <div class="dl"><div class="spk">B</div><div class="sb"><div class="it">Fa brutto e fa freddo!</div><div class="ru">Плохая погода и холодно!</div></div></div>
+      <div class="dl"><div class="spk">A</div><div class="sb"><div class="it">Quanti gradi ci sono?</div><div class="ru">Сколько градусов?</div></div></div>
+      <div class="dl"><div class="spk">B</div><div class="sb"><div class="it">Ci sono undici gradi…</div><div class="ru">Одиннадцать градусов…</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('ogni')"><span class="vocab-it">OGNI</span><span class="vocab-ru">каждый</span></div>
+      <div class="vocab-item" onclick="play('la mela')"><span class="vocab-it">LA MELA</span><span class="vocab-ru">яблоко</span></div>
+      <div class="vocab-item" onclick="play('da voi')"><span class="vocab-it">DA VOI</span><span class="vocab-ru">у вас</span></div>
+      <div class="vocab-item" onclick="play('quanti gradi')"><span class="vocab-it">I GRADI</span><span class="vocab-ru">градусы</span></div>
+      <div class="vocab-item" onclick="play('in palestra')"><span class="vocab-it">IN PALESTRA</span><span class="vocab-ru">в спортзале</span></div>
+      <div class="vocab-item" onclick="play('due volte')"><span class="vocab-it">DUE VOLTE</span><span class="vocab-ru">два раза</span></div>
+      <div class="vocab-item" onclick="play('qualche volta')"><span class="vocab-it">QUALCHE VOLTA</span><span class="vocab-ru">иногда</span></div>
+      <div class="vocab-item" onclick="play('poi')"><span class="vocab-it">POI</span><span class="vocab-ru">потом</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ANDARE / VENIRE (NEW 12/05) ══ -->
+<div class="section" id="andare">
+  <div class="lesson-badge bn" style="margin-top:10px">📅 Урок 12/05 — НОВОЕ</div>
+  <h2>ANDARE и VENIRE</h2>
+  <div class="tip"><strong>Неправильные глаголы!</strong> Спряжение нужно выучить наизусть. Нажимай 🔊 на каждой форме!</div>
+
+  <div class="card cav" style="padding:14px">
+    <h3 style="margin-bottom:10px;color:var(--verde)">ANDARE — идти, ехать</h3>
+    <div class="conj-grid" id="andare-cards"></div>
+    <div class="dialogo" style="margin-top:10px">
+      <div class="dl"><div class="sb"><div class="it">Vado al lavoro ogni giorno.</div><div class="ru">Я хожу на работу каждый день.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Dove vai?</div><div class="ru">Куда ты идёшь?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Maria non va a casa.</div><div class="ru">Мария не идёт домой.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Andiamo al cinema stasera!</div><div class="ru">Идём в кино сегодня вечером!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Quando ho un po' di tempo libero, vado a giocare a calcio.</div><div class="ru">Когда у меня немного свободного времени, иду играть в футбол.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cab" style="padding:14px">
+    <h3 style="margin-bottom:10px;color:var(--blu)">VENIRE — приходить, приезжать</h3>
+    <div class="conj-grid" id="venire-cards"></div>
+    <div class="dialogo" style="margin-top:10px">
+      <div class="dl"><div class="sb"><div class="it">Vieni con noi?</div><div class="ru">Ты идёшь с нами?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Gino viene a prendere il caffè da me.</div><div class="ru">Джино приходит выпить кофе ко мне.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vengono anche Martina e Lia al cinema con noi stasera!</div><div class="ru">Мартина и Лиа тоже идут с нами в кино сегодня вечером!</div></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">ANDARE vs VENIRE — разница</h3>
+    <div class="tip tip-b">
+      <strong>ANDARE</strong> — движение <em>от говорящего</em> (я иду туда)<br>
+      <strong>VENIRE</strong> — движение <em>к говорящему</em> (приходи ко мне)
+    </div>
+    <div class="cmp">
+      <div class="cmp-col cv">
+        <div class="cmp-title vt">ANDARE — туда</div>
+        <div class="cmp-item" style="color:var(--verde)"><em>Vado al supermercato.</em> — Иду в магазин.</div>
+        <div class="cmp-item" style="color:var(--verde)"><em>Domani andiamo in Italia.</em> — Завтра едем в Италию.</div>
+      </div>
+      <div class="cmp-col cb">
+        <div class="cmp-title bt">VENIRE — сюда</div>
+        <div class="cmp-item" style="color:var(--blu)"><em>Vieni a casa mia.</em> — Приходи ко мне домой.</div>
+        <div class="cmp-item" style="color:var(--blu)"><em>Vengo subito!</em> — Сейчас приду!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">Полезные слова из урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('in palestra')"><span class="vocab-it">IN PALESTRA</span><span class="vocab-ru">в спортзале</span></div>
+      <div class="vocab-item" onclick="play('al lago')"><span class="vocab-it">AL LAGO</span><span class="vocab-ru">на озеро / у озера</span></div>
+      <div class="vocab-item" onclick="play('in vacanza')"><span class="vocab-it">IN VACANZA</span><span class="vocab-ru">в отпуске</span></div>
+      <div class="vocab-item" onclick="play('in macchina')"><span class="vocab-it">IN MACCHINA</span><span class="vocab-ru">на машине</span></div>
+      <div class="vocab-item" onclick="play('a bere qualcosa')"><span class="vocab-it">A BERE QUALCOSA</span><span class="vocab-ru">выпить что-нибудь</span></div>
+      <div class="vocab-item" onclick="play('il calcio')"><span class="vocab-it">IL CALCIO</span><span class="vocab-ru">футбол</span></div>
+      <div class="vocab-item" onclick="play('stasera')"><span class="vocab-it">STASERA</span><span class="vocab-ru">сегодня вечером</span></div>
+      <div class="vocab-item" onclick="play('il venerdì')"><span class="vocab-it">IL VENERDÌ</span><span class="vocab-ru">пятница / по пятницам</span></div>
+    </div>
+  </div>
+</div>
+<script>
+// ══════════════════════════════════════
+// TTS ENGINE
+// ══════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function selVoice(chip){
+  document.querySelectorAll('.vchip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+
+async function play(word, btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.cj-play,.tts').forEach(b=>{
+    b.classList.remove('playing','tp','loading','tl');
+  });
+  if(btn){btn.classList.add('loading');}
+  try{
+    if(!ttsCache[word]){
+      const body={input:{text:word},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.82}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json();
+      ttsCache[word]=d.audioContent;
+    }
+    if(btn){btn.classList.remove('loading');btn.classList.add('playing');}
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[word]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('playing');ttsAudio=null;};
+    a.play();
+  }catch(e){
+    if(btn)btn.classList.remove('loading','playing');
+    setStatus('❌ '+e.message,'err');
+  }
+}
+
+async function connectKey(){
+  const k=document.getElementById('api-key').value.trim();
+  if(!k){setStatus('Введи ключ','err');return;}
+  setStatus('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json();
+    ttsCache['ciao']=d.audioContent;
+    ttsKey=k;
+    document.getElementById('api-dot').classList.add('active');
+    document.getElementById('api-title-text').textContent='✅ Звук подключён — нажимай на любое слово!';
+    document.getElementById('api-panel').classList.add('connected');
+    document.getElementById('clear-btn').style.display='block';
+    document.getElementById('voice-section').style.display='block';
+    document.getElementById('api-hint').style.display='none';
+    document.getElementById('api-key').style.display='none';
+    document.querySelector('.api-btn-conn').style.display='none';
+    setStatus('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    renderEssere(); renderAvere(); renderVerbi();
+    renderAndare(); renderISC();
+    document.querySelectorAll('.off').forEach(b=>b.classList.remove('off'));
+  }catch(e){setStatus('❌ '+e.message,'err');}
+}
+function clearKey(){
+  ttsKey='';
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  ['api-key','api-hint'].forEach(id=>document.getElementById(id).style.display='block');
+  document.querySelector('.api-btn-conn').style.display='block';
+  document.getElementById('clear-btn').style.display='none';
+  document.getElementById('voice-section').style.display='none';
+  document.getElementById('api-dot').classList.remove('active');
+  document.getElementById('api-title-text').textContent='🔊 Подключи Google TTS — нажимай на любое слово и слушай произношение';
+  document.getElementById('api-panel').classList.remove('connected');
+  setStatus('','');
+  renderEssere(); renderAvere(); renderVerbi();
+}
+function setStatus(m,t){const el=document.getElementById('key-status');el.textContent=m;el.className=t;}
+
+// ══════════════════════════════════════
+// ESSERE & AVERE CARDS
+// ══════════════════════════════════════
+const ESSERE=[
+  {pro:'IO (я)',it:'sono',ru:'я есть'},
+  {pro:'TU (ты)',it:'sei',ru:'ты есть'},
+  {pro:'LUI/LEI (он/она)',it:'è',ru:'он/она есть'},
+  {pro:'NOI (мы)',it:'siamo',ru:'мы есть'},
+  {pro:'VOI (вы)',it:'siete',ru:'вы есть'},
+  {pro:'LORO (они)',it:'sono',ru:'они есть'},
+];
+const AVERE=[
+  {pro:'IO (я)',it:'ho',ru:'у меня есть'},
+  {pro:'TU (ты)',it:'hai',ru:'у тебя есть'},
+  {pro:'LUI/LEI (он/она)',it:'ha',ru:'у него/неё есть'},
+  {pro:'NOI (мы)',it:'abbiamo',ru:'у нас есть'},
+  {pro:'VOI (вы)',it:'avete',ru:'у вас есть'},
+  {pro:'LORO (они)',it:'hanno',ru:'у них есть'},
+];
+
+function mkConjCard(item,colorClass,cardClass){
+  const off=ttsKey?'':'off';
+  return `<div class="cj ${cardClass}">
+    <button class="cj-play ${off}" onclick="play('${item.it}',this)" title="Слушать">🔊</button>
+    <div class="cj-pro">${item.pro}</div>
+    <div class="cj-it ${colorClass}">${item.it}</div>
+    <div class="cj-ru">${item.ru}</div>
+  </div>`;
+}
+function renderEssere(){document.getElementById('essere-cards').innerHTML=ESSERE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');}
+function renderAvere(){document.getElementById('avere-cards').innerHTML=AVERE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');}
+
+// ══════════════════════════════════════
+// VERBI CONJUGATION
+// ══════════════════════════════════════
+const PARLARE=[
+  {pro:'io',it:'parlo'},{pro:'tu',it:'parli'},{pro:'lui/lei',it:'parla'},
+  {pro:'noi',it:'parliamo'},{pro:'voi',it:'parlate'},{pro:'loro',it:'parlano'},
+];
+const PRENDERE=[
+  {pro:'io',it:'prendo'},{pro:'tu',it:'prendi'},{pro:'lui/lei',it:'prende'},
+  {pro:'noi',it:'prendiamo'},{pro:'voi',it:'prendete'},{pro:'loro',it:'prendono'},
+];
+const DORMIRE=[
+  {pro:'io',it:'dormo'},{pro:'tu',it:'dormi'},{pro:'lui/lei',it:'dorme'},
+  {pro:'noi',it:'dormiamo'},{pro:'voi',it:'dormite'},{pro:'loro',it:'dormono'},
+];
+
+function mkVerbCard(item,colorClass,cardClass){
+  return `<div class="vc ${cardClass}" onclick="play('${item.it}',null)">
+    <span class="vc-pro">${item.pro}</span>
+    <span class="vc-it ${colorClass}">${item.it}</span>
+  </div>`;
+}
+function renderVerbi(){
+  document.getElementById('parlare-grid').innerHTML=PARLARE.map(i=>mkVerbCard(i,'ec','cj-parlare')).join('');
+  document.getElementById('prendere-grid').innerHTML=PRENDERE.map(i=>mkVerbCard(i,'ac','cj-prendere')).join('');
+  document.getElementById('dormire-grid').innerHTML=DORMIRE.map(i=>mkVerbCard(i,'dc','cj-dormire')).join('');
+}
+
+// ══════════════════════════════════════
+// NUMERI
+// ══════════════════════════════════════
+const NUMS1=[
+  {n:1,it:'uno'},{n:2,it:'due'},{n:3,it:'tre'},{n:4,it:'quattro'},
+  {n:5,it:'cinque'},{n:6,it:'sei'},{n:7,it:'sette'},{n:8,it:'otto'},
+  {n:9,it:'nove'},{n:10,it:'dieci'},
+];
+const NUMS2=[
+  {n:11,it:'undici'},{n:12,it:'dodici'},{n:13,it:'tredici'},{n:14,it:'quattordici'},
+  {n:15,it:'quindici'},{n:16,it:'sedici'},{n:17,it:'diciassette'},{n:18,it:'diciotto'},
+  {n:19,it:'diciannove'},{n:20,it:'venti'},
+];
+const NUMS3=[
+  {n:10,it:'dieci'},{n:20,it:'venti'},{n:30,it:'trenta'},{n:40,it:'quaranta'},
+  {n:50,it:'cinquanta'},{n:60,it:'sessanta'},{n:70,it:'settanta'},{n:80,it:'ottanta'},
+  {n:90,it:'novanta'},{n:100,it:'cento'},{n:37,it:'trentasette'},{n:33,it:'trentatré'},
+];
+function mkNumCard(item){
+  return `<div class="num-item" onclick="play('${item.it}')">
+    <span class="num-n">${item.n}</span>
+    <span class="num-it">${item.it}</span>
+  </div>`;
+}
+document.getElementById('numeri-1-10').innerHTML=NUMS1.map(mkNumCard).join('');
+document.getElementById('numeri-11-20').innerHTML=NUMS2.map(mkNumCard).join('');
+document.getElementById('numeri-tens').innerHTML=NUMS3.map(mkNumCard).join('');
+
+// ══════════════════════════════════════
+// CONTRARI
+// ══════════════════════════════════════
+const CA=[
+  ['leggero','лёгкий','pesante','тяжёлый'],['nuovo','новый','vecchio','старый'],
+  ['bello','красивый','brutto','некрасивый'],['caro','дорогой','economico','дешёвый'],
+  ['veloce','быстрый','lento','медленный'],['intelligente','умный','stupido','тупой'],
+  ['caldo','горячий','freddo','холодный'],['semplice','простой','complicato','сложный'],
+  ['aperto','открытый','chiuso','закрытый'],['pieno','полный','vuoto','пустой'],
+];
+const CB=[
+  ['buono','хороший','cattivo','плохой'],['allegro','весёлый','triste','грустный'],
+  ['corto','короткий','lungo','длинный'],['dolce','сладкий','amaro','горький'],
+  ['facile','лёгкий','difficile','сложный'],['alto','высокий','basso','низкий'],
+  ['interessante','интересный','noioso','скучный'],['chiaro','светлый','scuro','тёмный'],
+];
+const CC=[
+  ['largo','широкий','stretto','узкий'],['giovane','молодой','vecchio','старый'],
+  ['ricco','богатый','povero','бедный'],['molto','много','poco','мало'],
+  ['grande','большой','piccolo','маленький'],['pulito','чистый','sporco','грязный'],
+];
+function rContrari(data,id){
+  document.getElementById(id).innerHTML=data.map(([w1,r1,w2,r2])=>`
+    <div class="ci" onclick="this.classList.toggle('clicked');play('${w1}')">
+      <div class="cw">${w1}<span class="cr-s">${r1}</span></div>
+      <div class="ca">↔</div>
+      <div class="co">${w2}<span class="cr-s">${r2}</span></div>
+    </div>`).join('');
+}
+rContrari(CA,'ca'); rContrari(CB,'cb'); rContrari(CC,'cc');
+
+// ══════════════════════════════════════
+// NAV
+// ══════════════════════════════════════
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406','irregolari','passato'];
+  document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
+  if(id==='lezione1405') renderISC();
+  if(id==='lezione2105') renderModali();
+  if(id==='irregolari') renderIrregolari();
+}
+
+// ══ НЕПРАВИЛЬНЫЕ ГЛАГОЛЫ — данные и рендер ══
+const IRREG=[
+  {v:'DARE',ru:'давать',f:['do','dai','dà','diamo','date','danno'],hl:[2]},
+  {v:'FARE',ru:'делать',f:['faccio','fai','fa','facciamo','fate','fanno'],hl:[0,3]},
+  {v:'STARE',ru:'находиться',f:['sto','stai','sta','stiamo','state','stanno'],hl:[]},
+  {v:'SAPERE',ru:'знать',f:['so','sai','sa','sappiamo','sapete','sanno'],hl:[0,3,5]},
+  {v:'DIRE',ru:'сказать',f:['dico','dici','dice','diciamo','dite','dicono'],hl:[4]},
+  {v:'ANDARE',ru:'идти / ехать',f:['vado','vai','va','andiamo','andate','vanno'],hl:[0,1,2,5]},
+  {v:'VENIRE',ru:'приходить',f:['vengo','vieni','viene','veniamo','venite','vengono'],hl:[0,1,2,5]},
+  {v:'TENERE',ru:'держать',f:['tengo','tieni','tiene','teniamo','tenete','tengono'],hl:[0,1,2,5]},
+  {v:'RIMANERE',ru:'оставаться',f:['rimango','rimani','rimane','rimaniamo','rimanete','rimangono'],hl:[0,5]},
+  {v:'SPEGNERE',ru:'выключать',f:['spengo','spegni','spegne','spegniamo','spegnete','spengono'],hl:[0,5]},
+  {v:'USCIRE',ru:'выходить',f:['esco','esci','esce','usciamo','uscite','escono'],hl:[0,1,2,5]},
+  {v:'RIUSCIRE',ru:'получаться',f:['riesco','riesci','riesce','riusciamo','riuscite','riescono'],hl:[0,1,2,5]},
+  {v:'SALIRE',ru:'подниматься',f:['salgo','sali','sale','saliamo','salite','salgono'],hl:[0,5]},
+  {v:'SCENDERE',ru:'спускаться',f:['scendo','scendi','scende','scendiamo','scendete','scendono'],hl:[]},
+  {v:'SCEGLIERE',ru:'выбирать',f:['scelgo','scegli','sceglie','scegliamo','scegliete','scelgono'],hl:[0,5]},
+  {v:'DOVERE',ru:'быть должным',f:['devo','devi','deve','dobbiamo','dovete','devono'],hl:[3]},
+  {v:'POTERE',ru:'мочь',f:['posso','puoi','può','possiamo','potete','possono'],hl:[0,1,2,5]},
+  {v:'VOLERE',ru:'хотеть',f:['voglio','vuoi','vuole','vogliamo','volete','vogliono'],hl:[0,1,2,5]},
+  {v:'BERE',ru:'пить',f:['bevo','bevi','beve','beviamo','bevete','bevono'],hl:[0,1,2,3,4,5]},
+  {v:'TRADURRE',ru:'переводить',f:['traduco','traduci','traduce','traduciamo','traducete','traducono'],hl:[0,1,2,3,4,5]},
+  {v:'PRODURRE',ru:'производить',f:['produco','produci','produce','produciamo','producete','producono'],hl:[0,1,2,3,4,5]},
+  {v:'CERCARE',ru:'искать',f:['cerco','cerchi','cerca','cerchiamo','cercate','cercano'],hl:[1,3]},
+  {v:'PAGARE',ru:'платить',f:['pago','paghi','paga','paghiamo','pagate','pagano'],hl:[1,3]},
+];
+const PRON=['io','tu','lui/lei','noi','voi','loro'];
+let irregDone=false;
+function renderIrregolari(){
+  if(irregDone) return;
+  const off = ttsKey?'':'off';
+  const html = IRREG.map(g=>{
+    const rows = g.f.map((form,i)=>{
+      const hl = g.hl.includes(i)?'style="color:#b8860b;font-weight:800"':'';
+      return `<div class="vocab-item" onclick="play('${form.replace(/'/g,"\\'")}',this)">
+        <span class="vocab-it" ${hl}>${PRON[i]} <strong>${form}</strong></span>
+      </div>`;
+    }).join('');
+    return `<div class="card" style="margin-bottom:10px">
+      <h3 style="margin-bottom:8px">${g.v} <span style="color:var(--muted);font-weight:400;font-size:.8rem">— ${g.ru}</span></h3>
+      <div class="vocab-grid" style="grid-template-columns:1fr 1fr 1fr;gap:6px">${rows}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('irreg-grid').innerHTML = html;
+  irregDone=true;
+}
+
+// INIT
+renderEssere(); renderAvere(); renderVerbi();
+
+const ANDARE=[
+  {pro:'IO (я)',it:'vado',ru:'я иду'},
+  {pro:'TU (ты)',it:'vai',ru:'ты идёшь'},
+  {pro:'LUI/LEI (он/она)',it:'va',ru:'он/она идёт'},
+  {pro:'NOI (мы)',it:'andiamo',ru:'мы идём'},
+  {pro:'VOI (вы)',it:'andate',ru:'вы идёте'},
+  {pro:'LORO (они)',it:'vanno',ru:'они идут'},
+];
+const VENIRE=[
+  {pro:'IO (я)',it:'vengo',ru:'я прихожу'},
+  {pro:'TU (ты)',it:'vieni',ru:'ты приходишь'},
+  {pro:'LUI/LEI (он/она)',it:'viene',ru:'он/она приходит'},
+  {pro:'NOI (мы)',it:'veniamo',ru:'мы приходим'},
+  {pro:'VOI (вы)',it:'venite',ru:'вы приходите'},
+  {pro:'LORO (они)',it:'vengono',ru:'они приходят'},
+];
+function renderAndare(){
+  if(document.getElementById('andare-cards'))
+    document.getElementById('andare-cards').innerHTML=ANDARE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('venire-cards'))
+    document.getElementById('venire-cards').innerHTML=VENIRE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+}
+renderAndare();
+
+// ── ISC VERBS (урок 14/05) ──
+const CAPIRE=[
+  {pro:'IO (я)',it:'capisco',ru:'я понимаю'},
+  {pro:'TU (ты)',it:'capisci',ru:'ты понимаешь'},
+  {pro:'LUI/LEI (он/она)',it:'capisce',ru:'он/она понимает'},
+  {pro:'NOI (мы)',it:'capiamo',ru:'мы понимаем'},
+  {pro:'VOI (вы)',it:'capite',ru:'вы понимаете'},
+  {pro:'LORO (они)',it:'capiscono',ru:'они понимают'},
+];
+const FINIRE=[
+  {pro:'IO (я)',it:'finisco',ru:'я заканчиваю'},
+  {pro:'TU (ты)',it:'finisci',ru:'ты заканчиваешь'},
+  {pro:'LUI/LEI (он/она)',it:'finisce',ru:'он/она заканчивает'},
+  {pro:'NOI (мы)',it:'finiamo',ru:'мы заканчиваем'},
+  {pro:'VOI (вы)',it:'finite',ru:'вы заканчиваете'},
+  {pro:'LORO (они)',it:'finiscono',ru:'они заканчивают'},
+];
+const PREFERIRE=[
+  {pro:'IO (я)',it:'preferisco',ru:'я предпочитаю'},
+  {pro:'TU (ты)',it:'preferisci',ru:'ты предпочитаешь'},
+  {pro:'LUI/LEI (он/она)',it:'preferisce',ru:'он/она предпочитает'},
+  {pro:'NOI (мы)',it:'preferiamo',ru:'мы предпочитаем'},
+  {pro:'VOI (вы)',it:'preferite',ru:'вы предпочитаете'},
+  {pro:'LORO (они)',it:'preferiscono',ru:'они предпочитают'},
+];
+
+function renderISC(){
+  if(document.getElementById('capire-cards'))
+    document.getElementById('capire-cards').innerHTML=CAPIRE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('finire-cards'))
+    document.getElementById('finire-cards').innerHTML=FINIRE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+  if(document.getElementById('preferire-cards'))
+    document.getElementById('preferire-cards').innerHTML=PREFERIRE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+}
+// renderISC вызывается после загрузки DOM через window.onload
+// и через show('lezione1405') при переключении вкладки
+window.addEventListener('load', function(){
+  renderAndare();
+  renderISC();
+  renderModali();
+  // открыть вкладку по якорю (#passato, #irregolari и т.д.)
+  if(location.hash){ try{ show(location.hash.slice(1)); }catch(e){} }
+});
+
+// ── МОДАЛЬНЫЕ ГЛАГОЛЫ (урок 21/05) ──
+const POTERE=[
+  {pro:'IO',it:'posso',ru:'я могу'},
+  {pro:'TU',it:'puoi',ru:'ты можешь'},
+  {pro:'LUI/LEI',it:'può',ru:'он/она может'},
+  {pro:'NOI',it:'possiamo',ru:'мы можем'},
+  {pro:'VOI',it:'potete',ru:'вы можете'},
+  {pro:'LORO',it:'possono',ru:'они могут'},
+];
+const VOLERE=[
+  {pro:'IO',it:'voglio',ru:'я хочу'},
+  {pro:'TU',it:'vuoi',ru:'ты хочешь'},
+  {pro:'LUI/LEI',it:'vuole',ru:'он/она хочет'},
+  {pro:'NOI',it:'vogliamo',ru:'мы хотим'},
+  {pro:'VOI',it:'volete',ru:'вы хотите'},
+  {pro:'LORO',it:'vogliono',ru:'они хотят'},
+];
+const DOVERE=[
+  {pro:'IO',it:'devo',ru:'я должен'},
+  {pro:'TU',it:'devi',ru:'ты должен'},
+  {pro:'LUI/LEI',it:'deve',ru:'он/она должен'},
+  {pro:'NOI',it:'dobbiamo',ru:'мы должны'},
+  {pro:'VOI',it:'dovete',ru:'вы должны'},
+  {pro:'LORO',it:'devono',ru:'они должны'},
+];
+const SAPERE=[
+  {pro:'IO',it:'so',ru:'я знаю'},
+  {pro:'TU',it:'sai',ru:'ты знаешь'},
+  {pro:'LUI/LEI',it:'sa',ru:'он/она знает'},
+  {pro:'NOI',it:'sappiamo',ru:'мы знаем'},
+  {pro:'VOI',it:'sapete',ru:'вы знаете'},
+  {pro:'LORO',it:'sanno',ru:'они знают'},
+];
+
+function renderModali(){
+  if(document.getElementById('potere-cards'))
+    document.getElementById('potere-cards').innerHTML=POTERE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('volere-cards'))
+    document.getElementById('volere-cards').innerHTML=VOLERE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+  if(document.getElementById('dovere-cards'))
+    document.getElementById('dovere-cards').innerHTML=DOVERE.map(i=>mkConjCard(i,'ec','cj-essere')).join('');
+  if(document.getElementById('sapere-cards'))
+    document.getElementById('sapere-cards').innerHTML=SAPERE.map(i=>mkConjCard(i,'ac','cj-avere')).join('');
+}
+</script>
+<!-- ══ УРОК 14/05 ══ -->
+<div class="section" id="lezione1405">
+  <div class="lesson-badge bb" style="margin-top:10px">📅 Урок 14/05 — НОВОЕ</div>
+  <h2>Глаголы на -ISC- и новые глаголы</h2>
+  <div class="tip"><strong>Особая группа -IRE глаголов</strong> добавляет -ISC- в формах IO, TU, LUI, LORO. Нажимай на карточки — слышишь произношение!</div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">CAPIRE — понимать <span style="font-size:.63rem;color:var(--oro);font-weight:600">ISC-глагол</span></h3>
+    <div class="tip tip-v"><strong>Запомни:</strong> «Капиш?» — это итальянское слово которое ты уже знаешь!</div>
+    <div class="conj-grid" id="capire-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Capisco! Sì, capisco tutto.</div><div class="ru">Понимаю! Да, я всё понимаю.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Brigitte e Laura capiscono molto bene l'italiano.</div><div class="ru">Брижит и Лора очень хорошо понимают итальянский.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">FINIRE — заканчивать <span style="font-size:.63rem;color:var(--oro);font-weight:600">ISC-глагол</span></h3>
+    <div class="conj-grid" id="finire-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Ogni giorno finisco di lavorare all'una.</div><div class="ru">Каждый день заканчиваю работать в час.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Slava, oggi a che ora finisci di lavorare?</div><div class="ru">Слава, сегодня во сколько заканчиваешь работать?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Fra quattro minuti finisce la lezione.</div><div class="ru">Через четыре минуты заканчивается урок.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cav2">
+    <h3 style="margin-bottom:9px">PREFERIRE — предпочитать <span style="font-size:.63rem;color:var(--oro);font-weight:600">ISC-глагол</span></h3>
+    <div class="conj-grid" id="preferire-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Laura, preferisci una pizza o un panino?</div><div class="ru">Лаура, ты предпочитаешь пиццу или бутерброд?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Preferisco il vestito rosso, è più bello.</div><div class="ru">Предпочитаю красное платье, оно красивее.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📐 Правило -ISC-</h3>
+    <div class="tip"><strong>-ISC- только в:</strong> IO, TU, LUI/LEI, LORO. NOI и VOI — без ISC!</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px">
+      <div style="background:var(--rosso-l);border-radius:10px;padding:11px;text-align:center">
+        <div style="font-size:.66rem;color:var(--rosso);font-weight:800;text-transform:uppercase;margin-bottom:6px">С -ISC-</div>
+        <div style="font-family:'Playfair Display',serif;color:var(--rosso);font-size:.92rem;line-height:2">io cap<strong>isc</strong>o<br>tu cap<strong>isc</strong>i<br>lui cap<strong>isc</strong>e<br>loro cap<strong>isc</strong>ono</div>
+      </div>
+      <div style="background:var(--verde-l);border-radius:10px;padding:11px;text-align:center">
+        <div style="font-size:.66rem;color:var(--verde);font-weight:800;text-transform:uppercase;margin-bottom:6px">Без -ISC-</div>
+        <div style="font-family:'Playfair Display',serif;color:var(--verde);font-size:.92rem;line-height:2">noi cap<strong>iamo</strong><br>voi cap<strong>ite</strong><br><br><br></div>
+      </div>
+    </div>
+    <div class="tip car" style="margin-bottom:0"><strong>SC + I = [ши]</strong> · <strong>SC + E = [шэ]</strong><br>cap<strong>isc</strong>o → «капИШко» · cap<strong>isc</strong>i → «капИШи»</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые глаголы урока 14/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('guardare')"><span class="vocab-it">GUARDARE</span><span class="vocab-ru">смотреть</span></div>
+      <div class="vocab-item" onclick="play('vedere')"><span class="vocab-it">VEDERE</span><span class="vocab-ru">видеть</span></div>
+      <div class="vocab-item" onclick="play('vivere')"><span class="vocab-it">VIVERE</span><span class="vocab-ru">жить</span></div>
+      <div class="vocab-item" onclick="play('abitare')"><span class="vocab-it">ABITARE</span><span class="vocab-ru">проживать</span></div>
+      <div class="vocab-item" onclick="play('arrivare')"><span class="vocab-it">ARRIVARE</span><span class="vocab-ru">прибывать</span></div>
+      <div class="vocab-item" onclick="play('tesoro')"><span class="vocab-it">IL TESORO</span><span class="vocab-ru">сокровище</span></div>
+      <div class="vocab-item" onclick="play('scegliere')"><span class="vocab-it">SCEGLIERE</span><span class="vocab-ru">выбирать</span></div>
+      <div class="vocab-item" onclick="play('pulire')"><span class="vocab-it">PULIRE</span><span class="vocab-ru">убирать (ISC)</span></div>
+      <div class="vocab-item" onclick="play('spedire')"><span class="vocab-it">SPEDIRE</span><span class="vocab-ru">отправлять (ISC)</span></div>
+      <div class="vocab-item" onclick="play('costruire')"><span class="vocab-it">COSTRUIRE</span><span class="vocab-ru">строить (ISC)</span></div>
+      <div class="vocab-item" onclick="play('il panificio')"><span class="vocab-it">IL PANIFICIO</span><span class="vocab-ru">пекарня</span></div>
+      <div class="vocab-item" onclick="play('tra quattro minuti')"><span class="vocab-it">TRA / FRA</span><span class="vocab-ru">через / среди / между</span></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">💬 Предложения из домашнего задания 14/05</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Maria, cosa guardi? — Guardo un film di Fellini.</div><div class="ru">Мария, что смотришь? — Смотрю фильм Феллини.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Dove abiti? — Abito a Milano.</div><div class="ru">Где ты живёшь? — Живу в Милане.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">A che ora parti domani? — Parto alle sette.</div><div class="ru">Во сколько уезжаешь завтра? — В семь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Cosa scrivi? — Scrivo una lettera.</div><div class="ru">Что пишешь? — Пишу письмо.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">La mattina Luisa prende due caffè.</div><div class="ru">Утром Луиза берёт два кофе.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Il bar vicino a casa mia apre alle 6.</div><div class="ru">Бар рядом с моим домом открывается в 6.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Io arrivo a casa alle 5.</div><div class="ru">Я прихожу домой в 5.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Giovanni ascolta musica straniera. Giulia abita a Roma.</div><div class="ru">Джованни слушает иностранную музыку. Джулия живёт в Риме.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Roberto costruisce una nuova casa.</div><div class="ru">Роберто строит новый дом.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Oggi io e Marco finiamo di lavorare alle 3.</div><div class="ru">Сегодня я и Марко заканчиваем работать в 3.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 21/05 ══ -->
+<div class="section" id="lezione2105">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#2d4a8f)">📅 Урок 21/05 — НОВОЕ</div>
+  <h2>Модальные глаголы: POTERE, VOLERE, DOVERE, SAPERE</h2>
+  <div class="tip"><strong>Модальные глаголы</strong> стоят перед инфинитивом: <em>Voglio mangiare · Posso aiutarti · Devo andare · So parlare</em></div>
+
+  <!-- POTERE -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">POTERE — мочь, иметь возможность</h3>
+    <div class="tip tip-v"><strong>Запомни:</strong> POSSO (не poto!) — двойное SS от латыни</div>
+    <div class="conj-grid" id="potere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Posso avere un caffè?</div><div class="ru">Можно мне кофе?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non posso venire alla festa.</div><div class="ru">Не могу прийти на вечеринку.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Quei ragazzi possono prendere solo un succo d'arancia perché non bevono alcolici.</div><div class="ru">Те ребята могут взять только апельсиновый сок потому что не пьют алкоголь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Mamma, possiamo restare ancora un po'?</div><div class="ru">Мама, можем остаться ещё немного?</div></div></div>
+    </div>
+  </div>
+
+  <!-- VOLERE -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">VOLERE — хотеть</h3>
+    <div class="tip tip-v"><strong>Запомни:</strong> VOGLIO (не volo!) — двойное GL!</div>
+    <div class="conj-grid" id="volere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Vuoi venire a cena con me questa sera?</div><div class="ru">Хочешь прийти ужинать со мной сегодня вечером?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non voglio uscire questa sera perché devo lavorare presto domani mattina.</div><div class="ru">Не хочу выходить сегодня вечером, потому что нужно рано работать завтра утром.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non voglio andare in centro oggi. Voglio riposare a casa.</div><div class="ru">Не хочу идти в центр сегодня. Хочу отдохнуть дома.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Voglio arrivare in tempo all'appuntamento.</div><div class="ru">Хочу прибыть вовремя на встречу.</div></div></div>
+    </div>
+  </div>
+
+  <!-- DOVERE -->
+  <div class="card car">
+    <h3 style="margin-bottom:9px">DOVERE — быть должным, нужно</h3>
+    <div class="tip tip-r"><strong>Запомни:</strong> NOI → DOBBIAMO (единственная форма с -BBIAMO!)</div>
+    <div class="conj-grid" id="dovere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Marco deve prendere l'aereo per Genova.</div><div class="ru">Марко должен сесть на самолёт в Геную.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Dovete andare a comprare un quaderno nuovo.</div><div class="ru">Вы должны пойти купить новую тетрадь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Prima di aprire la porta, devi chiedere "chi è?"!</div><div class="ru">Прежде чем открыть дверь, нужно спросить «кто там?»!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Io e mia moglie dobbiamo andare a comprare i vestiti nuovi per nostro figlio.</div><div class="ru">Мы с женой должны пойти купить новую одежду для нашего сына.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non dovete ascoltare musica durante le lezioni!</div><div class="ru">Нельзя слушать музыку во время уроков!</div></div></div>
+    </div>
+  </div>
+
+  <!-- SAPERE -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">SAPERE — знать / уметь</h3>
+    <div class="tip"><strong>SO</strong> — самая короткая форма! Знать факт или уметь делать что-то.</div>
+    <div class="conj-grid" id="sapere-cards"></div>
+    <div class="dialogo" style="margin-top:9px">
+      <div class="dl"><div class="sb"><div class="it">Sai dove sono Maria e Luigi? — Non lo so.</div><div class="ru">Ты знаешь где Мария и Луиджи? — Не знаю.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ragazze, sapete dov'è la farmacia? — Non lo sappiamo!</div><div class="ru">Девочки, вы знаете где аптека? — Не знаем!</div></div></div>
+    </div>
+  </div>
+
+  <!-- VORREI -->
+  <div class="card cav2">
+    <h3 style="margin-bottom:9px">VORREI — я хотел бы (вежливо)</h3>
+    <div class="tip tip-v"><strong>VORREI</strong> = вежливая форма VOLERE. Используй в баре, ресторане, магазине.</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Vorrei un caffè, per favore.</div><div class="ru">Я бы хотел кофе, пожалуйста.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vorrei un bicchiere di vino.</div><div class="ru">Я бы хотел бокал вина.</div></div></div>
+    </div>
+    <div class="tip" style="margin-top:8px;margin-bottom:0">
+      <strong>Voglio</strong> un caffè = Хочу кофе (прямо)<br>
+      <strong>Vorrei</strong> un caffè = Я бы хотел кофе (вежливо) ✅
+    </div>
+  </div>
+
+  <!-- NUOVE PAROLE -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 21/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('pensare')"><span class="vocab-it">PENSARE</span><span class="vocab-ru">думать</span></div>
+      <div class="vocab-item" onclick="play('riposare')"><span class="vocab-it">RIPOSARE</span><span class="vocab-ru">отдыхать</span></div>
+      <div class="vocab-item" onclick="play('uscire')"><span class="vocab-it">USCIRE</span><span class="vocab-ru">выходить / гулять</span></div>
+      <div class="vocab-item" onclick="play('incontrare')"><span class="vocab-it">INCONTRARE</span><span class="vocab-ru">встречать</span></div>
+      <div class="vocab-item" onclick="play('comprare')"><span class="vocab-it">COMPRARE</span><span class="vocab-ru">покупать</span></div>
+      <div class="vocab-item" onclick="play('chiedere')"><span class="vocab-it">CHIEDERE</span><span class="vocab-ru">просить / спрашивать</span></div>
+      <div class="vocab-item" onclick="play('il locale')"><span class="vocab-it">IL LOCALE</span><span class="vocab-ru">заведение</span></div>
+      <div class="vocab-item" onclick="play('il quaderno')"><span class="vocab-it">IL QUADERNO</span><span class="vocab-ru">тетрадь</span></div>
+      <div class="vocab-item" onclick="play('il succo')"><span class="vocab-it">IL SUCCO</span><span class="vocab-ru">сок</span></div>
+      <div class="vocab-item" onclick="play('durante')"><span class="vocab-it">DURANTE</span><span class="vocab-ru">во время / в течение</span></div>
+      <div class="vocab-item" onclick="play('presto')"><span class="vocab-it">PRESTO</span><span class="vocab-ru">рано / быстро</span></div>
+      <div class="vocab-item" onclick="play('tardi')"><span class="vocab-it">TARDI</span><span class="vocab-ru">поздно</span></div>
+      <div class="vocab-item" onclick="play('solo')"><span class="vocab-it">SOLO</span><span class="vocab-ru">только / один</span></div>
+      <div class="vocab-item" onclick="play('qualcuno')"><span class="vocab-it">QUALCUNO</span><span class="vocab-ru">кто-то</span></div>
+      <div class="vocab-item" onclick="play('qualcosa')"><span class="vocab-it">QUALCOSA</span><span class="vocab-ru">что-то</span></div>
+      <div class="vocab-item" onclick="play('prima di')"><span class="vocab-it">PRIMA DI</span><span class="vocab-ru">прежде чем / перед тем как</span></div>
+    </div>
+  </div>
+
+  <!-- ДИАЛОГ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">💬 Диалог урока</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Cosa pensi di fare questo fine settimana?</div><div class="ru">Что думаешь делать в эти выходные?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Penso di lavorare e riposare.</div><div class="ru">Думаю работать и отдыхать.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Bene! Anch'io lavoro tutto il fine settimana.</div><div class="ru">Хорошо! Я тоже работаю всё выходные.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ПРАВИЛО QUI/LÌ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📐 QUI / QUA vs LÌ / LÀ</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">QUI = QUA</span><span class="vocab-ru">здесь / тут / сюда</span></div>
+      <div class="vocab-item"><span class="vocab-it">LÌ = LÀ</span><span class="vocab-ru">там / туда</span></div>
+    </div>
+    <div class="tip" style="margin-top:8px;margin-bottom:0">
+      <em>Mario e Luigi non possono lavorare <strong>qui</strong>.</em> — Марио и Луиджи не могут работать здесь.
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 26/05 ══ -->
+<div class="section" id="lezione2605">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 26/05 — НОВОЕ</div>
+  <h2>C'È / CI SONO — есть / находится</h2>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Правило C'È vs CI SONO</h3>
+    <div class="tip tip-v">
+      <strong>C'È</strong> = ci + è → используется с существительными в <strong>единственном числе</strong><br>
+      <strong>CI SONO</strong> = ci + sono → используется с существительными во <strong>множественном числе</strong>
+    </div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr;margin-bottom:10px">
+      <div class="vocab-item" onclick="play('c\'è')">
+        <span class="vocab-it" style="font-size:1.4rem">C'È</span>
+        <span class="vocab-ru">есть / находится (ед.ч.)</span>
+      </div>
+      <div class="vocab-item" onclick="play('ci sono')">
+        <span class="vocab-it" style="font-size:1.4rem">CI SONO</span>
+        <span class="vocab-ru">есть / находятся (мн.ч.)</span>
+      </div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> un euro nel mio portafoglio.</div><div class="ru">В моём кошельке есть один евро.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sul tavolo <strong>c'è</strong> una bottiglia.</div><div class="ru">На столе есть бутылка.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> una persona sull'autobus.</div><div class="ru">В автобусе есть один человек.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non <strong>c'è</strong> nessuno!</div><div class="ru">Там никого нет!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>C'è</strong> qualcuno?</div><div class="ru">Есть кто-нибудь?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sul tavolo <strong>ci sono</strong> due bottiglie.</div><div class="ru">На столе две бутылки.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Nel mio portafoglio <strong>ci sono</strong> molti soldi.</div><div class="ru">В моём кошельке много денег.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Ci sono</strong> molte persone sull'autobus.</div><div class="ru">В автобусе много людей.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Nel mio giardino <strong>ci sono</strong> molti alberi.</div><div class="ru">В моём саду много деревьев.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Ci sono</strong> venti gradi, ma <strong>c'è</strong> il vento.</div><div class="ru">Двадцать градусов, но есть ветер.</div></div></div>
+    </div>
+  </div>
+
+  <!-- ПРЕДЛОГ SU -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📐 Предлог SU = на</h3>
+    <div class="tip"><strong>SU + артикль</strong> = слитные формы:</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">SU + IL = <strong>SUL</strong></span><span class="vocab-ru">sul tavolo = на столе</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + LA = <strong>SULLA</strong></span><span class="vocab-ru">sulla sedia = на стуле</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + L' = <strong>SULL'</strong></span><span class="vocab-ru">sull'autobus = в автобусе</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + I = <strong>SUI</strong></span><span class="vocab-ru">sui libri = на книгах</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + GLI = <strong>SUGLI</strong></span><span class="vocab-ru">sugli scaffali = на полках</span></div>
+      <div class="vocab-item"><span class="vocab-it">SU + LE = <strong>SULLE</strong></span><span class="vocab-ru">sulle sedie = на стульях</span></div>
+    </div>
+  </div>
+
+  <!-- НОВЫЕ СЛОВА -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 26/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('portafoglio')"><span class="vocab-it">IL PORTAFOGLIO</span><span class="vocab-ru">кошелёк</span></div>
+      <div class="vocab-item" onclick="play('i soldi')"><span class="vocab-it">I SOLDI</span><span class="vocab-ru">деньги</span></div>
+      <div class="vocab-item" onclick="play('la persona')"><span class="vocab-it">LA PERSONA / LE PERSONE</span><span class="vocab-ru">человек / люди</span></div>
+      <div class="vocab-item" onclick="play('la gente')"><span class="vocab-it">LA GENTE</span><span class="vocab-ru">люди (ед.ч. жен.р.!)</span></div>
+      <div class="vocab-item" onclick="play('la camera')"><span class="vocab-it">LA CAMERA = LA STANZA</span><span class="vocab-ru">комната</span></div>
+      <div class="vocab-item" onclick="play('nessuno')"><span class="vocab-it">NESSUNO</span><span class="vocab-ru">никого / никто</span></div>
+      <div class="vocab-item" onclick="play('qualcuno')"><span class="vocab-it">QUALCUNO</span><span class="vocab-ru">кто-то / кто-нибудь</span></div>
+      <div class="vocab-item" onclick="play('qualcosa')"><span class="vocab-it">QUALCOSA</span><span class="vocab-ru">что-то / что-нибудь</span></div>
+      <div class="vocab-item" onclick="play('una cosa')"><span class="vocab-it">UNA COSA / TANTE COSE</span><span class="vocab-ru">одна вещь / много вещей</span></div>
+      <div class="vocab-item" onclick="play('tanto')"><span class="vocab-it">MOLTO = TANTO</span><span class="vocab-ru">много (согласуется с сущ.!)</span></div>
+      <div class="vocab-item" onclick="play('su')"><span class="vocab-it">SU</span><span class="vocab-ru">на (предлог)</span></div>
+    </div>
+  </div>
+
+  <!-- ВАЖНОЕ ЗАМЕЧАНИЕ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">⚠️ LA GENTE — ловушка!</h3>
+    <div class="tip tip-v">
+      <strong>LA GENTE</strong> = люди — жен.р. ед.ч., но по смыслу «много людей»<br>
+      Глагол ставится в <strong>единственном числе</strong>!
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb">
+        <div class="it">La gente <strong>è</strong> stanca. ✅</div>
+        <div class="ru">Люди устали. (ед.ч. → è)</div>
+      </div></div>
+      <div class="dl"><div class="sb">
+        <div class="it">❌ La gente <strong>sono</strong> stanche. ✗</div>
+        <div class="ru">Ошибка! Gente требует ед.ч.</div>
+      </div></div>
+      <div class="dl"><div class="sb">
+        <div class="it"><strong>C'è</strong> molta gente! ✅</div>
+        <div class="ru">Здесь много людей!</div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- MOLTO / TANTO -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">💡 MOLTO = TANTO — согласование</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item"><span class="vocab-it">molt<strong>o</strong> / tant<strong>o</strong></span><span class="vocab-ru">муж.р. ед.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>a</strong> / tant<strong>a</strong></span><span class="vocab-ru">жен.р. ед.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>i</strong> / tant<strong>i</strong></span><span class="vocab-ru">муж.р. мн.ч.</span></div>
+      <div class="vocab-item"><span class="vocab-it">molt<strong>e</strong> / tant<strong>e</strong></span><span class="vocab-ru">жен.р. мн.ч.</span></div>
+    </div>
+    <div class="dialogo" style="margin-top:8px">
+      <div class="dl"><div class="sb"><div class="it">molti soldi · molta gente · molte cose · molto tempo</div><div class="ru">много денег · много людей · много вещей · много времени</div></div></div>
+    </div>
   </div>
 
 </div>
 
-<footer>
-  Сделано с ❤️ для изучения итальянского ·
-  <a href="https://github.com/alexinfrai/italiano">GitHub</a>
-</footer>
+<!-- ══ УРОК 27/05 ══ -->
+<div class="section" id="lezione2705">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#2d4a8f)">📅 Урок 27/05 — НОВОЕ</div>
+  <h2>Приглашения · Andare/Venire · Форма «Lei»</h2>
+
+  <!-- ПРИГЛАШЕНИЯ -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">🎉 Пригласить · Принять · Отказать</h3>
+    <div class="tip tip-v"><strong>Invitare</strong> (пригласить) → <strong>Accettare</strong> (принять) → <strong>Rifiutare</strong> (отказать)</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr">
+      <div class="vocab-item" onclick="play('Andiamo al mare?')"><span class="vocab-it">📨 Andiamo al mare? · Vieni con me? · Vuoi venire?</span><span class="vocab-ru">Пригласить: «Пойдём…? / Хочешь пойти?»</span></div>
+      <div class="vocab-item" onclick="play('Che ne dici di andare a teatro?')"><span class="vocab-it">📨 Che ne dici di andare a teatro?</span><span class="vocab-ru">Как насчёт того, чтобы…?</span></div>
+      <div class="vocab-item" onclick="play('Sì, volentieri!')"><span class="vocab-it">✅ Sì, volentieri! · Sì, certo! · Perché no? · Buona idea!</span><span class="vocab-ru">Принять: «С удовольствием! / Конечно! / Почему нет!»</span></div>
+      <div class="vocab-item" onclick="play('Purtroppo non posso, devo lavorare.')"><span class="vocab-it">❌ Purtroppo non posso. · Ho già un impegno.</span><span class="vocab-ru">Отказать: «К сожалению, не могу. / У меня уже дело.»</span></div>
+      <div class="vocab-item" onclick="play('Mi dispiace, magari un altra volta.')"><span class="vocab-it">❌ Mi dispiace, magari un'altra volta.</span><span class="vocab-ru">Жаль, может в другой раз.</span></div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">— Andiamo al mare? — <strong>Sì, volentieri!</strong></div><div class="ru">— Поедем на море? — С удовольствием!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">— Vieni con noi in discoteca? — <strong>Purtroppo non posso, devo studiare.</strong></div><div class="ru">— Пойдёшь с нами на дискотеку? — К сожалению, не могу, надо учиться.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">— Che ne dici di andare a Venezia? — <strong>È da tempo che non vado a Venezia!</strong></div><div class="ru">— Как насчёт Венеции? — Давно там не был!</div></div></div>
+    </div>
+  </div>
+
+  <!-- ANDARE / VENIRE -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🚶 ANDARE vs VENIRE</h3>
+    <div class="tip"><strong>ANDARE</strong> = идти/ехать (от себя, в какое-то место) · <strong>VENIRE</strong> = приходить/приезжать (к собеседнику, с кем-то)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Stasera noi <strong>andiamo</strong> a ballare.</div><div class="ru">Сегодня мы идём танцевать.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Domani <strong>vengo</strong> con te a Milano.</div><div class="ru">Завтра я поеду с тобой в Милан.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Perché non <strong>venite</strong> anche voi al cinema?</div><div class="ru">Почему бы и вам не пойти в кино?</div></div></div>
+    </div>
+  </div>
+
+  <!-- ФОРМА LEI -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🎩 Форма вежливости «Lei»</h3>
+    <div class="tip tip-v">Вежливое «вы» к одному человеку = <strong>Lei</strong> + глагол в <strong>3-м лице ед.ч.</strong> (как «он/она»)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">tu sei → <strong>Lei è</strong> · tu hai → <strong>Lei ha</strong></div><div class="ru">ты → вы (формально)</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sei di Madrid? → <strong>Lei è di Madrid?</strong></div><div class="ru">Вы из Мадрида?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Hai il mio indirizzo? → <strong>Lei ha il mio indirizzo?</strong></div><div class="ru">У вас есть мой адрес?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Scusi, sa dov'è via Alberti?</div><div class="ru">Простите, вы знаете, где улица Альберти? (Scusi/sa — форма Lei)</div></div></div>
+    </div>
+  </div>
+
+  <!-- НОВЫЕ СЛОВА -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Новые слова урока 27/05</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('davvero')"><span class="vocab-it">DAVVERO</span><span class="vocab-ru">правда, действительно</span></div>
+      <div class="vocab-item" onclick="play('anche se')"><span class="vocab-it">ANCHE SE</span><span class="vocab-ru">даже если, хотя</span></div>
+      <div class="vocab-item" onclick="play('la prima volta')"><span class="vocab-it">LA PRIMA VOLTA</span><span class="vocab-ru">первый раз</span></div>
+      <div class="vocab-item" onclick="play('l ufficio')"><span class="vocab-it">L'UFFICIO</span><span class="vocab-ru">офис</span></div>
+      <div class="vocab-item" onclick="play('iniziare')"><span class="vocab-it">INIZIARE = COMINCIARE</span><span class="vocab-ru">начинать</span></div>
+      <div class="vocab-item" onclick="play('magari')"><span class="vocab-it">MAGARI</span><span class="vocab-ru">может быть; вот бы!</span></div>
+      <div class="vocab-item" onclick="play('un impegno')"><span class="vocab-it">UN IMPEGNO</span><span class="vocab-ru">дело, обязательство</span></div>
+      <div class="vocab-item" onclick="play('volentieri')"><span class="vocab-it">VOLENTIERI</span><span class="vocab-ru">охотно, с удовольствием</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 02/06 ══ -->
+<div class="section" id="lezione0206">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 02/06 — НОВОЕ</div>
+  <h2>Настоящее время · новые глаголы и лексика</h2>
+
+  <!-- НАПОМИНАНИЕ -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Окончания настоящего времени</h3>
+    <div class="vocab-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="vocab-item"><span class="vocab-it">-ARE</span><span class="vocab-ru">parlo, parli, parla…</span></div>
+      <div class="vocab-item"><span class="vocab-it">-ERE</span><span class="vocab-ru">prendo, prendi, prende…</span></div>
+      <div class="vocab-item"><span class="vocab-it">-IRE</span><span class="vocab-ru">apro, apri, apre…</span></div>
+    </div>
+    <div class="tip">Помни про <strong>ISC-глаголы</strong> (capire → cap<strong>isc</strong>o, pulire → pul<strong>isc</strong>o, inserire → inser<strong>isc</strong>o).</div>
+  </div>
+
+  <!-- НОВЫЕ ГЛАГОЛЫ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🎬 Новые глаголы урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('lasciare')"><span class="vocab-it">LASCIARE</span><span class="vocab-ru">оставлять, бросать</span></div>
+      <div class="vocab-item" onclick="play('affittare')"><span class="vocab-it">AFFITTARE</span><span class="vocab-ru">снимать жильё</span></div>
+      <div class="vocab-item" onclick="play('noleggiare')"><span class="vocab-it">NOLEGGIARE</span><span class="vocab-ru">арендовать (транспорт)</span></div>
+      <div class="vocab-item" onclick="play('correre')"><span class="vocab-it">CORRERE</span><span class="vocab-ru">бегать</span></div>
+      <div class="vocab-item" onclick="play('spendere')"><span class="vocab-it">SPENDERE</span><span class="vocab-ru">тратить (деньги)</span></div>
+      <div class="vocab-item" onclick="play('guadagnare')"><span class="vocab-it">GUADAGNARE</span><span class="vocab-ru">зарабатывать</span></div>
+      <div class="vocab-item" onclick="play('attraversare')"><span class="vocab-it">ATTRAVERSARE</span><span class="vocab-ru">переходить, пересекать</span></div>
+      <div class="vocab-item" onclick="play('girare')"><span class="vocab-it">GIRARE</span><span class="vocab-ru">поворачивать</span></div>
+      <div class="vocab-item" onclick="play('accendere')"><span class="vocab-it">ACCENDERE</span><span class="vocab-ru">включать ↔ spegnere выключать</span></div>
+      <div class="vocab-item" onclick="play('inserire')"><span class="vocab-it">INSERIRE</span><span class="vocab-ru">вставлять (ISC)</span></div>
+      <div class="vocab-item" onclick="play('frequentare')"><span class="vocab-it">FREQUENTARE</span><span class="vocab-ru">посещать (курс)</span></div>
+      <div class="vocab-item" onclick="play('conoscere')"><span class="vocab-it">CONOSCERE</span><span class="vocab-ru">знать, быть знакомым</span></div>
+      <div class="vocab-item" onclick="play('restare')"><span class="vocab-it">RESTARE = RIMANERE</span><span class="vocab-ru">оставаться</span></div>
+      <div class="vocab-item" onclick="play('funzionare')"><span class="vocab-it">FUNZIONARE</span><span class="vocab-ru">работать (об устройстве)</span></div>
+    </div>
+  </div>
+
+  <!-- SALIRE / SCENDERE + лексика -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">⬆️⬇️ SALIRE / SCENDERE — ловушка</h3>
+    <div class="tip tip-v"><strong>SALIRE</strong> = подниматься / <strong>садиться</strong> в транспорт · <strong>SCENDERE</strong> = спускаться / <strong>выходить</strong> из транспорта</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Lei <strong>scende</strong> alla prossima fermata?</div><div class="ru">Вы выходите на следующей остановке?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Conoscere</strong> = знать человека/место · <strong>sapere</strong> = знать факт/уметь</div><div class="ru">Conosco Maria. — Знаю Марию. / So la verità. — Знаю правду.</div></div></div>
+    </div>
+    <div class="vocab-grid" style="margin-top:8px">
+      <div class="vocab-item" onclick="play('insomma')"><span class="vocab-it">INSOMMA</span><span class="vocab-ru">в общем, короче</span></div>
+      <div class="vocab-item" onclick="play('specialmente')"><span class="vocab-it">SPECIALMENTE</span><span class="vocab-ru">особенно</span></div>
+      <div class="vocab-item" onclick="play('in ritardo')"><span class="vocab-it">IN RITARDO</span><span class="vocab-ru">с опозданием</span></div>
+      <div class="vocab-item" onclick="play('in orario')"><span class="vocab-it">IN ORARIO = IN TEMPO</span><span class="vocab-ru">вовремя</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ УРОК 04/06 ══ -->
+<div class="section" id="lezione0406">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#3a1a55,#6040a0)">📅 Урок 04/06 — НОВОЕ</div>
+  <h2>Возвратные глаголы — Verbi riflessivi</h2>
+
+  <!-- ПРАВИЛО -->
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Что такое возвратный глагол</h3>
+    <div class="tip tip-v">Действие направлено <strong>на самого себя</strong>. Перед глаголом ставится частица:<br><strong>mi · ti · si</strong> (ед.ч.) · <strong>ci · vi · si</strong> (мн.ч.)</div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">svegliare = будить (кого-то) → <strong>svegliarsi</strong> = просыпаться (себя)</div><div class="ru">lavare мыть → lavarsi мыться</div></div></div>
+    </div>
+  </div>
+
+  <!-- СПРЯЖЕНИЕ -->
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">🔄 SVEGLIARSI — спряжение (образец)</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('io mi sveglio')"><span class="vocab-it">io <strong>mi</strong> sveglio</span><span class="vocab-ru">я просыпаюсь</span></div>
+      <div class="vocab-item" onclick="play('tu ti svegli')"><span class="vocab-it">tu <strong>ti</strong> svegli</span><span class="vocab-ru">ты просыпаешься</span></div>
+      <div class="vocab-item" onclick="play('lui si sveglia')"><span class="vocab-it">lui/lei <strong>si</strong> sveglia</span><span class="vocab-ru">он/она просыпается</span></div>
+      <div class="vocab-item" onclick="play('noi ci svegliamo')"><span class="vocab-it">noi <strong>ci</strong> svegliamo</span><span class="vocab-ru">мы просыпаемся</span></div>
+      <div class="vocab-item" onclick="play('voi vi svegliate')"><span class="vocab-it">voi <strong>vi</strong> svegliate</span><span class="vocab-ru">вы просыпаетесь</span></div>
+      <div class="vocab-item" onclick="play('loro si svegliano')"><span class="vocab-it">loro <strong>si</strong> svegliano</span><span class="vocab-ru">они просыпаются</span></div>
+    </div>
+  </div>
+
+  <!-- СПИСОК -->
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Возвратные глаголы урока</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('svegliarsi')"><span class="vocab-it">SVEGLIARSI</span><span class="vocab-ru">просыпаться</span></div>
+      <div class="vocab-item" onclick="play('alzarsi')"><span class="vocab-it">ALZARSI</span><span class="vocab-ru">вставать</span></div>
+      <div class="vocab-item" onclick="play('lavarsi')"><span class="vocab-it">LAVARSI</span><span class="vocab-ru">мыться</span></div>
+      <div class="vocab-item" onclick="play('vestirsi')"><span class="vocab-it">VESTIRSI</span><span class="vocab-ru">одеваться</span></div>
+      <div class="vocab-item" onclick="play('pettinarsi')"><span class="vocab-it">PETTINARSI</span><span class="vocab-ru">причёсываться</span></div>
+      <div class="vocab-item" onclick="play('farsi la doccia')"><span class="vocab-it">FARSI la doccia</span><span class="vocab-ru">принимать душ</span></div>
+      <div class="vocab-item" onclick="play('mettersi')"><span class="vocab-it">METTERSI</span><span class="vocab-ru">надевать; приниматься</span></div>
+      <div class="vocab-item" onclick="play('sedersi')"><span class="vocab-it">SEDERSI</span><span class="vocab-ru">садиться</span></div>
+      <div class="vocab-item" onclick="play('addormentarsi')"><span class="vocab-it">ADDORMENTARSI</span><span class="vocab-ru">засыпать</span></div>
+      <div class="vocab-item" onclick="play('divertirsi')"><span class="vocab-it">DIVERTIRSI</span><span class="vocab-ru">веселиться</span></div>
+      <div class="vocab-item" onclick="play('annoiarsi')"><span class="vocab-it">ANNOIARSI</span><span class="vocab-ru">скучать</span></div>
+      <div class="vocab-item" onclick="play('lamentarsi')"><span class="vocab-it">LAMENTARSI</span><span class="vocab-ru">жаловаться</span></div>
+      <div class="vocab-item" onclick="play('sentirsi')"><span class="vocab-it">SENTIRSI</span><span class="vocab-ru">чувствовать себя</span></div>
+      <div class="vocab-item" onclick="play('fidarsi')"><span class="vocab-it">FIDARSI</span><span class="vocab-ru">доверять</span></div>
+      <div class="vocab-item" onclick="play('fermarsi')"><span class="vocab-it">FERMARSI</span><span class="vocab-ru">останавливаться</span></div>
+      <div class="vocab-item" onclick="play('scusarsi')"><span class="vocab-it">SCUSARSI</span><span class="vocab-ru">извиняться</span></div>
+    </div>
+  </div>
+
+  <!-- РАСПОРЯДОК ДНЯ -->
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🌅 La mia giornata — мой день</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Ogni giorno <strong>mi sveglio</strong> alle quattro e <strong>mi alzo</strong> dieci minuti dopo.</div><div class="ru">Каждый день просыпаюсь в 4 и встаю через 10 минут.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vado in bagno e <strong>mi lavo</strong> i denti e la faccia. Poi <strong>mi vesto</strong>.</div><div class="ru">Иду в ванную, чищу зубы и умываюсь. Потом одеваюсь.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Faccio colazione, vado al lavoro e <strong>mi diverto</strong> con i colleghi.</div><div class="ru">Завтракаю, иду на работу и веселюсь с коллегами.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ НЕПРАВИЛЬНЫЕ ГЛАГОЛЫ ══ -->
+<div class="section" id="irregolari">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#2a1a55,#c0392b)">⚡ Неправильные глаголы — Verbi irregolari</div>
+  <h2>Спряжение в настоящем времени</h2>
+  <div class="card cab">
+    <div class="tip tip-v">Нажми на любую форму — услышишь произношение. 🟡 Жёлтым выделены формы, где меняется основа.</div>
+  </div>
+  <div id="irreg-grid"></div>
+</div>
+
+<!-- ══ PASSATO PROSSIMO (16/06) ══ -->
+<div class="section" id="passato">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#7c3aed)">📅 Урок 16/06 — НОВОЕ</div>
+  <h2>Passato Prossimo — прошедшее время</h2>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">📐 Как строится</h3>
+    <div class="tip tip-v"><strong>Вспомогательный глагол</strong> (avere или essere) в настоящем времени <strong>+ причастие</strong> (participio passato).</div>
+    <div class="vocab-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="vocab-item"><span class="vocab-it">-ARE → <strong>-ATO</strong></span><span class="vocab-ru">mangiare → mangiato</span></div>
+      <div class="vocab-item"><span class="vocab-it">-ERE → <strong>-UTO</strong></span><span class="vocab-ru">avere → avuto</span></div>
+      <div class="vocab-item"><span class="vocab-it">-IRE → <strong>-ITO</strong></span><span class="vocab-ru">dormire → dormito</span></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">①  С AVERE — причастие НЕ меняется</h3>
+    <div class="tip">Большинство глаголов. Спрягаем <strong>avere</strong> (ho, hai, ha, abbiamo, avete, hanno) + причастие.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('ho mangiato un panino')"><span class="vocab-it">Ho <strong>mangiato</strong></span><span class="vocab-ru">я поел</span></div>
+      <div class="vocab-item" onclick="play('hai parlato con tua madre')"><span class="vocab-it">Hai <strong>parlato</strong></span><span class="vocab-ru">ты поговорил</span></div>
+      <div class="vocab-item" onclick="play('ha comprato una macchina')"><span class="vocab-it">Ha <strong>comprato</strong></span><span class="vocab-ru">он купил</span></div>
+      <div class="vocab-item" onclick="play('abbiamo dormito bene')"><span class="vocab-it">Abbiamo <strong>dormito</strong></span><span class="vocab-ru">мы поспали</span></div>
+      <div class="vocab-item" onclick="play('avete pagato il conto')"><span class="vocab-it">Avete <strong>pagato</strong></span><span class="vocab-ru">вы оплатили</span></div>
+      <div class="vocab-item" onclick="play('hanno comprato i biglietti')"><span class="vocab-it">Hanno <strong>comprato</strong></span><span class="vocab-ru">они купили</span></div>
+    </div>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it"><strong>Hai dormito</strong> bene questa notte? — <strong>Ho dormito</strong> come un bambino!</div><div class="ru">Хорошо спал этой ночью? — Спал как младенец!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it"><strong>Hai pagato</strong> il conto? — No, <strong>ho dimenticato</strong> il portafoglio.</div><div class="ru">Ты оплатил счёт? — Нет, я забыл кошелёк.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Cosa <strong>avete comprato</strong> al supermercato?</div><div class="ru">Что вы купили в супермаркете?</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">②  Неправильные причастия — учим наизусть</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('fatto')"><span class="vocab-it">fare → <strong>fatto</strong></span><span class="vocab-ru">делать → сделал</span></div>
+      <div class="vocab-item" onclick="play('detto')"><span class="vocab-it">dire → <strong>detto</strong></span><span class="vocab-ru">говорить → сказал</span></div>
+      <div class="vocab-item" onclick="play('chiuso')"><span class="vocab-it">chiudere → <strong>chiuso</strong></span><span class="vocab-ru">закрывать → закрыл</span></div>
+      <div class="vocab-item" onclick="play('aperto')"><span class="vocab-it">aprire → <strong>aperto</strong></span><span class="vocab-ru">открывать → открыл</span></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">③  С ESSERE — причастие СОГЛАСУЕТСЯ</h3>
+    <div class="tip tip-v">Глаголы движения и состояния. Спрягаем <strong>essere</strong> (sono, sei, è...) + причастие, которое меняет окончание по роду и числу: <strong>-o / -a / -i / -e</strong>.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('sono andato')"><span class="vocab-it">io sono <strong>andato/a</strong></span><span class="vocab-ru">я пошёл / пошла</span></div>
+      <div class="vocab-item" onclick="play('sei andato')"><span class="vocab-it">tu sei <strong>andato/a</strong></span><span class="vocab-ru">ты пошёл / пошла</span></div>
+      <div class="vocab-item" onclick="play('lei è andata')"><span class="vocab-it">lui è andato / lei è <strong>andata</strong></span><span class="vocab-ru">он пошёл / она пошла</span></div>
+      <div class="vocab-item" onclick="play('siamo andati')"><span class="vocab-it">noi siamo <strong>andati/e</strong></span><span class="vocab-ru">мы пошли</span></div>
+      <div class="vocab-item" onclick="play('siete andati')"><span class="vocab-it">voi siete <strong>andati/e</strong></span><span class="vocab-ru">вы пошли</span></div>
+      <div class="vocab-item" onclick="play('loro sono andate')"><span class="vocab-it">loro sono <strong>andati/e</strong></span><span class="vocab-ru">они пошли</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">📚 Глаголы с ESSERE — учим наизусть</h3>
+    <div class="tip">Движение и изменение состояния. У некоторых причастие неправильное (в скобках).</div>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('andare')"><span class="vocab-it">ANDARE</span><span class="vocab-ru">идти/ехать → andato</span></div>
+      <div class="vocab-item" onclick="play('venire')"><span class="vocab-it">VENIRE</span><span class="vocab-ru">приходить → <b>venuto</b></span></div>
+      <div class="vocab-item" onclick="play('tornare')"><span class="vocab-it">TORNARE</span><span class="vocab-ru">возвращаться → tornato</span></div>
+      <div class="vocab-item" onclick="play('arrivare')"><span class="vocab-it">ARRIVARE</span><span class="vocab-ru">прибывать → arrivato</span></div>
+      <div class="vocab-item" onclick="play('partire')"><span class="vocab-it">PARTIRE</span><span class="vocab-ru">уезжать → partito</span></div>
+      <div class="vocab-item" onclick="play('uscire')"><span class="vocab-it">USCIRE</span><span class="vocab-ru">выходить → uscito</span></div>
+      <div class="vocab-item" onclick="play('entrare')"><span class="vocab-it">ENTRARE</span><span class="vocab-ru">входить → entrato</span></div>
+      <div class="vocab-item" onclick="play('stare')"><span class="vocab-it">STARE</span><span class="vocab-ru">быть → stato</span></div>
+      <div class="vocab-item" onclick="play('rimanere')"><span class="vocab-it">RIMANERE</span><span class="vocab-ru">оставаться → <b>rimasto</b></span></div>
+      <div class="vocab-item" onclick="play('restare')"><span class="vocab-it">RESTARE</span><span class="vocab-ru">оставаться → restato</span></div>
+      <div class="vocab-item" onclick="play('diventare')"><span class="vocab-it">DIVENTARE</span><span class="vocab-ru">становиться → diventato</span></div>
+      <div class="vocab-item" onclick="play('nascere')"><span class="vocab-it">NASCERE</span><span class="vocab-ru">рождаться → <b>nato</b></span></div>
+      <div class="vocab-item" onclick="play('morire')"><span class="vocab-it">MORIRE</span><span class="vocab-ru">умирать → <b>morto</b></span></div>
+    </div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📖 Новые слова</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('piove')"><span class="vocab-it">PIOVE</span><span class="vocab-ru">идёт дождь</span></div>
+      <div class="vocab-item" onclick="play('la pioggia')"><span class="vocab-it">LA PIOGGIA</span><span class="vocab-ru">дождь</span></div>
+      <div class="vocab-item" onclick="play('pagare il conto')"><span class="vocab-it">PAGARE IL CONTO</span><span class="vocab-ru">оплатить счёт</span></div>
+      <div class="vocab-item" onclick="play('dimenticare')"><span class="vocab-it">DIMENTICARE</span><span class="vocab-ru">забывать</span></div>
+      <div class="vocab-item" onclick="play('stabile')"><span class="vocab-it">STABILE</span><span class="vocab-ru">стабильный</span></div>
+      <div class="vocab-item" onclick="play('niente di nuovo')"><span class="vocab-it">NIENTE DI NUOVO</span><span class="vocab-ru">ничего нового</span></div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>

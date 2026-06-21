@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎵 Celentano — Confessa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0808;--card:#140f0f;--border:#2a1a1a;
+  --verde:#2d7a4f;--verde-l:#0a1a10;
+  --rosso:#c0392b;--rosso-l:#1a0808;
+  --oro:#c9a84c;--oro-l:#1a1500;
+  --blu:#2855a0;--blu-l:#080e1a;
+  --viola:#6040a0;--viola-l:#0e0818;
+  --testo:#f0ebe3;--muted:#7a6a5a;
+  --shadow:0 4px 24px rgba(0,0,0,.5);
+  --rosso-deep:#8b0000;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+
+header{
+  background:linear-gradient(135deg,#0a0505 0%,#1a0808 40%,#100a1a 100%);
+  padding:26px 16px 18px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(180,30,30,.12),transparent 65%)}
+header::after{content:'🎵';position:absolute;font-size:9rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.song-icon{font-size:2.4rem;margin-bottom:8px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:700;position:relative}
+header h1 em{font-style:italic;color:var(--oro)}
+header .sub{font-size:.72rem;color:var(--oro);margin-top:4px;position:relative;opacity:.9;letter-spacing:.08em}
+header .desc{font-size:.68rem;color:var(--muted);margin-top:6px;position:relative;line-height:1.6}
+.badge-row{display:flex;justify-content:center;gap:6px;margin-top:10px;flex-wrap:wrap}
+.badge{background:#ffffff08;border:1px solid #ffffff12;border-radius:99px;padding:3px 10px;font-size:.6rem;color:var(--muted)}
+.badge.hot{border-color:#c9a84c44;color:var(--oro);background:#c9a84c0a}
+
+/* API */
+#ap{background:#070505;border-bottom:1px solid var(--border);padding:9px 13px}
+#ap.conn{border-color:#2d7a4f44}
+.at{font-size:.72rem;color:var(--oro);font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.adot{width:6px;height:6px;border-radius:50%;background:#2a1a1a;flex-shrink:0}
+.adot.on{background:#c9a84c;animation:bl 2s infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
+.arow{display:flex;gap:6px;flex-wrap:wrap}
+.ainp{flex:1;min-width:130px;background:#1a1010;border:1px solid var(--border);border-radius:7px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
+.ainp::placeholder{color:#4a3a3a}
+.abtnc{background:#8b2020;border:none;border-radius:7px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 12px;cursor:pointer;white-space:nowrap}
+.axbtn{background:var(--card);border:1px solid var(--border);border-radius:7px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
+#ks{font-size:.64rem;margin-top:3px;min-height:12px}
+#ks.ok{color:#c9a84c}#ks.err{color:#f87171}
+.ahint{font-size:.62rem;color:#4a3a3a;margin-top:4px;line-height:1.5}
+.ahint a{color:var(--oro);text-decoration:none}
+#vss{display:none;margin-top:5px}
+.vrow{display:flex;gap:5px;flex-wrap:wrap}
+.vchip{background:var(--card);border:1px solid var(--border);border-radius:99px;padding:2px 8px;font-size:.6rem;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif}
+.vchip.on{border-color:#c9a84c55;color:var(--oro)}
+
+/* NAV */
+.mn{display:flex;overflow-x:auto;background:#070505;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#4a3a3a;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb.on{color:var(--oro);border-bottom-color:var(--oro)}
+.mnb:hover:not(.on){color:#8a7a6a}
+.sec{display:none}.sec.on{display:block}
+.sw{max-width:720px;margin:0 auto;padding:14px 13px 50px}
+
+/* WORD CARDS */
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:8px}
+.wcard{background:var(--card);border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:all .2s}
+.wcard:hover{border-color:#c9a84c33;transform:translateY(-2px)}
+.wc-top{padding:13px 13px 10px;border-bottom:1px solid var(--border)}
+.wc-tag{display:inline-flex;border-radius:99px;padding:2px 8px;font-size:.58rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.t-verb{background:var(--verde-l);color:#5ac4a0;border:1px solid #2d7a4f33}
+.t-noun{background:var(--blu-l);color:#7090e0;border:1px solid #2855a033}
+.t-adj{background:var(--oro-l);color:var(--oro);border:1px solid #c9a84c33}
+.t-expr{background:var(--viola-l);color:#c090e0;border:1px solid #6040a033}
+.t-meta{background:#1a0808;color:#e07070;border:1px solid #8b000033}
+.wc-row{display:flex;justify-content:space-between;align-items:flex-start}
+.wc-it{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;color:var(--testo);line-height:1}
+.wc-ph{font-size:.63rem;color:var(--muted);font-style:italic;margin:3px 0 5px}
+.wc-ru{font-size:.82rem;color:#c8b8a8;font-weight:300;margin-bottom:6px}
+.wc-ex{background:#0a0808;border-radius:8px;padding:8px 10px;font-family:'Playfair Display',serif;font-size:.84rem;color:#b090d0;font-style:italic;line-height:1.6}
+.wc-ex-ru{font-size:.65rem;color:var(--muted);margin-top:3px;font-style:normal;font-family:'Nunito',sans-serif}
+.wc-note{padding:8px 13px 10px;font-size:.68rem;color:var(--muted);line-height:1.6;background:#0a0808}
+.wc-note strong{color:var(--oro)}
+.abtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.7rem;color:var(--muted);transition:all .15s;flex-shrink:0}
+.abtn:hover,.abtn.pl{border-color:var(--oro);color:var(--oro);background:var(--oro-l)}
+.abtn.off{opacity:.2;cursor:default}
+@keyframes abp{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 5px rgba(201,168,76,0)}}
+.pl{animation:abp .7s infinite}
+
+/* METAPHOR BOX */
+.meta-box{background:linear-gradient(135deg,#1a0a0a,#0a0808);border:1px solid #8b000033;border-radius:13px;padding:14px 16px;margin-bottom:12px}
+.meta-title{font-size:.65rem;color:#e07070;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.meta-it{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--oro);font-style:italic;margin-bottom:4px}
+.meta-ru{font-size:.76rem;color:var(--muted);line-height:1.6}
+.meta-note{font-size:.68rem;color:#b090d0;margin-top:6px;font-style:italic}
+
+/* SECTION HEADER */
+.sh{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--oro);margin-bottom:10px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;margin-top:18px}
+.sh:first-child{margin-top:0}
+.sh span{font-size:.63rem;color:var(--muted);font-family:'Nunito',sans-serif;font-style:normal}
+.tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:9px 12px;margin-bottom:10px;font-size:.76rem;line-height:1.7;color:#fde68a}
+.tip strong{color:var(--oro)}
+.tip-r{background:var(--rosso-l);border-left-color:#8b2020;color:#fca5a5}
+.tip-r strong{color:#f87171}
+
+/* PHRASES */
+.ph-item{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 14px;margin-bottom:7px;cursor:pointer;transition:border-color .2s}
+.ph-item:hover{border-color:#c9a84c33}
+.ph-row{display:flex;gap:10px;align-items:flex-start}
+.ph-body{flex:1}
+.ph-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--oro);font-style:italic;display:block;margin-bottom:3px;line-height:1.5}
+.ph-ru{font-size:.76rem;color:var(--muted);display:block;margin-bottom:3px}
+.ph-note{font-size:.66rem;color:#b090d0;font-weight:700;display:block}
+.ph-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);transition:all .15s;flex-shrink:0}
+.ph-btn:hover,.ph-btn.pl{border-color:var(--oro);color:var(--oro)}
+.ph-btn.off{opacity:.2;cursor:default}
+
+/* TRAINER */
+.trw{max-width:520px;margin:0 auto;padding:14px 12px 50px}
+.mdg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.mdb{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:13px 8px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.mdb .mi{font-size:1.3rem;display:block;margin-bottom:3px}
+.mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
+.qcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.qprog{display:flex;justify-content:space-between;font-size:.68rem;color:var(--muted);margin-bottom:6px}
+.qbar{width:100%;height:2px;background:var(--border);border-radius:99px;margin-bottom:11px;overflow:hidden}
+.qfill{height:100%;background:linear-gradient(90deg,#8b2020,var(--oro));border-radius:99px;transition:width .4s}
+.qt{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:11px}
+.qex{font-family:'Playfair Display',serif;font-size:.95rem;color:#b090d0;font-style:italic;background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:11px;line-height:1.7;border:1px solid var(--border)}
+.blank{background:#1e1028;border-bottom:2px solid var(--oro);padding:0 6px;border-radius:4px;color:var(--oro);font-weight:700;font-style:normal}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 8px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;color:var(--testo);line-height:1.3}
+.opt:hover:not(:disabled){border-color:var(--oro);background:var(--oro-l);color:var(--oro)}
+.opt.correct{border-color:var(--verde);background:var(--verde-l);color:#5ac4a0}
+.opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:#f87171}
+.opt:disabled{cursor:default}
+.fb{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6}
+.fb.ok{background:var(--verde-l);border-left:3px solid var(--verde);color:#bbf7d0}
+.fb.err{background:var(--rosso-l);border-left:3px solid var(--rosso);color:#fca5a5}
+.navrow{display:flex;gap:6px;margin-top:10px}
+.btn-next{flex:1;background:linear-gradient(135deg,#8b2020,var(--oro));color:var(--bg);border:none;border-radius:9px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
+.fc{position:relative;width:100%;height:170px;transform-style:preserve-3d;transition:transform .45s}
+.fc.fl{transform:rotateY(180deg)}
+.ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
+.f1{background:linear-gradient(135deg,#1a0a0a,#0e0818);border:1px solid #8b000022}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#1a0a00);border:1px solid #c9a84c22}
+.fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fw2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:#e08080;font-style:italic}
+.fw2b{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oro)}
+.fs2{font-size:.7rem;color:var(--muted)}
+.qnav{display:flex;gap:5px;margin-top:10px}
+.qnb{flex:1;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:8px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:700;cursor:pointer;transition:all .2s;text-align:center}
+.qnb.p{background:linear-gradient(135deg,#8b2020,var(--oro));border-color:#8b2020;color:white}
+.qnb:hover:not(.p){border-color:var(--oro)}
+.res-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
+.res-pct{font-family:'Playfair Display',serif;font-size:4.5rem;color:var(--oro);line-height:1}
+.btn-r{background:linear-gradient(135deg,#8b2020,var(--oro));color:var(--bg);border:none;border-radius:10px;padding:12px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:7px}
+.btn-b{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="song-icon">🎵</div>
+  <h1><em>Confessa</em></h1>
+  <div class="sub">Adriano Celentano · Album «Per sempre» (2002)</div>
+  <div class="desc">Testo: Mogol · Musica: Gianni Bella · Баллада о признании</div>
+  <div class="badge-row">
+    <div class="badge hot">🎤 Il Molleggiato</div>
+    <div class="badge">✍️ Mogol · Gianni Bella</div>
+    <div class="badge">💔 Баллада об утраченной любви</div>
+  </div>
+</header>
+
+<!-- API -->
+<div id="ap">
+  <div class="at"><div class="adot" id="adot"></div><span id="atext">🔊 Подключи Google TTS — произношение каждого слова</span></div>
+  <div class="arow">
+    <input class="ainp" type="password" id="akey" placeholder="Google API ключ...">
+    <button class="abtnc" onclick="ck()">Подключить</button>
+    <button class="axbtn" id="axb" onclick="ckx()" style="display:none">✕</button>
+  </div>
+  <div id="ks"></div>
+  <div id="vss"><div class="vrow">
+    <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)">Wavenet A ♀</div>
+    <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)">Wavenet C ♂</div>
+    <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)">Standard A</div>
+  </div></div>
+  <div class="ahint" id="ahint">Тот же ключ что в других приложениях. <a href="https://console.cloud.google.com/apis/credentials" target="_blank">console.cloud.google.com</a> → Cloud TTS → Create API Key.</div>
+</div>
+
+<!-- NAV -->
+<div class="mn">
+  <button class="mnb on" onclick="sm('vocab')">📖 Слова<br><small style="font-size:.55rem;opacity:.7">45 слов</small></button>
+  <button class="mnb" onclick="sm('meta')">🎭 Метафоры<br><small style="font-size:.55rem;opacity:.7">Поэзия</small></button>
+  <button class="mnb" onclick="sm('frasi')">💬 Фразы<br><small style="font-size:.55rem;opacity:.7">Из песни</small></button>
+  <button class="mnb" onclick="sm('train')">🎯 Тренажёр<br><small style="font-size:.55rem;opacity:.7">4 режима</small></button>
+</div>
+
+<!-- ══ СЛОВА ══ -->
+<div class="sec on" id="vocab">
+<div class="sw">
+  <div class="tip"><strong>О песне:</strong> Мужчина просит возлюбленную <em>confessare</em> (признаться) что она полюбила другого. Написана поэтом <strong>Mogol</strong> — автором сотен итальянских шлягеров. Язык песни насыщен метафорами и поэтическими образами.</div>
+
+  <!-- ГЛАГОЛЫ -->
+  <div class="sh">🎬 Глаголы <span>verbi chiave</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">confessare</div>
+            <div class="wc-ph">[konˌfessaːre]</div>
+            <div class="wc-ru">признаваться, исповедоваться</div>
+          </div>
+          <button class="abtn off" onclick="pl('confessare',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Su, <strong>confessa</strong>, amore mio!<div class="wc-ex-ru">Ну, признайся, любовь моя!</div></div>
+      </div>
+      <div class="wc-note"><strong>confessa</strong> = imperativo (TU) · la confessione = признание, исповедь · названием песни!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">nascondere</div>
+            <div class="wc-ph">[naˈskɔndere]</div>
+            <div class="wc-ru">прятать, скрывать</div>
+          </div>
+          <button class="abtn off" onclick="pl('nascondere',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Hai <strong>nascosto</strong> nel cuore tuo una storia.<div class="wc-ex-ru">Ты скрыла в своём сердце историю.</div></div>
+      </div>
+      <div class="wc-note"><strong>nascosto</strong> = причастие прош.вр. · il nascondiglio = тайник · nascondersi = прятаться</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">scomparire</div>
+            <div class="wc-ph">[skompaˈriːre]</div>
+            <div class="wc-ru">исчезать</div>
+          </div>
+          <button class="abtn off" onclick="pl('scomparire',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il ricordo pian piano <strong>scompare</strong>.<div class="wc-ex-ru">Воспоминание медленно исчезает.</div></div>
+      </div>
+      <div class="wc-note">s- (отриц.) + comparire (появляться) → scomparire · contrario: apparire = появляться</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">diventare</div>
+            <div class="wc-ph">[divenˈtaːre]</div>
+            <div class="wc-ru">становиться</div>
+          </div>
+          <button class="abtn off" onclick="pl('diventare',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È <strong>diventato</strong> un freddo brivido.<div class="wc-ex-ru">Стало холодной дрожью.</div></div>
+      </div>
+      <div class="wc-note">divento/diventi/diventa · diventare + прилагательное = стать каким-то</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">mangiare</div>
+            <div class="wc-ph">[manˈdʒaːre]</div>
+            <div class="wc-ru">есть, кушать</div>
+          </div>
+          <button class="abtn off" onclick="pl('mangiare',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Sono il dolce col fondo amaro che non <strong>mangi</strong> più.<div class="wc-ex-ru">Я сладость с горьким дном которую ты больше не ешь.</div></div>
+      </div>
+      <div class="wc-note">В метафоре! mangio/mangi/mangia · non mangi più = больше не ешь</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-verb">Глагол</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">aprire</div>
+            <div class="wc-ph">[aˈpriːre]</div>
+            <div class="wc-ru">открывать</div>
+          </div>
+          <button class="abtn off" onclick="pl('aprire',this)">🔊</button>
+        </div>
+        <div class="wc-ex">La tristezza nel cuore <strong>apre</strong> un vuoto.<div class="wc-ex-ru">Грусть в сердце открывает пустоту.</div></div>
+      </div>
+      <div class="wc-note">apro/apri/apre · il negozio apre = магазин открывается · contrario: chiudere</div>
+    </div>
+
+  </div>
+
+  <!-- СУЩЕСТВИТЕЛЬНЫЕ -->
+  <div class="sh" style="margin-top:14px">📦 Существительные <span>parole chiave della canzone</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">il cuore</div>
+            <div class="wc-ph">[ˈkwɔːre]</div>
+            <div class="wc-ru">сердце</div>
+          </div>
+          <button class="abtn off" onclick="pl('cuore',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Hai nascosto nel <strong>cuore</strong> tuo una storia.<div class="wc-ex-ru">Ты скрыла в своём сердце историю.</div></div>
+      </div>
+      <div class="wc-note">муж.р. · di cuore = от всего сердца · il cuore di pietra = каменное сердце</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">il pensiero</div>
+            <div class="wc-ph">[penˈsjɛːro]</div>
+            <div class="wc-ru">мысль, дума</div>
+          </div>
+          <button class="abtn off" onclick="pl('pensiero',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Non sono più il tuo <strong>pensiero</strong>.<div class="wc-ex-ru">Я больше не твоя мысль.</div></div>
+      </div>
+      <div class="wc-note">da pensare · stare con il pensiero = думать о · pensieroso = задумчивый</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">il brivido</div>
+            <div class="wc-ph">[ˈbriːvido]</div>
+            <div class="wc-ru">дрожь, озноб</div>
+          </div>
+          <button class="abtn off" onclick="pl('brivido',this)">🔊</button>
+        </div>
+        <div class="wc-ex">È diventato un freddo <strong>brivido</strong>.<div class="wc-ex-ru">Стало холодной дрожью.</div></div>
+      </div>
+      <div class="wc-note">un brivido di paura = дрожь страха · mi vengono i brividi = меня бросает в дрожь</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">il ricordo</div>
+            <div class="wc-ph">[riˈkɔrdo]</div>
+            <div class="wc-ru">воспоминание, память</div>
+          </div>
+          <button class="abtn off" onclick="pl('ricordo',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il <strong>ricordo</strong> pian piano scompare.<div class="wc-ex-ru">Воспоминание медленно исчезает.</div></div>
+      </div>
+      <div class="wc-note">da ricordare · come ricordo = в память о · i ricordi = воспоминания (мн.ч.)</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">la tristezza</div>
+            <div class="wc-ph">[triˈstettsa]</div>
+            <div class="wc-ru">грусть, печаль</div>
+          </div>
+          <button class="abtn off" onclick="pl('tristezza',this)">🔊</button>
+        </div>
+        <div class="wc-ex">La <strong>tristezza</strong> nel cuore apre un vuoto.<div class="wc-ex-ru">Грусть в сердце открывает пустоту.</div></div>
+      </div>
+      <div class="wc-note">da triste · la felicità (contrario) · che tristezza! = как грустно!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">il vuoto</div>
+            <div class="wc-ph">[ˈvwɔːto]</div>
+            <div class="wc-ru">пустота, пустое место</div>
+          </div>
+          <button class="abtn off" onclick="pl('vuoto',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Apre un <strong>vuoto</strong> più grande del mare.<div class="wc-ex-ru">Открывает пустоту больше моря.</div></div>
+      </div>
+      <div class="wc-note">anche aggettivo: vuoto = пустой · il frigo è vuoto = холодильник пустой</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">la risata</div>
+            <div class="wc-ph">[riˈzaːta]</div>
+            <div class="wc-ru">смех, хохот</div>
+          </div>
+          <button class="abtn off" onclick="pl('risata',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Le <strong>risate</strong>, le nostre cene.<div class="wc-ex-ru">Смех, наши ужины.</div></div>
+      </div>
+      <div class="wc-note">da ridere · le risate (мн.ч.) · fare una risata = засмеяться</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-noun">Существительное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">la cena</div>
+            <div class="wc-ph">[ˈtʃɛːna]</div>
+            <div class="wc-ru">ужин</div>
+          </div>
+          <button class="abtn off" onclick="pl('cena',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Le risate, le nostre <strong>cene</strong>.<div class="wc-ex-ru">Смех, наши ужины.</div></div>
+      </div>
+      <div class="wc-note">la cena = ужин · cenare = ужинать · la colazione = завтрак · il pranzo = обед</div>
+    </div>
+
+  </div>
+
+  <!-- ПРИЛАГАТЕЛЬНЫЕ -->
+  <div class="sh" style="margin-top:14px">🎨 Прилагательные <span>aggettivi poetici</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">irrinunciabile</div>
+            <div class="wc-ph">[irrinutˈtʃaːbile]</div>
+            <div class="wc-ru">от чего нельзя отказаться</div>
+          </div>
+          <button class="abtn off" onclick="pl('irrinunciabile',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Una storia <strong>irrinunciabile</strong>.<div class="wc-ex-ru">История от которой нельзя отказаться.</div></div>
+      </div>
+      <div class="wc-note">ir- (отриц.) + rinunciare (отказываться) + -abile · книжное, поэтическое слово</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">irrecuperabile</div>
+            <div class="wc-ph">[irreˌkupeˈrabile]</div>
+            <div class="wc-ru">невосполнимый, утраченный навсегда</div>
+          </div>
+          <button class="abtn off" onclick="pl('irrecuperabile',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Scene ormai <strong>irrecuperabili</strong>.<div class="wc-ex-ru">Сцены уже невосполнимые.</div></div>
+      </div>
+      <div class="wc-note">ir- + recuperare (восстанавливать) · ormai = уже (с оттенком «теперь поздно»)</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">amaro</div>
+            <div class="wc-ph">[aˈmaːro]</div>
+            <div class="wc-ru">горький</div>
+          </div>
+          <button class="abtn off" onclick="pl('amaro',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il dolce col fondo <strong>amaro</strong>.<div class="wc-ex-ru">Сладость с горьким дном.</div></div>
+      </div>
+      <div class="wc-note">contrario: dolce (сладкий) · amarezza = горечь · amaro anche: ликёр Amaro</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">freddo</div>
+            <div class="wc-ph">[ˈfrɛddo]</div>
+            <div class="wc-ru">холодный</div>
+          </div>
+          <button class="abtn off" onclick="pl('freddo',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Un <strong>freddo</strong> brivido.<div class="wc-ex-ru">Холодная дрожь.</div></div>
+      </div>
+      <div class="wc-note">contrario: caldo · fa freddo = холодно · ho freddo = мне холодно · sangue freddo = хладнокровие</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-adj">Прилагательное</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">vero</div>
+            <div class="wc-ph">[ˈvɛːro]</div>
+            <div class="wc-ru">настоящий, истинный</div>
+          </div>
+          <button class="abtn off" onclick="pl('vero',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Non sono più il tuo amore <strong>vero</strong>.<div class="wc-ex-ru">Я больше не твоя настоящая любовь.</div></div>
+      </div>
+      <div class="wc-note">vero? = правда? · la verità = правда · davvero = по-настоящему</div>
+    </div>
+
+  </div>
+
+  <!-- НАРЕЧИЯ И ВЫРАЖЕНИЯ -->
+  <div class="sh" style="margin-top:14px">💬 Наречия и выражения <span>avverbi ed espressioni</span></div>
+  <div class="wgrid">
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">non...più</div>
+            <div class="wc-ph">[non ˈpjuː]</div>
+            <div class="wc-ru">больше не, уже не</div>
+          </div>
+          <button class="abtn off" onclick="pl('non sono più il tuo amore',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Non sono <strong>più</strong> il tuo pensiero.<div class="wc-ex-ru">Я больше не твоя мысль.</div></div>
+      </div>
+      <div class="wc-note">NON + глагол + PIÙ = больше не · ключевая конструкция этой песни — повторяется 6 раз!</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">pian piano</div>
+            <div class="wc-ph">[ˈpjan ˈpjaːno]</div>
+            <div class="wc-ru">тихо-тихо, медленно-медленно</div>
+          </div>
+          <button class="abtn off" onclick="pl('pian piano',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Il ricordo <strong>pian piano</strong> scompare.<div class="wc-ex-ru">Воспоминание медленно-медленно исчезает.</div></div>
+      </div>
+      <div class="wc-note">повторение прилагательного = усиление · piano = тихий/медленный · anche: poco a poco</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">ormai</div>
+            <div class="wc-ph">[orˈmai]</div>
+            <div class="wc-ru">уже, теперь (с оттенком «поздно»)</div>
+          </div>
+          <button class="abtn off" onclick="pl('ormai',this)">🔊</button>
+        </div>
+        <div class="wc-ex">Scene <strong>ormai</strong> irrecuperabili.<div class="wc-ex-ru">Сцены теперь уже невосполнимые.</div></div>
+      </div>
+      <div class="wc-note">ormai = già con senso di «troppo tardi» · ormai è fatta! = ну всё, дело сделано</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">che ne hai fatto</div>
+            <div class="wc-ph"></div>
+            <div class="wc-ru">что ты сделала с (чем-то)</div>
+          </div>
+          <button class="abtn off" onclick="pl('che ne hai fatto del nostro bene',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Che ne hai fatto</strong> del nostro bene?<div class="wc-ex-ru">Что ты сделала с нашим добром?</div></div>
+      </div>
+      <div class="wc-note">che + ne (= di esso) + hai fatto · что ты с этим сделала · очень итальянский оборот</div>
+    </div>
+
+    <div class="wcard">
+      <div class="wc-top">
+        <div class="wc-tag t-expr">Выражение</div>
+        <div class="wc-row">
+          <div>
+            <div class="wc-it">quando viene la sera</div>
+            <div class="wc-ph"></div>
+            <div class="wc-ru">когда наступает вечер</div>
+          </div>
+          <button class="abtn off" onclick="pl('quando viene la sera',this)">🔊</button>
+        </div>
+        <div class="wc-ex"><strong>Quando viene la sera</strong> e il ricordo scompare.<div class="wc-ex-ru">Когда наступает вечер и воспоминание исчезает.</div></div>
+      </div>
+      <div class="wc-note">viene la sera = наступает вечер · viene + время суток = наступает</div>
+    </div>
+
+  </div>
+
+</div>
+</div>
+
+<!-- ══ МЕТАФОРЫ ══ -->
+<div class="sec" id="meta">
+<div class="sw">
+  <div class="sh">🎭 Поэтические метафоры Mogol</div>
+  <div class="tip-r tip">«Confessa» — шедевр итальянской лирики. Могол (Giulio Rapetti) — величайший итальянский автор текстов. Каждая строка — метафора. Разберём самые красивые.</div>
+
+  <div class="meta-box">
+    <div class="meta-title">🍮 Метафора 1 — Вкус</div>
+    <div class="meta-it">Sono il dolce col fondo amaro che non mangi più.</div>
+    <div class="meta-ru">Я — сладость с горьким дном которую ты больше не ешь.</div>
+    <div class="meta-note">💡 Человек сравнивается с едой: снаружи сладкий (добрый, ласковый), но с горьким дном (что-то в нём её тяготит). Она больше не хочет его «есть» — то есть больше не хочет быть с ним. Гениальная метафора!</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-title">🌊 Метафора 2 — Море</div>
+    <div class="meta-it">La tristezza nel cuore apre un vuoto più grande del mare.</div>
+    <div class="meta-ru">Грусть в сердце открывает пустоту больше моря.</div>
+    <div class="meta-note">💡 Пустота от потери любви сравнивается с морем — самым большим что можно представить. Море в итальянской поэзии = символ бесконечности и глубины чувств.</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-title">❄️ Метафора 3 — Температура</div>
+    <div class="meta-it">È diventato un freddo brivido.</div>
+    <div class="meta-ru">Стало холодной дрожью.</div>
+    <div class="meta-note">💡 «Наше добро» (тепло, любовь, всё хорошее) превратилось в «холодную дрожь». Температурная метафора: любовь была тёплой — теперь холод и дрожь.</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-title">💭 Метафора 4 — Мысль</div>
+    <div class="meta-it">Non sono più il tuo pensiero.</div>
+    <div class="meta-ru">Я больше не твоя мысль.</div>
+    <div class="meta-note">💡 Быть «мыслью» человека = быть тем о ком он думает постоянно. Когда любишь — человек всегда в твоих мыслях. «Больше не твоя мысль» = ты больше не думаешь обо мне.</div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-title">📜 Афоризм — Мудрость песни</div>
+    <div class="meta-it">Chi non ama non sarà amato mai.</div>
+    <div class="meta-ru">Кто не любит — никогда не будет любим.</div>
+    <div class="meta-note">💡 Единственная «прямая» мысль в песне — без метафор. Как народная мудрость. Структура: chi + глагол = тот кто... · sarà amato = будет любим (futuro passivo)</div>
+  </div>
+
+  <div class="sh" style="margin-top:14px">📐 Конструкция NON...PIÙ <span>ключ всей песни</span></div>
+  <div class="tip"><strong>NON + глагол + PIÙ</strong> = больше не, уже не. Эта конструкция — сердце песни, повторяется 6 раз:</div>
+
+  <div id="nonpiu-list"></div>
+
+</div>
+</div>
+
+<!-- ══ ФРАЗЫ ══ -->
+<div class="sec" id="frasi">
+<div class="sw">
+  <div class="tip"><strong>Фразы из песни</strong> разбиты по грамматике. Нажимай 🔊 для произношения!</div>
+
+  <div class="sh">💔 NON...PIÙ — больше не <span>конструкция</span></div>
+  <div id="ph-nonpiu"></div>
+
+  <div class="sh" style="margin-top:12px">❓ MA PERCHÉ — почему же <span>вопросы и риторика</span></div>
+  <div id="ph-perche"></div>
+
+  <div class="sh" style="margin-top:12px">🌙 QUANDO + SERA <span>образы вечера</span></div>
+  <div id="ph-sera"></div>
+
+  <div class="sh" style="margin-top:12px">📖 Другие ключевые фразы</div>
+  <div id="ph-altri"></div>
+</div>
+</div>
+
+<!-- ══ ТРЕНАЖЁР ══ -->
+<div class="sec" id="train">
+<div class="trw">
+  <div id="tpick">
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:11px">🎯 Тренажёр</h2>
+    <div class="mdg">
+      <button class="mdb" onclick="startTR('meaning')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">слово → значение</small></button>
+      <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">итал ↔ рус</small></button>
+      <button class="mdb" onclick="startTR('fill')"><span class="mi">✍️</span>Пропуски<br><small style="color:var(--muted)">вставь слово</small></button>
+      <button class="mdb" onclick="startTR('meta')"><span class="mi">🎭</span>Метафоры<br><small style="color:var(--muted)">объясни образ</small></button>
+    </div>
+  </div>
+  <div id="tarea" style="display:none"></div>
+</div>
+</div>
+
+<script>
+// ══ TTS ══════════════════════════════════════════════
+let ttsKey='', ttsVoice='it-IT-Wavenet-A';
+const ttsCache={};
+let ttsAudio=null;
+
+function sv(chip){
+  document.querySelectorAll('.vchip').forEach(c=>c.classList.remove('on'));
+  chip.classList.add('on');
+  ttsVoice=chip.dataset.voice;
+  Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+}
+async function pl(text,btn){
+  if(!ttsKey) return;
+  if(ttsAudio){ttsAudio.pause();ttsAudio=null;}
+  document.querySelectorAll('.abtn,.ph-btn').forEach(b=>b.classList.remove('pl'));
+  if(btn) btn.classList.add('pl');
+  try{
+    const clean=text.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+    if(!ttsCache[clean]){
+      const body={input:{text:clean},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.85}};
+      const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,
+        {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+      const d=await r.json(); ttsCache[clean]=d.audioContent;
+    }
+    const a=new Audio('data:audio/mp3;base64,'+ttsCache[clean]);
+    ttsAudio=a;
+    a.onended=()=>{if(btn)btn.classList.remove('pl');ttsAudio=null;};
+    a.play();
+  }catch(e){if(btn)btn.classList.remove('pl');setKS('❌ '+e.message,'err');}
+}
+async function ck(){
+  const k=document.getElementById('akey').value.trim();
+  if(!k){setKS('Введи ключ','err');return;}
+  setKS('⏳ Проверяю...','');
+  try{
+    const body={input:{text:'ciao'},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3'}};
+    const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${k}`,
+      {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'Error');}
+    const d=await r.json(); ttsCache['ciao']=d.audioContent; ttsKey=k;
+    document.getElementById('adot').classList.add('on');
+    document.getElementById('atext').textContent='✅ Нажимай 🔊 на любое слово!';
+    document.getElementById('ap').classList.add('conn');
+    document.getElementById('axb').style.display='block';
+    document.getElementById('vss').style.display='block';
+    document.getElementById('ahint').style.display='none';
+    document.getElementById('akey').style.display='none';
+    document.querySelector('[onclick="ck()"]').style.display='none';
+    setKS('✅ Ключ принят!','ok');
+    new Audio('data:audio/mp3;base64,'+d.audioContent).play();
+    document.querySelectorAll('.abtn,.ph-btn').forEach(b=>b.classList.remove('off'));
+  }catch(e){setKS('❌ '+e.message,'err');}
+}
+function ckx(){
+  ttsKey=''; Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
+  document.getElementById('akey').style.display='block';
+  document.querySelector('[onclick="ck()"]').style.display='block';
+  document.getElementById('ahint').style.display='block';
+  document.getElementById('axb').style.display='none';
+  document.getElementById('vss').style.display='none';
+  document.getElementById('adot').classList.remove('on');
+  document.getElementById('atext').textContent='🔊 Подключи Google TTS — произношение каждого слова';
+  document.getElementById('ap').classList.remove('conn');
+  setKS('','');
+  document.querySelectorAll('.abtn,.ph-btn').forEach(b=>b.classList.add('off'));
+}
+function setKS(m,t){const el=document.getElementById('ks');el.textContent=m;el.className=t;}
+
+// ══ DATA ══════════════════════════════════════════════
+const NON_PIU=[
+  {it:'Io non sono più il solo, l\'unico.',ru:'Я больше не единственный.',note:'non...più = больше не · il solo = единственный'},
+  {it:'Io non sono più il tuo pensiero.',ru:'Я больше не твоя мысль.',note:'pensiero = мысль (о ком постоянно думаешь)'},
+  {it:'Non sono più il tuo amore vero.',ru:'Я больше не твоя настоящая любовь.',note:'vero = настоящий, истинный'},
+  {it:'Che non mangi più.',ru:'Которую ты больше не ешь.',note:'Завершение метафоры «сладости с горьким дном»'},
+  {it:'Ma perché tu non sei più tu.',ru:'Но почему ты больше не ты.',note:'Самая поэтичная строка: ты изменилась, стала другой'},
+];
+
+const PHRASES={
+  nonpiu:[
+    {it:'Io non sono più il solo, l\'unico.',ru:'Я больше не единственный.',note:'non...più = больше не'},
+    {it:'Non sono più il tuo pensiero.',ru:'Я больше не твоя мысль.',note:'il pensiero = мысль'},
+    {it:'Non sono più il tuo amore vero.',ru:'Я больше не твоя настоящая любовь.',note:'vero = настоящий'},
+    {it:'Ma perché tu non sei più tu.',ru:'Но почему ты больше не ты.',note:'Стала другой человеком'},
+  ],
+  perche:[
+    {it:'Ma perché tu sei un\'altra donna.',ru:'Но почему ты другая женщина.',note:'ma perché = но почему (риторический вопрос без ответа)'},
+    {it:'Ma perché non l\'hai detto prima.',ru:'Но почему ты не сказала раньше.',note:'lo = ударение на O · l\'hai detto = ты сказала (passato prossimo)'},
+    {it:'Chi non ama non sarà amato mai.',ru:'Кто не любит — никогда не будет любим.',note:'afоризм · chi = кто · sarà amato = будет любим (futuro)'},
+  ],
+  sera:[
+    {it:'Quando viene la sera e il ricordo pian piano scompare.',ru:'Когда наступает вечер и воспоминание медленно-медленно исчезает.',note:'viene la sera = наступает вечер · pian piano = медленно-медленно'},
+    {it:'La tristezza nel cuore apre un vuoto più grande del mare.',ru:'Грусть в сердце открывает пустоту больше моря.',note:'più grande del mare = больше чем море · сравнение с морем = бесконечность'},
+  ],
+  altri:[
+    {it:'Hai nascosto nel cuore tuo una storia irrinunciabile.',ru:'Ты скрыла в своём сердце историю от которой нельзя отказаться.',note:'hai nascosto = ты скрыла (passato prossimo) · irrinunciabile = от чего нельзя отказаться'},
+    {it:'Sono il dolce col fondo amaro che non mangi più.',ru:'Я — сладость с горьким дном которую ты больше не ешь.',note:'главная метафора песни! dolce = сладкий/сладость · amaro = горький'},
+    {it:'Che ne hai fatto del nostro bene?',ru:'Что ты сделала с нашим добром?',note:'che ne hai fatto = что ты с этим сделала · il bene = добро, благо'},
+    {it:'Scene ormai irrecuperabili.',ru:'Сцены уже невосполнимые.',note:'ormai = уже (слишком поздно) · irrecuperabile = невосполнимый'},
+  ]
+};
+
+const WORDS=[
+  {it:'confessare',ru:'признаваться',ex:'Su, confessa, amore mio!',assoc:'Исповедь — confessione'},
+  {it:'nascondere',ru:'прятать, скрывать',ex:'Hai nascosto nel cuore tuo una storia.',assoc:'Nascosto = причастие прош.вр.'},
+  {it:'scomparire',ru:'исчезать',ex:'Il ricordo pian piano scompare.',assoc:'s- (отриц.) + comparire'},
+  {it:'diventare',ru:'становиться',ex:'È diventato un freddo brivido.',assoc:'Divento = я становлюсь'},
+  {it:'aprire',ru:'открывать',ex:'La tristezza apre un vuoto.',assoc:'contrario: chiudere'},
+  {it:'il cuore',ru:'сердце',ex:'Hai nascosto nel cuore tuo.',assoc:'Di cuore = от всего сердца'},
+  {it:'il pensiero',ru:'мысль, дума',ex:'Non sono più il tuo pensiero.',assoc:'Pensare = думать'},
+  {it:'il brivido',ru:'дрожь, озноб',ex:'Un freddo brivido.',assoc:'Mi vengono i brividi!'},
+  {it:'il ricordo',ru:'воспоминание',ex:'Il ricordo pian piano scompare.',assoc:'Ricordare = помнить'},
+  {it:'la tristezza',ru:'грусть, печаль',ex:'La tristezza nel cuore.',assoc:'Triste = грустный'},
+  {it:'il vuoto',ru:'пустота',ex:'Un vuoto più grande del mare.',assoc:'Vuoto anche = пустой'},
+  {it:'la risata',ru:'смех, хохот',ex:'Le risate, le nostre cene.',assoc:'Ridere = смеяться'},
+  {it:'la cena',ru:'ужин',ex:'Le nostre cene.',assoc:'Cenare = ужинать'},
+  {it:'irrinunciabile',ru:'от чего нельзя отказаться',ex:'Una storia irrinunciabile.',assoc:'ir- + rinunciare'},
+  {it:'irrecuperabile',ru:'невосполнимый',ex:'Scene ormai irrecuperabili.',assoc:'ir- + recuperare'},
+  {it:'amaro',ru:'горький',ex:'Il dolce col fondo amaro.',assoc:'contrario: dolce'},
+  {it:'freddo',ru:'холодный',ex:'Un freddo brivido.',assoc:'contrario: caldo'},
+  {it:'vero',ru:'настоящий, истинный',ex:'Il tuo amore vero.',assoc:'la verità = правда'},
+  {it:'non...più',ru:'больше не, уже не',ex:'Non sono più il tuo pensiero.',assoc:'Ключевая конструкция!'},
+  {it:'pian piano',ru:'тихо-тихо, медленно',ex:'Il ricordo pian piano scompare.',assoc:'piano = тихий/медленный'},
+  {it:'ormai',ru:'уже (слишком поздно)',ex:'Scene ormai irrecuperabili.',assoc:'Già + оттенок «поздно»'},
+];
+
+const FILL_Q=[
+  {sent:'Su ___, amore mio!',blank:'confessa',opts:['confessa','nasconde','apre','scompare'],ru:'Ну ___, любовь моя!'},
+  {sent:'Hai ___ nel cuore tuo una storia.',blank:'nascosto',opts:['nascosto','aperto','perso','trovato'],ru:'Ты ___ в своём сердце историю.'},
+  {sent:'Il ricordo pian piano ___.',blank:'scompare',opts:['scompare','appare','apre','viene'],ru:'Воспоминание медленно-медленно ___.'},
+  {sent:"È diventato un ___ brivido.",blank:'freddo',opts:['freddo','caldo','vero','amaro'],ru:'Стало ___ дрожью.'},
+  {sent:'La tristezza nel cuore apre un ___.',blank:'vuoto',opts:['vuoto','brivido','ricordo','pensiero'],ru:'Грусть в сердце открывает ___.'},
+  {sent:'Non sono più il tuo amore ___.',blank:'vero',opts:['vero','amaro','freddo','irrecuperabile'],ru:'Я больше не твоя ___ любовь.'},
+  {sent:'Il ricordo ___ scompare.',blank:'pian piano',opts:['pian piano','ormai','davvero','subito'],ru:'Воспоминание ___ исчезает.'},
+  {sent:'Scene ___ irrecuperabili.',blank:'ormai',opts:['ormai','ancora','già','sempre'],ru:'Сцены ___ невосполнимые.'},
+  {sent:'Un vuoto più grande del ___.',blank:'mare',opts:['mare','cuore','ricordo','brivido'],ru:'Пустота больше чем ___.'},
+  {sent:'Chi non ama non sarà ___ mai.',blank:'amato',opts:['amato','trovato','perduto','visto'],ru:'Кто не любит — никогда не будет ___.'},
+];
+
+const META_Q=[
+  {q:'«Sono il dolce col fondo amaro» — что означает эта метафора?',
+   opts:['Мужчина любит сладкое','Мужчина внешне добрый но с горечью внутри','Женщина не любит десерты','Еда стала невкусной'],
+   a:1,ex:'Человек = сладость с горьким дном. Снаружи приятный, но что-то в нём её тяготит.'},
+  {q:'«Vuoto più grande del mare» — почему именно МОРЕ?',
+   opts:['Они жили у моря','Море = символ бесконечности и глубины','Море = симвоы радости','Случайный образ'],
+   a:1,ex:'Море в итальянской поэзии = бесконечность. Пустота от потери любви безгранична.'},
+  {q:'«Non sono più il tuo pensiero» — что значит быть «мыслью» человека?',
+   opts:['Быть умным','Быть в его постоянных мыслях','Решать задачи вместе','Писать письма'],
+   a:1,ex:'Когда любишь — человек всегда в мыслях. «Больше не мысль» = ты обо мне не думаешь.'},
+  {q:'«Freddo brivido» — что «стало» холодной дрожью?',
+   opts:['Погода','Их добро и тепло','Ужины','Воспоминания'],
+   a:1,ex:'«Наше добро» (тепло и любовь) превратилось в холод и дрожь — температурная метафора.'},
+  {q:'«Ma perché tu non sei più tu» — что это значит?',
+   opts:['Она сменила имя','Она стала другим человеком','Она куда-то уехала','Она заболела'],
+   a:1,ex:'Она изменилась — влюбилась в другого и стала другой. Самая поэтичная строка!'},
+];
+
+// ══ RENDER ═══════════════════════════════════════════
+function renderPhrases(){
+  const off=ttsKey?'':'off';
+  function mkPh(arr,id){
+    document.getElementById(id).innerHTML=arr.map(p=>{
+      const safe=p.it.replace(/'/g,"'").replace(/"/g,'&quot;');
+      return `<div class="ph-item" onclick="pl('${safe}',this.querySelector('.ph-btn'))">
+        <div class="ph-row">
+          <div class="ph-body">
+            <span class="ph-it">${p.it}</span>
+            <span class="ph-ru">${p.ru}</span>
+            ${p.note?`<span class="ph-note">💡 ${p.note}</span>`:''}
+          </div>
+          <button class="ph-btn ${off}" onclick="event.stopPropagation();pl('${safe}',this)">🔊</button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+  mkPh(PHRASES.nonpiu,'ph-nonpiu');
+  mkPh(PHRASES.perche,'ph-perche');
+  mkPh(PHRASES.sera,'ph-sera');
+  mkPh(PHRASES.altri,'ph-altri');
+
+  // NON PIÙ list in meta tab
+  const off2=ttsKey?'':'off';
+  const el=document.getElementById('nonpiu-list');
+  if(el) el.innerHTML=NON_PIU.map(p=>{
+    const safe=p.it.replace(/'/g,"'");
+    return `<div class="ph-item" onclick="pl('${safe}',this.querySelector('.ph-btn'))">
+      <div class="ph-row">
+        <div class="ph-body">
+          <span class="ph-it">${p.it}</span>
+          <span class="ph-ru">${p.ru}</span>
+          <span class="ph-note">💡 ${p.note}</span>
+        </div>
+        <button class="ph-btn ${off2}" onclick="event.stopPropagation();pl('${safe}',this)">🔊</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══ TRAINER ══════════════════════════════════════════
+const shuf=a=>[...a].sort(()=>Math.random()-.5);
+let trMode='',trWords=[],trIdx=0,trSc=0,trAns=false;
+
+function startTR(mode){
+  trMode=mode; trIdx=0; trSc=0; trAns=false;
+  trWords=mode==='fill'?shuf(FILL_Q):mode==='meta'?shuf(META_Q):shuf(WORDS);
+  document.getElementById('tpick').style.display='none';
+  document.getElementById('tarea').style.display='block';
+  renderTQ();
+}
+function stopTR(){
+  document.getElementById('tpick').style.display='block';
+  document.getElementById('tarea').style.display='none';
+}
+function prog(pct){
+  return `<div class="qprog"><span>${trIdx+1}/${trWords.length}</span><span>✓ ${trSc}</span></div>
+  <div class="qbar"><div class="qfill" style="width:${pct}%"></div></div>`;
+}
+function nav(){
+  return `<div class="navrow">
+    <button class="btn-skip" id="skipb" onclick="trSkip()">Пропустить</button>
+    <button class="btn-next" id="nxtb" onclick="trNext()">Дальше →</button>
+  </div>`;
+}
+function renderTQ(){
+  if(trIdx>=trWords.length){renderTRes();return;}
+  trAns=false;
+  const pct=Math.round(trIdx/trWords.length*100);
+  if(trMode==='meaning') trMeaning(pct);
+  else if(trMode==='flip') trFlip(pct);
+  else if(trMode==='fill') trFill(pct);
+  else trMeta(pct);
+}
+
+function trMeaning(pct){
+  const w=trWords[trIdx];
+  const opts=shuf([w,...shuf(WORDS.filter(x=>x.it!==w.it)).slice(0,3)]);
+  const nc=opts.indexOf(w);
+  window._trEx=w.ex;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Что означает:</div>
+    <div style="text-align:center;font-family:'Playfair Display',serif;font-size:1.5rem;color:#e08080;font-style:italic;padding:12px;background:var(--bg);border-radius:9px;margin-bottom:11px">${w.it}</div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.ru}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(w.it.split(' ').slice(-1)[0],null),300);
+}
+
+function trFlip(pct){
+  const w=trWords[trIdx];
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div style="font-size:.7rem;color:var(--muted);text-align:center;margin-bottom:8px">Нажми чтобы перевернуть</div>
+    <div class="fw" onclick="this.querySelector('.fc').classList.toggle('fl')">
+      <div class="fc">
+        <div class="ff2 f1">
+          <div class="fl2">Итальянский</div>
+          <div class="fw2">${w.it}</div>
+          <div style="font-size:.62rem;color:var(--muted);font-style:italic;text-align:center">«${w.assoc}»</div>
+        </div>
+        <div class="ff2 f2">
+          <div class="fl2">Перевод</div>
+          <div class="fw2b">${w.ru}</div>
+          <div class="fs2" style="margin-top:5px;font-style:italic">${w.ex}</div>
+        </div>
+      </div>
+    </div>
+    <div class="qnav">
+      <button class="qnb" onclick="pl('${w.it}',null)">🔊</button>
+      <button class="qnb" onclick="trSkip()">✕</button>
+      <button class="qnb p" onclick="trSc++;trNext()">✓ Знал</button>
+    </div>
+  </div>`;
+  if(ttsKey) setTimeout(()=>pl(w.it,null),300);
+}
+
+function trFill(pct){
+  const q=trWords[trIdx];
+  const opts=shuf(q.opts);
+  const nc=opts.indexOf(q.blank);
+  window._trEx='Правильно: <em>'+q.blank+'</em>';
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div class="qt">Вставь правильное слово:</div>
+    <div class="qex">${q.sent.replace('___','<span class="blank">___</span>')}<br>
+    <span style="font-size:.65rem;color:var(--muted);font-style:normal;font-family:Nunito">${q.ru}</span></div>
+    <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+}
+
+function trMeta(pct){
+  const q=trWords[trIdx];
+  const nc=q.a;
+  document.getElementById('tarea').innerHTML=`<div class="qcard">
+    ${prog(pct)}
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:11px;font-family:'Playfair Display',serif;font-size:.95rem;color:#e08080;font-style:italic;line-height:1.6">${q.q}</div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o}</button>`).join('')}</div>
+    <div class="fb" id="fb"></div>${nav()}
+  </div>`;
+}
+
+function trChk(btn,ok){
+  if(trAns)return; trAns=true;
+  document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  document.getElementById('skipb').style.display='none';
+  document.getElementById('nxtb').style.display='block';
+  const fb=document.getElementById('fb');
+  const ex=window._trEx||'';
+  if(ok){trSc++;btn.classList.add('correct');fb.className='fb ok';fb.innerHTML='✓ Правильно! '+ex;}
+  else{btn.classList.add('wrong');document.querySelector('.opt[data-ok="true"]').classList.add('correct');fb.className='fb err';fb.innerHTML='✕ Неправильно. '+ex;}
+}
+function trSkip(){trIdx++;renderTQ();}
+function trNext(){trIdx++;renderTQ();}
+
+function renderTRes(){
+  const pct=Math.round(trSc/trWords.length*100);
+  const col=pct>=75?'var(--verde)':pct>=50?'var(--oro)':'var(--rosso)';
+  const msg=pct>=90?'🏆 Bravo!':pct>=75?'🎉 Molto bene!':pct>=50?'👍 Bene!':'📚 Повтори слова.';
+  document.getElementById('tarea').innerHTML=`<div class="qcard" style="text-align:center">
+    <div style="font-size:2.8rem;margin-bottom:8px">🎵</div>
+    <div class="res-pct" style="color:${col}">${pct}%</div>
+    <div style="font-size:.8rem;color:var(--muted);margin-bottom:10px">${trSc} из ${trWords.length}</div>
+    <div style="font-size:.9rem;margin-bottom:14px">${msg}</div>
+    <button class="btn-r" onclick="startTR('${trMode}')">🔄 Ещё раз</button>
+    <button class="btn-b" onclick="stopTR()">← Выбрать режим</button>
+  </div>`;
+}
+
+// ══ NAV ══════════════════════════════════════════════
+function sm(id){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.mnb').forEach(b=>b.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  ['vocab','meta','frasi','train'].forEach((s,i)=>{
+    if(s===id) document.querySelectorAll('.mnb')[i].classList.add('on');
+  });
+  if(id==='train') stopTR();
+}
+
+// INIT
+renderPhrases();
+</script>
+</body>
+</html>
