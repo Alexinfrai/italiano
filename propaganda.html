@@ -70,6 +70,24 @@ header p{color:var(--muted);font-size:.86rem;margin-top:6px;position:relative}
 .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
 .trprog .n{font-weight:800;font-size:.8rem;color:var(--muted)}.trprog .n b{color:var(--green)}
 .subc{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.tr .inp{width:100%;margin-top:14px;background:var(--card2);border:1px solid var(--line);border-bottom:2px solid var(--gold);border-radius:8px;color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;text-align:center;padding:10px;outline:none}
+.tr .fb{margin-top:8px;font-weight:700;font-size:.9rem;min-height:18px}.tr .fb.ok{color:var(--green)}.tr .fb.no{color:var(--red)}
+.tr .opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.tr .opt,.qopt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:11px 14px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;transition:.15s}
+.tr .opt:hover,.qopt:hover{border-color:var(--gold);color:var(--gold2)}
+.tr .opt.ok,.qopt.ok{background:rgba(90,196,160,.16);border-color:var(--green);color:var(--green)}
+.tr .opt.no,.qopt.no{background:rgba(224,112,112,.16);border-color:var(--red);color:var(--red)}
+.tr .opt.dim,.qopt.dim{opacity:.4}
+/* тест */
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:11px;box-shadow:var(--shadow)}
+.qcard.done{border-color:var(--green)}
+.qcard .qq{font-size:1.05rem;margin-bottom:4px}
+.qcard .qq .gp{display:inline-block;min-width:50px;border-bottom:2px dashed var(--gold);color:var(--muted);text-align:center;padding:0 6px;font-weight:800}
+.qcard .qq .gp.ok{color:var(--green);border-bottom-style:solid;border-color:var(--green)}
+.qcard .qq .gp.no{color:var(--red);border-bottom-style:solid;border-color:var(--red)}
+.qcard .qru{color:var(--muted);font-size:.84rem;font-style:italic;margin-bottom:9px}
+.qopts{display:flex;flex-wrap:wrap;gap:7px}
+.tsec{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin:18px 0 10px}
 .subc button{background:none;border:none;color:var(--muted);cursor:pointer;font-family:'Nunito';text-decoration:underline;font-size:.78rem}
 footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
 footer a{color:var(--gold)}
@@ -98,6 +116,7 @@ footer a{color:var(--gold)}
     <button class="nb on" onclick="tab('analisi',this)">📖 Разбор</button>
     <button class="nb" onclick="tab('dizio',this)">📚 Словарь</button>
     <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
   </div>
 
   <!-- РАЗБОР -->
@@ -119,9 +138,22 @@ footer a{color:var(--gold)}
 
   <!-- ТРЕНАЖЁР -->
   <div class="tab" id="train">
+    <div class="modes" id="trmodes" style="display:flex;gap:7px;justify-content:center;margin-bottom:14px;flex-wrap:wrap">
+      <button class="nb on" onclick="setTMode('reveal',this)">🃏 Карточка</button>
+      <button class="nb" onclick="setTMode('type',this)">⌨️ Печать</button>
+      <button class="nb" onclick="setTMode('choice',this)">🔀 Выбор</button>
+      <button class="nb" onclick="setTMode('audio',this)">🎧 На слух</button>
+    </div>
     <div class="trprog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
     <div class="tr" id="card"></div>
     <div class="subc"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <!-- ТЕСТ -->
+  <div class="tab" id="test">
+    <div class="trprog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div class="subc" style="justify-content:center"><button onclick="buildTest()">↺ Заново</button></div>
   </div>
 
   <footer>🎧 Нажми строку/слово — услышишь. Учебный разбор, без копии текста. <a href="index.html">← Главная</a></footer>
@@ -245,27 +277,120 @@ function renderVocab(){
 function tab(id,btn){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
   document.getElementById(id).classList.add('on');
-  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
   if(id==='train'&&!curT)nextT();
+  if(id==='test'&&!testBuilt)buildTest();
 }
 
-/* ===== ТРЕНАЖЁР (по словарю песни) ===== */
-let curT=null,okC=0,streak=0,total=0;
+/* ===== ТРЕНАЖЁР — 4 режима ===== */
+let curT=null,okC=0,streak=0,total=0,tMode='reveal';
 function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function setTMode(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');nextT();}
 function pickT(){let c=VOCAB[Math.floor(Math.random()*VOCAB.length)];if(c===curT&&VOCAB.length>1)return pickT();return c;}
-function nextT(){curT=pickT();const v=curT;
-  document.getElementById('card').innerHTML=`
-    <div class="ru">${esc(v.r)}</div>
-    <div class="sub">вспомни итальянское слово</div>
-    <div class="it" id="ans">${esc(v.w)}<span class="spk" onclick="speak('${sp(v.tts)}')">🔊</span></div>
-    <div class="trbtns" id="tb"><button class="big reveal" onclick="revealT()">Показать</button></div>`;
+function nextT(){
+  curT=pickT();const v=curT;const c=document.getElementById('card');
+  if(tMode==='reveal'){
+    c.innerHTML=`<div class="ru">${esc(v.r)}</div><div class="sub">вспомни итальянское слово</div>
+      <div class="it" id="ans">${esc(v.w)}<span class="spk" onclick="speak('${sp(v.tts)}')">🔊</span></div>
+      <div class="trbtns" id="tb"><button class="big reveal" onclick="revealT()">Показать</button></div>`;
+  } else if(tMode==='type'){
+    c.innerHTML=`<div class="ru">${esc(v.r)}</div><div class="sub">напиши по-итальянски</div>
+      <input class="inp" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="...">
+      <div class="fb" id="fb"></div>
+      <div class="it" id="ans">${esc(v.w)}<span class="spk" onclick="speak('${sp(v.tts)}')">🔊</span></div>
+      <div class="trbtns" id="tb"><button class="big reveal" onclick="checkType()">Проверить</button></div>`;
+    const i=document.getElementById('inp');i.focus();i.addEventListener('keydown',e=>{if(e.key==='Enter')checkType();});
+  } else if(tMode==='choice'){
+    const opts=shuffle([v].concat(shuffle(VOCAB.filter(x=>x!==v)).slice(0,3)));
+    c.innerHTML=`<div class="ru">${esc(v.r)}</div><div class="sub">выбери итальянское слово</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickChoice(this,${o===v})">${esc(o.w)}</button>`).join('')}</div>`;
+  } else if(tMode==='audio'){
+    c.innerHTML=`<div class="ru">🎧 Слушай и вспомни перевод</div>
+      <div class="sub">нажми ▶, затем покажи ответ</div>
+      <button class="big reveal" style="margin-top:12px;flex:none;width:auto;padding:12px 22px" onclick="speak('${sp(v.tts)}')">▶ Послушать</button>
+      <div class="it" id="ans">${esc(v.w)} — ${esc(v.r)}<span class="spk" onclick="speak('${sp(v.tts)}')">🔊</span></div>
+      <div class="trbtns" id="tb"><button class="big reveal" onclick="revealT()">Показать ответ</button></div>`;
+    setTimeout(()=>speak(v.tts),250);
+  }
 }
-function revealT(){document.getElementById('ans').classList.add('show');speak(curT.tts);
+function revealT(){document.getElementById('ans').classList.add('show');if(tMode!=='audio')speak(curT.tts);
   document.getElementById('tb').innerHTML=`<button class="big no" onclick="gradeT(false)">✗ Не вспомнил</button><button class="big ok" onclick="gradeT(true)">✓ Вспомнил</button>`;}
+function checkType(){
+  const val=document.getElementById('inp').value;
+  const variants=[curT.w].concat([curT.w.replace(/^(il|lo|la|l'|i|gli|le|un|uno|una|un')\s+/i,'')]);
+  const good=variants.map(norm).includes(norm(val));
+  document.getElementById('ans').classList.add('show');
+  const fb=document.getElementById('fb');fb.className='fb '+(good?'ok':'no');fb.textContent=good?'✓ Верно!':'✗ Правильно: '+curT.w;
+  speak(curT.tts);
+  document.getElementById('tb').innerHTML=`<button class="big ${good?'ok':'no'}" onclick="gradeT(${good})">Дальше →</button>`;
+}
+function pickChoice(btn,good){
+  speak(btn.textContent);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(b.textContent===curT.w)b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>gradeT(good),750);
+}
 function gradeT(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
   document.getElementById('ok').textContent=okC;document.getElementById('fill').style.width=(total?okC/total*100:0)+'%';
   document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
 function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';nextT();toast('Сброшено');}
+
+/* ===== ТЕСТ — слова и фразы ===== */
+let testBuilt=false,tTotal=0,tDone=new Set();
+// фразы для теста: короткий фрагмент с пропущенным ключевым словом + перевод
+const PHRASES=[
+ {t:"La mia vita è @ di problemi", w:"piena", ru:"Моя жизнь полна проблем", opts:["piena","pieno","piene"]},
+ {t:"Mi @ da solo, senza mezzi", w:"muovo", ru:"Передвигаюсь сам, без транспорта", opts:["muovo","movo","muove"]},
+ {t:"Devo @, troppe tasse", w:"licenziarti", ru:"Я должен тебя уволить, слишком много налогов", opts:["licenziarti","licenziare","licenzio"]},
+ {t:"Non c'è più niente che mi @", w:"manca", ru:"Мне больше ничего не не хватает", opts:["manca","manco","mancano"]},
+ {t:"Sono @ degli anni, tutto è uguale", w:"passati", ru:"Прошли годы, всё по-прежнему", opts:["passati","passato","passate"]},
+ {t:"Alle prossime lo @", w:"voterò", ru:"На следующих за него проголосую", opts:["voterò","voto","votato"]},
+ {t:"@ la tele, un politico parla", w:"Accendo", ru:"Включаю телевизор, говорит политик", opts:["Accendo","Spengo","Accende"]},
+ {t:"La risposta ad @ tua domanda", w:"ogni", ru:"Ответ на любой твой вопрос", opts:["ogni","ogna","ogno"]},
+];
+function buildTest(){
+  testBuilt=true;tDone.clear();tTotal=0;
+  // A — слова (8 случайных)
+  const words=shuffle(VOCAB.slice()).slice(0,8);
+  let aHtml=words.map((v,i)=>{
+    tTotal++;const k='w'+i;
+    const opts=shuffle([v].concat(shuffle(VOCAB.filter(x=>x!==v)).slice(0,3)));
+    return `<div class="qcard" id="q_${k}"><div class="qq">${esc(v.r)}</div>
+      <div class="qopts">${opts.map(o=>`<button class="qopt" onclick="ansW('${k}',this,${o===v})">${esc(o.w)}</button>`).join('')}</div></div>`;
+  }).join('');
+  // B — фразы (все PHRASES)
+  let bHtml=PHRASES.map((p,i)=>{
+    tTotal++;const k='p'+i;
+    const opts=shuffle(p.opts.slice());
+    const text=esc(p.t).replace('@',`<span class="gp" id="gp_${k}">·····</span>`);
+    return `<div class="qcard" id="q_${k}"><div class="qq">${text} <button class="spk" style="background:none;border:none;color:var(--viola);cursor:pointer" onclick="speak('${sp(p.t.replace('@',p.w))}')">🔊</button></div>
+      <div class="qru">${esc(p.ru)}</div>
+      <div class="qopts">${opts.map(o=>`<button class="qopt" onclick="ansP('${k}',this,'${sp(o)}','${sp(p.w)}')">${esc(o)}</button>`).join('')}</div></div>`;
+  }).join('');
+  document.getElementById('testbody').innerHTML=`<div class="tsec">A · Слова (RU → IT)</div>${aHtml}<div class="tsec">B · Фразы — вставь слово</div>${bHtml}`;
+  document.getElementById('ttot').textContent=tTotal;
+  document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansW(k,btn,good){
+  speak(btn.textContent);
+  const g=document.querySelectorAll('#q_'+k+' .qopt');g.forEach(b=>{b.style.pointerEvents='none';});
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(b=>{if(norm(b.textContent)===norm(btn.dataset.c||''))b.classList.add('ok');});}
+  document.getElementById('q_'+k).classList.toggle('done',good);
+  updateT();
+}
+function ansP(k,btn,chosen,correct){
+  speak(chosen);
+  const good=norm(chosen)===norm(correct);
+  const g=document.querySelectorAll('#q_'+k+' .qopt');g.forEach(b=>{b.style.pointerEvents='none';});
+  const gap=document.getElementById('gp_'+k);gap.textContent=chosen;gap.className='gp '+(good?'ok':'no');
+  if(good){btn.classList.add('ok');tDone.add(k);}
+  else{btn.classList.add('no');g.forEach(b=>{if(norm(b.textContent)===norm(correct))b.classList.add('ok');});}
+  document.getElementById('q_'+k).classList.toggle('done',good);
+  updateT();
+}
+function updateT(){document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tTotal?tDone.size/tTotal*100:0)+'%';}
+
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1600);}
 
 /* INIT */
