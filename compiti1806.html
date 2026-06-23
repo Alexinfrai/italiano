@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Compiti 18/06 · Passato Prossimo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--green-bg:rgba(45,122,79,.16);--red-bg:rgba(192,57,43,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;line-height:1.55}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px 90px}
+header.top{text-align:center;margin:0 -18px 18px;padding:34px 20px 24px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header.top::after{content:'⏪';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header.top .flag{font-size:1.9rem;letter-spacing:.3em;position:relative}
+header.top h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,5.5vw,2.6rem);color:var(--gold2);margin:.12em 0 .04em;position:relative}
+header.top p{color:var(--muted);font-size:.9rem;position:relative}
+header.top .sub{font-style:italic;font-family:'Playfair Display',serif}
+.scorebar{position:sticky;top:0;z-index:30;margin:0 -18px 16px;padding:11px 18px;background:rgba(13,17,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:13px;flex-wrap:wrap}
+.scorebar .label{font-weight:800;color:var(--gold);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
+.bar{flex:1;min-width:110px;height:9px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .5s}
+.scorebar .nums{font-weight:800;font-size:.95rem}.scorebar .nums b{color:var(--green)}
+#api{background:#0e1422;border:1px solid var(--line);border-radius:12px;padding:10px 13px;margin-bottom:16px;font-size:.74rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.68rem;margin-top:4px;min-height:13px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.66rem;color:#667;margin-top:5px}
+.modeswitch{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.msb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer}
+.msb.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
+section.ex{margin-bottom:24px}
+.ex>h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:var(--gold2);margin:0 0 3px}
+.ex>.instr{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;margin:0 0 13px;font-size:.92rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--green)}
+.q .text{font-size:1.05rem;line-height:1.8}
+.q .text .ru{display:block;color:var(--muted);font-size:.82rem;font-style:italic;margin-top:2px}
+.aux{display:inline-block;min-width:54px;text-align:center;border-bottom:2px dashed var(--viola);color:var(--viola);padding:0 5px;font-weight:800}
+.pp{display:inline-block;min-width:78px;text-align:center;border-bottom:2px dashed var(--gold);color:var(--muted);padding:0 5px;font-weight:800;letter-spacing:2px}
+.aux.f,.pp.f{border-bottom-style:solid;letter-spacing:0}.aux.f{color:var(--green);border-color:var(--green)}
+.pp.f{color:var(--green);border-color:var(--green)}.pp.w,.aux.w{color:var(--red);border-bottom-style:solid;border-color:var(--red);letter-spacing:0}
+.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:8px 13px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;transition:.15s}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.opt.dim{opacity:.4}
+.lab{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 3px}
+.inp{width:100%;margin-top:9px;background:var(--card2);border:1px solid var(--line);border-bottom:2px solid var(--gold);border-radius:8px;color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;padding:8px 11px;outline:none}
+.fb{margin-top:7px;font-size:.9rem;font-weight:700;min-height:18px}.fb.ok{color:var(--green)}.fb.no{color:var(--red)}
+.tts{margin-left:6px;background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.6;vertical-align:middle}.tts:hover{opacity:1}
+.check{margin-top:9px;background:var(--gold);border:none;color:#0d1117;font-family:'Nunito';font-weight:800;font-size:.82rem;padding:8px 16px;border-radius:9px;cursor:pointer}
+.sol{margin-top:9px;font-size:.95rem;color:var(--green);background:var(--green-bg);border-left:3px solid var(--green);padding:7px 12px;border-radius:0 8px 8px 0;display:none}.sol.show{display:block}.sol b{color:var(--gold2)}
+/* таблица причастий */
+.irrwrap{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:20px;box-shadow:var(--shadow)}
+.irrwrap h3{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin-bottom:10px}
+.irrgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+@media(max-width:560px){.irrgrid{grid-template-columns:1fr}}
+.irr{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:8px 11px;cursor:pointer;font-size:.92rem;transition:.15s}
+.irr:hover{border-color:var(--gold)}
+.irr .inf{color:var(--muted)}.irr .ar{color:var(--muted);margin:0 5px}.irr .pp2{color:var(--gold2);font-weight:700;font-family:'Playfair Display',serif}
+.bigbtn{display:inline-block;margin:6px 6px 0;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Nunito';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+.bigbtn:hover{border-color:var(--gold);color:var(--gold2)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
+footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#0d1117;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="flag">🇮🇹</div>
+    <h1>Compiti 18/06</h1>
+    <p>Passato Prossimo · ausiliare avere · participi irregolari</p>
+    <p class="sub">Выбери причастие или впиши форму — фраза озвучится</p>
+  </header>
+
+  <div class="scorebar">
+    <span class="label">Risultato</span>
+    <div class="bar"><i id="fill"></i></div>
+    <span class="nums"><b id="ok">0</b> / <span id="tot">0</span></span>
+  </div>
+
+  <div id="api">
+    <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+      <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+      <button class="btn-c" onclick="connectKey()">OK</button>
+      <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+    <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+  </div>
+
+  <div class="modeswitch">
+    <button class="msb on" onclick="setMode('choice',this)">🔀 Выбор причастия</button>
+    <button class="msb" onclick="setMode('type',this)">⌨️ Вписать форму</button>
+  </div>
+
+  <!-- таблица причастий -->
+  <div class="irrwrap">
+    <h3>📚 Неправильные причастия (нажми — озвучка)</h3>
+    <div class="irrgrid" id="irrgrid"></div>
+  </div>
+
+  <div id="content"></div>
+
+  <div style="text-align:center"><button class="bigbtn" onclick="location.reload()">↺ Заново</button></div>
+  <footer>👆 Выбор: ставь причастие · Ввод: пиши «aux + participio». <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* данные: [подлежащее, инфинитив, aux, participio, остаток, перевод] */
+const AUX={io:"ho",tu:"hai",lui:"ha",noi:"abbiamo",voi:"avete",loro:"hanno"};
+function whoAux(sog){
+ const s=sog.toLowerCase();
+ if(s==="io")return"ho"; if(s==="tu")return"hai"; if(s==="noi")return"abbiamo"; if(s==="voi")return"avete";
+ if(/ e |\be\b| e$/.test(" "+s+" ")||/^(i |gli |le |loro)/.test(s)||/bambini|studenti|luca e|marco e|marta e/.test(s))return"hanno";
+ return"ha";
+}
+const DATA=[
+ {title:"Esercizio 1",items:[
+  ["Io","prendere","preso","il treno delle otto.","Я сел на восьмичасовой поезд."],
+  ["Tu","leggere","letto","un libro molto interessante.","Ты прочитал очень интересную книгу."],
+  ["Sara","scrivere","scritto","una lettera al nonno.","Сара написала письмо дедушке."],
+  ["Noi","vedere","visto","un bel film al cinema.","Мы посмотрели хороший фильм в кино."],
+  ["Voi","bere","bevuto","troppo caffè stamattina.","Вы выпили слишком много кофе утром."],
+  ["Luca e Anna","dire","detto","la verità.","Лука и Анна сказали правду."],
+  ["Io","mettere","messo","le chiavi sul tavolo.","Я положил ключи на стол."],
+  ["Tu","chiedere","chiesto","informazioni alla signora.","Ты спросил информацию у синьоры."],
+  ["Il professore","rispondere","risposto","a tutte le domande.","Преподаватель ответил на все вопросы."],
+  ["Noi","aprire","aperto","le finestre.","Мы открыли окна."],
+  ["Voi","chiudere","chiuso","la porta a chiave.","Вы закрыли дверь на ключ."],
+  ["I bambini","rompere","rotto","un bicchiere.","Дети разбили стакан."],
+  ["Io","perdere","perso","l'autobus questa mattina.","Я опоздал на автобус сегодня утром."],
+  ["Tu","vincere","vinto","la partita a tennis.","Ты выиграл партию в теннис."],
+ ]},
+ {title:"Esercizio 2",items:[
+  ["Noi","spendere","speso","troppi soldi al supermercato.","Мы потратили слишком много денег в супермаркете."],
+  ["Io","scegliere","scelto","un vestito rosso.","Я выбрал красное платье."],
+  ["Tu","decidere","deciso","di partire domani.","Ты решил уехать завтра."],
+  ["Paolo","conoscere","conosciuto","una ragazza simpatica alla festa.","Паоло познакомился с милой девушкой на вечеринке."],
+  ["Voi","accendere","acceso","la televisione.","Вы включили телевизор."],
+  ["Marta e Lucia","spegnere","spento","le luci prima di uscire.","Марта и Лючия выключили свет перед выходом."],
+  ["Io","fare","fatto","una bella passeggiata nel parco.","Я хорошо прогулялся в парке."],
+  ["Tu","prendere","preso","un gelato al cioccolato.","Ты взял шоколадное мороженое."],
+  ["Il cameriere","mettere","messo","il conto sul tavolo.","Официант положил счёт на стол."],
+  ["Noi","vedere","visto","una mostra interessante.","Мы посмотрели интересную выставку."],
+  ["Voi","leggere","letto","il giornale a colazione.","Вы читали газету за завтраком."],
+  ["Anna","scrivere","scritto","un messaggio al suo ragazzo.","Анна написала сообщение своему парню."],
+  ["Io","chiudere","chiuso","il computer.","Я закрыл компьютер."],
+  ["Tu","dire","detto","una bugia a tua madre.","Ты сказал неправду своей маме."],
+ ]},
+ {title:"Esercizio 3",items:[
+  ["Noi","ridere","riso","tutta la sera.","Мы смеялись весь вечер."],
+  ["Tu","promettere","promesso","di aiutarmi.","Ты обещал мне помочь."],
+  ["Io","perdere","perso","le chiavi di casa.","Я потерял ключи от дома."],
+  ["Gli studenti","discutere","discusso","del progetto.","Студенты обсудили проект."],
+  ["Voi","vincere","vinto","un premio importante.","Вы выиграли важный приз."],
+  ["Laura","dipingere","dipinto","un quadro bellissimo.","Лаура написала прекрасную картину."],
+  ["Io","raccogliere","raccolto","dei fiori nel giardino.","Я собрал цветы в саду."],
+  ["Tu","nascondere","nascosto","il regalo in un cassetto.","Ты спрятал подарок в ящике."],
+  ["Il bambino","piangere","pianto","tutta la notte.","Ребёнок плакал всю ночь."],
+  ["Noi","offrire","offerto","la cena ai nostri amici.","Мы угостили ужином наших друзей."],
+  ["Voi","chiedere","chiesto","il permesso al direttore.","Вы спросили разрешение у директора."],
+  ["Marco e Luca","bere","bevuto","una birra al bar.","Марко и Лука выпили пива в баре."],
+  ["Io","spendere","speso","tutto lo stipendio.","Я потратил всю зарплату."],
+  ["Tu","fare","fatto","una domanda intelligente.","Ты задал умный вопрос."],
+ ]},
+];
+const IRR=[["fare","fatto"],["prendere","preso"],["leggere","letto"],["scrivere","scritto"],["vedere","visto"],["bere","bevuto"],["dire","detto"],["mettere","messo"],["chiedere","chiesto"],["rispondere","risposto"],["aprire","aperto"],["chiudere","chiuso"],["rompere","rotto"],["perdere","perso"],["vincere","vinto"],["offrire","offerto"],["spendere","speso"],["scegliere","scelto"],["decidere","deciso"],["conoscere","conosciuto"],["accendere","acceso"],["spegnere","spento"],["vivere","vissuto"],["ridere","riso"],["promettere","promesso"],["discutere","discusso"],["dipingere","dipinto"],["raccogliere","raccolto"],["nascondere","nascosto"],["piangere","pianto"]];
+
+/* TTS */
+let ttsKey=localStorage.getItem('it_tts_key')||'';let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return t.replace(/'/g,"\\'");}
+
+let MODE='choice',TOTAL=0;const done=new Set();
+const ALLPP=[...new Set(DATA.flatMap(s=>s.items.map(it=>it[2])))];
+
+function renderIrr(){
+  document.getElementById('irrgrid').innerHTML=IRR.map(([inf,pp])=>
+   `<div class="irr" onclick="speak('${sp(pp)}')"><span class="inf">${esc(inf)}</span><span class="ar">→</span><span class="pp2">${esc(pp)}</span></div>`).join('');
+}
+function full(it){return whoAux(it[0])+' '+it[2]+' '+it[4];}
+function fullSentence(it){return it[0]+' '+full(it);}
+
+function build(){
+  TOTAL=0;done.clear();let html='';
+  DATA.forEach((sec,si)=>{
+    let qs='';
+    sec.items.forEach((it,qi)=>{TOTAL++;const key=si+'_'+qi;
+      const aux=whoAux(it[0]);const pp=it[2];
+      const sentence=esc(it[0])+' <span class="aux f">'+aux+'</span> ';
+      if(MODE==='choice'){
+        // варианты причастий: правильное + 3 похожих из общего пула
+        const opts=shuffle([pp].concat(shuffle(ALLPP.filter(x=>x!==pp)).slice(0,3)));
+        const accepted=JSON.stringify([norm(pp)]).replace(/"/g,'&quot;');
+        qs+=`<div class="q" id="q_${key}"><div class="text">${esc(it[0])} <span class="aux f">${aux}</span> <span class="pp" id="gp_${key}">·····</span> ${esc(it[4])}
+          <button class="tts" onclick="speak('${sp(fullSentence(it))}')">🔊</button>
+          <span class="ru">${esc(it[5])} · <i>${esc(it[1])}</i></span></div>
+          <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickPP(this,'${key}','${sp(o)}','${sp(pp)}')">${esc(o)}</button>`).join('')}</div>
+          <div class="sol" id="sol_${key}">✓ <b>${esc(fullSentence(it))}</b></div></div>`;
+      } else {
+        qs+=`<div class="q" id="q_${key}"><div class="text">${esc(it[0])} (<i>${esc(it[1])}</i>) … ${esc(it[4])}
+          <button class="tts" onclick="speak('${sp(fullSentence(it))}')">🔊</button>
+          <span class="ru">${esc(it[5])}</span></div>
+          <div class="lab">впиши: aux + participio (напр. «ho preso»)</div>
+          <input class="inp" id="inp_${key}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="...">
+          <div class="fb" id="fb_${key}"></div>
+          <button class="check" onclick="checkType('${key}','${sp(aux+' '+pp)}',${JSON.stringify(it).replace(/"/g,'&quot;')})">Проверить</button>
+          <div class="sol" id="sol_${key}">✓ <b>${esc(fullSentence(it))}</b></div></div>`;
+      }
+    });
+    html+=`<section class="ex"><h2>${esc(sec.title)}</h2><p class="instr">Completa con il passato prossimo (ausiliare avere).</p>${qs}</section>`;
+  });
+  document.getElementById('content').innerHTML=html;
+  document.getElementById('tot').textContent=TOTAL;
+  document.getElementById('ok').textContent=done.size;
+  document.getElementById('fill').style.width='0%';
+}
+function pickPP(btn,key,chosen,correct){
+  speak(chosen);
+  const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+key+' .opt')];
+  g.forEach(b=>b.classList.remove('ok','no','dim'));
+  if(good){btn.classList.add('ok');g.forEach(b=>{if(b!==btn)b.classList.add('dim');});done.add(key);
+    document.getElementById('sol_'+key).classList.add('show');}
+  else{btn.classList.add('no');g.forEach(b=>{if(norm(b.textContent)===norm(correct))b.classList.add('ok');});done.delete(key);}
+  const gp=document.getElementById('gp_'+key);gp.textContent=chosen;gp.className='pp '+(good?'f':'w');
+  document.getElementById('q_'+key).classList.toggle('ok',good);
+  upd();
+}
+function checkType(key,correct,it){
+  const val=document.getElementById('inp_'+key).value;
+  const good=norm(val)===norm(correct);
+  const fb=document.getElementById('fb_'+key);fb.className='fb '+(good?'ok':'no');
+  fb.textContent=good?'✓ Верно!':'✗ Правильно: '+correct;
+  speak(it[0]+' '+correct+' '+it[4]);
+  if(good){done.add(key);document.getElementById('q_'+key).classList.add('ok');}else done.delete(key);
+  document.getElementById('sol_'+key).classList.add('show');
+  upd();
+}
+function upd(){document.getElementById('ok').textContent=done.size;document.getElementById('fill').style.width=(done.size/TOTAL*100)+'%';
+  if(done.size===TOTAL)toast('🎉 Tutto giusto!');}
+function setMode(m,btn){MODE=m;document.querySelectorAll('.msb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');build();}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1800);}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderIrr();build();
+</script>
+</body>
+</html>
