@@ -3,263 +3,422 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇮🇹 Compiti 18/06 · Passato Prossimo</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>🇮🇹 Italiano — Alex</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--green-bg:rgba(45,122,79,.16);--red-bg:rgba(192,57,43,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;line-height:1.55}
-.wrap{max-width:760px;margin:0 auto;padding:0 18px 90px}
-header.top{text-align:center;margin:0 -18px 18px;padding:34px 20px 24px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
-header.top::after{content:'⏪';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
-header.top .flag{font-size:1.9rem;letter-spacing:.3em;position:relative}
-header.top h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,5.5vw,2.6rem);color:var(--gold2);margin:.12em 0 .04em;position:relative}
-header.top p{color:var(--muted);font-size:.9rem;position:relative}
-header.top .sub{font-style:italic;font-family:'Playfair Display',serif}
-.scorebar{position:sticky;top:0;z-index:30;margin:0 -18px 16px;padding:11px 18px;background:rgba(13,17,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:13px;flex-wrap:wrap}
-.scorebar .label{font-weight:800;color:var(--gold);font-size:.82rem;letter-spacing:.04em;text-transform:uppercase}
-.bar{flex:1;min-width:110px;height:9px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
-.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .5s}
-.scorebar .nums{font-weight:800;font-size:.95rem}.scorebar .nums b{color:var(--green)}
-#api{background:#0e1422;border:1px solid var(--line);border-radius:12px;padding:10px 13px;margin-bottom:16px;font-size:.74rem}
-.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
-.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
-.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
-.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
-#st{font-size:.68rem;margin-top:4px;min-height:13px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
-.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
-.hint{font-size:.66rem;color:#667;margin-top:5px}
-.modeswitch{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
-.msb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer}
-.msb.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
-section.ex{margin-bottom:24px}
-.ex>h2{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;color:var(--gold2);margin:0 0 3px}
-.ex>.instr{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;margin:0 0 13px;font-size:.92rem}
-.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
-.q.ok{border-color:var(--green)}
-.q .text{font-size:1.05rem;line-height:1.8}
-.q .text .ru{display:block;color:var(--muted);font-size:.82rem;font-style:italic;margin-top:2px}
-.aux{display:inline-block;min-width:54px;text-align:center;border-bottom:2px dashed var(--viola);color:var(--viola);padding:0 5px;font-weight:800}
-.pp{display:inline-block;min-width:78px;text-align:center;border-bottom:2px dashed var(--gold);color:var(--muted);padding:0 5px;font-weight:800;letter-spacing:2px}
-.aux.f,.pp.f{border-bottom-style:solid;letter-spacing:0}.aux.f{color:var(--green);border-color:var(--green)}
-.pp.f{color:var(--green);border-color:var(--green)}.pp.w,.aux.w{color:var(--red);border-bottom-style:solid;border-color:var(--red);letter-spacing:0}
-.opts{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:8px 13px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem;transition:.15s}
-.opt:hover{border-color:var(--gold);color:var(--gold2)}
-.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
-.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
-.opt.dim{opacity:.4}
-.lab{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:8px 0 3px}
-.inp{width:100%;margin-top:9px;background:var(--card2);border:1px solid var(--line);border-bottom:2px solid var(--gold);border-radius:8px;color:var(--gold2);font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;padding:8px 11px;outline:none}
-.fb{margin-top:7px;font-size:.9rem;font-weight:700;min-height:18px}.fb.ok{color:var(--green)}.fb.no{color:var(--red)}
-.tts{margin-left:6px;background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.6;vertical-align:middle}.tts:hover{opacity:1}
-.check{margin-top:9px;background:var(--gold);border:none;color:#0d1117;font-family:'Nunito';font-weight:800;font-size:.82rem;padding:8px 16px;border-radius:9px;cursor:pointer}
-.sol{margin-top:9px;font-size:.95rem;color:var(--green);background:var(--green-bg);border-left:3px solid var(--green);padding:7px 12px;border-radius:0 8px 8px 0;display:none}.sol.show{display:block}.sol b{color:var(--gold2)}
-/* таблица причастий */
-.irrwrap{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px 16px;margin-bottom:20px;box-shadow:var(--shadow)}
-.irrwrap h3{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin-bottom:10px}
-.irrgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-@media(max-width:560px){.irrgrid{grid-template-columns:1fr}}
-.irr{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:8px 11px;cursor:pointer;font-size:.92rem;transition:.15s}
-.irr:hover{border-color:var(--gold)}
-.irr .inf{color:var(--muted)}.irr .ar{color:var(--muted);margin:0 5px}.irr .pp2{color:var(--gold2);font-weight:700;font-family:'Playfair Display',serif}
-.bigbtn{display:inline-block;margin:6px 6px 0;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Nunito';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
-.bigbtn:hover{border-color:var(--gold);color:var(--gold2)}
-footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:26px;padding-top:16px;border-top:1px solid var(--line)}
-footer a{color:var(--gold)}
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#0d1117;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+:root{
+  --bg:#0d1117;--card:#161b22;--border:#21262d;
+  --verde:#2d7a4f;--verde-l:#0a1a10;
+  --oro:#c9a84c;--oro-l:#1a1500;
+  --blu:#2855a0;--blu-l:#080e1a;
+  --viola:#6040a0;--viola-l:#0e0818;
+  --rosso:#c0392b;--rosso-l:#1a0808;
+  --testo:#f0ebe3;--muted:#667;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh}
+
+/* HEADER */
+header{
+  background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);
+  padding:40px 20px 30px;text-align:center;position:relative;overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
+header::after{content:'🇮🇹';position:absolute;font-size:8rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.flag{font-size:2.5rem;margin-bottom:10px;position:relative}
+header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,5vw,3rem);font-weight:700;position:relative;line-height:1.2}
+header h1 em{font-style:italic;color:var(--oro)}
+header p{margin-top:8px;font-size:.8rem;color:var(--muted);position:relative;letter-spacing:.1em;text-transform:uppercase}
+.progress-bar{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap}
+.pb-item{background:#ffffff0a;border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:.65rem;color:var(--muted);letter-spacing:.06em}
+.pb-item.active{border-color:var(--verde);color:#5ac4a0;background:#2d7a4f18}
+
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+.section-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--oro);margin-bottom:12px;margin-top:28px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.1em}
+.section-title::before{content:'';width:3px;height:16px;background:var(--oro);border-radius:99px}
+
+/* CARDS GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:8px}
+
+/* APP CARD */
+.app-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--testo);transition:all .2s;display:flex;flex-direction:column;position:relative}
+.app-card:hover{border-color:#c9a84c55;transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent,var(--oro))}
+.card-top{padding:16px 16px 12px;flex:1}
+.card-icon{font-size:2rem;margin-bottom:8px;display:block}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:4px;line-height:1.3}
+.card-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
+.card-bottom{padding:10px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:#ffffff03}
+.card-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:.55rem;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:2px 7px;border:1px solid}
+.tag-tts{color:#5ac4a0;border-color:#2d7a4f44;background:#2d7a4f11}
+.tag-test{color:#7090e0;border-color:#2855a044;background:#2855a011}
+.tag-train{color:var(--oro);border-color:#c9a84c44;background:#c9a84c11}
+.tag-song{color:#c090e0;border-color:#6040a044;background:#6040a011}
+.card-arrow{font-size:.9rem;color:var(--muted);transition:transform .2s}
+.app-card:hover .card-arrow{transform:translateX(4px);color:var(--oro)}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:4px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--oro);line-height:1}
+.stat-lbl{font-size:.62rem;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+
+/* FOOTER */
+footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:.68rem;color:var(--muted)}
+footer a{color:var(--oro);text-decoration:none}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <div class="flag">🇮🇹</div>
-    <h1>Compiti 18/06</h1>
-    <p>Passato Prossimo · ausiliare avere · participi irregolari</p>
-    <p class="sub">Выбери причастие или впиши форму — фраза озвучится</p>
-  </header>
 
-  <div class="scorebar">
-    <span class="label">Risultato</span>
-    <div class="bar"><i id="fill"></i></div>
-    <span class="nums"><b id="ok">0</b> / <span id="tot">0</span></span>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Italiano <em>di Alex</em></h1>
+  <p>Интерактивные приложения для изучения итальянского</p>
+  <div class="progress-bar">
+    <div class="pb-item active">Уроки 24/04 → 04/06</div>
+    <div class="pb-item active">51 неправильный глагол</div>
+    <div class="pb-item active">Google TTS</div>
+    <div class="pb-item active">GitHub Pages</div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- STATS -->
+  <div class="stats" style="margin-top:4px">
+    <div class="stat"><div class="stat-num">13</div><div class="stat-lbl">Уроков</div></div>
+    <div class="stat"><div class="stat-num">51</div><div class="stat-lbl">Неправ. глаголов</div></div>
+    <div class="stat"><div class="stat-num">471</div><div class="stat-lbl">Слов</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-lbl">Песни и тексты</div></div>
   </div>
 
-  <div id="api">
-    <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
-      <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
-      <button class="btn-c" onclick="connectKey()">OK</button>
-      <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
-    <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+  <!-- УРОКИ -->
+  <div class="section-title">📖 Уроки и конспекты</div>
+  <div class="grid">
+
+    <a href="italiano-conspecti.html" class="app-card" style="--accent:var(--verde)">
+      <div class="card-top">
+        <span class="card-icon">📗</span>
+        <div class="card-title">Конспект уроков</div>
+        <div class="card-desc">Все уроки с 24/04 по 26/05 — артикли, глаголы, прилагательные, местоимения, числа, погода, ANDARE, ISC-глаголы, модальные, c'è/ci sono</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">15 вкладок</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-frasi-test.html" class="app-card" style="--accent:var(--blu)">
+      <div class="card-top">
+        <span class="card-icon">💬</span>
+        <div class="card-title">Фразы и тесты</div>
+        <div class="card-desc">Предложения из уроков — essere, avere, verbi, andare, ISC-глаголы. Три теста по 30 вопросов</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">3 теста</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-test-compiti.html" class="app-card" style="--accent:var(--blu)">
+      <div class="card-top">
+        <span class="card-icon">📝</span>
+        <div class="card-title">Тест — Compiti</div>
+        <div class="card-desc">Все домашние задания из конспекта 24/04 → 04/06 — артикли, essere/avere, презенс, модальные, возвратные. С вариантами ответов и озвучкой</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">323 фразы</span>
+          <span class="tag tag-train">28 блоков</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
   </div>
 
-  <div class="modeswitch">
-    <button class="msb on" onclick="setMode('choice',this)">🔀 Выбор причастия</button>
-    <button class="msb" onclick="setMode('type',this)">⌨️ Вписать форму</button>
+  <!-- СЛОВАРИ -->
+  <div class="section-title">📚 Словари</div>
+  <div class="grid">
+
+    <a href="italiano-dizionari.html" class="app-card" style="--accent:var(--oro)">
+      <div class="card-top">
+        <span class="card-icon">📒</span>
+        <div class="card-title">Словари</div>
+        <div class="card-desc">117 прилагательных · 107 глаголов · 66 существительных · 66 наречий · 61 предлог · 54 местоимения. Фильтры, поиск, ассоциации, тренажёр</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">471 слово</span>
+          <span class="tag tag-test">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
   </div>
 
-  <!-- таблица причастий -->
-  <div class="irrwrap">
-    <h3>📚 Неправильные причастия (нажми — озвучка)</h3>
-    <div class="irrgrid" id="irrgrid"></div>
+  <!-- ПРАКТИКА -->
+  <div class="section-title">🧠 Практика и запоминание</div>
+  <div class="grid">
+
+    <a href="italiano-passato.html" class="app-card" style="--accent:#9b7fe0">
+      <div class="card-top">
+        <span class="card-icon">⏪</span>
+        <div class="card-title">Passato Prossimo</div>
+        <div class="card-desc">Прошедшее время — всё в одном: конспект, тест и тренажёр. Avere/essere, причастия, согласование</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-train">Конспект</span>
+          <span class="tag tag-test">Тест</span>
+          <span class="tag tag-tts">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-compiti1806.html" class="app-card" style="--accent:#4a9fd0">
+      <div class="card-top">
+        <span class="card-icon">📋</span>
+        <div class="card-title">Compiti 18/06</div>
+        <div class="card-desc">Домашка по Passato Prossimo: 42 фразы с неправильными причастиями. Выбор формы или ввод, таблица причастий, озвучка</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">42 фразы</span>
+          <span class="tag tag-train">2 режима</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-active.html" class="app-card" style="--accent:#7c3aed">
+      <div class="card-top">
+        <span class="card-icon">🧠</span>
+        <div class="card-title">Актив — RU → IT</div>
+        <div class="card-desc">Вспоминай итальянское слово по русскому. Интервальное повторение, два режима, прогресс сохраняется. Лечит «знаю, но не вспоминаю»</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">471 слово</span>
+          <span class="tag tag-test">Интервалы</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-test-passato.html" class="app-card" style="--accent:#4a7fd0">
+      <div class="card-top">
+        <span class="card-icon">📝</span>
+        <div class="card-title">Тест — Passato Prossimo</div>
+        <div class="card-desc">28 заданий с вариантами: avere или essere, форма причастия, неправильные причастия, согласование</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">28 заданий</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-train-passato.html" class="app-card" style="--accent:#9b7fe0">
+      <div class="card-top">
+        <span class="card-icon">🏋️</span>
+        <div class="card-title">Тренажёр — Passato Prossimo</div>
+        <div class="card-desc">Ставь глагол в прошедшее время: вспоминай или печатай, фильтры avere/essere/неправильные, серия 🔥</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-train">27 глаголов</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-poesie.html" class="app-card" style="--accent:#c090e0">
+      <div class="card-top">
+        <span class="card-icon">🎭</span>
+        <div class="card-title">Стихи для запоминания</div>
+        <div class="card-desc">10 стихов из слов словаря — распорядок дня, еда, погода, модальные, возвратные. Каждая строка с переводом и озвучкой</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">10 стихов</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
   </div>
 
-  <div id="content"></div>
+  <!-- ГЛАГОЛЫ -->
+  <div class="section-title">🎬 Глаголы</div>
+  <div class="grid">
 
-  <div style="text-align:center"><button class="bigbtn" onclick="location.reload()">↺ Заново</button></div>
-  <footer>👆 Выбор: ставь причастие · Ввод: пиши «aux + participio». <a href="index.html">← Главная</a></footer>
+    <a href="italiano-verbi-irregolari.html" class="app-card" style="--accent:#e07070">
+      <div class="card-top">
+        <span class="card-icon">⚡</span>
+        <div class="card-title">Неправильные глаголы</div>
+        <div class="card-desc">51 глагол — полные спряжения, ассоциации, примеры. Карточки, тренажёр, тест, аудио-марафон с паузами</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 30</span>
+          <span class="tag tag-train">Марафон 🎧</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-verbi-simili.html" class="app-card" style="--accent:var(--viola)">
+      <div class="card-top">
+        <span class="card-icon">🔀</span>
+        <div class="card-title">Похожие глаголы</div>
+        <div class="card-desc">andare/venire · essere/stare · sapere/conoscere · essere/avere · fare/погода · modali · partire/uscire · ISC-глаголы</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 38</span>
+          <span class="tag tag-train">8 пар</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-verbi-game.html" class="app-card" style="--accent:var(--verde)">
+      <div class="card-top">
+        <span class="card-icon">🎮</span>
+        <div class="card-title">Игра — глаголы</div>
+        <div class="card-desc">4 мини-игры: ⚡ Скорость · 🏗️ Постройка · 💬 Диалог · ✍️ Молния. Учись играя!</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-train">4 игры</span>
+          <span class="tag tag-tts">TTS</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ПЕСНИ И ТЕКСТЫ -->
+  <div class="section-title">🎵 Песни и тексты</div>
+  <div class="grid">
+
+    <a href="propaganda.html" class="app-card" style="--accent:#b18cf0">
+      <div class="card-top">
+        <span class="card-icon">🎤</span>
+        <div class="card-title">Fabri Fibra — Propaganda</div>
+        <div class="card-desc">Разбор строк с переводом · Словарь песни · Тренажёр · Грамматика (passato prossimo, futuro). Ссылка на полный текст</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">Rap 2022</span>
+          <span class="tag tag-train">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-mannarino.html" class="app-card" style="--accent:#e07a20">
+      <div class="card-top">
+        <span class="card-icon">🎸</span>
+        <div class="card-title">Mannarino — Me So' Mbriacato</div>
+        <div class="card-desc">Текст с переводом · Словарь · Диалект романеско (Рим) · Фразы · Тренажёр 4 режима</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">Романеско</span>
+          <span class="tag tag-train">Тренажёр</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-confessa.html" class="app-card" style="--accent:#8b2020">
+      <div class="card-top">
+        <span class="card-icon">🎵</span>
+        <div class="card-title">Celentano — Confessa</div>
+        <div class="card-desc">Текст с переводом · Словарь · Метафоры Mogol · Фразы · Тренажёр — режим «Метафоры»</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">Баллада 2002</span>
+          <span class="tag tag-train">Метафоры</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-sara-perche.html" class="app-card" style="--accent:#7c3aed">
+      <div class="card-top">
+        <span class="card-icon">⭐</span>
+        <div class="card-title">Ricchi e Poveri — Sarà perché ti amo</div>
+        <div class="card-desc">Текст с переводом · Словарь · SARÀ как предположение · Imperativo · Тренажёр «На слух»</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-song">Sanremo 1981</span>
+          <span class="tag tag-train">На слух</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="italiano-lucio.html" class="app-card" style="--accent:#5ac4a0">
+      <div class="card-top">
+        <span class="card-icon">🐱</span>
+        <div class="card-title">Lucio — il gatto di Morandi</div>
+        <div class="card-desc">Учебный текст — полный разбор. Слова с ассоциациями · Фразы по грамматике · Тренажёр · Тест 30 вопросов</div>
+      </div>
+      <div class="card-bottom">
+        <div class="card-tags">
+          <span class="tag tag-tts">TTS</span>
+          <span class="tag tag-test">Тест 30</span>
+          <span class="tag tag-train">40 слов</span>
+        </div>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- ПОДСКАЗКА TTS -->
+  <div style="background:#1a1500;border:1px solid #c9a84c33;border-radius:12px;padding:14px 16px;margin-top:20px;font-size:.76rem;line-height:1.7;color:#c8b888">
+    🔊 <strong style="color:var(--oro)">Google TTS</strong> — произношение во всех приложениях. Один ключ работает везде.<br>
+    <span style="color:var(--muted)">console.cloud.google.com → Cloud Text-to-Speech API → Create API Key</span>
+  </div>
+
 </div>
-<div class="toast" id="toast"></div>
 
-<script>
-/* данные: [подлежащее, инфинитив, aux, participio, остаток, перевод] */
-const AUX={io:"ho",tu:"hai",lui:"ha",noi:"abbiamo",voi:"avete",loro:"hanno"};
-function whoAux(sog){
- const s=sog.toLowerCase();
- if(s==="io")return"ho"; if(s==="tu")return"hai"; if(s==="noi")return"abbiamo"; if(s==="voi")return"avete";
- if(/ e |\be\b| e$/.test(" "+s+" ")||/^(i |gli |le |loro)/.test(s)||/bambini|studenti|luca e|marco e|marta e/.test(s))return"hanno";
- return"ha";
-}
-const DATA=[
- {title:"Esercizio 1",items:[
-  ["Io","prendere","preso","il treno delle otto.","Я сел на восьмичасовой поезд."],
-  ["Tu","leggere","letto","un libro molto interessante.","Ты прочитал очень интересную книгу."],
-  ["Sara","scrivere","scritto","una lettera al nonno.","Сара написала письмо дедушке."],
-  ["Noi","vedere","visto","un bel film al cinema.","Мы посмотрели хороший фильм в кино."],
-  ["Voi","bere","bevuto","troppo caffè stamattina.","Вы выпили слишком много кофе утром."],
-  ["Luca e Anna","dire","detto","la verità.","Лука и Анна сказали правду."],
-  ["Io","mettere","messo","le chiavi sul tavolo.","Я положил ключи на стол."],
-  ["Tu","chiedere","chiesto","informazioni alla signora.","Ты спросил информацию у синьоры."],
-  ["Il professore","rispondere","risposto","a tutte le domande.","Преподаватель ответил на все вопросы."],
-  ["Noi","aprire","aperto","le finestre.","Мы открыли окна."],
-  ["Voi","chiudere","chiuso","la porta a chiave.","Вы закрыли дверь на ключ."],
-  ["I bambini","rompere","rotto","un bicchiere.","Дети разбили стакан."],
-  ["Io","perdere","perso","l'autobus questa mattina.","Я опоздал на автобус сегодня утром."],
-  ["Tu","vincere","vinto","la partita a tennis.","Ты выиграл партию в теннис."],
- ]},
- {title:"Esercizio 2",items:[
-  ["Noi","spendere","speso","troppi soldi al supermercato.","Мы потратили слишком много денег в супермаркете."],
-  ["Io","scegliere","scelto","un vestito rosso.","Я выбрал красное платье."],
-  ["Tu","decidere","deciso","di partire domani.","Ты решил уехать завтра."],
-  ["Paolo","conoscere","conosciuto","una ragazza simpatica alla festa.","Паоло познакомился с милой девушкой на вечеринке."],
-  ["Voi","accendere","acceso","la televisione.","Вы включили телевизор."],
-  ["Marta e Lucia","spegnere","spento","le luci prima di uscire.","Марта и Лючия выключили свет перед выходом."],
-  ["Io","fare","fatto","una bella passeggiata nel parco.","Я хорошо прогулялся в парке."],
-  ["Tu","prendere","preso","un gelato al cioccolato.","Ты взял шоколадное мороженое."],
-  ["Il cameriere","mettere","messo","il conto sul tavolo.","Официант положил счёт на стол."],
-  ["Noi","vedere","visto","una mostra interessante.","Мы посмотрели интересную выставку."],
-  ["Voi","leggere","letto","il giornale a colazione.","Вы читали газету за завтраком."],
-  ["Anna","scrivere","scritto","un messaggio al suo ragazzo.","Анна написала сообщение своему парню."],
-  ["Io","chiudere","chiuso","il computer.","Я закрыл компьютер."],
-  ["Tu","dire","detto","una bugia a tua madre.","Ты сказал неправду своей маме."],
- ]},
- {title:"Esercizio 3",items:[
-  ["Noi","ridere","riso","tutta la sera.","Мы смеялись весь вечер."],
-  ["Tu","promettere","promesso","di aiutarmi.","Ты обещал мне помочь."],
-  ["Io","perdere","perso","le chiavi di casa.","Я потерял ключи от дома."],
-  ["Gli studenti","discutere","discusso","del progetto.","Студенты обсудили проект."],
-  ["Voi","vincere","vinto","un premio importante.","Вы выиграли важный приз."],
-  ["Laura","dipingere","dipinto","un quadro bellissimo.","Лаура написала прекрасную картину."],
-  ["Io","raccogliere","raccolto","dei fiori nel giardino.","Я собрал цветы в саду."],
-  ["Tu","nascondere","nascosto","il regalo in un cassetto.","Ты спрятал подарок в ящике."],
-  ["Il bambino","piangere","pianto","tutta la notte.","Ребёнок плакал всю ночь."],
-  ["Noi","offrire","offerto","la cena ai nostri amici.","Мы угостили ужином наших друзей."],
-  ["Voi","chiedere","chiesto","il permesso al direttore.","Вы спросили разрешение у директора."],
-  ["Marco e Luca","bere","bevuto","una birra al bar.","Марко и Лука выпили пива в баре."],
-  ["Io","spendere","speso","tutto lo stipendio.","Я потратил всю зарплату."],
-  ["Tu","fare","fatto","una domanda intelligente.","Ты задал умный вопрос."],
- ]},
-];
-const IRR=[["fare","fatto"],["prendere","preso"],["leggere","letto"],["scrivere","scritto"],["vedere","visto"],["bere","bevuto"],["dire","detto"],["mettere","messo"],["chiedere","chiesto"],["rispondere","risposto"],["aprire","aperto"],["chiudere","chiuso"],["rompere","rotto"],["perdere","perso"],["vincere","vinto"],["offrire","offerto"],["spendere","speso"],["scegliere","scelto"],["decidere","deciso"],["conoscere","conosciuto"],["accendere","acceso"],["spegnere","spento"],["vivere","vissuto"],["ridere","riso"],["promettere","promesso"],["discutere","discusso"],["dipingere","dipinto"],["raccogliere","raccolto"],["nascondere","nascosto"],["piangere","pianto"]];
+<footer>
+  Сделано с ❤️ для изучения итальянского ·
+  <a href="https://github.com/alexinfrai/italiano">GitHub</a>
+</footer>
 
-/* TTS */
-let ttsKey=localStorage.getItem('it_tts_key')||'';let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}const cache={};let curAudio=null;
-async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
-function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
-async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
-function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
-function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
-function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
-function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
-function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function sp(t){return t.replace(/'/g,"\\'");}
-
-let MODE='choice',TOTAL=0;const done=new Set();
-const ALLPP=[...new Set(DATA.flatMap(s=>s.items.map(it=>it[2])))];
-
-function renderIrr(){
-  document.getElementById('irrgrid').innerHTML=IRR.map(([inf,pp])=>
-   `<div class="irr" onclick="speak('${sp(pp)}')"><span class="inf">${esc(inf)}</span><span class="ar">→</span><span class="pp2">${esc(pp)}</span></div>`).join('');
-}
-function full(it){return whoAux(it[0])+' '+it[2]+' '+it[4];}
-function fullSentence(it){return it[0]+' '+full(it);}
-
-function build(){
-  TOTAL=0;done.clear();let html='';
-  DATA.forEach((sec,si)=>{
-    let qs='';
-    sec.items.forEach((it,qi)=>{TOTAL++;const key=si+'_'+qi;
-      const aux=whoAux(it[0]);const pp=it[2];
-      const sentence=esc(it[0])+' <span class="aux f">'+aux+'</span> ';
-      if(MODE==='choice'){
-        // варианты причастий: правильное + 3 похожих из общего пула
-        const opts=shuffle([pp].concat(shuffle(ALLPP.filter(x=>x!==pp)).slice(0,3)));
-        const accepted=JSON.stringify([norm(pp)]).replace(/"/g,'&quot;');
-        qs+=`<div class="q" id="q_${key}"><div class="text">${esc(it[0])} <span class="aux f">${aux}</span> <span class="pp" id="gp_${key}">·····</span> ${esc(it[4])}
-          <button class="tts" onclick="speak('${sp(fullSentence(it))}')">🔊</button>
-          <span class="ru">${esc(it[5])} · <i>${esc(it[1])}</i></span></div>
-          <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickPP(this,'${key}','${sp(o)}','${sp(pp)}')">${esc(o)}</button>`).join('')}</div>
-          <div class="sol" id="sol_${key}">✓ <b>${esc(fullSentence(it))}</b></div></div>`;
-      } else {
-        qs+=`<div class="q" id="q_${key}"><div class="text">${esc(it[0])} (<i>${esc(it[1])}</i>) … ${esc(it[4])}
-          <button class="tts" onclick="speak('${sp(fullSentence(it))}')">🔊</button>
-          <span class="ru">${esc(it[5])}</span></div>
-          <div class="lab">впиши: aux + participio (напр. «ho preso»)</div>
-          <input class="inp" id="inp_${key}" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="...">
-          <div class="fb" id="fb_${key}"></div>
-          <button class="check" onclick="checkType('${key}','${sp(aux+' '+pp)}',${JSON.stringify(it).replace(/"/g,'&quot;')})">Проверить</button>
-          <div class="sol" id="sol_${key}">✓ <b>${esc(fullSentence(it))}</b></div></div>`;
-      }
-    });
-    html+=`<section class="ex"><h2>${esc(sec.title)}</h2><p class="instr">Completa con il passato prossimo (ausiliare avere).</p>${qs}</section>`;
-  });
-  document.getElementById('content').innerHTML=html;
-  document.getElementById('tot').textContent=TOTAL;
-  document.getElementById('ok').textContent=done.size;
-  document.getElementById('fill').style.width='0%';
-}
-function pickPP(btn,key,chosen,correct){
-  speak(chosen);
-  const good=norm(chosen)===norm(correct);
-  const g=[...document.querySelectorAll('#q_'+key+' .opt')];
-  g.forEach(b=>b.classList.remove('ok','no','dim'));
-  if(good){btn.classList.add('ok');g.forEach(b=>{if(b!==btn)b.classList.add('dim');});done.add(key);
-    document.getElementById('sol_'+key).classList.add('show');}
-  else{btn.classList.add('no');g.forEach(b=>{if(norm(b.textContent)===norm(correct))b.classList.add('ok');});done.delete(key);}
-  const gp=document.getElementById('gp_'+key);gp.textContent=chosen;gp.className='pp '+(good?'f':'w');
-  document.getElementById('q_'+key).classList.toggle('ok',good);
-  upd();
-}
-function checkType(key,correct,it){
-  const val=document.getElementById('inp_'+key).value;
-  const good=norm(val)===norm(correct);
-  const fb=document.getElementById('fb_'+key);fb.className='fb '+(good?'ok':'no');
-  fb.textContent=good?'✓ Верно!':'✗ Правильно: '+correct;
-  speak(it[0]+' '+correct+' '+it[4]);
-  if(good){done.add(key);document.getElementById('q_'+key).classList.add('ok');}else done.delete(key);
-  document.getElementById('sol_'+key).classList.add('show');
-  upd();
-}
-function upd(){document.getElementById('ok').textContent=done.size;document.getElementById('fill').style.width=(done.size/TOTAL*100)+'%';
-  if(done.size===TOTAL)toast('🎉 Tutto giusto!');}
-function setMode(m,btn){MODE=m;document.querySelectorAll('.msb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');build();}
-function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1800);}
-
-if('speechSynthesis' in window)speechSynthesis.getVoices();
-if(ttsKey)markConn();
-renderIrr();build();
-</script>
 </body>
 </html>
