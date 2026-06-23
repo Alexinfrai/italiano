@@ -50,7 +50,7 @@ header p{margin-top:3px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 .vchip.active{border-color:#2d7a4f;color:#5ac4a0}
 
 /* TABS */
-.tabs{display:flex;flex-wrap:wrap;gap:2px 4px;justify-content:center;background:white;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:4px 6px}
+.tabs{display:flex;flex-wrap:wrap;gap:2px 4px;justify-content:center;background:white;border-bottom:2px solid var(--border);position:relative;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:4px 6px}
 .tab{padding:9px 11px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.03em;border-radius:7px 7px 0 0}
 .tab.active{color:var(--verde);border-bottom-color:var(--verde)}
 .nbadge{background:var(--rosso);color:white;border-radius:99px;padding:1px 5px;font-size:.5rem;margin-left:2px;vertical-align:top}
@@ -252,6 +252,54 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .ex-ru{font-size:.72rem;color:var(--muted)}
 
 .divider{height:1px;background:var(--border);margin:10px 0}
+/* ── ВСТРОЕННЫЙ ТРЕНАЖЁР + ТЕСТ (Passato Prossimo) ── */
+.pp-w{margin-top:6px}
+.pp-switch{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.pp-sb{border:1px solid var(--border);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer;font-family:'Nunito'}
+.pp-sb.on{background:var(--viola);border-color:var(--viola);color:#fff}
+.pp-prog{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.pp-bar{flex:1;height:8px;background:var(--viola-l);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
+.pp-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--oro));transition:.4s}
+.pp-prog .n{font-weight:800;font-size:.78rem;color:var(--muted)}.pp-prog .n b{color:var(--verde)}
+/* тренажёр-карточка */
+.pp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;box-shadow:var(--shadow);text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.pp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--viola));border-radius:16px 16px 0 0}
+.pp-inf{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--testo)}
+.pp-inf small{display:block;color:var(--muted);font-size:.88rem;font-weight:400;margin-top:2px}
+.pp-cue{margin-top:7px;color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Playfair Display',serif}
+.pp-ans{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--verde);margin-top:12px;display:none}
+.pp-ans.show{display:block}
+.pp-ans .full{display:block;font-size:.92rem;color:var(--muted);font-weight:400;margin-top:3px}
+.pp-ans .spk{cursor:pointer;color:var(--viola);margin-left:6px;font-size:.95rem}
+.pp-inp{width:100%;margin-top:12px;background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--oro);border-radius:8px;color:var(--verde);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;text-align:center;padding:9px;outline:none}
+.pp-fb{margin-top:7px;font-weight:700;font-size:.88rem;min-height:16px}.pp-fb.ok{color:var(--verde)}.pp-fb.no{color:var(--rosso)}
+.pp-opts{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.pp-opt{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:10px 13px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem}
+.pp-opt:hover{border-color:var(--oro)}
+.pp-opt.ok{background:var(--verde-l);border-color:var(--verde);color:var(--verde)}
+.pp-opt.no{background:var(--rosso-l);border-color:var(--rosso);color:var(--rosso)}
+.pp-btns{display:flex;gap:9px;margin-top:14px}
+.pp-big{flex:1;border:none;border-radius:11px;font-family:'Nunito';font-weight:800;font-size:.95rem;padding:12px;cursor:pointer}
+.pp-big.rev{background:var(--oro);color:#fff}
+.pp-big.no{background:var(--rosso-l);color:var(--rosso);border:1px solid var(--rosso)}
+.pp-big.ok{background:var(--verde-l);color:var(--verde);border:1px solid var(--verde)}
+.pp-sub{display:flex;justify-content:space-between;margin-top:11px;font-size:.76rem}
+.pp-sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Nunito';font-size:.76rem}
+/* тест */
+.pp-q{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:9px;box-shadow:var(--shadow)}
+.pp-q.ok{border-color:var(--verde)}
+.pp-qt{font-size:1.02rem;line-height:1.7}
+.pp-qt .ru{display:block;color:var(--muted);font-size:.8rem;font-style:italic;margin-top:1px}
+.pp-gap{display:inline-block;min-width:66px;text-align:center;border-bottom:2px dashed var(--oro);color:var(--muted);padding:0 5px;font-weight:800;letter-spacing:2px}
+.pp-gap.f{color:var(--verde);border-bottom-style:solid;border-color:var(--verde);letter-spacing:0}
+.pp-gap.w{color:var(--rosso);border-bottom-style:solid;border-color:var(--rosso);letter-spacing:0}
+.pp-qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pp-qo{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:7px 12px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:.96rem}
+.pp-qo:hover{border-color:var(--oro)}
+.pp-qo.ok{background:var(--verde-l);border-color:var(--verde);color:var(--verde)}
+.pp-qo.no{background:var(--rosso-l);border-color:var(--rosso);color:var(--rosso)}
+.pp-tsec{font-family:'Playfair Display',serif;color:var(--blu);font-size:1.02rem;margin:14px 0 8px;font-weight:700}
+.pp-spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:.95rem}
 </style>
 </head>
 <body>
@@ -1841,6 +1889,70 @@ function renderModali(){
     </div>
   </div>
 
+  <div class="card">
+    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#1a3a55,#2855a0);margin-bottom:10px">📅 ДЗ 18/06 — 30 причастий</div>
+    <h3 style="margin-bottom:9px">📚 Неправильные причастия (с AVERE) — учим наизусть</h3>
+    <div class="tip tip-v">Все идут с <strong>avere</strong>, причастие НЕ меняется: <i>ho fatto, abbiamo fatto, hanno fatto</i>. Нажми — озвучка.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('preso')"><span class="vocab-it">prendere → <strong>preso</strong></span><span class="vocab-ru">брать</span></div>
+      <div class="vocab-item" onclick="play('letto')"><span class="vocab-it">leggere → <strong>letto</strong></span><span class="vocab-ru">читать</span></div>
+      <div class="vocab-item" onclick="play('scritto')"><span class="vocab-it">scrivere → <strong>scritto</strong></span><span class="vocab-ru">писать</span></div>
+      <div class="vocab-item" onclick="play('visto')"><span class="vocab-it">vedere → <strong>visto</strong></span><span class="vocab-ru">видеть</span></div>
+      <div class="vocab-item" onclick="play('bevuto')"><span class="vocab-it">bere → <strong>bevuto</strong></span><span class="vocab-ru">пить</span></div>
+      <div class="vocab-item" onclick="play('messo')"><span class="vocab-it">mettere → <strong>messo</strong></span><span class="vocab-ru">класть</span></div>
+      <div class="vocab-item" onclick="play('chiesto')"><span class="vocab-it">chiedere → <strong>chiesto</strong></span><span class="vocab-ru">просить, спрашивать</span></div>
+      <div class="vocab-item" onclick="play('risposto')"><span class="vocab-it">rispondere → <strong>risposto</strong></span><span class="vocab-ru">отвечать</span></div>
+      <div class="vocab-item" onclick="play('rotto')"><span class="vocab-it">rompere → <strong>rotto</strong></span><span class="vocab-ru">ломать, разбивать</span></div>
+      <div class="vocab-item" onclick="play('perso')"><span class="vocab-it">perdere → <strong>perso</strong></span><span class="vocab-ru">терять, проигрывать</span></div>
+      <div class="vocab-item" onclick="play('vinto')"><span class="vocab-it">vincere → <strong>vinto</strong></span><span class="vocab-ru">выигрывать</span></div>
+      <div class="vocab-item" onclick="play('offerto')"><span class="vocab-it">offrire → <strong>offerto</strong></span><span class="vocab-ru">предлагать, угощать</span></div>
+      <div class="vocab-item" onclick="play('speso')"><span class="vocab-it">spendere → <strong>speso</strong></span><span class="vocab-ru">тратить</span></div>
+      <div class="vocab-item" onclick="play('scelto')"><span class="vocab-it">scegliere → <strong>scelto</strong></span><span class="vocab-ru">выбирать</span></div>
+      <div class="vocab-item" onclick="play('deciso')"><span class="vocab-it">decidere → <strong>deciso</strong></span><span class="vocab-ru">решать</span></div>
+      <div class="vocab-item" onclick="play('conosciuto')"><span class="vocab-it">conoscere → <strong>conosciuto</strong></span><span class="vocab-ru">знать, познакомиться</span></div>
+      <div class="vocab-item" onclick="play('acceso')"><span class="vocab-it">accendere → <strong>acceso</strong></span><span class="vocab-ru">включать</span></div>
+      <div class="vocab-item" onclick="play('spento')"><span class="vocab-it">spegnere → <strong>spento</strong></span><span class="vocab-ru">выключать</span></div>
+      <div class="vocab-item" onclick="play('vissuto')"><span class="vocab-it">vivere → <strong>vissuto</strong></span><span class="vocab-ru">жить</span></div>
+      <div class="vocab-item" onclick="play('riso')"><span class="vocab-it">ridere → <strong>riso</strong></span><span class="vocab-ru">смеяться</span></div>
+      <div class="vocab-item" onclick="play('promesso')"><span class="vocab-it">promettere → <strong>promesso</strong></span><span class="vocab-ru">обещать</span></div>
+      <div class="vocab-item" onclick="play('discusso')"><span class="vocab-it">discutere → <strong>discusso</strong></span><span class="vocab-ru">обсуждать</span></div>
+      <div class="vocab-item" onclick="play('dipinto')"><span class="vocab-it">dipingere → <strong>dipinto</strong></span><span class="vocab-ru">рисовать красками</span></div>
+      <div class="vocab-item" onclick="play('raccolto')"><span class="vocab-it">raccogliere → <strong>raccolto</strong></span><span class="vocab-ru">собирать</span></div>
+      <div class="vocab-item" onclick="play('nascosto')"><span class="vocab-it">nascondere → <strong>nascosto</strong></span><span class="vocab-ru">прятать</span></div>
+      <div class="vocab-item" onclick="play('pianto')"><span class="vocab-it">piangere → <strong>pianto</strong></span><span class="vocab-ru">плакать</span></div>
+      <div class="vocab-item" onclick="play('fatto')"><span class="vocab-it">fare → <strong>fatto</strong></span><span class="vocab-ru">делать</span></div>
+      <div class="vocab-item" onclick="play('detto')"><span class="vocab-it">dire → <strong>detto</strong></span><span class="vocab-ru">говорить</span></div>
+      <div class="vocab-item" onclick="play('chiuso')"><span class="vocab-it">chiudere → <strong>chiuso</strong></span><span class="vocab-ru">закрывать</span></div>
+      <div class="vocab-item" onclick="play('aperto')"><span class="vocab-it">aprire → <strong>aperto</strong></span><span class="vocab-ru">открывать</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#6040a0,#2855a0);margin-bottom:10px">🎯 Отработка причастий</div>
+    <h3 style="margin-bottom:10px">🏋️ Тренажёр и тест — прямо здесь</h3>
+    <div class="pp-w">
+      <div class="pp-switch">
+        <button class="pp-sb on" onclick="ppMode('train',this)">🏋️ Тренажёр</button>
+        <button class="pp-sb" onclick="ppMode('test',this)">📝 Тест</button>
+      </div>
+      <div id="pp-train">
+        <div class="pp-switch" style="margin-bottom:10px">
+          <button class="pp-sb on" style="font-size:.74rem;padding:6px 12px" onclick="ppTMode('reveal',this)">🃏 Вспоминаю</button>
+          <button class="pp-sb" style="font-size:.74rem;padding:6px 12px" onclick="ppTMode('type',this)">⌨️ Печатаю</button>
+          <button class="pp-sb" style="font-size:.74rem;padding:6px 12px" onclick="ppTMode('choice',this)">🔀 Выбор</button>
+        </div>
+        <div class="pp-prog"><span class="n">Верно: <b id="pp-ok">0</b></span><div class="pp-bar"><i id="pp-fill"></i></div><span class="n" id="pp-streak"></span></div>
+        <div class="pp-card" id="pp-card"></div>
+        <div class="pp-sub"><button onclick="ppNext()">→ Пропустить</button><button onclick="ppReset()">↺ Сброс</button></div>
+      </div>
+      <div id="pp-test" style="display:none">
+        <div class="pp-prog"><span class="n">Верно: <b id="pp-tok">0</b> / <span id="pp-ttot">0</span></span><div class="pp-bar"><i id="pp-tfill"></i></div></div>
+        <div id="pp-testbody"></div>
+        <div style="text-align:center;margin-top:8px"><button class="pp-sb" onclick="ppBuildTest()">↺ Заново</button></div>
+      </div>
+    </div>
+  </div>
+
   <div class="card cab">
     <h3 style="margin-bottom:9px">③  С ESSERE — причастие СОГЛАСУЕТСЯ</h3>
     <div class="tip tip-v">Глаголы движения и состояния. Спрягаем <strong>essere</strong> (sono, sei, è...) + причастие, которое меняет окончание по роду и числу: <strong>-o / -a / -i / -e</strong>.</div>
@@ -1887,5 +1999,93 @@ function renderModali(){
   </div>
 </div>
 
+<script>
+/* ====== ВСТРОЕННЫЙ ТРЕНАЖЁР + ТЕСТ: причастия ДЗ 18/06 ====== */
+const PP_VERBS=[
+ ["prendere","preso","брать"],["leggere","letto","читать"],["scrivere","scritto","писать"],["vedere","visto","видеть"],["bere","bevuto","пить"],["dire","detto","говорить"],["mettere","messo","класть"],["chiedere","chiesto","просить"],["rispondere","risposto","отвечать"],["aprire","aperto","открывать"],["chiudere","chiuso","закрывать"],["rompere","rotto","ломать"],["perdere","perso","терять"],["vincere","vinto","выигрывать"],["offrire","offerto","угощать"],["spendere","speso","тратить"],["scegliere","scelto","выбирать"],["decidere","deciso","решать"],["conoscere","conosciuto","познакомиться"],["accendere","acceso","включать"],["spegnere","spento","выключать"],["vivere","vissuto","жить"],["ridere","riso","смеяться"],["promettere","promesso","обещать"],["discutere","discusso","обсуждать"],["dipingere","dipinto","рисовать"],["raccogliere","raccolto","собирать"],["nascondere","nascosto","прятать"],["piangere","pianto","плакать"],["fare","fatto","делать"]
+];
+const PP_PHRASES=[
+ ["Ieri ho @ il treno.","preso","Вчера я сел на поезд."],
+ ["Sara ha @ una lettera al nonno.","scritto","Сара написала письмо дедушке."],
+ ["Abbiamo @ un bel film.","visto","Мы посмотрели хороший фильм."],
+ ["Luca e Anna hanno @ la verità.","detto","Лука и Анна сказали правду."],
+ ["Ho @ le chiavi sul tavolo.","messo","Я положил ключи на стол."],
+ ["I bambini hanno @ un bicchiere.","rotto","Дети разбили стакан."],
+ ["Paolo ha @ una ragazza alla festa.","conosciuto","Паоло познакомился с девушкой."],
+ ["Roberto ha @ a Roma dieci anni.","vissuto","Роберто прожил в Риме десять лет."],
+ ["Abbiamo @ tutta la sera.","riso","Мы смеялись весь вечер."],
+ ["Laura ha @ un quadro.","dipinto","Лаура написала картину."],
+];
+function ppNorm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function ppShuf(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function ppEsc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function ppSp(t){return t.replace(/'/g,"\\'");}
+const PP_ALL=PP_VERBS.map(v=>v[1]);
+
+function ppMode(m,btn){
+  document.querySelectorAll('.pp-w>.pp-switch .pp-sb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('pp-train').style.display=m==='train'?'block':'none';
+  document.getElementById('pp-test').style.display=m==='test'?'block':'none';
+  if(m==='test'&&!ppTestBuilt)ppBuildTest();
+}
+/* --- тренажёр --- */
+let ppTM='reveal',ppCur=null,ppOk=0,ppStreak=0,ppTot=0;
+function ppTMode(m,btn){ppTM=m;document.querySelectorAll('#pp-train>.pp-switch .pp-sb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');ppNext();}
+function ppPick(){let v=PP_VERBS[Math.floor(Math.random()*PP_VERBS.length)];if(v===ppCur)return ppPick();return v;}
+function ppNext(){
+  ppCur=ppPick();const [inf,pp,ru]=ppCur;const c=document.getElementById('pp-card');const ex='ho '+pp;
+  if(ppTM==='reveal'){
+    c.innerHTML=`<div class="pp-inf">${ppEsc(inf)}<small>${ppEsc(ru)}</small></div><div class="pp-cue">вспомни participio</div>
+      <div class="pp-ans" id="pp-a">${ppEsc(pp)}<span class="full">${ppEsc(ex)}</span><span class="spk" onclick="play('${ppSp(ex)}')">🔊</span></div>
+      <div class="pp-btns" id="pp-b"><button class="pp-big rev" onclick="ppReveal()">Показать</button></div>`;
+  } else if(ppTM==='type'){
+    c.innerHTML=`<div class="pp-inf">${ppEsc(inf)}<small>${ppEsc(ru)}</small></div><div class="pp-cue">напиши participio</div>
+      <input class="pp-inp" id="pp-i" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="...">
+      <div class="pp-fb" id="pp-f"></div>
+      <div class="pp-ans" id="pp-a">${ppEsc(pp)}<span class="full">${ppEsc(ex)}</span><span class="spk" onclick="play('${ppSp(ex)}')">🔊</span></div>
+      <div class="pp-btns" id="pp-b"><button class="pp-big rev" onclick="ppCheck()">Проверить</button></div>`;
+    const i=document.getElementById('pp-i');i.focus();i.addEventListener('keydown',e=>{if(e.key==='Enter')ppCheck();});
+  } else {
+    const opts=ppShuf([pp].concat(ppShuf(PP_ALL.filter(x=>x!==pp)).slice(0,3)));
+    c.innerHTML=`<div class="pp-inf">${ppEsc(inf)}<small>${ppEsc(ru)}</small></div><div class="pp-cue">выбери participio</div>
+      <div class="pp-opts">${opts.map(o=>`<button class="pp-opt" onclick="ppChoice(this,'${ppSp(o)}','${ppSp(pp)}')">${ppEsc(o)}</button>`).join('')}</div>`;
+  }
+}
+function ppReveal(){document.getElementById('pp-a').classList.add('show');play('ho '+ppCur[1]);
+  document.getElementById('pp-b').innerHTML=`<button class="pp-big no" onclick="ppGrade(false)">✗ Не вспомнил</button><button class="pp-big ok" onclick="ppGrade(true)">✓ Вспомнил</button>`;}
+function ppCheck(){const val=document.getElementById('pp-i').value;const good=ppNorm(val)===ppNorm(ppCur[1]);
+  document.getElementById('pp-a').classList.add('show');const f=document.getElementById('pp-f');f.className='pp-fb '+(good?'ok':'no');f.textContent=good?'✓ Верно!':'✗ Правильно: '+ppCur[1];play('ho '+ppCur[1]);
+  document.getElementById('pp-b').innerHTML=`<button class="pp-big ${good?'ok':'no'}" onclick="ppGrade(${good})">Дальше →</button>`;}
+function ppChoice(btn,chosen,correct){play('ho '+chosen);const good=ppNorm(chosen)===ppNorm(correct);
+  document.querySelectorAll('#pp-card .pp-opt').forEach(b=>{b.style.pointerEvents='none';if(ppNorm(b.textContent)===ppNorm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');setTimeout(()=>ppGrade(good),750);}
+function ppGrade(ok){ppTot++;if(ok){ppOk++;ppStreak++;}else ppStreak=0;
+  document.getElementById('pp-ok').textContent=ppOk;document.getElementById('pp-fill').style.width=(ppTot?ppOk/ppTot*100:0)+'%';
+  document.getElementById('pp-streak').textContent=ppStreak>1?('🔥'+ppStreak):'';ppNext();}
+function ppReset(){ppOk=0;ppStreak=0;ppTot=0;document.getElementById('pp-ok').textContent=0;document.getElementById('pp-fill').style.width='0%';document.getElementById('pp-streak').textContent='';ppNext();}
+/* --- тест --- */
+let ppTestBuilt=false,ppTT=0;const ppDone=new Set();
+function ppBuildTest(){
+  ppTestBuilt=true;ppTT=0;ppDone.clear();
+  const aSel=ppShuf(PP_VERBS).slice(0,10);
+  let a=aSel.map((v,i)=>{ppTT++;const k='a'+i;const [inf,pp,ru]=v;const opts=ppShuf([pp].concat(ppShuf(PP_ALL.filter(x=>x!==pp)).slice(0,3)));
+    return `<div class="pp-q" id="ppq_${k}"><div class="pp-qt">${ppEsc(inf)} → <span class="pp-gap" id="ppg_${k}">·····</span> <button class="pp-spk" onclick="play('${ppSp('ho '+pp)}')">🔊</button><span class="ru">${ppEsc(ru)}</span></div>
+      <div class="pp-qopts">${opts.map(o=>`<button class="pp-qo" onclick="ppAns('${k}',this,'${ppSp(o)}','${ppSp(pp)}','${ppSp('ho '+pp)}')">${ppEsc(o)}</button>`).join('')}</div></div>`;}).join('');
+  let b=PP_PHRASES.map((p,i)=>{ppTT++;const k='b'+i;const [t,pp,ru]=p;const opts=ppShuf([pp].concat(ppShuf(PP_ALL.filter(x=>x!==pp)).slice(0,3)));
+    const text=ppEsc(t).replace('@',`<span class="pp-gap" id="ppg_${k}">·····</span>`);
+    return `<div class="pp-q" id="ppq_${k}"><div class="pp-qt">${text} <button class="pp-spk" onclick="play('${ppSp(t.replace('@',pp))}')">🔊</button><span class="ru">${ppEsc(ru)}</span></div>
+      <div class="pp-qopts">${opts.map(o=>`<button class="pp-qo" onclick="ppAns('${k}',this,'${ppSp(o)}','${ppSp(pp)}','${ppSp(t.replace('@',o))}')">${ppEsc(o)}</button>`).join('')}</div></div>`;}).join('');
+  document.getElementById('pp-testbody').innerHTML=`<div class="pp-tsec">A · Инфинитив → причастие</div>${a}<div class="pp-tsec">B · Вставь причастие во фразу</div>${b}`;
+  document.getElementById('pp-ttot').textContent=ppTT;document.getElementById('pp-tok').textContent=0;document.getElementById('pp-tfill').style.width='0%';
+}
+function ppAns(k,btn,chosen,correct,say){play(say);const good=ppNorm(chosen)===ppNorm(correct);
+  const g=[...document.querySelectorAll('#ppq_'+k+' .pp-qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');ppDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(ppNorm(x.textContent)===ppNorm(correct))x.classList.add('ok');});}
+  const gap=document.getElementById('ppg_'+k);gap.textContent=chosen;gap.className='pp-gap '+(good?'f':'w');
+  document.getElementById('ppq_'+k).classList.toggle('ok',good);
+  document.getElementById('pp-tok').textContent=ppDone.size;document.getElementById('pp-tfill').style.width=(ppDone.size/ppTT*100)+'%';}
+/* старт тренажёра, когда вкладка существует */
+if(document.getElementById('pp-card'))ppNext();
+</script>
 </body>
 </html>
