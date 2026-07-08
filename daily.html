@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎯 Задание дня · Italiano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1510;--card:#251d16;--card2:#2c2219;--line:#3a2d22;--txt:#f4ede2;--muted:#9c8b76;--gold:#d9a441;--gold2:#e6bd5c;--green:#7fbf7a;--red:#d17a54;--viola:#b98aa6;--blu:#6fb3ae;--green-bg:rgba(107,163,104,.16);--red-bg:rgba(193,85,63,.16);--shadow:0 8px 30px rgba(0,0,0,.45)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:26px 18px 16px;background:linear-gradient(135deg,#1b1510,#5c3220 55%,#3a2416);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'🎯';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.3rem);color:var(--gold2);margin:.05em 0;position:relative}
+header .date{color:var(--muted);font-size:.86rem;position:relative}
+#api{background:#140f0b;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Inter'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f14;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#665}.dot.on{background:var(--green)}
+.hint{font-size:.64rem;color:#776;margin-top:5px}
+.wrap{max-width:600px;margin:0 auto;padding:18px 16px 80px}
+/* верхняя панель статистики */
+.top{display:flex;gap:10px;margin-bottom:16px}
+.stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;box-shadow:var(--shadow)}
+.stat .v{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:700;color:var(--gold2);line-height:1}
+.stat .l{font-size:.64rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.bar{flex:1;height:9px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
+.prog .n{font-weight:800;font-size:.82rem;color:var(--muted)}.prog .n b{color:var(--green)}
+/* карточка вопроса */
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 18px;box-shadow:var(--shadow);position:relative;min-height:210px;display:flex;flex-direction:column;justify-content:center}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.qtag{position:absolute;top:12px;right:14px;font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.qnum{position:absolute;top:12px;left:14px;font-size:.7rem;color:var(--muted);font-weight:700}
+.cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Fraunces',serif;text-align:center;margin-bottom:4px}
+.qbig{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--txt);text-align:center;line-height:1.35}
+.qbig small{display:block;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:5px}
+.qbig .spk{cursor:pointer;color:var(--viola);font-size:1rem;margin-left:6px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:11px 15px;border-radius:11px;cursor:pointer;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;transition:.15s;text-align:center}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.nextbtn{display:none;width:100%;margin-top:14px;border:none;border-radius:12px;background:var(--gold);color:#1b1510;font-family:'Inter';font-weight:800;font-size:1rem;padding:13px;cursor:pointer}
+.nextbtn.show{display:block}
+/* финиш */
+.done{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:30px 20px;box-shadow:var(--shadow);position:relative}
+.done::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--green))}
+.done .big{font-family:'Fraunces',serif;font-size:3rem;font-weight:700;color:var(--gold2)}
+.done .msg{font-size:1.05rem;margin:8px 0 4px}
+.done .sub{color:var(--muted);font-size:.86rem}
+.done .streak{margin-top:16px;font-size:1.1rem;color:var(--green);font-weight:700}
+.review{margin-top:20px;text-align:left}
+.review h3{font-family:'Fraunces',serif;color:var(--gold);font-size:.95rem;margin-bottom:8px}
+.rev-item{display:flex;gap:8px;align-items:flex-start;font-size:.86rem;padding:6px 0;border-bottom:1px solid var(--line)}
+.rev-item .ic{flex:0 0 auto}
+.rev-item .tx b{color:var(--gold2);font-family:'Fraunces',serif}
+.foot{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px}.foot a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#1b1510;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 Задание дня</h1>
+  <div class="date" id="today"></div>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в других приложениях. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="top">
+    <div class="stat"><div class="v" id="s-streak">0</div><div class="l">🔥 дней подряд</div></div>
+    <div class="stat"><div class="v" id="s-total">0</div><div class="l">✅ всего верно</div></div>
+    <div class="stat"><div class="v" id="s-days">0</div><div class="l">📅 дней всего</div></div>
+  </div>
+  <div class="prog"><span class="n">Вопрос <b id="qcur">1</b> / 20</span><div class="bar"><i id="fill"></i></div><span class="n" id="score">0</span></div>
+  <div id="quiz"></div>
+  <div class="foot">Каждый день — новые 20 вопросов из всех тем · <a href="index.html">← Главная</a></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════ ДАННЫЕ (компактно, из всех тем) ═══════════ */
+// глаголы: [инф, перевод, причастие, aux(a/e)]
+const VERBS=[
+ ["essere","быть","stato","e"],["avere","иметь","avuto","a"],["andare","идти, ехать","andato","e"],["venire","приходить","venuto","e"],["fare","делать","fatto","a"],["dire","говорить","detto","a"],["stare","находиться","stato","e"],["uscire","выходить","uscito","e"],["bere","пить","bevuto","a"],["prendere","брать","preso","a"],["leggere","читать","letto","a"],["scrivere","писать","scritto","a"],["vedere","видеть","visto","a"],["mettere","класть","messo","a"],["chiedere","просить","chiesto","a"],["rispondere","отвечать","risposto","a"],["chiudere","закрывать","chiuso","a"],["aprire","открывать","aperto","a"],["perdere","терять","perso","a"],["vincere","выигрывать","vinto","a"],["spendere","тратить","speso","a"],["decidere","решать","deciso","a"],["conoscere","знать","conosciuto","a"],["vivere","жить","vissuto","a"],["ridere","смеяться","riso","a"],["rompere","ломать","rotto","a"],["offrire","угощать","offerto","a"],["scegliere","выбирать","scelto","a"],["partire","уезжать","partito","e"],["tornare","возвращаться","tornato","e"],["arrivare","прибывать","arrivato","e"],["nascere","рождаться","nato","e"],["dormire","спать","dormito","a"],["capire","понимать","capito","a"],["finire","заканчивать","finito","a"],["mangiare","есть","mangiato","a"],["comprare","покупать","comprato","a"],["parlare","говорить","parlato","a"],["lavorare","работать","lavorato","a"],["studiare","учить","studiato","a"],["potere","мочь","potuto","a"],["volere","хотеть","voluto","a"],["dovere","быть должным","dovuto","a"],["sapere","знать, уметь","saputo","a"]
+];
+// quello: [сущ.ед, форма ед, сущ.мн, форма мн, перевод]
+const QUELLO=[
+ ["ragazzo","quel","ragazzi","quei","парень"],["amico","quell'","amici","quegli","друг"],["telefono","quel","telefoni","quei","телефон"],["ragazza","quella","ragazze","quelle","девушка"],["amica","quell'","amiche","quelle","подруга"],["edificio","quell'","edifici","quegli","здание"],["casa","quella","case","quelle","дом"],["zaino","quello","zaini","quegli","рюкзак"],["albero","quell'","alberi","quegli","дерево"],["libro","quel","libri","quei","книга"],["orologio","quell'","orologi","quegli","часы"],["scarpone","quello","scarponi","quegli","ботинок"]
+];
+// предлоги гео: [слово, предлог, тип]
+const GEO=[["Roma","a","город"],["Milano","a","город"],["Parigi","a","город"],["Italia","in","страна"],["Francia","in","страна"],["Polonia","in","страна"],["Ucraina","in","страна"],["Toscana","in","регион"],["casa","a","дом → a casa"],["cucina","in","кухня → in cucina"],["montagna","in","горы"],["centro","in","центр"]];
+// слитные: [предлог, артикль, результат, сущ, перевод]
+const MERGE=[["a","il","al","mare","на море"],["in","il","nel","centro","в центре"],["su","il","sul","tavolo","на столе"],["da","il","dal","medico","к врачу"],["a","la","alla","stazione","на станцию"],["in","la","nella","cucina","на кухне"],["a","i","ai","nonni","к бабушке с дедушкой"],["su","gli","sugli","scaffali","на полках"],["in","le","nelle","case","в домах"],["da","la","dalla","finestra","от окна"]];
+// словарь: [ит, ру]
+const VOCAB=[["la casa","дом"],["il libro","книга"],["l'acqua","вода"],["il pane","хлеб"],["il caffè","кофе"],["la macchina","машина"],["il lavoro","работа"],["la città","город"],["il giorno","день"],["la notte","ночь"],["grande","большой"],["piccolo","маленький"],["bello","красивый"],["buono","хороший, вкусный"],["nuovo","новый"],["vecchio","старый"],["caldo","жаркий"],["freddo","холодный"],["felice","счастливый"],["stanco","усталый"],["oggi","сегодня"],["ieri","вчера"],["domani","завтра"],["sempre","всегда"],["mai","никогда"],["adesso","сейчас"],["il gatto","кот"],["il cane","собака"],["la mela","яблоко"],["il vino","вино"],["la pizza","пицца"],["il gelato","мороженое"],["la strada","улица, дорога"],["il tempo","время, погода"],["l'amico","друг"],["la famiglia","семья"]];
+const PRON=['io','tu','lui/lei','noi','voi','loro'];
+
+/* ═══════════ TTS Neural2 ═══════════ */
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/'/g,"\\'");}
+
+/* ═══════════ ГЕНЕРАТОР по дате (детерминированный) ═══════════ */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+let RNG=Math.random;
+function rint(n){return Math.floor(RNG()*n);}
+function rpick(arr){return arr[rint(arr.length)];}
+function rshuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=rint(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;}
+function uniqOpts(correct,pool,n){const opts=[correct];const p=rshuffle(pool.filter(x=>norm(x)!==norm(correct)));for(const x of p){if(opts.length>=n)break;if(!opts.some(o=>norm(o)===norm(x)))opts.push(x);}return rshuffle(opts);}
+
+// генераторы вопросов по темам → возвращают {key,tag,q,cue,say,opts,correct}
+const ALLPP=VERBS.map(v=>v[2]);
+const ALLRU=VERBS.map(v=>v[1]);
+const ALLIT=VERBS.map(v=>v[0]);
+function gVerbIt2Ru(){const v=rpick(VERBS);return{key:'i2r_'+v[0],tag:'глагол',q:esc(v[0]),cue:'что значит? 🔊',say:v[0],opts:uniqOpts(v[1],ALLRU,4),correct:v[1]};}
+function gVerbRu2It(){const v=rpick(VERBS);return{key:'r2i_'+v[0],tag:'глагол',q:esc(v[1]),cue:'выбери глагол',say:v[0],opts:uniqOpts(v[0],ALLIT,4),correct:v[0]};}
+function gPart(){const v=rpick(VERBS);return{key:'pp_'+v[0],tag:'причастие',q:esc(v[0])+' →',cue:'participio passato',say:(v[3]==='a'?'ho ':'sono ')+v[2],opts:uniqOpts(v[2],ALLPP,4),correct:v[2]};}
+function gAux(){const v=rpick(VERBS);return{key:'aux_'+v[0],tag:'avere/essere',q:'… '+esc(v[2]),cue:esc(v[0])+' — какой вспомогательный? (io)',say:(v[3]==='a'?'ho ':'sono ')+v[2],opts:v[3]==='a'?['ho','sono']:['sono','ho'],correct:v[3]==='a'?'ho':'sono'};}
+function gQuelloSg(){const q=rpick(QUELLO);return{key:'qs_'+q[0],tag:'quello',q:'… '+esc(q[0]),cue:esc(q[4])+' — форма quello (ед.)',say:(q[1].endsWith("'")?q[1]:q[1]+' ')+q[0],opts:uniqOpts(q[1],["quel","quello","quell'","quella","quei","quegli","quelle"],4),correct:q[1]};}
+function gQuelloPl(){const q=rpick(QUELLO);return{key:'qp_'+q[0],tag:'quello мн.',q:(q[1].endsWith("'")?q[1]:q[1]+' ')+esc(q[0])+' → … '+esc(q[2]),cue:'во множественном',say:q[3]+' '+q[2],opts:uniqOpts(q[3],["quei","quegli","quelle"],3),correct:q[3]};}
+function gPrep(){const g=rpick(GEO);return{key:'prep_'+g[0],tag:'предлог',q:'… '+esc(g[0]),cue:esc(g[2])+' — a / in / da?',say:(g[1]==='a'?'a ':g[1]+' ')+g[0],opts:['a','in','da'].sort(()=>RNG()-0.5),correct:g[1]};}
+function gMerge(){const m=rpick(MERGE);return{key:'mrg_'+m[2],tag:'предлог+артикль',q:esc(m[0])+' + '+esc(m[1])+' + '+esc(m[3]),cue:esc(m[4])+' — слитная форма',say:m[2]+' '+m[3],opts:uniqOpts(m[2],MERGE.map(x=>x[2]),4),correct:m[2]};}
+function gVocab(){const w=rpick(VOCAB);const dir=RNG()<0.5;
+  if(dir)return{key:'v_'+w[0],tag:'словарь',q:esc(w[0]),cue:'перевод 🔊',say:w[0],opts:uniqOpts(w[1],VOCAB.map(x=>x[1]),4),correct:w[1]};
+  return{key:'vr_'+w[0],tag:'словарь',q:esc(w[1]),cue:'по-итальянски',say:w[0],opts:uniqOpts(w[0],VOCAB.map(x=>x[0]),4),correct:w[0]};}
+const GENS=[gVerbIt2Ru,gVerbRu2It,gPart,gPart,gAux,gAux,gQuelloSg,gQuelloPl,gPrep,gMerge,gVocab,gVocab];
+
+function buildDaily(seed){
+  RNG=mulberry32(seed);
+  const qs=[];const seen=new Set();let guard=0;
+  while(qs.length<20 && guard<2000){
+    guard++;
+    const gen=GENS[rint(GENS.length)];
+    const q=gen();
+    if(seen.has(q.key))continue; // без повторов внутри дня
+    seen.add(q.key);qs.push(q);
+  }
+  return qs;
+}
+
+/* ═══════════ ПРОГРЕСС (localStorage) ═══════════ */
+function loadStats(){try{return JSON.parse(localStorage.getItem('it_daily')||'{}');}catch(e){return{};}}
+function saveStats(s){localStorage.setItem('it_daily',JSON.stringify(s));}
+function todayKey(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function seedFromDate(d){return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
+
+/* ═══════════ ИГРА ═══════════ */
+const now=new Date();
+const dayKey=todayKey(now);
+let QS=buildDaily(seedFromDate(now));
+let idx=0,score=0,answered=false;const results=[];
+const monthNames=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+document.getElementById('today').textContent=now.getDate()+' '+monthNames[now.getMonth()]+' '+now.getFullYear();
+
+function refreshStatsUI(){
+  const s=loadStats();
+  document.getElementById('s-streak').textContent=s.streak||0;
+  document.getElementById('s-total').textContent=s.totalCorrect||0;
+  document.getElementById('s-days').textContent=s.daysDone||0;
+}
+function render(){
+  const q=QS[idx];answered=false;
+  document.getElementById('qcur').textContent=idx+1;
+  document.getElementById('fill').style.width=(idx/20*100)+'%';
+  document.getElementById('score').textContent=score;
+  const quiz=document.getElementById('quiz');
+  quiz.innerHTML=`<div class="card">
+    <span class="qnum">№${idx+1}</span><span class="qtag">${esc(q.tag)}</span>
+    <div class="cue">${esc(q.cue)}</div>
+    <div class="qbig">${q.q}${q.say?` <span class="spk" onclick="speak('${sp(q.say)}')">🔊</span>`:''}</div>
+    <div class="opts">${q.opts.map(o=>`<button class="opt" onclick="answer(this,'${sp(o)}')">${esc(o)}</button>`).join('')}</div>
+    <button class="nextbtn" id="next" onclick="nextQ()">${idx<19?'Дальше →':'Завершить ✓'}</button>
+  </div>`;
+  if(q.say && ['словарь','глагол'].includes(q.tag) && /🔊/.test(q.cue))setTimeout(()=>speak(q.say),200);
+}
+function answer(btn,chosen){
+  if(answered)return;answered=true;
+  const q=QS[idx];const good=norm(chosen)===norm(q.correct);
+  document.querySelectorAll('#quiz .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(q.correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  if(q.say)speak(q.say);
+  if(good)score++;
+  results.push({q:q.q.replace(/<[^>]+>/g,''),correct:q.correct,ok:good,tag:q.tag});
+  document.getElementById('score').textContent=score;
+  document.getElementById('next').classList.add('show');
+}
+function nextQ(){
+  if(idx<19){idx++;render();}
+  else finish();
+}
+function finish(){
+  document.getElementById('fill').style.width='100%';
+  document.getElementById('qcur').textContent=20;
+  // сохраняем прогресс (один раз в день)
+  const s=loadStats();
+  if(s.lastDay!==dayKey){
+    // streak: если вчера был выполнен — +1, иначе сброс
+    const y=new Date(now);y.setDate(y.getDate()-1);
+    const yKey=todayKey(y);
+    s.streak=(s.lastDay===yKey)?((s.streak||0)+1):1;
+    s.daysDone=(s.daysDone||0)+1;
+    s.totalCorrect=(s.totalCorrect||0)+score;
+    s.lastDay=dayKey;s.lastScore=score;
+    saveStats(s);
+  }
+  refreshStatsUI();
+  const s2=loadStats();
+  const pct=Math.round(score/20*100);
+  let msg=pct>=90?'Bravissimo! 🎉':pct>=70?'Molto bene! 👏':pct>=50?'Bene! Так держать':'Non male — завтра лучше!';
+  const rev=results.map(r=>`<div class="rev-item"><span class="ic">${r.ok?'✅':'❌'}</span><span class="tx"><b>${esc(r.q)}</b> → ${esc(r.correct)} <span style="color:var(--muted);font-size:.75rem">(${esc(r.tag)})</span></span></div>`).join('');
+  document.getElementById('quiz').innerHTML=`<div class="done">
+    <div class="big">${score}/20</div>
+    <div class="msg">${msg}</div>
+    <div class="sub">Правильных ответов сегодня: ${score} из 20</div>
+    <div class="streak">🔥 ${s2.streak||1} ${plural(s2.streak||1)} подряд</div>
+    <div class="review"><h3>Разбор ответов</h3>${rev}</div>
+  </div>`;
+}
+function plural(n){const a=n%10,b=n%100;if(a===1&&b!==11)return'день';if(a>=2&&a<=4&&(b<10||b>=20))return'дня';return'дней';}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+
+/* INIT */
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+refreshStatsUI();
+// если сегодня уже выполнено — показать результат, но дать переиграть
+(function(){
+  const s=loadStats();
+  render();
+  if(s.lastDay===dayKey){toast('✅ Сегодня уже выполнено — можно повторить');}
+})();
+</script>
+</body>
+</html>

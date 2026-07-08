@@ -73,6 +73,16 @@ header p{margin-top:8px;font-size:.8rem;color:var(--muted);position:relative;let
 footer{text-align:center;padding:20px;border-top:1px solid var(--border);font-size:.68rem;color:var(--muted)}
 footer a{color:var(--oro);text-decoration:none}
 
+/* DAILY BANNER */
+.daily-banner{display:flex;align-items:center;gap:16px;text-decoration:none;background:linear-gradient(135deg,#3a2416,#5c3220);border:1px solid var(--oro);border-radius:16px;padding:18px 20px;margin-bottom:18px;box-shadow:var(--shadow);transition:.2s;position:relative;overflow:hidden}
+.daily-banner::after{content:'🎯';position:absolute;font-size:6rem;opacity:.08;right:-10px;top:50%;transform:translateY(-50%)}
+.daily-banner:hover{transform:translateY(-3px);box-shadow:0 12px 34px rgba(0,0,0,.5);border-color:var(--gold2)}
+.daily-banner .ic{font-size:2.6rem;flex:0 0 auto}
+.daily-banner .tx{flex:1;position:relative}
+.daily-banner .tt{font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;color:var(--gold2)}
+.daily-banner .ds{font-size:.82rem;color:var(--txt);opacity:.85;margin-top:2px}
+.daily-banner .ar{font-size:1.4rem;color:var(--oro);position:relative}
+
 /* QUICK NAV */
 .quicknav{position:sticky;top:0;z-index:50;background:rgba(27,21,16,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:10px 12px}
 .quicknav-inner{max-width:900px;margin:0 auto;display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
@@ -96,6 +106,7 @@ footer a{color:var(--oro);text-decoration:none}
 
 <nav class="quicknav">
   <div class="quicknav-inner">
+    <a class="qn" href="daily.html" style="border-color:var(--oro);color:var(--gold2)">🎯 Задание дня</a>
     <a class="qn" href="#konspekt">📖 Конспект</a>
     <a class="qn" href="#slovar">📚 Словарь</a>
     <a class="qn" href="#pratica">🧠 Практика</a>
@@ -105,6 +116,16 @@ footer a{color:var(--oro);text-decoration:none}
 </nav>
 
 <div class="main">
+
+  <!-- ЗАДАНИЕ ДНЯ -->
+  <a href="daily.html" class="daily-banner">
+    <span class="ic">🎯</span>
+    <span class="tx">
+      <span class="tt">Задание дня</span>
+      <span class="ds">20 новых вопросов из всех тем каждый день · серия 🔥 и разбор ответов</span>
+    </span>
+    <span class="ar">→</span>
+  </a>
 
   <!-- STATS -->
   <div class="stats" style="margin-top:4px">
@@ -133,7 +154,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="passato.html" class="app-card" style="--accent:#b98aa6">
+    <a href="passato.html" class="app-card" style="--accent:#9b7fe0">
       <div class="card-top">
         <span class="card-icon">⏪</span>
         <div class="card-title">Passato Prossimo</div>
@@ -169,7 +190,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="verbi.html" class="app-card" style="--accent:#d9a441">
+    <a href="verbi.html" class="app-card" style="--accent:#c9a84c">
       <div class="card-top">
         <span class="card-icon">🎬</span>
         <div class="card-title">Все глаголы — Verbi</div>
@@ -185,7 +206,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="verbi-irregolari.html" class="app-card" style="--accent:#d17a54">
+    <a href="verbi-irregolari.html" class="app-card" style="--accent:#e07070">
       <div class="card-top">
         <span class="card-icon">⚡</span>
         <div class="card-title">Неправильные глаголы</div>
@@ -232,7 +253,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="dimostrativi.html" class="app-card" style="--accent:#b98aa6">
+    <a href="dimostrativi.html" class="app-card" style="--accent:#9b7fe0">
       <div class="card-top">
         <span class="card-icon">👉</span>
         <div class="card-title">Указательные — questo / quello</div>
@@ -248,7 +269,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="preposizioni.html" class="app-card" style="--accent:#4f8a86">
+    <a href="preposizioni.html" class="app-card" style="--accent:#4a8fd0">
       <div class="card-top">
         <span class="card-icon">📍</span>
         <div class="card-title">Предлоги места — a / in / da</div>
@@ -268,7 +289,7 @@ footer a{color:var(--oro);text-decoration:none}
   <div class="section-title" id="pratica">🧠 Практика</div>
   <div class="grid">
 
-    <a href="compiti1806.html" class="app-card" style="--accent:#4f8a86">
+    <a href="compiti1806.html" class="app-card" style="--accent:#4a9fd0">
       <div class="card-top">
         <span class="card-icon">📋</span>
         <div class="card-title">Compiti 18/06</div>
@@ -284,7 +305,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="active.html" class="app-card" style="--accent:#9a5f84">
+    <a href="active.html" class="app-card" style="--accent:#7c3aed">
       <div class="card-top">
         <span class="card-icon">🧠</span>
         <div class="card-title">Актив — RU → IT</div>
@@ -300,7 +321,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="test-passato.html" class="app-card" style="--accent:#4f8a86">
+    <a href="test-passato.html" class="app-card" style="--accent:#4a7fd0">
       <div class="card-top">
         <span class="card-icon">📝</span>
         <div class="card-title">Тест — Passato Prossimo</div>
@@ -315,7 +336,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="train-passato.html" class="app-card" style="--accent:#b98aa6">
+    <a href="train-passato.html" class="app-card" style="--accent:#9b7fe0">
       <div class="card-top">
         <span class="card-icon">🏋️</span>
         <div class="card-title">Тренажёр — Passato Prossimo</div>
@@ -397,7 +418,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="songs/sara-perche.html" class="app-card" style="--accent:#9a5f84">
+    <a href="songs/sara-perche.html" class="app-card" style="--accent:#7c3aed">
       <div class="card-top">
         <span class="card-icon">⭐</span>
         <div class="card-title">Ricchi e Poveri — Sarà perché ti amo</div>
@@ -413,7 +434,7 @@ footer a{color:var(--oro);text-decoration:none}
       </div>
     </a>
 
-    <a href="songs/lucio.html" class="app-card" style="--accent:#7fbf7a">
+    <a href="songs/lucio.html" class="app-card" style="--accent:#5ac4a0">
       <div class="card-top">
         <span class="card-icon">🐱</span>
         <div class="card-title">Lucio — il gatto di Morandi</div>
@@ -449,7 +470,7 @@ footer a{color:var(--oro);text-decoration:none}
   <div class="section-title" id="poesie">🎭 Стихи</div>
   <div class="grid">
 
-    <a href="poesie.html" class="app-card" style="--accent:#c78fa8">
+    <a href="poesie.html" class="app-card" style="--accent:#c090e0">
       <div class="card-top">
         <span class="card-icon">🎭</span>
         <div class="card-title">Стихи для запоминания</div>
