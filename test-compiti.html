@@ -6,21 +6,23 @@
 <title>Test · Compiti 24/04–26/05</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#13110f;
   --bg2:#1c1916;
-  --card:#161b22;
-  --card2:#1b2230;
-  --line:#21262d;
-  --txt:#f0ebe3;
-  --muted:#7d8694;
-  --gold:#c9a84c;
-  --gold2:#e0c068;
-  --green:#5ac4a0;
-  --red:#e07070;
-  --blu:#2855a0;
+  --card:#251d16;
+  --card2:#2c2219;
+  --line:#3a2d22;
+  --txt:#f4ede2;
+  --muted:#9c8b76;
+  --gold:#d9a441;
+  --gold2:#e6bd5c;
+  --green:#7fbf7a;
+  --red:#d17a54;
+  --blu:#3f726e;
   --green-bg:rgba(45,122,79,.16);
   --red-bg:rgba(192,57,43,.16);
   --shadow:0 8px 30px rgba(0,0,0,.4);
@@ -30,7 +32,7 @@ body{
   margin:0;padding:0;
   background:var(--bg);
   color:var(--txt);
-  font-family:'Nunito',system-ui,sans-serif;
+  font-family:'Inter',system-ui,sans-serif;
   line-height:1.55;
   min-height:100vh;
 }
@@ -38,19 +40,19 @@ body{
 header.top{
   text-align:center;margin:-26px -18px 22px;
   padding:38px 20px 28px;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#0d1117 0%,#1a2855 50%,#2d1a55 100%);
+  background:linear-gradient(135deg,#1b1510 0%,#1a2855 50%,#2d1a55 100%);
   border-bottom:1px solid var(--line);
 }
 header.top::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(255,255,255,.02) 30px,rgba(255,255,255,.02) 31px)}
 header.top::after{content:'🇮🇹';position:absolute;font-size:8rem;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
 header.top .flag{font-size:2.4rem;letter-spacing:.3em;opacity:.95;position:relative}
 header.top h1{
-  font-family:'Playfair Display',serif;font-weight:700;
+  font-family:'Fraunces',serif;font-weight:700;
   font-size:clamp(1.8rem,5vw,3rem);margin:.18em 0 .14em;
   color:var(--gold2);letter-spacing:.5px;line-height:1.1;position:relative;
 }
 header.top p{margin:0;color:var(--muted);font-size:.9rem;position:relative;letter-spacing:.04em}
-header.top .sub{font-style:italic;font-family:'Playfair Display',serif;color:var(--muted)}
+header.top .sub{font-style:italic;font-family:'Fraunces',serif;color:var(--muted)}
 
 /* score bar */
 .scorebar{
@@ -69,25 +71,25 @@ header.top .sub{font-style:italic;font-family:'Playfair Display',serif;color:var
 .nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
 .chip{
   border:1px solid var(--line);background:var(--card);color:var(--muted);
-  padding:7px 13px;border-radius:99px;font-family:'Nunito';font-weight:700;
+  padding:7px 13px;border-radius:99px;font-family:'Inter';font-weight:700;
   font-size:.82rem;cursor:pointer;transition:.18s;white-space:nowrap;
 }
 .chip:hover{border-color:var(--gold);color:var(--txt)}
-.chip.active{background:var(--gold);color:#0d1117;border-color:var(--gold)}
+.chip.active{background:var(--gold);color:#1b1510;border-color:var(--gold)}
 
 /* section */
 section.lez{margin-bottom:30px;animation:fade .4s ease both}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .lez > h2{
-  font-family:'Playfair Display',serif;font-weight:700;font-size:1.4rem;
+  font-family:'Fraunces',serif;font-weight:700;font-size:1.4rem;
   color:var(--gold2);margin:0 0 2px;display:flex;align-items:baseline;gap:10px;
 }
 .lez > h2 .date{
-  font-family:'Nunito';font-weight:800;font-size:.72rem;letter-spacing:.06em;
+  font-family:'Inter';font-weight:800;font-size:.72rem;letter-spacing:.06em;
   background:var(--card2);border:1px solid var(--line);color:var(--gold);
   padding:3px 9px;border-radius:7px;
 }
-.lez > .instr{color:var(--muted);font-style:italic;font-family:'Playfair Display',serif;margin:0 0 14px;font-size:.97rem}
+.lez > .instr{color:var(--muted);font-style:italic;font-family:'Fraunces',serif;margin:0 0 14px;font-size:.97rem}
 
 /* question card */
 .q{
@@ -121,7 +123,7 @@ section.lez{margin-bottom:30px;animation:fade .4s ease both}
 .opt{
   position:relative;text-align:left;background:var(--card2);border:1px solid var(--line);
   color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;
-  font-family:'Nunito';font-weight:700;font-size:.96rem;transition:.15s;
+  font-family:'Inter';font-weight:700;font-size:.96rem;transition:.15s;
 }
 .opt:hover{border-color:var(--gold);color:var(--gold2)}
 .opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
@@ -134,7 +136,7 @@ section.lez{margin-bottom:30px;animation:fade .4s ease both}
 .ctrl{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
 button.act{
   border:1px solid var(--line);background:var(--card2);color:var(--txt);
-  font-family:'Nunito';font-weight:700;font-size:.83rem;padding:7px 14px;
+  font-family:'Inter';font-weight:700;font-size:.83rem;padding:7px 14px;
   border-radius:9px;cursor:pointer;transition:.16s;
 }
 button.act:hover{border-color:var(--gold);color:var(--gold2)}
@@ -157,7 +159,7 @@ footer.btm a{color:var(--gold)}
 .bigbtn{display:inline-block;margin:14px auto 0;}
 .toast{
   position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(60px);
-  background:var(--gold);color:#0d1117;font-weight:800;padding:12px 22px;border-radius:99px;
+  background:var(--gold);color:#1b1510;font-weight:800;padding:12px 22px;border-radius:99px;
   box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.95rem;
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}

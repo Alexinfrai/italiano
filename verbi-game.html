@@ -4,33 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇮🇹 Verbi Game</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
-  --verde:#2d7a4f;--verde-l:#e8f5ee;
-  --rosso:#c0392b;--rosso-l:#fdecea;
+  --bg:#f7f3ed;--card:#fffdf8;--border:#e2dbd0;
+  --verde:#5a9e63;--verde-l:#e8f5ee;
+  --rosso:#c1553f;--rosso-l:#fdecea;
   --oro:#b8860b;--oro-l:#fdf5e0;
-  --blu:#2855a0;--blu-l:#e8eef8;
-  --viola:#6040a0;--viola-l:#f0eaf8;
+  --blu:#3f726e;--blu-l:#e8eef8;
+  --viola:#8a5a74;--viola-l:#f0eaf8;
   --dark:#0d1117;--dark2:#161b22;--dark3:#21262d;
   --testo:#2a2218;--muted:#887868;
   --shadow:0 2px 12px rgba(0,0,0,.09);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+body{background:var(--bg);color:var(--testo);font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:80px}
 
 /* HEADER */
 header{background:linear-gradient(135deg,#0d1117,#1a2855 50%,#2d1a55);color:white;padding:20px 14px 15px;text-align:center;position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
 header .flag{font-size:1.6rem;margin-bottom:3px;position:relative}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:700;position:relative}
+header h1{font-family:'Fraunces',serif;font-size:clamp(1.4rem,4vw,2.1rem);font-weight:700;position:relative}
 header h1 em{font-style:italic;color:#f0d060}
 header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
 
 /* NAV */
 .mn{display:flex;overflow-x:auto;background:#0d1117;border-bottom:2px solid #21262d;position:sticky;top:0;z-index:200}
-.mnb{flex-shrink:0;padding:10px 12px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.67rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb{flex-shrink:0;padding:10px 12px;border:none;background:none;color:#666;font-family:'Inter',sans-serif;font-size:.67rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
 .mnb.on{color:#f0d060;border-bottom-color:#f0d060}
 .mnb:hover:not(.on){color:#ccc}
 .sec{display:none}.sec.on{display:block}
@@ -43,23 +45,23 @@ header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 .game-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
 .game-card:hover::before{opacity:1}
 .gc-icon{font-size:2.4rem;margin-bottom:6px;display:block}
-.gc-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:3px}
+.gc-title{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:3px}
 .gc-desc{font-size:.68rem;color:var(--muted);line-height:1.4}
 .gc-badge{position:absolute;top:8px;right:8px;font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
 
 /* GAME 1 — SPEED */
 .g1-wrap{max-width:480px;margin:0 auto;padding:14px 12px 40px}
 .g1-score-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.g1-score{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--verde);font-weight:700}
+.g1-score{font-family:'Fraunces',serif;font-size:1.4rem;color:var(--verde);font-weight:700}
 .g1-timer{font-size:1.2rem;font-weight:800;color:var(--rosso)}
 .g1-timer.warn{animation:pulse .5s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .g1-card{background:linear-gradient(135deg,var(--blu-l),var(--viola-l));border:2px solid #b0c0e8;border-radius:16px;padding:22px 18px;text-align:center;margin-bottom:12px;min-height:130px;display:flex;flex-direction:column;justify-content:center}
-.g1-verb{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:400;color:var(--blu);margin-bottom:4px}
+.g1-verb{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:400;color:var(--blu);margin-bottom:4px}
 .g1-pro{font-size:.82rem;font-weight:800;color:var(--viola);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
 .g1-hint{font-size:.72rem;color:var(--muted);font-style:italic}
 .g1-opts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px}
-.g1-opt{background:var(--card);border:2px solid var(--border);border-radius:11px;padding:11px 8px;font-family:'Playfair Display',serif;font-size:1.1rem;cursor:pointer;transition:all .15s;text-align:center;font-weight:400}
+.g1-opt{background:var(--card);border:2px solid var(--border);border-radius:11px;padding:11px 8px;font-family:'Fraunces',serif;font-size:1.1rem;cursor:pointer;transition:all .15s;text-align:center;font-weight:400}
 .g1-opt:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l);transform:scale(1.02)}
 .g1-opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde);animation:pop .3s ease}
 .g1-opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso);animation:shake .3s ease}
@@ -68,24 +70,24 @@ header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 .g1-opt:disabled{cursor:default}
 .g1-streak{display:flex;justify-content:center;gap:5px;margin-bottom:8px;min-height:20px}
 .streak-dot{width:14px;height:14px;border-radius:50%;background:var(--border);transition:all .3s}
-.streak-dot.lit{background:var(--oro);box-shadow:0 0 6px #c9a84c88}
+.streak-dot.lit{background:var(--oro);box-shadow:0 0 6px #d9a44188}
 
 /* GAME 2 — BUILD */
 .g2-wrap{max-width:480px;margin:0 auto;padding:14px 12px 40px}
 .g2-verb-card{background:var(--dark2);border-radius:14px;padding:16px;text-align:center;margin-bottom:12px}
-.g2-verb{font-family:'Playfair Display',serif;font-size:2rem;color:#f0ebe3;margin-bottom:3px}
+.g2-verb{font-family:'Fraunces',serif;font-size:2rem;color:#f0ebe3;margin-bottom:3px}
 .g2-ru{font-size:.82rem;color:#8090a0}
 .g2-table{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
 .g2-cell{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;min-height:58px;display:flex;flex-direction:column;justify-content:center;transition:all .2s}
 .g2-pro{font-size:.6rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
-.g2-answer{font-family:'Playfair Display',serif;font-size:1.1rem;min-height:24px;color:var(--testo)}
+.g2-answer{font-family:'Fraunces',serif;font-size:1.1rem;min-height:24px;color:var(--testo)}
 .g2-answer.filled{color:var(--verde);font-weight:700}
 .g2-answer.wrong2{color:var(--rosso)}
 .g2-cell.active{border-color:var(--blu);background:var(--blu-l)}
 .g2-cell.done{border-color:var(--verde);background:var(--verde-l)}
 .g2-cell.err{border-color:var(--rosso);background:var(--rosso-l)}
 .g2-bank{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px;min-height:44px;padding:8px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
-.g2-chip{background:var(--card);border:2px solid var(--border);border-radius:99px;padding:5px 13px;font-family:'Playfair Display',serif;font-size:.95rem;cursor:pointer;transition:all .15s;font-weight:400}
+.g2-chip{background:var(--card);border:2px solid var(--border);border-radius:99px;padding:5px 13px;font-family:'Fraunces',serif;font-size:.95rem;cursor:pointer;transition:all .15s;font-weight:400}
 .g2-chip:hover{border-color:var(--blu);background:var(--blu-l);transform:scale(1.05)}
 .g2-chip.used{opacity:.25;cursor:default;transform:none}
 .g2-chip.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
@@ -98,12 +100,12 @@ header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 .g3-line:last-child{margin-bottom:0}
 .g3-spk{font-size:.6rem;color:var(--muted);font-weight:800;text-transform:uppercase;min-width:22px;padding-top:6px}
 .g3-bubble{background:white;border-radius:9px;padding:8px 11px;font-size:.88rem;box-shadow:0 1px 4px rgba(0,0,0,.06);flex:1;line-height:1.6}
-.g3-bubble .it{font-family:'Playfair Display',serif;color:var(--testo);font-style:italic}
-.g3-blank{display:inline-block;background:var(--blu-l);border-bottom:2px solid var(--blu);min-width:80px;padding:0 6px;border-radius:4px;color:transparent;cursor:pointer;font-family:'Playfair Display',serif;font-size:.95rem;text-align:center;transition:all .2s;vertical-align:middle}
+.g3-bubble .it{font-family:'Fraunces',serif;color:var(--testo);font-style:italic}
+.g3-blank{display:inline-block;background:var(--blu-l);border-bottom:2px solid var(--blu);min-width:80px;padding:0 6px;border-radius:4px;color:transparent;cursor:pointer;font-family:'Fraunces',serif;font-size:.95rem;text-align:center;transition:all .2s;vertical-align:middle}
 .g3-blank.filled{color:var(--verde);border-color:var(--verde);background:var(--verde-l)}
 .g3-blank.wrong4{color:var(--rosso);border-color:var(--rosso);background:var(--rosso-l)}
 .g3-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:10px}
-.g3-opt{background:var(--card);border:2px solid var(--border);border-radius:9px;padding:8px 6px;font-family:'Playfair Display',serif;font-size:.95rem;cursor:pointer;transition:all .15s;text-align:center}
+.g3-opt{background:var(--card);border:2px solid var(--border);border-radius:9px;padding:8px 6px;font-family:'Fraunces',serif;font-size:.95rem;cursor:pointer;transition:all .15s;text-align:center}
 .g3-opt:hover:not(:disabled){border-color:var(--verde);background:var(--verde-l)}
 .g3-opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .g3-opt.wrong5{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
@@ -111,9 +113,9 @@ header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 
 /* GAME 4 — LIGHTNING */
 .g4-wrap{max-width:420px;margin:0 auto;padding:14px 12px 40px;text-align:center}
-.g4-verb{font-family:'Playfair Display',serif;font-size:3rem;font-weight:400;color:var(--testo);margin:16px 0 4px}
+.g4-verb{font-family:'Fraunces',serif;font-size:3rem;font-weight:400;color:var(--testo);margin:16px 0 4px}
 .g4-pro{font-size:.88rem;font-weight:800;color:var(--viola);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
-.g4-input{width:100%;background:var(--card);border:3px solid var(--border);border-radius:13px;color:var(--testo);font-family:'Playfair Display',serif;font-size:1.6rem;padding:12px 16px;outline:none;text-align:center;transition:all .2s}
+.g4-input{width:100%;background:var(--card);border:3px solid var(--border);border-radius:13px;color:var(--testo);font-family:'Fraunces',serif;font-size:1.6rem;padding:12px 16px;outline:none;text-align:center;transition:all .2s}
 .g4-input:focus{border-color:var(--blu)}
 .g4-input.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .g4-input.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
@@ -128,20 +130,20 @@ header p{margin-top:2px;font-size:.7rem;opacity:.75;position:relative;letter-spa
 
 /* SHARED */
 .score-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
-.sc-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:700;line-height:1}
+.sc-num{font-family:'Fraunces',serif;font-size:4rem;font-weight:700;line-height:1}
 .sc-lbl{font-size:.8rem;color:var(--muted);margin-bottom:10px}
 .sc-msg{font-size:.9rem;line-height:1.7;margin-bottom:14px}
-.btn-p{background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:11px 24px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
-.btn-s{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 18px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.btn-p{background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:11px 24px;font-family:'Inter',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-s{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 18px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
 .pbar{width:100%;height:4px;background:var(--border);border-radius:99px;margin-bottom:10px;overflow:hidden}
 .pfill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--blu),var(--viola));transition:width .3s}
 .fb-box{margin-top:9px;padding:9px 12px;border-radius:9px;font-size:.79rem;line-height:1.6;min-height:36px}
 .fb-box.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
 .fb-box.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
 .nav-row{display:flex;gap:6px;margin-top:10px}
-.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;display:none}
-.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:9px 13px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--muted)}
-h2{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:9px}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--viola));color:white;border:none;border-radius:10px;padding:10px;font-family:'Inter',sans-serif;font-size:.82rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:9px 13px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--muted)}
+h2{font-family:'Fraunces',serif;font-size:1.25rem;margin-bottom:9px}
 .tip2{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:7px 11px;margin-bottom:9px;font-size:.75rem;line-height:1.6}
 .tip2 strong{color:var(--oro)}
 </style>
@@ -166,25 +168,25 @@ h2{font-family:'Playfair Display',serif;font-size:1.25rem;margin-bottom:9px}
 <div class="home-wrap">
   <h2 style="margin-top:8px">Выбери игру:</h2>
   <div class="game-grid">
-    <div class="game-card" onclick="sm('g1');startG1()" style="border-color:#2855a044;background:linear-gradient(135deg,#fff,var(--blu-l))">
+    <div class="game-card" onclick="sm('g1');startG1()" style="border-color:#3f726e44;background:linear-gradient(135deg,#fffdf8,var(--blu-l))">
       <div class="gc-badge" style="background:var(--blu-l);color:var(--blu)">БЫСТРО</div>
       <span class="gc-icon">⚡</span>
       <div class="gc-title" style="color:var(--blu)">Скорость</div>
       <div class="gc-desc">Выбери правильную форму за 60 секунд. Streak = бонусы!</div>
     </div>
-    <div class="game-card" onclick="sm('g2');startG2()" style="border-color:#2d7a4f44;background:linear-gradient(135deg,#fff,var(--verde-l))">
+    <div class="game-card" onclick="sm('g2');startG2()" style="border-color:#5a9e6344;background:linear-gradient(135deg,#fffdf8,var(--verde-l))">
       <div class="gc-badge" style="background:var(--verde-l);color:var(--verde)">ЛОГИКА</div>
       <span class="gc-icon">🏗️</span>
       <div class="gc-title" style="color:var(--verde)">Постройка</div>
       <div class="gc-desc">Расставь все 6 форм глагола по местам из банка слов.</div>
     </div>
-    <div class="game-card" onclick="sm('g3');startG3()" style="border-color:#6040a044;background:linear-gradient(135deg,#fff,var(--viola-l))">
+    <div class="game-card" onclick="sm('g3');startG3()" style="border-color:#8a5a7444;background:linear-gradient(135deg,#fffdf8,var(--viola-l))">
       <div class="gc-badge" style="background:var(--viola-l);color:var(--viola)">РЕЧЬ</div>
       <span class="gc-icon">💬</span>
       <div class="gc-title" style="color:var(--viola)">Диалог</div>
       <div class="gc-desc">Заполни пропуски в реальных итальянских диалогах.</div>
     </div>
-    <div class="game-card" onclick="sm('g4');startG4()" style="border-color:#b8860b44;background:linear-gradient(135deg,#fff,var(--oro-l))">
+    <div class="game-card" onclick="sm('g4');startG4()" style="border-color:#b8860b44;background:linear-gradient(135deg,#fffdf8,var(--oro-l))">
       <div class="gc-badge" style="background:var(--oro-l);color:var(--oro)">НАПИШИ</div>
       <span class="gc-icon">✍️</span>
       <div class="gc-title" style="color:var(--oro)">Молния</div>
@@ -606,7 +608,7 @@ function renderG3Dialog(dialog, allBlanks){
       <div class="pbar"><div class="pfill" style="width:${g3Idx/g3Dialogs.length*100}%"></div></div>
       <div class="g3-dialog">${buildDialog()}</div>
       <div style="text-align:center;font-size:.76rem;color:var(--muted);margin-bottom:8px">
-        Выбери форму <strong>${PROS[b.pro]}</strong> глагола <em style="font-family:'Playfair Display',serif">${b.verb}</em> (${v.ru}):
+        Выбери форму <strong>${PROS[b.pro]}</strong> глагола <em style="font-family:'Fraunces',serif">${b.verb}</em> (${v.ru}):
       </div>
       <div class="g3-opts">${opts.map(o=>`<button class="g3-opt" data-ok="${o.toLowerCase()===b.ans.toLowerCase()}" onclick="g3Check(this,'${b.ans}',${currentBlank})">${o}</button>`).join('')}</div>
       <div id="g3-fb"></div>`;
@@ -713,7 +715,7 @@ function g4Submit(){
   } else {
     inp.classList.add('wrong');
     fb.className='g4-fb err';
-    fb.innerHTML=`✕ Правильно: <em style="font-family:'Playfair Display',serif">${q.ans}</em>`;
+    fb.innerHTML=`✕ Правильно: <em style="font-family:'Fraunces',serif">${q.ans}</em>`;
   }
   inp.disabled=true;
   setTimeout(()=>{g4Idx++;renderG4();},ok?800:1400);
@@ -725,7 +727,7 @@ function g4Skip(){
   const fb=document.getElementById('g4-fb');
   inp.classList.add('wrong');
   fb.className='g4-fb err';
-  fb.innerHTML=`Правильно: <em style="font-family:'Playfair Display',serif">${q.ans}</em>`;
+  fb.innerHTML=`Правильно: <em style="font-family:'Fraunces',serif">${q.ans}</em>`;
   inp.disabled=true;
   g4Answered=true;
   setTimeout(()=>{g4Idx++;renderG4();},1200);

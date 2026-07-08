@@ -4,53 +4,55 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🐱 Lucio — il gatto di Gianni Morandi</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
-  --verde:#2d7a4f;--verde-l:#e8f5ee;
-  --rosso:#c0392b;--rosso-l:#fdecea;
+  --bg:#f7f3ed;--card:#fffdf8;--border:#e2dbd0;
+  --verde:#5a9e63;--verde-l:#e8f5ee;
+  --rosso:#c1553f;--rosso-l:#fdecea;
   --oro:#b8860b;--oro-l:#fdf5e0;
-  --blu:#2855a0;--blu-l:#e8eef8;
-  --viola:#6040a0;--viola-l:#f0eaf8;
+  --blu:#3f726e;--blu-l:#e8eef8;
+  --viola:#8a5a74;--viola-l:#f0eaf8;
   --arancio:#c06010;--arancio-l:#fef0e0;
   --testo:#2a2218;--muted:#887868;
   --shadow:0 2px 12px rgba(0,0,0,.09);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+body{background:var(--bg);color:var(--testo);font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:80px}
 
-header{background:linear-gradient(135deg,#1a3a28,#2d7a4f 45%,#1a4a6a);color:white;padding:20px 14px 14px;text-align:center;position:relative;overflow:hidden}
+header{background:linear-gradient(135deg,#1a3a28,#5a9e63 45%,#1a4a6a);color:white;padding:20px 14px 14px;text-align:center;position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
 .flag{font-size:1.8rem;margin-bottom:3px;position:relative}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.2rem,4vw,1.9rem);font-weight:700;position:relative}
+header h1{font-family:'Fraunces',serif;font-size:clamp(1.2rem,4vw,1.9rem);font-weight:700;position:relative}
 header h1 em{font-style:italic;color:#f0d060}
 header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
 
 /* API */
 #ap{background:#0d1a10;border-bottom:2px solid #1a3a22;padding:9px 13px}
 #ap.conn{background:#0a1a0a;border-color:#2a5a2a}
-.at{font-size:.72rem;color:#c9a84c;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.at{font-size:.72rem;color:#d9a441;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px}
 .adot{width:6px;height:6px;border-radius:50%;background:#555;flex-shrink:0}
-.adot.on{background:#5ac4a0;animation:bl 2s infinite}
+.adot.on{background:#7fbf7a;animation:bl 2s infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.4}}
 .arow{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.ainp{flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
+.ainp{flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Inter',sans-serif;font-size:.72rem;padding:6px 9px;outline:none}
 .ainp::placeholder{color:#556}
-.ac{background:#2d7a4f;border:none;border-radius:6px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer;white-space:nowrap}
-.axb{background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
+.ac{background:#5a9e63;border:none;border-radius:6px;color:white;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.axb{background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Inter',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer}
 #ks{font-size:.64rem;margin-top:3px;min-height:12px}
-#ks.ok{color:#5ac4a0}#ks.err{color:#e07070}
+#ks.ok{color:#7fbf7a}#ks.err{color:#d17a54}
 .ahint{font-size:.62rem;color:#667;margin-top:4px;line-height:1.5}
-.ahint a{color:#c9a84c;text-decoration:none}
+.ahint a{color:#d9a441;text-decoration:none}
 #vss{display:none;margin-top:4px}
 .vrow{display:flex;gap:4px;flex-wrap:wrap}
-.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
-.vchip.on{border-color:#2d7a4f;color:#5ac4a0}
+.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Inter',sans-serif}
+.vchip.on{border-color:#5a9e63;color:#7fbf7a}
 
 /* NAV */
 .mn{display:flex;overflow-x:auto;background:#111;border-bottom:2px solid #333;position:sticky;top:0;z-index:200}
-.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Inter',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
 .mnb.on{color:#f0d060;border-bottom-color:#f0d060}
 .mnb:hover:not(.on){color:#ccc}
 .sec{display:none}.sec.on{display:block}
@@ -58,7 +60,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 
 /* TEXT */
 .text-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px 18px;box-shadow:var(--shadow);margin-bottom:12px}
-.text-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
+.text-title{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;text-align:center;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border)}
 .text-para{font-size:.9rem;line-height:1.9;margin-bottom:10px;color:var(--testo)}
 .text-para:last-child{margin-bottom:0}
 .text-word{cursor:pointer;border-radius:3px;transition:background .15s;padding:0 1px}
@@ -83,14 +85,14 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .cbody{padding:8px 11px 10px}
 .ctop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
 .pill{font-size:.54rem;letter-spacing:.09em;text-transform:uppercase;border-radius:99px;padding:2px 6px;border:1px solid}
-.p-body{color:var(--blu);border-color:#2855a044;background:#2855a011}
-.p-adj{color:var(--oro);border-color:#c9a84c44;background:#c9a84c11}
-.p-verb{color:var(--verde);border-color:#2d7a4f44;background:#2d7a4f11}
-.p-expr{color:var(--viola);border-color:#6040a044;background:#6040a011}
+.p-body{color:var(--blu);border-color:#3f726e44;background:#3f726e11}
+.p-adj{color:var(--oro);border-color:#d9a44144;background:#d9a44111}
+.p-verb{color:var(--verde);border-color:#5a9e6344;background:#5a9e6311}
+.p-expr{color:var(--viola);border-color:#8a5a7444;background:#8a5a7411}
 .abtn{border-radius:50%;width:27px;height:27px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;flex-shrink:0;font-size:.74rem;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
 .abtn:hover,.abtn.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
 .abtn.off{opacity:.25;cursor:default}
-.it-word{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;line-height:1;margin-bottom:2px;color:var(--testo)}
+.it-word{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:400;line-height:1;margin-bottom:2px;color:var(--testo)}
 .it-form{font-size:.6rem;color:var(--oro);margin-bottom:2px;font-weight:500}
 .it-ph{font-size:.62rem;color:var(--muted);font-style:italic;margin-bottom:5px}
 .divl{height:1px;background:var(--border);margin-bottom:5px}
@@ -102,7 +104,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .phrase-item{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:12px 13px;margin-bottom:7px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start;cursor:pointer;transition:border-color .15s}
 .phrase-item:hover{border-color:var(--verde)}
 .pi-body{flex:1}
-.pi-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--verde);font-style:italic;display:block;margin-bottom:3px;line-height:1.5}
+.pi-it{font-family:'Fraunces',serif;font-size:1rem;color:var(--verde);font-style:italic;display:block;margin-bottom:3px;line-height:1.5}
 .pi-ru{font-size:.76rem;color:var(--muted);display:block;margin-bottom:3px}
 .pi-note{font-size:.66rem;color:var(--arancio);font-weight:700;display:block}
 .pi-btn{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.72rem;color:var(--muted);transition:all .15s;flex-shrink:0}
@@ -110,8 +112,8 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .pi-btn.off{opacity:.22;cursor:default}
 
 /* SECTION HEADER */
-.sh{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.sh span{font-size:.62rem;color:var(--muted);font-family:'Nunito',sans-serif;font-style:normal}
+.sh{font-family:'Fraunces',serif;font-size:1.1rem;margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sh span{font-size:.62rem;color:var(--muted);font-family:'Inter',sans-serif;font-style:normal}
 .tip{background:var(--oro-l);border-left:3px solid var(--oro);border-radius:0 8px 8px 0;padding:8px 12px;margin-bottom:10px;font-size:.76rem;line-height:1.6}
 .tip strong{color:var(--oro)}
 .tip-v{background:var(--verde-l);border-left-color:var(--verde)}.tip-v strong{color:var(--verde)}
@@ -119,7 +121,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 /* TRAINER */
 .trw{max-width:520px;margin:0 auto;padding:14px 12px 50px}
 .mdg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px}
-.mdb{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:12px 7px;color:var(--muted);font-family:'Nunito',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.mdb{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:12px 7px;color:var(--muted);font-family:'Inter',sans-serif;font-size:.72rem;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
 .mdb .mi{font-size:1.25rem;display:block;margin-bottom:2px}
 .mdb:hover{border-color:var(--oro);color:var(--testo);background:var(--oro-l)}
 .qcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
@@ -134,11 +136,11 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .tg-a{background:var(--oro-l);color:#7a5500}
 .tg-e{background:var(--viola-l);color:#4a2a80}
 .tg-t{background:var(--blu-l);color:#1a3570}
-.qsent{font-family:'Playfair Display',serif;font-size:1rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;line-height:1.7;border:1px solid var(--border)}
+.qsent{font-family:'Fraunces',serif;font-size:1rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;line-height:1.7;border:1px solid var(--border)}
 .blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700;font-style:normal}
 .qt{font-size:.9rem;font-weight:700;line-height:1.5;margin-bottom:11px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:9px 7px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:9px 7px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
 .opt:hover:not(:disabled){border-color:var(--verde);background:var(--verde-l)}
 .opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
@@ -147,25 +149,25 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .fb.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
 .fb.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
 .navrow{display:flex;gap:6px;margin-top:10px}
-.btn-next{flex:1;background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
-.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
 .fw{width:100%;perspective:800px;cursor:pointer;margin:6px 0}
 .fc{position:relative;width:100%;height:170px;transform-style:preserve-3d;transition:transform .45s}
 .fc.fl{transform:rotateY(180deg)}
 .ff2{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:5px}
 .f1{background:linear-gradient(135deg,var(--verde-l),var(--blu-l));border:2px solid #b0d0c0}
-.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#fff8e8);border:2px solid #d8c080}
+.f2{transform:rotateY(180deg);background:linear-gradient(135deg,var(--oro-l),#fffdf88e8);border:2px solid #d8c080}
 .fl2{font-size:.58rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
-.fw2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:var(--verde)}
-.fw2b{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--oro)}
+.fw2{font-family:'Fraunces',serif;font-size:2rem;font-weight:400;color:var(--verde)}
+.fw2b{font-family:'Fraunces',serif;font-size:1.4rem;color:var(--oro)}
 .fs2{font-size:.7rem;color:var(--muted)}
 .fa2{font-size:.64rem;color:var(--oro);font-style:italic;text-align:center}
 .qnav{display:flex;gap:5px;margin-top:10px}
-.qnb{flex:1;background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 6px;color:var(--testo);font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
+.qnb{flex:1;background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 6px;color:var(--testo);font-family:'Inter',sans-serif;font-size:.74rem;font-weight:600;cursor:pointer;transition:all .2s;text-align:center}
 .qnb.p{background:linear-gradient(135deg,var(--verde),var(--blu));border-color:var(--verde);color:white}
 .qnb:hover:not(.p){border-color:var(--verde)}
 .res-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
-.res-pct{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;line-height:1}
+.res-pct{font-family:'Fraunces',serif;font-size:4.5rem;font-weight:700;line-height:1}
 .cat-grid{display:grid;gap:5px;margin-bottom:13px;text-align:left}
 .cat-row{display:flex;align-items:center;gap:8px}
 .cat-name{font-size:.7rem;font-weight:700;min-width:110px}
@@ -174,8 +176,8 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 .cat-sc{font-size:.67rem;font-weight:800;min-width:30px;text-align:right}
 .err-item{background:var(--rosso-l);border-radius:7px;padding:7px 10px;font-size:.76rem;color:#5a1010;margin-bottom:3px}
 .ok-ex{background:var(--verde-l);border-radius:7px;padding:6px 10px;font-size:.72rem;color:#1a4020;margin-bottom:5px}
-.btn-r{background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
-.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.btn-r{background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:11px;font-family:'Inter',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
 .divider{height:1px;background:var(--border);margin:11px 0}
 </style>
 </head>
@@ -264,7 +266,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
 <div class="sec" id="train">
 <div class="trw">
   <div id="tpick">
-    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:11px">🎯 Тренажёр</h2>
+    <h2 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:11px">🎯 Тренажёр</h2>
     <div class="mdg">
       <button class="mdb" onclick="startTR('meaning')"><span class="mi">🌐</span>Перевод<br><small style="color:var(--muted)">слово → значение</small></button>
       <button class="mdb" onclick="startTR('flip')"><span class="mi">🃏</span>Карточки<br><small style="color:var(--muted)">с ассоциацией</small></button>
@@ -282,7 +284,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
   <div id="test-start">
     <div style="text-align:center;padding:20px 0 14px">
       <div style="font-size:2.4rem;margin-bottom:8px">📝</div>
-      <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:8px">Тест — 30 вопросов</h2>
+      <h2 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:8px">Тест — 30 вопросов</h2>
       <p style="font-size:.82rem;color:var(--muted);line-height:1.7;margin-bottom:16px">Слова, прилагательные, глаголы и предложения из текста про Люцо!</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:18px;text-align:left">
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🐾 Части тела</div>
@@ -290,7 +292,7 @@ header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-sp
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">🎬 Глаголы</div>
         <div style="background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:6px 10px;font-size:.72rem;font-weight:600">💬 Предложения</div>
       </div>
-      <button style="background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:13px;font-family:'Nunito',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;width:100%" onclick="startTest()">🚀 Начать тест</button>
+      <button style="background:linear-gradient(135deg,var(--verde),var(--blu));color:white;border:none;border-radius:10px;padding:13px;font-family:'Inter',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;width:100%" onclick="startTest()">🚀 Начать тест</button>
     </div>
   </div>
   <div id="test-quiz" style="display:none"></div>
@@ -622,7 +624,7 @@ function trMeaning(pct){
     ${tprog(pct)}
     <div class="qmeta"><span class="qnum">Перевод</span><span class="qtag tg-v">Слова</span></div>
     <div class="qt">Что означает:</div>
-    <div style="text-align:center;font-size:1.4rem;font-family:'Playfair Display',serif;color:var(--verde);padding:10px;background:var(--bg);border-radius:8px;margin-bottom:11px">${w.it}</div>
+    <div style="text-align:center;font-size:1.4rem;font-family:'Fraunces',serif;color:var(--verde);padding:10px;background:var(--bg);border-radius:8px;margin-bottom:11px">${w.it}</div>
     <div class="opts">${opts.map((o,i)=>`<button class="opt" data-ok="${i===nc}" onclick="trChk(this,${i===nc})">${o.ru}</button>`).join('')}</div>
     <div class="fb" id="fb"></div>
     ${tnav()}
@@ -833,7 +835,7 @@ function showTestResult(){
     <div style="font-size:.8rem;color:var(--muted);margin-bottom:12px">${testState.score} из ${total}</div>
     <div style="font-size:.9rem;line-height:1.7;margin-bottom:12px">${msg}</div>
     <div class="divider"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📊 По темам</div>
+    <div style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:8px">📊 По темам</div>
     <div class="cat-grid">
       ${Object.entries(cats).map(([name,{t,c}])=>{
         const p=Math.round(c/t*100);
@@ -845,7 +847,7 @@ function showTestResult(){
     </div>
     ${wrong.length?`
     <div class="divider"></div>
-    <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
+    <div style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
     <div style="display:grid;gap:4px;margin-bottom:14px">
       ${wrong.map(({q,chosen})=>`
         <div class="err-item">${q.q.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}</div>

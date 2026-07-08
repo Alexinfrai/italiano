@@ -4,61 +4,63 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Italiano — Полный конспект</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#faf8f4;--card:#fff;--border:#e8e2d9;
-  --verde:#2d7a4f;--verde-l:#e8f5ee;
-  --rosso:#c0392b;--rosso-l:#fdecea;
+  --bg:#faf5ec;--card:#fffdf8;--border:#e7ddc9;
+  --verde:#5a9e63;--verde-l:#e8f5ee;
+  --rosso:#c1553f;--rosso-l:#fdecea;
   --oro:#b8860b;--oro-l:#fdf5e0;
-  --blu:#2855a0;--blu-l:#e8eef8;
-  --viola:#6040a0;--viola-l:#f0eaf8;
+  --blu:#3f726e;--blu-l:#e8eef8;
+  --viola:#8a5a74;--viola-l:#f0eaf8;
   --arancio:#c06010;--arancio-l:#fef0e0;
   --testo:#2a2218;--muted:#887868;
   --shadow:0 2px 12px rgba(0,0,0,.07);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:70px}
+body{background:var(--bg);color:var(--testo);font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:70px}
 
-header{background:linear-gradient(135deg,#1a3a28 0%,#2d7a4f 55%,#1a2855 100%);color:white;padding:22px 16px 16px;text-align:center;position:relative;overflow:hidden}
+header{background:linear-gradient(135deg,#1a3a28 0%,#5a9e63 55%,#1a2855 100%);color:white;padding:22px 16px 16px;text-align:center;position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 24px,rgba(255,255,255,.03) 24px,rgba(255,255,255,.03) 25px)}
 header .flag{font-size:1.6rem;margin-bottom:3px;position:relative}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4.5vw,2.1rem);font-weight:700;position:relative}
+header h1{font-family:'Fraunces',serif;font-size:clamp(1.4rem,4.5vw,2.1rem);font-weight:700;position:relative}
 header h1 em{font-style:italic;color:#f0d060}
 header p{margin-top:3px;font-size:.7rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
 
 /* API PANEL */
 #api-panel{background:#0d1a10;border-bottom:2px solid #1a3a22;padding:10px 14px}
 #api-panel.connected{background:#0a1a0a;border-color:#2a5a2a}
-.api-title{font-size:.74rem;color:#c9a84c;font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.api-title{font-size:.74rem;color:#d9a441;font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:7px}
 .api-dot{width:7px;height:7px;border-radius:50%;background:#555;flex-shrink:0}
-.api-dot.active{background:#5ac4a0;animation:blink 2s infinite}
+.api-dot.active{background:#7fbf7a;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 .api-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-.api-input{flex:1;min-width:150px;background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.76rem;padding:7px 10px;outline:none}
+.api-input{flex:1;min-width:150px;background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#f0ebe3;font-family:'Inter',sans-serif;font-size:.76rem;padding:7px 10px;outline:none}
 .api-input::placeholder{color:#556;font-size:.7rem}
-.api-btn-conn{background:#2d7a4f;border:none;border-radius:7px;color:white;font-family:'Nunito',sans-serif;font-size:.74rem;font-weight:700;padding:7px 13px;cursor:pointer;white-space:nowrap}
-.api-btn-clear{background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#889;font-family:'Nunito',sans-serif;font-size:.74rem;padding:7px 10px;cursor:pointer}
+.api-btn-conn{background:#5a9e63;border:none;border-radius:7px;color:white;font-family:'Inter',sans-serif;font-size:.74rem;font-weight:700;padding:7px 13px;cursor:pointer;white-space:nowrap}
+.api-btn-clear{background:#1a2020;border:1px solid #2a3a2a;border-radius:7px;color:#889;font-family:'Inter',sans-serif;font-size:.74rem;padding:7px 10px;cursor:pointer}
 #key-status{font-size:.68rem;margin-top:4px;min-height:14px}
-#key-status.ok{color:#5ac4a0}
-#key-status.err{color:#e07070}
+#key-status.ok{color:#7fbf7a}
+#key-status.err{color:#d17a54}
 .api-hint{font-size:.66rem;color:#667;margin-top:6px;line-height:1.5}
-.api-hint a{color:#c9a84c;text-decoration:none}
+.api-hint a{color:#d9a441;text-decoration:none}
 #voice-section{display:none;margin-top:6px}
 .voice-row{display:flex;gap:5px;flex-wrap:wrap}
-.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:3px 9px;font-size:.64rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif}
-.vchip.active{border-color:#2d7a4f;color:#5ac4a0}
+.vchip{background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:3px 9px;font-size:.64rem;color:#778;cursor:pointer;font-family:'Inter',sans-serif}
+.vchip.active{border-color:#5a9e63;color:#7fbf7a}
 
 /* TABS */
 .tabs{display:flex;flex-wrap:wrap;gap:2px 4px;justify-content:center;background:white;border-bottom:2px solid var(--border);position:relative;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.06);padding:4px 6px}
-.tab{padding:9px 11px;border:none;background:none;font-family:'Nunito',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.03em;border-radius:7px 7px 0 0}
+.tab{padding:9px 11px;border:none;background:none;font-family:'Inter',sans-serif;font-size:.68rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;letter-spacing:.03em;border-radius:7px 7px 0 0}
 .tab.active{color:var(--verde);border-bottom-color:var(--verde)}
 .nbadge{background:var(--rosso);color:white;border-radius:99px;padding:1px 5px;font-size:.5rem;margin-left:2px;vertical-align:top}
 
 /* SECTIONS */
 .section{display:none;padding:12px 13px 20px;max-width:720px;margin:0 auto}
 .section.active{display:block}
-h2{font-family:'Playfair Display',serif;font-size:1.35rem;margin-bottom:11px;color:var(--testo)}
+h2{font-family:'Fraunces',serif;font-size:1.35rem;margin-bottom:11px;color:var(--testo)}
 h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 
 .lesson-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:3px 11px;font-size:.65rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:10px}
@@ -86,7 +88,7 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .vocab-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 10px;cursor:pointer;transition:all .15s}
 .vocab-item:hover{border-color:var(--verde);background:var(--verde-l)}
-.vocab-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
+.vocab-it{font-family:'Fraunces',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
 .vocab-ru{font-size:.7rem;color:var(--muted);display:block}
 .vocab-time{font-size:.58rem;color:var(--oro);font-weight:700;display:block;margin-top:1px}
 
@@ -104,10 +106,10 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .cj-essere{background:var(--verde-l);border-color:#a0cca8}
 .cj-avere{background:var(--blu-l);border-color:#a0b8d8}
 .cj-parlare{background:#f0f4ff;border-color:#b0c0e8}
-.cj-prendere{background:#fff0f8;border-color:#e0b0d0}
+.cj-prendere{background:#fffdf80f8;border-color:#e0b0d0}
 .cj-dormire{background:#f0fff8;border-color:#a0d8b8}
 .cj-pro{font-size:.6rem;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
-.cj-it{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700}
+.cj-it{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:700}
 .cj-it.ec{color:var(--verde)}
 .cj-it.ac{color:var(--blu)}
 .cj-it.pc{color:#3040a0}
@@ -127,7 +129,7 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .pronomi-table td{padding:8px 9px;border-bottom:1px solid var(--border);vertical-align:middle}
 .pronomi-table tr:nth-child(even) td{background:#faf7f2}
 .pronomi-table tr:last-child td{border-bottom:none}
-.p-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--verde);font-weight:700}
+.p-it{font-family:'Fraunces',serif;font-size:1rem;color:var(--verde);font-weight:700}
 .p-ru{font-size:.72rem;color:var(--muted)}
 .p-ex{font-size:.68rem;color:var(--muted);font-style:italic;margin-top:2px}
 
@@ -139,50 +141,50 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .art-table td{padding:6px 8px;border-bottom:1px solid var(--border)}
 .art-table tr:nth-child(even) td{background:#faf7f2}
 .art-table tr:last-child td{border-bottom:none}
-.art-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700}
+.art-it{font-family:'Fraunces',serif;font-size:.95rem;color:var(--verde);font-weight:700}
 .art-ex{font-size:.62rem;color:var(--muted);font-style:italic;margin-top:1px}
 
 /* SCHEMA */
-.schema-box{background:linear-gradient(135deg,var(--oro-l),#fff);border:2px solid var(--oro);border-radius:12px;padding:12px;margin-bottom:9px}
+.schema-box{background:linear-gradient(135deg,var(--oro-l),#fffdf8);border:2px solid var(--oro);border-radius:12px;padding:12px;margin-bottom:9px}
 .schema-title{font-size:.63rem;color:var(--oro);font-weight:800;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
 .schema-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .schema-cell{background:white;border-radius:7px;padding:8px;text-align:center;border:1px solid var(--border)}
 .schema-label{font-size:.55rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
-.schema-end{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--verde);font-weight:700}
+.schema-end{font-family:'Fraunces',serif;font-size:1.35rem;color:var(--verde);font-weight:700}
 
 /* CONTRARI */
 .ci{display:flex;align-items:center;gap:8px;padding:8px 11px;background:var(--bg);border:1px solid var(--border);border-radius:9px;margin-bottom:5px;cursor:pointer;transition:all .15s}
 .ci:hover,.ci.clicked{background:var(--verde-l);border-color:var(--verde)}
-.cw{flex:1;font-family:'Playfair Display',serif;font-size:.9rem;color:var(--verde);font-weight:700}
+.cw{flex:1;font-family:'Fraunces',serif;font-size:.9rem;color:var(--verde);font-weight:700}
 .cr-s{font-size:.6rem;color:var(--muted);display:block}
 .ca{color:var(--rosso);font-size:.9rem}
-.co{flex:1;font-family:'Playfair Display',serif;font-size:.9rem;color:var(--rosso);font-weight:700;text-align:right}
+.co{flex:1;font-family:'Fraunces',serif;font-size:.9rem;color:var(--rosso);font-weight:700;text-align:right}
 
 /* DIALOGUES */
 .dialogo{background:linear-gradient(135deg,var(--verde-l),var(--viola-l));border:1px solid #d0c8e0;border-radius:12px;padding:12px;margin-bottom:9px}
 .dl{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
 .dl:last-child{margin-bottom:0}
 .sb{background:white;border-radius:9px;padding:7px 11px;font-size:.8rem;box-shadow:0 1px 4px rgba(0,0,0,.06);flex:1}
-.sb .it{font-family:'Playfair Display',serif;color:var(--verde);font-style:italic}
+.sb .it{font-family:'Fraunces',serif;color:var(--verde);font-style:italic}
 .sb .ru{font-size:.68rem;color:var(--muted);margin-top:2px}
 .spk{font-size:.58rem;color:var(--muted);font-weight:800;text-transform:uppercase;min-width:24px;padding-top:9px}
 
 /* AVERE ESPRESSIONI */
 .esp{display:flex;gap:8px;align-items:flex-start;padding:9px 11px;background:var(--blu-l);border:1px solid #c0d0e8;border-radius:9px;margin-bottom:5px}
-.esp-it{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--blu);font-weight:700;min-width:150px;flex-shrink:0}
+.esp-it{font-family:'Fraunces',serif;font-size:.9rem;color:var(--blu);font-weight:700;min-width:150px;flex-shrink:0}
 .esp-ru{font-size:.74rem;color:var(--testo);line-height:1.5}
 .esp-ex{font-size:.64rem;color:var(--muted);font-style:italic;margin-top:2px}
 
 /* DOMANDE */
 .dom{display:flex;align-items:center;gap:8px;padding:9px 11px;background:var(--viola-l);border:1px solid #d0c0e8;border-radius:9px;margin-bottom:5px}
-.dom-it{font-family:'Playfair Display',serif;font-size:1rem;color:var(--viola);font-weight:700;min-width:85px}
+.dom-it{font-family:'Fraunces',serif;font-size:1rem;color:var(--viola);font-weight:700;min-width:85px}
 .dom-ru{font-size:.76rem;color:var(--testo);font-weight:600}
 .dom-ex{font-size:.64rem;color:var(--muted);font-style:italic;margin-top:2px}
 
 /* QUESTO */
 .questo-g{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .qi{background:var(--arancio-l);border:1px solid #e0c090;border-radius:9px;padding:9px;text-align:center}
-.qi-it{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--arancio);font-weight:700}
+.qi-it{font-family:'Fraunces',serif;font-size:1.1rem;color:var(--arancio);font-weight:700}
 .qi-label{font-size:.57rem;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
 .qi-ru{font-size:.68rem;color:var(--testo);margin-top:2px}
 
@@ -196,23 +198,23 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .cmp-title.bt{color:var(--blu)}
 .cmp-item{font-size:.76rem;padding:3px 0;border-bottom:1px solid var(--border);line-height:1.4}
 .cmp-item:last-child{border-bottom:none}
-.cmp-item em{font-family:'Playfair Display',serif;font-style:italic}
+.cmp-item em{font-family:'Fraunces',serif;font-style:italic}
 
 /* QUANTO */
 .q4{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:7px}
 .q4i{background:white;border-radius:7px;padding:7px;text-align:center;border:1px solid var(--border)}
-.q4-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700}
+.q4-it{font-family:'Fraunces',serif;font-size:.95rem;color:var(--verde);font-weight:700}
 .q4-label{font-size:.55rem;color:var(--muted);text-transform:uppercase}
 .qb{background:var(--verde-l);border:1px solid #b0d8c0;border-radius:10px;padding:11px;margin-bottom:7px}
 .qb-rule{font-size:.78rem;font-weight:700;color:var(--verde);margin-bottom:5px}
-.qb-ex{font-family:'Playfair Display',serif;font-size:.9rem;font-style:italic;display:block;margin-bottom:2px}
+.qb-ex{font-family:'Fraunces',serif;font-size:.9rem;font-style:italic;display:block;margin-bottom:2px}
 .qb-ru{font-size:.68rem;color:var(--muted)}
 
 /* NUMERI */
 .numeri-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .num-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 5px;text-align:center;cursor:pointer;transition:all .15s}
 .num-item:hover{border-color:var(--verde);background:var(--verde-l)}
-.num-n{font-family:'Playfair Display',serif;font-size:.9rem;color:var(--verde);font-weight:700;display:block}
+.num-n{font-family:'Fraunces',serif;font-size:.9rem;color:var(--verde);font-weight:700;display:block}
 .num-it{font-size:.72rem;color:var(--testo);font-weight:600;display:block}
 .num-ru{font-size:.6rem;color:var(--muted);display:block}
 
@@ -220,19 +222,19 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .verbi-section{margin-bottom:14px}
 .verbi-section h3{margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .verbi-badge{font-size:.62rem;font-weight:800;border-radius:6px;padding:2px 7px;color:white}
-.vb-are{background:#2d7a4f}
-.vb-ere{background:#2855a0}
-.vb-ire{background:#6040a0}
+.vb-are{background:#5a9e63}
+.vb-ere{background:#3f726e}
+.vb-ire{background:#8a5a74}
 .verb-conj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px}
 .vc{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:7px;text-align:center;cursor:pointer;transition:all .15s}
 .vc:hover{border-color:var(--verde);background:var(--verde-l)}
 .vc-pro{font-size:.58rem;color:var(--muted);text-transform:uppercase;font-weight:700;display:block;margin-bottom:2px}
-.vc-it{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
+.vc-it{font-family:'Fraunces',serif;font-size:.95rem;color:var(--verde);font-weight:700;display:block}
 
 /* QUIZ */
 .quiz-q{font-size:.88rem;font-weight:700;margin-bottom:9px;line-height:1.4}
 .quiz-opts{display:grid;grid-template-columns:1fr 1fr;gap:5px}
-.quiz-opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 7px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
+.quiz-opt{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 7px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:600;cursor:pointer;transition:all .15s;text-align:center;line-height:1.3}
 .quiz-opt:hover{border-color:var(--verde)}
 .quiz-opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .quiz-opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
@@ -243,20 +245,20 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .qprog{font-size:.68rem;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
 .qbar-bg{width:100%;height:3px;background:var(--border);border-radius:99px;margin-bottom:12px;overflow:hidden}
 .qbar-fill{height:100%;background:var(--verde);border-radius:99px;transition:width .4s}
-.btn-p{background:var(--verde);color:white;border:none;border-radius:9px;padding:9px 18px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;margin-top:7px}
-.btn-s{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--testo);width:100%;margin-top:6px}
+.btn-p{background:var(--verde);color:white;border:none;border-radius:9px;padding:9px 18px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;margin-top:7px}
+.btn-s{background:var(--bg);border:2px solid var(--border);border-radius:9px;padding:8px 14px;font-family:'Inter',sans-serif;font-size:.76rem;font-weight:700;cursor:pointer;color:var(--testo);width:100%;margin-top:6px}
 
 /* ESERCIZI */
 .ex-item{background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 12px;margin-bottom:5px}
-.ex-it{font-family:'Playfair Display',serif;color:var(--verde);font-style:italic;font-size:.95rem;display:block;margin-bottom:3px}
+.ex-it{font-family:'Fraunces',serif;color:var(--verde);font-style:italic;font-size:.95rem;display:block;margin-bottom:3px}
 .ex-ru{font-size:.72rem;color:var(--muted)}
 
 .divider{height:1px;background:var(--border);margin:10px 0}
 /* ── ВСТРОЕННЫЙ ТРЕНАЖЁР + ТЕСТ (Passato Prossimo) ── */
 .pp-w{margin-top:6px}
 .pp-switch{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
-.pp-sb{border:1px solid var(--border);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer;font-family:'Nunito'}
-.pp-sb.on{background:var(--viola);border-color:var(--viola);color:#fff}
+.pp-sb{border:1px solid var(--border);background:var(--card);color:var(--muted);padding:8px 16px;border-radius:99px;font-weight:800;font-size:.82rem;cursor:pointer;font-family:'Inter'}
+.pp-sb.on{background:var(--viola);border-color:var(--viola);color:#fffdf8}
 .pp-prog{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .pp-bar{flex:1;height:8px;background:var(--viola-l);border-radius:99px;overflow:hidden;border:1px solid var(--border)}
 .pp-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--oro));transition:.4s}
@@ -264,27 +266,27 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 /* тренажёр-карточка */
 .pp-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px 18px;box-shadow:var(--shadow);text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;position:relative}
 .pp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--viola));border-radius:16px 16px 0 0}
-.pp-inf{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--testo)}
+.pp-inf{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:var(--testo)}
 .pp-inf small{display:block;color:var(--muted);font-size:.88rem;font-weight:400;margin-top:2px}
-.pp-cue{margin-top:7px;color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Playfair Display',serif}
-.pp-ans{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:var(--verde);margin-top:12px;display:none}
+.pp-cue{margin-top:7px;color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Fraunces',serif}
+.pp-ans{font-family:'Fraunces',serif;font-size:1.7rem;font-weight:700;color:var(--verde);margin-top:12px;display:none}
 .pp-ans.show{display:block}
 .pp-ans .full{display:block;font-size:.92rem;color:var(--muted);font-weight:400;margin-top:3px}
 .pp-ans .spk{cursor:pointer;color:var(--viola);margin-left:6px;font-size:.95rem}
-.pp-inp{width:100%;margin-top:12px;background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--oro);border-radius:8px;color:var(--verde);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;text-align:center;padding:9px;outline:none}
+.pp-inp{width:100%;margin-top:12px;background:var(--bg);border:1px solid var(--border);border-bottom:2px solid var(--oro);border-radius:8px;color:var(--verde);font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;text-align:center;padding:9px;outline:none}
 .pp-fb{margin-top:7px;font-weight:700;font-size:.88rem;min-height:16px}.pp-fb.ok{color:var(--verde)}.pp-fb.no{color:var(--rosso)}
 .pp-opts{display:flex;flex-direction:column;gap:7px;margin-top:12px}
-.pp-opt{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:10px 13px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem}
+.pp-opt{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:10px 13px;border-radius:10px;cursor:pointer;font-family:'Fraunces',serif;font-weight:700;font-size:1rem}
 .pp-opt:hover{border-color:var(--oro)}
 .pp-opt.ok{background:var(--verde-l);border-color:var(--verde);color:var(--verde)}
 .pp-opt.no{background:var(--rosso-l);border-color:var(--rosso);color:var(--rosso)}
 .pp-btns{display:flex;gap:9px;margin-top:14px}
-.pp-big{flex:1;border:none;border-radius:11px;font-family:'Nunito';font-weight:800;font-size:.95rem;padding:12px;cursor:pointer}
-.pp-big.rev{background:var(--oro);color:#fff}
+.pp-big{flex:1;border:none;border-radius:11px;font-family:'Inter';font-weight:800;font-size:.95rem;padding:12px;cursor:pointer}
+.pp-big.rev{background:var(--oro);color:#fffdf8}
 .pp-big.no{background:var(--rosso-l);color:var(--rosso);border:1px solid var(--rosso)}
 .pp-big.ok{background:var(--verde-l);color:var(--verde);border:1px solid var(--verde)}
 .pp-sub{display:flex;justify-content:space-between;margin-top:11px;font-size:.76rem}
-.pp-sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Nunito';font-size:.76rem}
+.pp-sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Inter';font-size:.76rem}
 /* тест */
 .pp-q{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:9px;box-shadow:var(--shadow)}
 .pp-q.ok{border-color:var(--verde)}
@@ -294,11 +296,11 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
 .pp-gap.f{color:var(--verde);border-bottom-style:solid;border-color:var(--verde);letter-spacing:0}
 .pp-gap.w{color:var(--rosso);border-bottom-style:solid;border-color:var(--rosso);letter-spacing:0}
 .pp-qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.pp-qo{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:7px 12px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:.96rem}
+.pp-qo{background:var(--bg);border:1px solid var(--border);color:var(--testo);padding:7px 12px;border-radius:9px;cursor:pointer;font-family:'Fraunces',serif;font-weight:700;font-size:.96rem}
 .pp-qo:hover{border-color:var(--oro)}
 .pp-qo.ok{background:var(--verde-l);border-color:var(--verde);color:var(--verde)}
 .pp-qo.no{background:var(--rosso-l);border-color:var(--rosso);color:var(--rosso)}
-.pp-tsec{font-family:'Playfair Display',serif;color:var(--blu);font-size:1.02rem;margin:14px 0 8px;font-weight:700}
+.pp-tsec{font-family:'Fraunces',serif;color:var(--blu);font-size:1.02rem;margin:14px 0 8px;font-weight:700}
 .pp-spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:.95rem}
 </style>
 </head>
@@ -357,6 +359,9 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
   <button class="tab" onclick="show('lezione0406')">🔄 Возвратные <span class="nbadge">NEW</span></button>
   <button class="tab" onclick="show('irregolari')">⚡ Неправильные глаголы <span class="nbadge">NEW</span></button>
   <button class="tab" onclick="show('passato')">⏪ Passato Prossimo <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione2306')">🗓️ Урок 23/06 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione2506')">🌳 Урок 25/06 <span class="nbadge">NEW</span></button>
+  <button class="tab" onclick="show('lezione3006')">🔗 Урок 30/06 <span class="nbadge">NEW</span></button>
 </div>
 
 <!-- ══ ПРИВЕТСТВИЯ ══ -->
@@ -520,9 +525,9 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
   </div>
   <div class="card">
     <h3 style="margin-bottom:9px">Примеры из урока</h3>
-    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--verde)">Il ragazzo bello</span> → <span style="font-family:'Playfair Display',serif;color:var(--verde)">i ragazzi belli</span></div>
-    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--verde)">La ragazza bella</span> → <span style="font-family:'Playfair Display',serif;color:var(--verde)">le ragazze belle</span></div>
-    <div style="background:var(--blu-l);border-radius:9px;padding:10px;font-size:.8rem"><span style="font-family:'Playfair Display',serif;color:var(--blu)">Il ragazzo intelligente</span> → <span style="font-family:'Playfair Display',serif;color:var(--blu)">i ragazzi intelligenti</span></div>
+    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Fraunces',serif;color:var(--verde)">Il ragazzo bello</span> → <span style="font-family:'Fraunces',serif;color:var(--verde)">i ragazzi belli</span></div>
+    <div style="background:var(--verde-l);border-radius:9px;padding:10px;margin-bottom:7px;font-size:.8rem"><span style="font-family:'Fraunces',serif;color:var(--verde)">La ragazza bella</span> → <span style="font-family:'Fraunces',serif;color:var(--verde)">le ragazze belle</span></div>
+    <div style="background:var(--blu-l);border-radius:9px;padding:10px;font-size:.8rem"><span style="font-family:'Fraunces',serif;color:var(--blu)">Il ragazzo intelligente</span> → <span style="font-family:'Fraunces',serif;color:var(--blu)">i ragazzi intelligenti</span></div>
   </div>
 </div>
 
@@ -970,6 +975,192 @@ h3{font-size:.88rem;font-weight:800;margin-bottom:7px;color:var(--testo)}
     </div>
   </div>
 </div>
+
+<!-- ══════════ УРОК 23/06 ══════════ -->
+<div class="section" id="lezione2306">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#4f8a86)">🗓️ Урок 23/06</div>
+  <h2>Дни недели · выходные · questo/quello</h2>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">📅 Дни недели — i giorni della settimana</h3>
+    <div class="vocab-grid" style="grid-template-columns:repeat(2,1fr)">
+      <div class="vocab-item" onclick="play('lunedì')"><span class="vocab-it">lunedì</span><span class="vocab-ru">понедельник</span></div>
+      <div class="vocab-item" onclick="play('martedì')"><span class="vocab-it">martedì</span><span class="vocab-ru">вторник</span></div>
+      <div class="vocab-item" onclick="play('mercoledì')"><span class="vocab-it">mercoledì</span><span class="vocab-ru">среда</span></div>
+      <div class="vocab-item" onclick="play('giovedì')"><span class="vocab-it">giovedì</span><span class="vocab-ru">четверг</span></div>
+      <div class="vocab-item" onclick="play('venerdì')"><span class="vocab-it">venerdì</span><span class="vocab-ru">пятница</span></div>
+      <div class="vocab-item" onclick="play('sabato')"><span class="vocab-it">sabato</span><span class="vocab-ru">суббота</span></div>
+      <div class="vocab-item" onclick="play('domenica')"><span class="vocab-it">domenica</span><span class="vocab-ru">воскресенье</span></div>
+      <div class="vocab-item" onclick="play('il fine settimana')"><span class="vocab-it">il fine settimana</span><span class="vocab-ru">выходные</span></div>
+    </div>
+    <div class="tip">Со дня недели с артиклем = «по …»: <i>il venerdì</i> — по пятницам.</div>
+  </div>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📖 Новые слова</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('amare')"><span class="vocab-it">AMARE</span><span class="vocab-ru">любить</span></div>
+      <div class="vocab-item" onclick="play('riposare')"><span class="vocab-it">RIPOSARE</span><span class="vocab-ru">отдыхать</span></div>
+      <div class="vocab-item" onclick="play('restare')"><span class="vocab-it">RESTARE = RIMANERE</span><span class="vocab-ru">оставаться</span></div>
+      <div class="vocab-item" onclick="play('la vista')"><span class="vocab-it">LA VISTA</span><span class="vocab-ru">вид / панорама</span></div>
+      <div class="vocab-item" onclick="play('che bella vista')"><span class="vocab-it">CHE BELLA VISTA!</span><span class="vocab-ru">какой красивый вид!</span></div>
+      <div class="vocab-item" onclick="play('stamattina')"><span class="vocab-it">STAMATTINA</span><span class="vocab-ru">сегодня утром</span></div>
+      <div class="vocab-item" onclick="play('stasera')"><span class="vocab-it">STASERA</span><span class="vocab-ru">сегодня вечером</span></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">💬 Диалог — выходные</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Cosa hai fatto nel fine settimana?</div><div class="ru">Что ты делал в выходные?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Sabato ho lavorato e domenica ho riposato.</div><div class="ru">В субботу работал, в воскресенье отдыхал.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Nel fine settimana sono stato a casa, ho letto un libro e ho preparato un'insalata.</div><div class="ru">На выходных был дома, читал книгу и приготовил салат.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Questa settimana cosa pensi di fare?</div><div class="ru">На этой неделе что планируешь?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Vogliamo andare a Cracovia perché mia moglie ha un esame di polacco.</div><div class="ru">Хотим поехать в Краков, у жены экзамен по польскому.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">👉 questo / quello</h3>
+    <div class="tip tip-v"><strong>QUESTO</strong> = это (рядом), <strong>QUELLO</strong> = тот (далеко). Quello перед существительным меняется как артикль.</div>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('quel ragazzo, quei ragazzi')"><span class="vocab-it">quel ragazzo → quei ragazzi</span><span class="vocab-ru">м. + согл.</span></div>
+      <div class="vocab-item" onclick="play('quell\u0027amico, quegli amici')"><span class="vocab-it">quell'amico → quegli amici</span><span class="vocab-ru">м. + гласная</span></div>
+      <div class="vocab-item" onclick="play('quella ragazza, quelle ragazze')"><span class="vocab-it">quella ragazza → quelle ragazze</span><span class="vocab-ru">ж. + согл.</span></div>
+      <div class="vocab-item" onclick="play('quell\u0027amica, quelle amiche')"><span class="vocab-it">quell'amica → quelle amiche</span><span class="vocab-ru">ж. + гласная</span></div>
+      <div class="vocab-item" onclick="play('quello zaino, quegli zaini')"><span class="vocab-it">quello zaino → quegli zaini</span><span class="vocab-ru">м. + z / s+согл.</span></div>
+    </div>
+    <div class="tip">Полное приложение с тренажёром: <b>Указательные</b> на главной. 👉</div>
+  </div>
+</div>
+
+<!-- ══════════ УРОК 25/06 ══════════ -->
+<div class="section" id="lezione2506">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a5540,#5a9e63)">🌳 Урок 25/06</div>
+  <h2>Погода · возвратные глаголы · рассказ</h2>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📖 Новые слова</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('decidere')"><span class="vocab-it">DECIDERE</span><span class="vocab-ru">решать (→ deciso)</span></div>
+      <div class="vocab-item" onclick="play('lasciare')"><span class="vocab-it">LASCIARE</span><span class="vocab-ru">оставлять</span></div>
+      <div class="vocab-item" onclick="play('acceso')"><span class="vocab-it">ACCESO</span><span class="vocab-ru">включённый</span></div>
+      <div class="vocab-item" onclick="play('spento')"><span class="vocab-it">SPENTO</span><span class="vocab-ru">выключенный</span></div>
+      <div class="vocab-item" onclick="play('secondo me')"><span class="vocab-it">SECONDO ME</span><span class="vocab-ru">по-моему, я считаю</span></div>
+      <div class="vocab-item" onclick="play('di più')"><span class="vocab-it">DI PIÙ</span><span class="vocab-ru">больше</span></div>
+      <div class="vocab-item" onclick="play('di meno')"><span class="vocab-it">DI MENO</span><span class="vocab-ru">меньше</span></div>
+      <div class="vocab-item" onclick="play('tenere')"><span class="vocab-it">TENERE</span><span class="vocab-ru">держать</span></div>
+      <div class="vocab-item" onclick="play('soffrire')"><span class="vocab-it">SOFFRIRE</span><span class="vocab-ru">страдать (→ sofferto)</span></div>
+      <div class="vocab-item" onclick="play('in ritardo')"><span class="vocab-it">IN RITARDO</span><span class="vocab-ru">с опозданием</span></div>
+      <div class="vocab-item" onclick="play('mai')"><span class="vocab-it">MAI</span><span class="vocab-ru">никогда / когда-нибудь</span></div>
+      <div class="vocab-item" onclick="play('passare')"><span class="vocab-it">PASSARE</span><span class="vocab-ru">проводить / проходить</span></div>
+      <div class="vocab-item" onclick="play('libero')"><span class="vocab-it">LIBERO</span><span class="vocab-ru">свободный</span></div>
+      <div class="vocab-item" onclick="play('fuori')"><span class="vocab-it">FUORI</span><span class="vocab-ru">снаружи</span></div>
+      <div class="vocab-item" onclick="play('dentro')"><span class="vocab-it">DENTRO</span><span class="vocab-ru">внутри</span></div>
+      <div class="vocab-item" onclick="play('il posto')"><span class="vocab-it">IL POSTO</span><span class="vocab-ru">место</span></div>
+      <div class="vocab-item" onclick="play('verso')"><span class="vocab-it">VERSO</span><span class="vocab-ru">в направлении / около</span></div>
+      <div class="vocab-item" onclick="play('vicino a')"><span class="vocab-it">VICINO A</span><span class="vocab-ru">рядом с</span></div>
+      <div class="vocab-item" onclick="play('lungo')"><span class="vocab-it">LUNGO</span><span class="vocab-ru">вдоль / длинный</span></div>
+      <div class="vocab-item" onclick="play('fermarsi')"><span class="vocab-it">FERMARSI</span><span class="vocab-ru">останавливаться</span></div>
+      <div class="vocab-item" onclick="play('iniziare a')"><span class="vocab-it">INIZIARE A</span><span class="vocab-ru">начинать</span></div>
+      <div class="vocab-item" onclick="play('finire di')"><span class="vocab-it">FINIRE DI</span><span class="vocab-ru">заканчивать</span></div>
+    </div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">🌡️ Погода — che tempo fa?</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Che tempo fa a Gdansk? — Fa caldo.</div><div class="ru">Какая погода в Гданьске? — Жарко.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Quanti gradi ci sono? — Ci sono trenta gradi!</div><div class="ru">Сколько градусов? — Тридцать градусов!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ho deciso di non soffrire più dal caldo e tenere l'aria condizionata sempre accesa.</div><div class="ru">Я решил больше не страдать от жары и держать кондиционер всегда включённым.</div></div></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🚶 Рассказ — Maria (возвратные + passato prossimo)</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Ieri ha finito di lavorare alle otto, ha preso la macchina ed è andata verso il lago.</div><div class="ru">Вчера закончила работать в восемь, взяла машину и поехала к озеру.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ha parcheggiato vicino al bar e ha iniziato a fare una passeggiata lungo il lago.</div><div class="ru">Припарковалась у бара и начала прогулку вдоль озера.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Dopo venti minuti si è fermata, si è seduta e ha iniziato a cantare.</div><div class="ru">Через двадцать минут остановилась, села и начала петь.</div></div></div>
+    </div>
+    <div class="tip tip-v">Возвратные в прошедшем — с <strong>essere</strong>, причастие согласуется: <i>si è fermat<b>a</b>, si è sedut<b>a</b></i>.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">🔗 Конструкции с предлогом</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('iniziare a fare')"><span class="vocab-it">iniziare <b>a</b> + инф.</span><span class="vocab-ru">начинать делать</span></div>
+      <div class="vocab-item" onclick="play('finire di lavorare')"><span class="vocab-it">finire <b>di</b> + инф.</span><span class="vocab-ru">закончить делать</span></div>
+      <div class="vocab-item" onclick="play('decidere di partire')"><span class="vocab-it">decidere <b>di</b> + инф.</span><span class="vocab-ru">решить сделать</span></div>
+      <div class="vocab-item" onclick="play('smettere di fumare')"><span class="vocab-it">smettere <b>di</b> + инф.</span><span class="vocab-ru">бросить делать</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ УРОК 30/06 ══════════ -->
+<div class="section" id="lezione3006">
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#553a1a,#a06a2a)">🔗 Урок 30/06</div>
+  <h2>Союзы · uscire · отпуск</h2>
+
+  <div class="card cao">
+    <h3 style="margin-bottom:9px">📖 Новые слова</h3>
+    <div class="vocab-grid">
+      <div class="vocab-item" onclick="play('la bolletta')"><span class="vocab-it">LA BOLLETTA</span><span class="vocab-ru">квитанция (счёт)</span></div>
+      <div class="vocab-item" onclick="play('la multa')"><span class="vocab-it">LA MULTA</span><span class="vocab-ru">штраф</span></div>
+      <div class="vocab-item" onclick="play('le pantofole')"><span class="vocab-it">LE PANTOFOLE</span><span class="vocab-ru">тапочки</span></div>
+      <div class="vocab-item" onclick="play('mettersi')"><span class="vocab-it">METTERSI</span><span class="vocab-ru">надевать на себя</span></div>
+      <div class="vocab-item" onclick="play('nevica')"><span class="vocab-it">NEVICA</span><span class="vocab-ru">идёт снег</span></div>
+      <div class="vocab-item" onclick="play('forte')"><span class="vocab-it">FORTE</span><span class="vocab-ru">сильный</span></div>
+      <div class="vocab-item" onclick="play('mandare')"><span class="vocab-it">MANDARE = INVIARE</span><span class="vocab-ru">отправлять</span></div>
+      <div class="vocab-item" onclick="play('guidare')"><span class="vocab-it">GUIDARE</span><span class="vocab-ru">водить</span></div>
+      <div class="vocab-item" onclick="play('il discorso')"><span class="vocab-it">IL DISCORSO</span><span class="vocab-ru">речь</span></div>
+      <div class="vocab-item" onclick="play('affittare')"><span class="vocab-it">AFFITTARE</span><span class="vocab-ru">арендовать</span></div>
+      <div class="vocab-item" onclick="play('prenotare')"><span class="vocab-it">PRENOTARE</span><span class="vocab-ru">бронировать</span></div>
+      <div class="vocab-item" onclick="play('il volo')"><span class="vocab-it">IL VOLO</span><span class="vocab-ru">полёт, рейс</span></div>
+      <div class="vocab-item" onclick="play('traslocare')"><span class="vocab-it">TRASLOCARE</span><span class="vocab-ru">переезжать</span></div>
+      <div class="vocab-item" onclick="play('nessuno')"><span class="vocab-it">NESSUNO</span><span class="vocab-ru">никого / никто</span></div>
+    </div>
+  </div>
+
+  <div class="card cav">
+    <h3 style="margin-bottom:9px">🚪 USCIRE — выходить / гулять (неправильный)</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('io esco')"><span class="vocab-it">io <b>esco</b></span><span class="vocab-ru">я выхожу</span></div>
+      <div class="vocab-item" onclick="play('tu esci')"><span class="vocab-it">tu <b>esci</b></span><span class="vocab-ru">ты выходишь</span></div>
+      <div class="vocab-item" onclick="play('lui esce')"><span class="vocab-it">lui/lei <b>esce</b></span><span class="vocab-ru">он/она выходит</span></div>
+      <div class="vocab-item" onclick="play('noi usciamo')"><span class="vocab-it">noi <b>usciamo</b></span><span class="vocab-ru">мы выходим</span></div>
+      <div class="vocab-item" onclick="play('voi uscite')"><span class="vocab-it">voi <b>uscite</b></span><span class="vocab-ru">вы выходите</span></div>
+      <div class="vocab-item" onclick="play('loro escono')"><span class="vocab-it">loro <b>escono</b></span><span class="vocab-ru">они выходят</span></div>
+    </div>
+    <div class="tip">Passato: <i>sono uscito/a</i> (с essere). <i>Non esco mai!</i> — Я никогда не выхожу!</div>
+  </div>
+
+  <div class="card cab">
+    <h3 style="margin-bottom:9px">🔗 Союзы — congiunzioni</h3>
+    <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
+      <div class="vocab-item" onclick="play('perché')"><span class="vocab-it">perché</span><span class="vocab-ru">потому что / почему</span></div>
+      <div class="vocab-item" onclick="play('siccome')"><span class="vocab-it">siccome</span><span class="vocab-ru">так как (в начале)</span></div>
+      <div class="vocab-item" onclick="play('poiché')"><span class="vocab-it">poiché / dato che</span><span class="vocab-ru">поскольку</span></div>
+      <div class="vocab-item" onclick="play('appena')"><span class="vocab-it">appena</span><span class="vocab-ru">как только</span></div>
+      <div class="vocab-item" onclick="play('mentre')"><span class="vocab-it">mentre</span><span class="vocab-ru">пока / в то время как</span></div>
+      <div class="vocab-item" onclick="play('finché')"><span class="vocab-it">finché (non)</span><span class="vocab-ru">пока (не)</span></div>
+      <div class="vocab-item" onclick="play('dopo che')"><span class="vocab-it">dopo che</span><span class="vocab-ru">после того как</span></div>
+    </div>
+    <div class="tip tip-v"><strong>siccome / poiché / dato che</strong> ставятся в НАЧАЛЕ предложения (причина), <strong>perché</strong> — в середине. <i>Siccome fa caldo, resto a casa</i> = <i>Resto a casa perché fa caldo</i>.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:9px">💬 Диалог — отпуск</h3>
+    <div class="dialogo">
+      <div class="dl"><div class="sb"><div class="it">Com'è andata la vostra vacanza?</div><div class="ru">Как прошёл ваш отпуск?</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Bene! Siamo tornati oggi. Siamo partiti alle sei e abbiamo viaggiato per cinque ore.</div><div class="ru">Хорошо! Вернулись сегодня. Выехали в шесть и ехали пять часов.</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Ho acceso l'aria condizionata due settimane fa e non l'ho ancora spenta! Mi arriva una bolletta salata!</div><div class="ru">Я включил кондиционер две недели назад и ещё не выключил! Придёт большой счёт!</div></div></div>
+      <div class="dl"><div class="sb"><div class="it">Non esco mai perché fa molto caldo e non è possibile stare fuori!</div><div class="ru">Никогда не выхожу — очень жарко, невозможно быть на улице!</div></div></div>
+    </div>
+    <div class="tip"><b>una bolletta salata</b> — букв. «солёный счёт» = большой, кусачий счёт. 💸</div>
+  </div>
+</div>
+
 <script>
 // ══════════════════════════════════════
 // TTS ENGINE
@@ -1180,7 +1371,7 @@ function show(id){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406','irregolari','passato'];
+  const tabs=['greet','pronun','articoli','aggettivi','pronomi','essere','avere','domande','verbi','numeri','contrari','pogoda','andare','lezione1405','lezione2105','lezione2605','lezione2705','lezione0206','lezione0406','irregolari','passato','lezione2306','lezione2506','lezione3006'];
   document.querySelectorAll('.tab')[tabs.indexOf(id)].classList.add('active');
   if(id==='lezione1405') renderISC();
   if(id==='lezione2105') renderModali();
@@ -1391,11 +1582,11 @@ function renderModali(){
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px">
       <div style="background:var(--rosso-l);border-radius:10px;padding:11px;text-align:center">
         <div style="font-size:.66rem;color:var(--rosso);font-weight:800;text-transform:uppercase;margin-bottom:6px">С -ISC-</div>
-        <div style="font-family:'Playfair Display',serif;color:var(--rosso);font-size:.92rem;line-height:2">io cap<strong>isc</strong>o<br>tu cap<strong>isc</strong>i<br>lui cap<strong>isc</strong>e<br>loro cap<strong>isc</strong>ono</div>
+        <div style="font-family:'Fraunces',serif;color:var(--rosso);font-size:.92rem;line-height:2">io cap<strong>isc</strong>o<br>tu cap<strong>isc</strong>i<br>lui cap<strong>isc</strong>e<br>loro cap<strong>isc</strong>ono</div>
       </div>
       <div style="background:var(--verde-l);border-radius:10px;padding:11px;text-align:center">
         <div style="font-size:.66rem;color:var(--verde);font-weight:800;text-transform:uppercase;margin-bottom:6px">Без -ISC-</div>
-        <div style="font-family:'Playfair Display',serif;color:var(--verde);font-size:.92rem;line-height:2">noi cap<strong>iamo</strong><br>voi cap<strong>ite</strong><br><br><br></div>
+        <div style="font-family:'Fraunces',serif;color:var(--verde);font-size:.92rem;line-height:2">noi cap<strong>iamo</strong><br>voi cap<strong>ite</strong><br><br><br></div>
       </div>
     </div>
     <div class="tip car" style="margin-bottom:0"><strong>SC + I = [ши]</strong> · <strong>SC + E = [шэ]</strong><br>cap<strong>isc</strong>o → «капИШко» · cap<strong>isc</strong>i → «капИШи»</div>
@@ -1555,7 +1746,7 @@ function renderModali(){
 
 <!-- ══ УРОК 26/05 ══ -->
 <div class="section" id="lezione2605">
-  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 26/05 — НОВОЕ</div>
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#5a9e63)">📅 Урок 26/05 — НОВОЕ</div>
   <h2>C'È / CI SONO — есть / находится</h2>
 
   <div class="card cab">
@@ -1723,7 +1914,7 @@ function renderModali(){
 
 <!-- ══ УРОК 02/06 ══ -->
 <div class="section" id="lezione0206">
-  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#2d7a4f)">📅 Урок 02/06 — НОВОЕ</div>
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a3a28,#5a9e63)">📅 Урок 02/06 — НОВОЕ</div>
   <h2>Настоящее время · новые глаголы и лексика</h2>
 
   <!-- НАПОМИНАНИЕ -->
@@ -1777,7 +1968,7 @@ function renderModali(){
 
 <!-- ══ УРОК 04/06 ══ -->
 <div class="section" id="lezione0406">
-  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#3a1a55,#6040a0)">📅 Урок 04/06 — НОВОЕ</div>
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#3a1a55,#8a5a74)">📅 Урок 04/06 — НОВОЕ</div>
   <h2>Возвратные глаголы — Verbi riflessivi</h2>
 
   <!-- ПРАВИЛО -->
@@ -1838,7 +2029,7 @@ function renderModali(){
 
 <!-- ══ НЕПРАВИЛЬНЫЕ ГЛАГОЛЫ ══ -->
 <div class="section" id="irregolari">
-  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#2a1a55,#c0392b)">⚡ Неправильные глаголы — Verbi irregolari</div>
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#2a1a55,#c1553f)">⚡ Неправильные глаголы — Verbi irregolari</div>
   <h2>Спряжение в настоящем времени</h2>
   <div class="card cab">
     <div class="tip tip-v">Нажми на любую форму — услышишь произношение. 🟡 Жёлтым выделены формы, где меняется основа.</div>
@@ -1848,7 +2039,7 @@ function renderModali(){
 
 <!-- ══ PASSATO PROSSIMO (16/06) ══ -->
 <div class="section" id="passato">
-  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#7c3aed)">📅 Урок 16/06 — НОВОЕ</div>
+  <div class="lesson-badge bb" style="margin-top:10px;background:linear-gradient(135deg,#1a2855,#9a5f84)">📅 Урок 16/06 — НОВОЕ</div>
   <h2>Passato Prossimo — прошедшее время</h2>
 
   <div class="card cab">
@@ -1890,7 +2081,7 @@ function renderModali(){
   </div>
 
   <div class="card">
-    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#1a3a55,#2855a0);margin-bottom:10px">📅 ДЗ 18/06 — 30 причастий</div>
+    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#1a3a55,#3f726e);margin-bottom:10px">📅 ДЗ 18/06 — 30 причастий</div>
     <h3 style="margin-bottom:9px">📚 Неправильные причастия (с AVERE) — учим наизусть</h3>
     <div class="tip tip-v">Все идут с <strong>avere</strong>, причастие НЕ меняется: <i>ho fatto, abbiamo fatto, hanno fatto</i>. Нажми — озвучка.</div>
     <div class="vocab-grid" style="grid-template-columns:1fr 1fr">
@@ -1928,7 +2119,7 @@ function renderModali(){
   </div>
 
   <div class="card">
-    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#6040a0,#2855a0);margin-bottom:10px">🎯 Отработка причастий</div>
+    <div class="lesson-badge bb" style="background:linear-gradient(135deg,#8a5a74,#3f726e);margin-bottom:10px">🎯 Отработка причастий</div>
     <h3 style="margin-bottom:10px">🏋️ Тренажёр и тест — прямо здесь</h3>
     <div class="pp-w">
       <div class="pp-switch">

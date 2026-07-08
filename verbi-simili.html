@@ -4,36 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇮🇹 Verbi Simili</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f3ed;--card:#fff;--border:#e2dbd0;
-  --verde:#2d7a4f;--verde-l:#e8f5ee;
-  --rosso:#c0392b;--rosso-l:#fdecea;
+  --bg:#f7f3ed;--card:#fffdf8;--border:#e2dbd0;
+  --verde:#5a9e63;--verde-l:#e8f5ee;
+  --rosso:#c1553f;--rosso-l:#fdecea;
   --oro:#b8860b;--oro-l:#fdf5e0;
-  --blu:#2855a0;--blu-l:#e8eef8;
-  --viola:#6040a0;--viola-l:#f0eaf8;
+  --blu:#3f726e;--blu-l:#e8eef8;
+  --viola:#8a5a74;--viola-l:#f0eaf8;
   --arancio:#c06010;--arancio-l:#fef0e0;
   --testo:#2a2218;--muted:#887868;
   --shadow:0 2px 12px rgba(0,0,0,.09);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--testo);font-family:'Nunito',sans-serif;min-height:100vh;padding-bottom:80px}
+body{background:var(--bg);color:var(--testo);font-family:'Inter',sans-serif;min-height:100vh;padding-bottom:80px}
 
 header{background:linear-gradient(135deg,#1a2030,#2d4a6f 50%,#1a3a28);color:white;padding:20px 14px 15px;text-align:center;position:relative;overflow:hidden}
 header::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 22px,rgba(255,255,255,.03) 22px,rgba(255,255,255,.03) 23px)}
 .flag{font-size:1.5rem;margin-bottom:3px;position:relative}
-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;position:relative}
+header h1{font-family:'Fraunces',serif;font-size:clamp(1.3rem,4vw,2rem);font-weight:700;position:relative}
 header h1 em{font-style:italic;color:#f0d060}
 header p{margin-top:2px;font-size:.68rem;opacity:.75;position:relative;letter-spacing:.08em;text-transform:uppercase}
 
 .mn{display:flex;overflow-x:auto;background:#111;border-bottom:2px solid #333;position:sticky;top:0;z-index:200}
-.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Nunito',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
+.mnb{flex-shrink:0;padding:10px 11px;border:none;background:none;color:#666;font-family:'Inter',sans-serif;font-size:.66rem;font-weight:700;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;white-space:nowrap;text-align:center;line-height:1.3}
 .mnb.on{color:#f0d060;border-bottom-color:#f0d060}
 .mnb:hover:not(.on){color:#ccc}
 .sec{display:none}.sec.on{display:block}
 .sw{max-width:680px;margin:0 auto;padding:14px 13px 50px}
-h2{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:10px}
+h2{font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:10px}
 h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 
 /* PAIR CARDS */
@@ -42,7 +44,7 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .pair-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:10px}
 .pv-verb{text-align:center;background:var(--bg);border-radius:10px;padding:10px 8px;cursor:pointer;transition:all .15s;border:2px solid var(--border)}
 .pv-verb:hover{border-color:currentColor;opacity:.85}
-.pv-it{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:400;display:block;margin-bottom:2px}
+.pv-it{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:400;display:block;margin-bottom:2px}
 .pv-ru{font-size:.68rem;color:var(--muted);display:block}
 .pv-sep{font-size:1.3rem;color:var(--muted);font-weight:800;text-align:center}
 .pair-rule{font-size:.78rem;line-height:1.7;padding:10px 14px;background:var(--oro-l);border-top:1px solid #e8d88020}
@@ -57,7 +59,7 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .cc-row:last-child{border-bottom:none}
 .cc-row:hover{background:var(--bg)}
 .cc-pro{font-size:.6rem;color:var(--muted);font-weight:700;text-transform:uppercase;min-width:38px}
-.cc-form{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:400;flex:1}
+.cc-form{font-family:'Fraunces',serif;font-size:.95rem;font-weight:400;flex:1}
 .cc-irreg{font-weight:700}
 .cc-play{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.58rem;color:var(--muted);transition:all .15s;flex-shrink:0;margin-left:4px}
 .cc-play:hover,.cc-play.pl{border-color:var(--verde);color:var(--verde);background:var(--verde-l)}
@@ -66,19 +68,19 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .pl{animation:abp .7s infinite}
 
 /* EXAMPLES */
-.ex-list{padding:11px 14px;background:#faf8f4;border-top:1px solid var(--border)}
+.ex-list{padding:11px 14px;background:#faf5ec;border-top:1px solid var(--border)}
 .ex-item{display:flex;gap:8px;margin-bottom:8px;align-items:flex-start}
 .ex-item:last-child{margin-bottom:0}
 .ex-tag{font-size:.58rem;font-weight:800;padding:2px 7px;border-radius:99px;text-transform:uppercase;flex-shrink:0;margin-top:2px;letter-spacing:.04em}
 .ex-body{flex:1}
-.ex-it{font-family:'Playfair Display',serif;font-size:.92rem;font-style:italic;display:block;margin-bottom:1px;cursor:pointer;transition:color .15s}
+.ex-it{font-family:'Fraunces',serif;font-size:.92rem;font-style:italic;display:block;margin-bottom:1px;cursor:pointer;transition:color .15s}
 .ex-ru{font-size:.68rem;color:var(--muted);display:block}
 .ex-key{background:rgba(0,0,0,.08);border-radius:3px;padding:0 3px;font-style:normal;font-weight:700}
 
 /* QUIZ */
 .quiz-wrap{max-width:520px;margin:0 auto;padding:14px 13px 50px}
 .pair-filter{display:flex;gap:5px;flex-wrap:wrap;padding:8px 0 12px;justify-content:center}
-.pfb{background:var(--card);border:2px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 11px;font-family:'Nunito',sans-serif;font-size:.65rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
+.pfb{background:var(--card);border:2px solid var(--border);color:var(--muted);border-radius:99px;padding:4px 11px;font-family:'Inter',sans-serif;font-size:.65rem;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap}
 .pfb.on,.pfb:hover{border-color:var(--oro);color:var(--oro);background:var(--oro-l)}
 .qcard{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:20px 16px;box-shadow:var(--shadow);animation:fi .3s ease}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
@@ -88,17 +90,17 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .qmeta{display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap}
 .qnum{font-size:.63rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
 .qtag{border-radius:99px;padding:2px 9px;font-size:.61rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
-.qsent{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:9px;padding:11px 13px;margin-bottom:11px;line-height:1.7;border:1px solid var(--border)}
+.qsent{font-family:'Fraunces',serif;font-size:1.05rem;color:var(--testo);font-style:italic;background:var(--bg);border-radius:9px;padding:11px 13px;margin-bottom:11px;line-height:1.7;border:1px solid var(--border)}
 .blank{background:var(--blu-l);border-bottom:2px solid var(--blu);padding:0 6px;border-radius:4px;color:var(--blu);font-weight:700;font-style:normal}
 .qt{font-size:.92rem;font-weight:700;line-height:1.5;margin-bottom:11px}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.opt{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 8px;font-family:'Playfair Display',serif;font-size:1rem;cursor:pointer;transition:all .15s;text-align:center}
+.opt{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 8px;font-family:'Fraunces',serif;font-size:1rem;cursor:pointer;transition:all .15s;text-align:center}
 .opt:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l)}
 .opt.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .opt.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
 .opt:disabled{cursor:default}
 .opts2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.opt2{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 8px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;line-height:1.4}
+.opt2{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:12px 8px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;line-height:1.4}
 .opt2:hover:not(:disabled){border-color:var(--blu);background:var(--blu-l)}
 .opt2.correct{border-color:var(--verde);background:var(--verde-l);color:var(--verde)}
 .opt2.wrong{border-color:var(--rosso);background:var(--rosso-l);color:var(--rosso)}
@@ -107,12 +109,12 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 .fb.ok{background:var(--verde-l);border-left:4px solid var(--verde);color:#1a4020}
 .fb.err{background:var(--rosso-l);border-left:4px solid var(--rosso);color:#5a1010}
 .navrow{display:flex;gap:6px;margin-top:10px}
-.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
-.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
+.btn-next{flex:1;background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Inter',sans-serif;font-size:.84rem;font-weight:800;cursor:pointer;display:none}
+.btn-skip{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px 13px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted)}
 .res-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:24px 18px;text-align:center;box-shadow:var(--shadow)}
-.res-num{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;line-height:1}
-.btn-r{background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
-.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Nunito',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
+.res-num{font-family:'Fraunces',serif;font-size:4.5rem;font-weight:700;line-height:1}
+.btn-r{background:linear-gradient(135deg,var(--blu),var(--verde));color:white;border:none;border-radius:10px;padding:11px;font-family:'Inter',sans-serif;font-size:.86rem;font-weight:800;cursor:pointer;width:100%;margin-bottom:6px}
+.btn-b{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:10px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;width:100%;color:var(--testo)}
 .divider{height:1px;background:var(--border);margin:10px 0}
 .cat-grid{display:grid;gap:5px;margin-bottom:12px;text-align:left}
 .cat-row{display:flex;align-items:center;gap:8px}
@@ -136,25 +138,25 @@ h3{font-size:.9rem;font-weight:800;margin-bottom:8px}
 
 <!-- API PANEL -->
 <div id="ap" style="background:#0d1117;border-bottom:2px solid #1a3a22;padding:9px 13px">
-  <div style="font-size:.72rem;color:#c9a84c;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px">
+  <div style="font-size:.72rem;color:#d9a441;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:6px">
     <div id="adot" style="width:6px;height:6px;border-radius:50%;background:#555;flex-shrink:0"></div>
     <span id="atext">🔊 Подключи Google TTS — нажимай на любую форму или пример</span>
   </div>
   <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-    <input id="akey" type="password" placeholder="Google API ключ..." style="flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Nunito',sans-serif;font-size:.72rem;padding:6px 9px;outline:none">
-    <button onclick="ck()" style="background:#2d7a4f;border:none;border-radius:6px;color:white;font-family:'Nunito',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer">Подключить</button>
-    <button id="axb" onclick="ckx()" style="display:none;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Nunito',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer">✕</button>
+    <input id="akey" type="password" placeholder="Google API ключ..." style="flex:1;min-width:130px;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#f0ebe3;font-family:'Inter',sans-serif;font-size:.72rem;padding:6px 9px;outline:none">
+    <button onclick="ck()" style="background:#5a9e63;border:none;border-radius:6px;color:white;font-family:'Inter',sans-serif;font-size:.7rem;font-weight:700;padding:6px 11px;cursor:pointer">Подключить</button>
+    <button id="axb" onclick="ckx()" style="display:none;background:#1a2020;border:1px solid #2a3a2a;border-radius:6px;color:#889;font-family:'Inter',sans-serif;font-size:.7rem;padding:6px 8px;cursor:pointer">✕</button>
   </div>
   <div id="ks" style="font-size:.64rem;margin-top:3px;min-height:12px"></div>
   <div id="vss" style="display:none;margin-top:4px">
     <div style="display:flex;gap:4px;flex-wrap:wrap">
-      <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #2d7a4f;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#5ac4a0;cursor:pointer;font-family:'Nunito',sans-serif">Wavenet A ♀</div>
-      <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif">Wavenet C ♂</div>
-      <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Nunito',sans-serif">Standard A</div>
+      <div class="vchip on" data-voice="it-IT-Wavenet-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #5a9e63;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#7fbf7a;cursor:pointer;font-family:'Inter',sans-serif">Wavenet A ♀</div>
+      <div class="vchip" data-voice="it-IT-Wavenet-C" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Inter',sans-serif">Wavenet C ♂</div>
+      <div class="vchip" data-voice="it-IT-Standard-A" onclick="sv(this)" style="background:#1a2020;border:1px solid #2a3a2a;border-radius:99px;padding:2px 7px;font-size:.6rem;color:#778;cursor:pointer;font-family:'Inter',sans-serif">Standard A</div>
     </div>
   </div>
   <div id="ahint" style="font-size:.62rem;color:#667;margin-top:4px;line-height:1.5">
-    Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#c9a84c;text-decoration:none">console.cloud.google.com</a> → Cloud TTS → Create API Key → <a href="https://app.netlify.com/drop" target="_blank" style="color:#c9a84c;text-decoration:none">Netlify</a>.
+    Тот же ключ что в конспекте. <a href="https://console.cloud.google.com/apis/credentials" target="_blank" style="color:#d9a441;text-decoration:none">console.cloud.google.com</a> → Cloud TTS → Create API Key → <a href="https://app.netlify.com/drop" target="_blank" style="color:#d9a441;text-decoration:none">Netlify</a>.
   </div>
 </div>
 
@@ -962,7 +964,7 @@ function showResult(){
       <div style="font-size:.8rem;color:var(--muted);margin-bottom:11px">${qState.score} из ${total} правильно</div>
       <div style="font-size:.9rem;line-height:1.7;margin-bottom:12px">${msg}</div>
       <div class="divider"></div>
-      <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📊 По парам</div>
+      <div style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:8px">📊 По парам</div>
       <div class="cat-grid">
         ${Object.entries(cats).map(([name,{t,c}])=>{
           const p=Math.round(c/t*100);
@@ -976,7 +978,7 @@ function showResult(){
       </div>
       ${wrong.length>0?`
       <div class="divider"></div>
-      <div style="font-family:'Playfair Display',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
+      <div style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:8px">📋 Ошибки</div>
       <div style="display:grid;gap:4px;margin-bottom:14px;text-align:left">
         ${wrong.map(({q,chosen})=>`
           <div style="background:var(--rosso-l);border-radius:7px;padding:6px 10px;font-size:.74rem;font-weight:600;color:#5a1010">${q.q.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}</div>
@@ -998,7 +1000,7 @@ function sv(chip){
   document.querySelectorAll('.vchip').forEach(c=>{
     c.style.borderColor='#2a3a2a';c.style.color='#778';
   });
-  chip.style.borderColor='#2d7a4f';chip.style.color='#5ac4a0';
+  chip.style.borderColor='#5a9e63';chip.style.color='#7fbf7a';
   ttsVoice=chip.dataset.voice;
   Object.keys(ttsCache).forEach(k=>delete ttsCache[k]);
 }
@@ -1043,7 +1045,7 @@ async function ck(){
     const d=await r.json();
     ttsCache['ciao']=d.audioContent;
     ttsKey=k;
-    document.getElementById('adot').style.background='#5ac4a0';
+    document.getElementById('adot').style.background='#7fbf7a';
     document.getElementById('atext').textContent='✅ Нажимай 🔊 на любую форму или пример!';
     document.getElementById('ap').style.borderColor='#2a5a2a';
     document.getElementById('axb').style.display='block';
@@ -1074,7 +1076,7 @@ function ckx(){
 
 function setKS(m,t){
   const el=document.getElementById('ks');
-  if(el){el.textContent=m;el.style.color=t==='ok'?'#5ac4a0':t==='err'?'#e07070':'';}
+  if(el){el.textContent=m;el.style.color=t==='ok'?'#7fbf7a':t==='err'?'#d17a54':'';}
 }
 
 // AUTO-ATTACH audio buttons to all conjugation rows and examples
