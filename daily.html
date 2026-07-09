@@ -168,12 +168,36 @@ function todayKey(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()
 function seedFromDate(d){return d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();}
 
 /* ═══════════ ИГРА ═══════════ */
-const now=new Date();
-const dayKey=todayKey(now);
+let now=new Date();
+let dayKey=todayKey(now);
 let QS=buildDaily(seedFromDate(now));
-let idx=0,score=0,answered=false;const results=[];
+let idx=0,score=0,answered=false;let results=[];
 const monthNames=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
-document.getElementById('today').textContent=now.getDate()+' '+monthNames[now.getMonth()]+' '+now.getFullYear();
+
+function setDateLabel(){document.getElementById('today').textContent=now.getDate()+' '+monthNames[now.getMonth()]+' '+now.getFullYear();}
+setDateLabel();
+
+/* Перезапуск на новый день: пересчитывает дату/набор вопросов и сбрасывает игру.
+   Вызывается при первой загрузке и при каждом возврате на вкладку (см. ниже) —
+   на случай, если страница не была полностью перезагружена и "заснула" на вчерашней дате. */
+function initDay(force){
+  const freshNow=new Date();
+  const freshKey=todayKey(freshNow);
+  if(!force && freshKey===dayKey)return; // день не изменился — ничего не делаем
+  now=freshNow;dayKey=freshKey;
+  QS=buildDaily(seedFromDate(now));
+  idx=0;score=0;answered=false;results=[];
+  setDateLabel();
+  render();
+  refreshStatsUI();
+  if(!force)toast('📅 Новый день — новое задание!');
+}
+
+/* Проверяем смену дня при возврате на вкладку (в т.ч. восстановление из bfcache на мобильных,
+   когда страница не перезагружается заново, а просто "оживает") */
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')initDay(false);});
+window.addEventListener('pageshow',()=>{initDay(false);});
+window.addEventListener('focus',()=>{initDay(false);});
 
 function refreshStatsUI(){
   const s=loadStats();
