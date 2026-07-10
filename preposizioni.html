@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Preposizioni · Предлоги места</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--blu:#4a8fd0;--green-bg:rgba(45,122,79,.16);--red-bg:rgba(192,57,43,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'📍';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.5rem,5vw,2.4rem);color:var(--gold2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Playfair Display',serif;position:relative}
+#api{background:#0e1422;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.64rem;color:#667;margin-top:5px}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:800;font-size:.86rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card2c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card2c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.card2c h3{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin-bottom:10px}
+.assoc{font-size:.86rem;color:var(--gold);font-style:italic;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:8px 12px;margin:10px 0;line-height:1.5}
+.assoc b{color:var(--gold2)}
+.ruletab{width:100%;border-collapse:collapse;margin-top:8px;font-size:.9rem}
+.ruletab td,.ruletab th{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.ruletab th{background:var(--card2);color:var(--gold);font-size:.76rem;text-transform:uppercase;letter-spacing:.03em}
+.ruletab .a{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold2);white-space:nowrap}
+.ruletab .ex{color:var(--muted);font-size:.84rem}
+.note{margin-top:10px;font-size:.84rem;color:#cabfd8;background:rgba(155,127,224,.08);border-left:3px solid var(--viola);padding:7px 11px;border-radius:0 8px 8px 0;line-height:1.55}
+.note b{color:var(--gold2)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip2{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:6px 11px;cursor:pointer;font-size:.9rem}
+.chip2:hover{border-color:var(--gold)}
+.chip2 b{font-family:'Playfair Display',serif;color:var(--gold2)}
+.chip2 .r{color:var(--muted);font-size:.78rem;margin-left:4px}
+/* тренажёр/тест */
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
+.prog .n{font-weight:800;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--green)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:210px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.card .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.card .cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Playfair Display',serif;margin-bottom:4px}
+.card .big-q{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--txt);line-height:1.4}
+.card .big-q .bl{color:var(--gold);border-bottom:2px dashed var(--gold);padding:0 8px;min-width:50px;display:inline-block}
+.card .big-q small{display:block;color:var(--muted);font-size:.82rem;font-weight:400;margin-top:6px}
+.card .ans{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--green);margin-top:12px;display:none}
+.card .ans.show{display:block;animation:pop .25s}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1}}
+.card .ans .spk{cursor:pointer;color:var(--viola);margin-left:6px;font-size:1rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:10px 18px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;transition:.15s}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Nunito';font-size:.78rem}
+.sub button:hover{color:var(--gold)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--green)}
+.q .qt{font-size:1.05rem;line-height:1.7}.q .qt .ru{display:block;color:var(--muted);font-size:.8rem;font-style:italic;margin-top:1px}
+.gap{display:inline-block;min-width:48px;text-align:center;border-bottom:2px dashed var(--gold);color:var(--muted);padding:0 5px;font-weight:800;letter-spacing:2px}
+.gap.f{color:var(--green);border-bottom-style:solid;border-color:var(--green);letter-spacing:0}.gap.w{color:var(--red);border-bottom-style:solid;border-color:var(--red);letter-spacing:0}
+.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qo{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:7px 14px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1rem}
+.qo:hover{border-color:var(--gold);color:var(--gold2)}.qo.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}.qo.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.tsec{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin:18px 0 9px}
+.spk2{background:none;border:none;color:var(--viola);cursor:pointer;font-size:.95rem}
+.bigbtn{display:inline-block;margin-top:14px;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Nunito';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+.bigbtn:hover{border-color:var(--gold);color:var(--gold2)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#0d1117;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Preposizioni di luogo</h1>
+  <p>Предлоги места — a · in · da · su</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('rules',this)">📖 Правила</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
+  </div>
+
+  <!-- ПРАВИЛА -->
+  <div class="tab on" id="rules">
+    <div class="card2c">
+      <h3>🅰️ A или IN — главное правило</h3>
+      <div class="assoc">💡 <b>A</b> — маленькое (город). <b>IN</b> — большое (страна, регион). «А-город, ИН-страна».</div>
+      <table class="ruletab">
+        <tr><th>Предлог</th><th>Когда</th><th>Примеры</th></tr>
+        <tr><td class="a">a</td><td>город, маленький остров</td><td class="ex">a Roma, a Milano, a Capri</td></tr>
+        <tr><td class="a">in</td><td>страна, регион, большой остров, континент</td><td class="ex">in Italia, in Toscana, in Sicilia, in Europa</td></tr>
+      </table>
+    </div>
+
+    <div class="card2c">
+      <h3>🏠 A и IN с местами (без артикля)</h3>
+      <div class="note">Часть мест идёт с <b>a</b>, часть с <b>in</b> — это надо запомнить. Нажми на любое — услышишь.</div>
+      <div style="margin-top:8px"><b style="color:var(--green)">A:</b><div class="chips" id="chipsA"></div></div>
+      <div style="margin-top:10px"><b style="color:var(--blu)">IN:</b><div class="chips" id="chipsIn"></div></div>
+      <div class="note">⚠️ <b>a casa</b> = дома (идти/быть). <b>in casa</b> = внутри дома. Чаще всего «домой/дома» → <b>a casa</b>.</div>
+    </div>
+
+    <div class="card2c">
+      <h3>👤 DA — «к кому-то» и «откуда»</h3>
+      <div class="assoc">💡 <b>DA</b> + человек = «к / у кого-то». И <b>DA</b> = «из / от» (откуда).</div>
+      <div class="chips" id="chipsDa"></div>
+      <table class="ruletab" style="margin-top:10px">
+        <tr><td class="a">da + человек</td><td class="ex">Vado dal medico — иду к врачу · Sono da Marco — я у Марко</td></tr>
+        <tr><td class="a">da (откуда)</td><td class="ex">Vengo da Roma — я из Рима · Torno dal lavoro — с работы</td></tr>
+        <tr><td class="a">di casa</td><td class="ex">Esco di casa — выхожу из дома (устойчиво di!)</td></tr>
+      </table>
+    </div>
+
+    <div class="card2c">
+      <h3>🧭 Положение в пространстве</h3>
+      <div class="chips" id="chipsPos"></div>
+    </div>
+
+    <div class="card2c">
+      <h3>🔗 Предлог + артикль = слитно</h3>
+      <div class="assoc">💡 Предлог «прилипает» к артиклю: a+il=<b>al</b>, in+il=<b>nel</b>, su+il=<b>sul</b>, da+il=<b>dal</b>.</div>
+      <table class="ruletab">
+        <tr><th></th><th>il</th><th>lo</th><th>l'</th><th>la</th><th>i</th><th>gli</th><th>le</th></tr>
+        <tr><td class="a">a</td><td>al</td><td>allo</td><td>all'</td><td>alla</td><td>ai</td><td>agli</td><td>alle</td></tr>
+        <tr><td class="a">in</td><td>nel</td><td>nello</td><td>nell'</td><td>nella</td><td>nei</td><td>negli</td><td>nelle</td></tr>
+        <tr><td class="a">su</td><td>sul</td><td>sullo</td><td>sull'</td><td>sulla</td><td>sui</td><td>sugli</td><td>sulle</td></tr>
+        <tr><td class="a">da</td><td>dal</td><td>dallo</td><td>dall'</td><td>dalla</td><td>dai</td><td>dagli</td><td>dalle</td></tr>
+      </table>
+      <div class="note">Пример: <i>al mare</i> (a+il), <i>nel centro</i> (in+il), <i>sul tavolo</i> (su+il), <i>dal medico</i> (da+il).</div>
+    </div>
+  </div>
+
+  <!-- ТРЕНАЖЁР -->
+  <div class="tab" id="train">
+    <div class="modes" id="trmodes">
+      <button class="nb on" style="font-size:.74rem;padding:7px 12px" onclick="setTM('fill',this)">✏️ Вставь предлог</button>
+      <button class="nb" style="font-size:.74rem;padding:7px 12px" onclick="setTM('merge',this)">🔗 Предлог+артикль</button>
+      <button class="nb" style="font-size:.74rem;padding:7px 12px" onclick="setTM('audio',this)">🎧 на слух</button>
+    </div>
+    <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="card" id="card"></div>
+    <div class="sub"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <!-- ТЕСТ -->
+  <div class="tab" id="test">
+    <div class="prog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div style="text-align:center"><button class="bigbtn" onclick="buildTest()">↺ Заново</button></div>
+  </div>
+
+  <footer>Предлоги места · озвучка Neural2 · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* места с фиксированным предлогом: [фраза, предлог, перевод] */
+const PLACES_A=[
+ ['a casa','a','дома / домой'],['a scuola','a','в школу/школе'],['a teatro','a','в театр'],['a letto','a','в постель'],
+ ['a tavola','a','за стол(ом)'],['al lavoro','a','на работе'],['al mare','a','на море'],['al cinema','a','в кино'],
+ ['al ristorante','a','в ресторане'],['al bar','a','в баре'],['al supermercato','a','в супермаркете'],
+];
+const PLACES_IN=[
+ ['in casa','in','внутри дома'],['in ufficio','in','в офисе'],['in cucina','in','на кухне'],['in camera','in','в комнате'],
+ ['in bagno','in','в туалете'],['in classe','in','в классе'],['in città','in','в городе'],['in centro','in','в центре'],
+ ['in montagna','in','в горах'],['in campagna','in','за городом'],['in piazza','in','на площади'],['in chiesa','in','в церкви'],
+ ['in banca','in','в банке'],['in farmacia','in','в аптеке'],['in biblioteca','in','в библиотеке'],
+];
+const PLACES_DA=[
+ ['dal medico','da','к врачу'],['dal dentista','da','к зубному'],['dai nonni','da','к бабушке с дедушкой'],['da Marco','da','к Марко / у Марко'],
+];
+const PLACES_POS=[
+ ['su / sul','su','на (поверхности): sul tavolo'],['sotto','sotto','под: sotto il letto'],['sopra','sopra','над: sopra l\u2019armadio'],
+ ['davanti a','davanti a','перед: davanti alla scuola'],['dietro','dietro','за: dietro la casa'],['vicino a','vicino a','рядом с: vicino al parco'],
+ ['lontano da','lontano da','далеко от'],['tra / fra','tra','между: tra la banca e il bar'],['dentro','dentro','внутри'],['fuori','fuori','снаружи'],
+];
+// для тренажёра a/in: города и страны
+const GEO=[
+ ['Roma','a','город'],['Milano','a','город'],['Napoli','a','город'],['Parigi','a','город'],['Mosca','a','город'],['Kiev','a','город'],['Londra','a','город'],['Capri','a','остров'],
+ ['Italia','in','страна'],['Francia','in','страна'],['Polonia','in','страна'],['Ucraina','in','страна'],['Spagna','in','страна'],['Germania','in','страна'],['Toscana','in','регион'],['Sicilia','in','остров'],['Europa','in','континент'],
+];
+// слитные формы: [предлог, артикль, результат, существительное, перевод]
+const MERGE=[
+ ['a','il','al','mare','на море'],['in','il','nel','centro','в центре'],['su','il','sul','tavolo','на столе'],['da','il','dal','medico','к врачу'],
+ ['a','la','alla','stazione','на станцию'],['in','la','nella','cucina','на кухне'],['su','la','sulla','sedia','на стуле'],['a','i','ai','nonni','к бабушке с дедушкой'],
+ ['in','i','nei','negozi','в магазинах'],['su','gli','sugli','scaffali','на полках'],['a','le','alle','otto','в восемь'],['da','la','dalla','finestra','от окна'],
+];
+
+/* TTS Neural2 */
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/'/g,"\\'");}
+
+function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
+
+/* чипы в правилах */
+function chip(p){return `<span class="chip2" onclick="speak('${sp(p[0])}')"><b>${esc(p[0])}</b><span class="r">${esc(p[2])}</span></span>`;}
+function renderRules(){
+  document.getElementById('chipsA').innerHTML=PLACES_A.map(chip).join('');
+  document.getElementById('chipsIn').innerHTML=PLACES_IN.map(chip).join('');
+  document.getElementById('chipsDa').innerHTML=PLACES_DA.map(chip).join('');
+  document.getElementById('chipsPos').innerHTML=PLACES_POS.map(p=>`<span class="chip2" onclick="speak('${sp(p[0].split(' / ')[0])}')"><b>${esc(p[0])}</b><span class="r">${esc(p[2])}</span></span>`).join('');
+}
+
+/* ТРЕНАЖЁР */
+let tMode='fill',curT=null,okC=0,streak=0,total=0;
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');nextT();}
+function nextT(){
+  const c=document.getElementById('card');
+  if(tMode==='fill'){
+    // a/in: город или страна (+ несколько da)
+    const pool=GEO.concat([['Marco','da','человек'],['medico','da','к врачу (dal)']]);
+    const g=pool[Math.floor(Math.random()*pool.length)];curT={type:'fill',g};
+    const word=g[0];const corr=g[1];
+    const opts=shuffle(['a','in','da'].filter((x,i)=>true)).slice(0,3);
+    if(!opts.includes(corr))opts[0]=corr;
+    c.innerHTML=`<span class="tag">a / in / da</span>
+      <div class="big-q"><span class="bl">?</span> ${esc(word)}<small>${esc(g[2])}</small></div>
+      <div class="cue">какой предлог?</div>
+      <div class="opts">${shuffle(opts).map(o=>`<button class="opt" onclick="gradePrep(this,'${o}','${corr}','${sp((corr==='a'&&/^[A-Z]/.test(word)?'a ':corr+' ')+word)}')">${o}</button>`).join('')}</div>`;
+  } else if(tMode==='merge'){
+    const m=MERGE[Math.floor(Math.random()*MERGE.length)];curT={type:'merge',m};
+    const [prep,art,res,noun,ru]=m;
+    const opts=shuffle([res].concat(shuffle(MERGE.filter(x=>x[2]!==res)).slice(0,3).map(x=>x[2])));
+    c.innerHTML=`<span class="tag">предлог + артикль</span>
+      <div class="big-q">${esc(prep)} + ${esc(art)} + ${esc(noun)}<small>${esc(ru)}</small></div>
+      <div class="cue">слитная форма?</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="gradePrep(this,'${o}','${res}','${sp(res+' '+noun)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='audio'){
+    const all=PLACES_A.concat(PLACES_IN).concat(PLACES_DA);
+    const p=all[Math.floor(Math.random()*all.length)];curT={type:'audio',p};
+    const opts=shuffle([p].concat(shuffle(all.filter(x=>x[2]!==p[2])).slice(0,3)));
+    c.innerHTML=`<span class="tag">🎧 на слух</span><div class="cue">послушай и выбери перевод</div>
+      <button class="bigb rev" style="background:var(--gold);color:#0d1117;border:none;border-radius:12px;font-weight:800;flex:none;width:auto;margin:8px auto 0;padding:12px 22px;cursor:pointer" onclick="speak('${sp(p[0])}')">▶ Повторить</button>
+      <div class="opts" style="margin-top:14px">${opts.map(o=>`<button class="opt" style="font-size:.95rem" onclick="gradeAudio(this,'${sp(o[2])}','${sp(p[2])}')">${esc(o[2])}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(p[0]),250);
+  }
+}
+function gradePrep(btn,chosen,correct,say){
+  const good=norm(chosen)===norm(correct);speak(say);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),800);
+}
+function gradeAudio(btn,chosen,correct){
+  const good=norm(chosen)===norm(correct);speak(curT.p[0]);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),800);
+}
+function grade(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;document.getElementById('fill').style.width=(total?okC/total*100:0)+'%';
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';nextT();toast('Сброшено');}
+
+/* ТЕСТ */
+let testBuilt=false,tTotal=0;const tDone=new Set();
+function buildTest(){
+  testBuilt=true;tTotal=0;tDone.clear();
+  // A: a/in/da с гео и местами
+  const selA=shuffle(GEO).slice(0,6).concat([['casa','a','дома'],['medico','da','к врачу']]);
+  let a=shuffle(selA).map((g,i)=>{tTotal++;const k='a'+i;const word=g[0];const corr=g[1];
+    const phrase=(corr==='a'?'a ':corr+' ')+word;
+    const opts=shuffle(['a','in','da']);
+    return `<div class="q" id="q_${k}"><div class="qt"><span class="gap" id="g_${k}">?</span> ${esc(word)} <button class="spk2" onclick="speak('${sp(phrase)}')">🔊</button><span class="ru">${esc(g[2])}</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${o}','${corr}','${sp(phrase)}')">${o}</button>`).join('')}</div></div>`;}).join('');
+  // B: слитные формы
+  const selB=shuffle(MERGE).slice(0,7);
+  let b=selB.map((m,i)=>{tTotal++;const k='b'+i;const [prep,art,res,noun,ru]=m;
+    const opts=shuffle([res].concat(shuffle(MERGE.filter(x=>x[2]!==res)).slice(0,3).map(x=>x[2])));
+    return `<div class="q" id="q_${k}"><div class="qt">${esc(prep)} + ${esc(art)} → <span class="gap" id="g_${k}">?</span> ${esc(noun)} <button class="spk2" onclick="speak('${sp(res+' '+noun)}')">🔊</button><span class="ru">${esc(ru)}</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${o}','${res}','${sp(res+' '+noun)}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  document.getElementById('testbody').innerHTML=`<div class="tsec">A · Какой предлог? (a / in / da)</div>${a}<div class="tsec">B · Предлог + артикль</div>${b}`;
+  document.getElementById('ttot').textContent=tTotal;document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansT(k,btn,chosen,correct,say){
+  speak(say);const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+k+' .qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(norm(x.textContent)===norm(correct))x.classList.add('ok');});}
+  const gap=document.getElementById('g_'+k);gap.textContent=chosen;gap.className='gap '+(good?'f':'w');
+  document.getElementById('q_'+k).classList.toggle('ok',good);
+  document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tDone.size/tTotal*100)+'%';
+  if(tDone.size===tTotal)toast('🎉 Tutto giusto!');
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderRules();
+</script>
+</body>
+</html>

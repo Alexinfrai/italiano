@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Dimostrativi · questo / quello</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1b2230;--line:#21262d;--txt:#f0ebe3;--muted:#7d8694;--gold:#c9a84c;--gold2:#e0c068;--green:#5ac4a0;--red:#e07070;--viola:#9b7fe0;--blu:#4a8fd0;--green-bg:rgba(45,122,79,.16);--red-bg:rgba(192,57,43,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Nunito',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#0d1117,#1a2855 55%,#2d1a55);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'👉';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.6rem,5vw,2.5rem);color:var(--gold2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Playfair Display',serif;position:relative}
+#api{background:#0e1422;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Nunito'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#1a0f2a;font-weight:800;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:#1b2230;border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--green)}#st.err{color:var(--red)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#556;margin-right:5px}.dot.on{background:var(--green)}
+.hint{font-size:.64rem;color:#667;margin-top:5px}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:800;font-size:.86rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--viola);border-color:var(--viola);color:#1a0f2a}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card2c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card2c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.card2c h3{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.12rem;margin-bottom:10px}
+.assoc{font-size:.86rem;color:var(--gold);font-style:italic;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);border-radius:8px;padding:8px 12px;margin:10px 0;line-height:1.5}
+.grid4{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.cell{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer}
+.cell:hover{border-color:var(--gold)}
+.cell .f{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold2);font-size:1.1rem}
+.cell .d{color:var(--muted);font-size:.78rem;margin-top:1px}
+.ruletab{width:100%;border-collapse:collapse;margin-top:8px;font-size:.9rem}
+.ruletab td,.ruletab th{border:1px solid var(--line);padding:7px 9px;text-align:left}
+.ruletab th{background:var(--card2);color:var(--gold);font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+.ruletab .a{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold2)}
+.ruletab .ex{color:var(--muted);font-size:.82rem}
+.note{margin-top:10px;font-size:.84rem;color:#cabfd8;background:rgba(155,127,224,.08);border-left:3px solid var(--viola);padding:7px 11px;border-radius:0 8px 8px 0;line-height:1.55}
+.note b{color:var(--gold2)}
+/* список примеров */
+.ph{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;box-shadow:var(--shadow)}
+.ph .pair{flex:1}
+.ph .sg{font-family:'Playfair Display',serif;font-weight:700;color:var(--gold2);font-size:1.05rem}
+.ph .ar{color:var(--muted);margin:0 7px}
+.ph .pl{font-family:'Playfair Display',serif;font-weight:700;color:var(--green);font-size:1.05rem}
+.ph .ru{display:block;color:var(--muted);font-size:.78rem;margin-top:1px}
+.ph .spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:1.05rem;opacity:.7}
+/* тренажёр/тест общие */
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:.4s}
+.prog .n{font-weight:800;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--green)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--viola))}
+.card .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.card .cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Playfair Display',serif;margin-bottom:4px}
+.card .big-q{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;color:var(--txt)}
+.card .big-q small{display:block;color:var(--muted);font-size:.85rem;font-weight:400;margin-top:2px}
+.card .ans{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--green);margin-top:12px;display:none}
+.card .ans.show{display:block;animation:pop .25s}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1}}
+.card .ans .spk{cursor:pointer;color:var(--viola);margin-left:6px;font-size:1rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:10px 16px;border-radius:10px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;transition:.15s}
+.opt:hover{border-color:var(--gold);color:var(--gold2)}
+.opt.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}
+.opt.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.btns{display:flex;gap:10px;margin-top:16px}
+.bigb{flex:1;border:none;border-radius:12px;font-family:'Nunito';font-weight:800;font-size:1rem;padding:14px;cursor:pointer;transition:.15s}
+.bigb.rev{background:var(--gold);color:#0d1117}.bigb.rev:hover{background:var(--gold2)}
+.bigb.no{background:var(--red-bg);color:var(--red);border:1px solid var(--red)}
+.bigb.ok{background:var(--green-bg);color:var(--green);border:1px solid var(--green)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Nunito';font-size:.78rem}
+.sub button:hover{color:var(--gold)}
+/* тест */
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--green)}
+.q .qt{font-size:1.05rem;line-height:1.7}.q .qt .ru{display:block;color:var(--muted);font-size:.8rem;font-style:italic;margin-top:1px}
+.gap{display:inline-block;min-width:60px;text-align:center;border-bottom:2px dashed var(--gold);color:var(--muted);padding:0 5px;font-weight:800;letter-spacing:2px}
+.gap.f{color:var(--green);border-bottom-style:solid;border-color:var(--green);letter-spacing:0}.gap.w{color:var(--red);border-bottom-style:solid;border-color:var(--red);letter-spacing:0}
+.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qo{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:7px 13px;border-radius:9px;cursor:pointer;font-family:'Playfair Display',serif;font-weight:700;font-size:.98rem}
+.qo:hover{border-color:var(--gold);color:var(--gold2)}.qo.ok{background:var(--green-bg);border-color:var(--green);color:var(--green)}.qo.no{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+.tsec{font-family:'Playfair Display',serif;color:var(--gold2);font-size:1.1rem;margin:18px 0 9px}
+.spk2{background:none;border:none;color:var(--viola);cursor:pointer;font-size:.95rem}
+.bigbtn{display:inline-block;margin-top:14px;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Nunito';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+.bigbtn:hover{border-color:var(--gold);color:var(--gold2)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--gold)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--gold);color:#0d1117;font-weight:800;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Dimostrativi</h1>
+  <p>questo / quello — это и тот</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('rules',this)">📖 Правила</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
+  </div>
+
+  <!-- ПРАВИЛА -->
+  <div class="tab on" id="rules">
+    <div class="card2c">
+      <h3>📍 questo и quello — в чём разница</h3>
+      <div class="assoc">💡 <b>QUESTO</b> = это, рядом (как <b>QUI</b> — «здесь»). <b>QUELLO</b> = тот, далеко (как <b>là</b> — «там»). Куэсто — тут, куэлло — вон там.</div>
+      <div class="grid4">
+        <div class="cell" onclick="speak('questo')"><div class="f">questo</div><div class="d">это / этот (м. ед.)</div></div>
+        <div class="cell" onclick="speak('questa')"><div class="f">questa</div><div class="d">эта (ж. ед.)</div></div>
+        <div class="cell" onclick="speak('questi')"><div class="f">questi</div><div class="d">эти (м. мн.)</div></div>
+        <div class="cell" onclick="speak('queste')"><div class="f">queste</div><div class="d">эти (ж. мн.)</div></div>
+        <div class="cell" onclick="speak('quello')"><div class="f">quello</div><div class="d">тот (м. ед.)</div></div>
+        <div class="cell" onclick="speak('quella')"><div class="f">quella</div><div class="d">та (ж. ед.)</div></div>
+        <div class="cell" onclick="speak('quelli')"><div class="f">quelli</div><div class="d">те (м. мн.)</div></div>
+        <div class="cell" onclick="speak('quelle')"><div class="f">quelle</div><div class="d">те (ж. мн.)</div></div>
+      </div>
+      <div class="note">Эти формы — когда местоимение стоит <b>отдельно</b>: <i>Voglio questo</i> (хочу это), <i>Prendo quello</i> (беру тот).</div>
+    </div>
+
+    <div class="card2c">
+      <h3>⚙️ quello перед существительным — как артикль!</h3>
+      <div class="assoc">💡 <b>quello</b> меняется точно как определённый артикль: il→<b>quel</b>, lo→<b>quello</b>, l'→<b>quell'</b>, i→<b>quei</b>, gli→<b>quegli</b>, la→<b>quella</b>, le→<b>quelle</b>.</div>
+      <table class="ruletab">
+        <tr><th>Форма</th><th>Когда</th><th>Пример</th></tr>
+        <tr><td class="a">quel</td><td>м.ед. + согласная</td><td class="ex">quel ragazzo</td></tr>
+        <tr><td class="a">quello</td><td>м.ед. + s+согл., z, gn, ps</td><td class="ex">quello studente</td></tr>
+        <tr><td class="a">quell'</td><td>м./ж.ед. + гласная</td><td class="ex">quell'amico, quell'amica</td></tr>
+        <tr><td class="a">quei</td><td>м.мн. + согласная</td><td class="ex">quei ragazzi</td></tr>
+        <tr><td class="a">quegli</td><td>м.мн. + гласная / s+согл., z</td><td class="ex">quegli amici</td></tr>
+        <tr><td class="a">quella</td><td>ж.ед. + согласная</td><td class="ex">quella ragazza</td></tr>
+        <tr><td class="a">quelle</td><td>ж.мн. (всегда)</td><td class="ex">quelle ragazze</td></tr>
+      </table>
+      <div class="note">Хитрость только у мужского рода. У женского всё просто: <b>quella</b> (+ согл.), <b>quell'</b> (+ гласная), мн. всегда <b>quelle</b>.</div>
+    </div>
+
+    <div class="card2c">
+      <h3>📋 Примеры — ед. → мн. (нажми 🔊)</h3>
+      <div id="phlist"></div>
+    </div>
+  </div>
+
+  <!-- ТРЕНАЖЁР -->
+  <div class="tab" id="train">
+    <div class="modes" id="trmodes">
+      <button class="nb on" style="font-size:.74rem;padding:7px 12px" onclick="setTM('form',this)">⚙️ Форма quello</button>
+      <button class="nb" style="font-size:.74rem;padding:7px 12px" onclick="setTM('plural',this)">▶ Ед.→Мн.</button>
+      <button class="nb" style="font-size:.74rem;padding:7px 12px" onclick="setTM('this',this)">📍 questo/quello</button>
+      <button class="nb" style="font-size:.74rem;padding:7px 12px" onclick="setTM('audio',this)">🎧 на слух</button>
+    </div>
+    <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="card" id="card"></div>
+    <div class="sub"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <!-- ТЕСТ -->
+  <div class="tab" id="test">
+    <div class="prog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div style="text-align:center"><button class="bigbtn" onclick="buildTest()">↺ Заново</button></div>
+  </div>
+
+  <footer>Указательные местоимения · озвучка Neural2 · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* примеры: sg, pl, ru, gen(m/f), fsg, fpl, nsg, npl */
+const PHR=[
+ {nsg:'ragazzo',npl:'ragazzi',ru:'парень',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'amico',npl:'amici',ru:'друг',g:'m',fsg:"quell'",fpl:'quegli'},
+ {nsg:'telefono',npl:'telefoni',ru:'телефон',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'ragazza',npl:'ragazze',ru:'девушка',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'amica',npl:'amiche',ru:'подруга',g:'f',fsg:"quell'",fpl:'quelle'},
+ {nsg:'macchina',npl:'macchine',ru:'машина',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'edificio',npl:'edifici',ru:'здание',g:'m',fsg:"quell'",fpl:'quegli'},
+ {nsg:'tastiera',npl:'tastiere',ru:'клавиатура',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'anatra',npl:'anatre',ru:'утка',g:'f',fsg:"quell'",fpl:'quelle'},
+ {nsg:'telecomando',npl:'telecomandi',ru:'пульт',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'sigaretta',npl:'sigarette',ru:'сигарета',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'giacca',npl:'giacche',ru:'куртка',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'dente',npl:'denti',ru:'зуб',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'casa',npl:'case',ru:'дом',g:'f',fsg:'quella',fpl:'quelle'},
+ {nsg:'portafoglio',npl:'portafogli',ru:'кошелёк',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'panino',npl:'panini',ru:'сэндвич',g:'m',fsg:'quel',fpl:'quei'},
+ {nsg:'albero',npl:'alberi',ru:'дерево',g:'m',fsg:"quell'",fpl:'quegli'},
+ {nsg:'cavo',npl:'cavi',ru:'кабель',g:'m',fsg:'quel',fpl:'quei'},
+];
+function sgPhrase(p){return (p.fsg.endsWith("'")?p.fsg:p.fsg+' ')+p.nsg;}
+function plPhrase(p){return p.fpl+' '+p.npl;}
+
+/* TTS Neural2 */
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/'/g,"\\'");}
+
+function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
+
+/* список примеров */
+function renderPh(){
+  document.getElementById('phlist').innerHTML=PHR.map(p=>{
+    const sg=sgPhrase(p),pl=plPhrase(p);
+    return `<div class="ph"><div class="pair"><span class="sg">${esc(sg)}</span><span class="ar">→</span><span class="pl">${esc(pl)}</span>
+      <span class="ru">${esc(p.ru)} ${p.g==='m'?'(м.р.)':'(ж.р.)'}</span></div>
+      <button class="spk" onclick="speak('${sp(sg+', '+pl)}')">🔊</button></div>`;
+  }).join('');
+}
+
+/* ТРЕНАЖЁР */
+let tMode='form',curT=null,okC=0,streak=0,total=0;
+const FORMS_SG=['quel','quello',"quell'",'quella'];
+const FORMS_PL=['quei','quegli','quelle'];
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');nextT();}
+function pickP(){let p=PHR[Math.floor(Math.random()*PHR.length)];if(p===curT)return pickP();return p;}
+function nextT(){
+  curT=pickP();const p=curT;const c=document.getElementById('card');
+  if(tMode==='form'){
+    const opts=shuffle(p.g==='m'?['quel','quello',"quell'",'quella']:['quella',"quell'",'quelle','quel']);
+    c.innerHTML=`<span class="tag">форма quello</span><div class="big-q">… ${esc(p.nsg)}<small>${esc(p.ru)} · ${p.g==='m'?'м.р. ед.':'ж.р. ед.'}</small></div>
+      <div class="cue">выбери форму quello</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickForm(this,'${sp(o)}','${sp(p.fsg)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='plural'){
+    const opts=shuffle([p.fpl].concat(shuffle(['quei','quegli','quelle'].filter(x=>x!==p.fpl)).slice(0,2)));
+    c.innerHTML=`<span class="tag">ед. → мн.</span><div class="big-q">${esc(sgPhrase(p))}<small>${esc(p.ru)}</small></div>
+      <div class="cue">поставь во множественное</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickPlural(this,'${sp(o)}','${sp(p.fpl)}','${sp(p.npl)}')">${esc(o+' '+p.npl)}</button>`).join('')}</div>`;
+  } else if(tMode==='this'){
+    // questo/quello по роду-числу, случайно ед/мн и тип
+    const isQ=Math.random()<0.5; // true=questo
+    const num=Math.random()<0.5?'sg':'pl';
+    let ans,ru;
+    if(p.g==='m'&&num==='sg'){ans=isQ?'questo':'quello';}
+    else if(p.g==='m'&&num==='pl'){ans=isQ?'questi':'quelli';}
+    else if(p.g==='f'&&num==='sg'){ans=isQ?'questa':'quella';}
+    else {ans=isQ?'queste':'quelle';}
+    ru=(isQ?'это/эти':'тот/те')+' · '+(p.g==='m'?'м.':'ж.')+(num==='sg'?' ед.':' мн.');
+    const pool=['questo','questa','questi','queste','quello','quella','quelli','quelle'];
+    const opts=shuffle([ans].concat(shuffle(pool.filter(x=>x!==ans)).slice(0,3)));
+    c.innerHTML=`<span class="tag">questo / quello</span><div class="big-q">${isQ?'это/эти':'тот/те'}<small>${p.g==='m'?'мужской':'женский'} род, ${num==='sg'?'единственное':'множественное'}</small></div>
+      <div class="cue">выбери форму (отдельное местоимение)</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickForm(this,'${sp(o)}','${sp(ans)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='audio'){
+    const sg=sgPhrase(p);
+    const opts=shuffle([p].concat(shuffle(PHR.filter(x=>x.ru!==p.ru)).slice(0,3)));
+    c.innerHTML=`<span class="tag">🎧 на слух</span><div class="cue">послушай и выбери перевод</div>
+      <button class="bigb rev" style="flex:none;width:auto;margin:8px auto 0;padding:12px 22px" onclick="speak('${sp(sg)}')">▶ Повторить</button>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickForm(this,'${sp(o.ru)}','${sp(p.ru)}')">${esc(o.ru)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(sg),250);
+  }
+}
+function pickForm(btn,chosen,correct){
+  const good=norm(chosen)===norm(correct);
+  if(tMode==='audio')speak(sgPhrase(curT)); else speak(chosen);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),800);
+}
+function pickPlural(btn,chosen,correct,npl){
+  const good=norm(chosen)===norm(correct);speak(chosen+' '+npl);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent.split(' ')[0])===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),900);
+}
+function grade(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;document.getElementById('fill').style.width=(total?okC/total*100:0)+'%';
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';nextT();toast('Сброшено');}
+
+/* ТЕСТ */
+let testBuilt=false,tTotal=0;const tDone=new Set();
+function buildTest(){
+  testBuilt=true;tTotal=0;tDone.clear();
+  // A — форма quello (ед.) перед существительным, 8
+  const selA=shuffle(PHR).slice(0,8);
+  let a=selA.map((p,i)=>{tTotal++;const k='a'+i;
+    const opts=shuffle(['quel','quello',"quell'",'quella','quei','quegli','quelle'].filter((x,ix,arr)=>true)).slice(0,4);
+    if(!opts.includes(p.fsg))opts[0]=p.fsg;const opts2=shuffle(opts);
+    return `<div class="q" id="q_${k}"><div class="qt"><span class="gap" id="g_${k}">?</span> ${esc(p.nsg)} <button class="spk2" onclick="speak('${sp(sgPhrase(p))}')">🔊</button><span class="ru">${esc(p.ru)} (${p.g==='m'?'м.':'ж.'} ед.)</span></div>
+      <div class="qopts">${opts2.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(p.fsg)}','${sp(sgPhrase(p))}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  // B — множественное число, 6
+  const selB=shuffle(PHR).slice(0,6);
+  let b=selB.map((p,i)=>{tTotal++;const k='b'+i;
+    const opts=shuffle([p.fpl].concat(shuffle(['quei','quegli','quelle'].filter(x=>x!==p.fpl)).slice(0,2)));
+    return `<div class="q" id="q_${k}"><div class="qt">${esc(sgPhrase(p))} → <span class="gap" id="g_${k}">?</span> ${esc(p.npl)} <button class="spk2" onclick="speak('${sp(plPhrase(p))}')">🔊</button><span class="ru">мн.: ${esc(p.ru)}</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(p.fpl)}','${sp(plPhrase(p))}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  document.getElementById('testbody').innerHTML=`<div class="tsec">A · Форма quello (ед.)</div>${a}<div class="tsec">B · Множественное число</div>${b}`;
+  document.getElementById('ttot').textContent=tTotal;document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansT(k,btn,chosen,correct,say){
+  speak(say);const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+k+' .qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(norm(x.textContent)===norm(correct))x.classList.add('ok');});}
+  const gap=document.getElementById('g_'+k);gap.textContent=chosen;gap.className='gap '+(good?'f':'w');
+  document.getElementById('q_'+k).classList.toggle('ok',good);
+  document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tDone.size/tTotal*100)+'%';
+  if(tDone.size===tTotal)toast('🎉 Tutto giusto!');
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderPh();
+</script>
+</body>
+</html>
