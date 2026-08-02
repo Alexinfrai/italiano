@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Essere e Avere</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1510;--card:#251d16;--card2:#2c2219;--line:#3a2d22;--txt:#f4ede2;--muted:#9c8b76;--oro:#d9a441;--oro2:#e6bd5c;--verde:#6ba368;--verde2:#7fbf7a;--terra:#c96f4a;--rosso:#c1553f;--blu:#4f8a86;--viola:#a06a86;--green-bg:rgba(107,163,104,.16);--red-bg:rgba(193,85,63,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#1b1510,#5c3220 55%,#3a2416);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'⚡';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.4rem);color:var(--oro2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Fraunces',serif;position:relative}
+#api{background:#150f0b;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Inter'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#fff;font-weight:700;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--verde2)}#st.err{color:var(--rosso)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5a4a3a;margin-right:5px}.dot.on{background:var(--verde)}
+.hint{font-size:.64rem;color:#7a6a58;margin-top:5px}
+.wrap{max-width:700px;margin:0 auto;padding:16px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:700;font-size:.86rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--viola);border-color:var(--viola);color:#fff}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.sec{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.12rem;font-weight:600;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.card2c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card2c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--viola))}
+.card2c h3{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.08rem;margin-bottom:10px}
+.assoc{font-size:.85rem;color:var(--oro);font-style:italic;background:rgba(217,164,65,.08);border:1px solid rgba(217,164,65,.2);border-radius:8px;padding:8px 12px;margin:10px 0;line-height:1.5}
+.note{margin-top:9px;font-size:.83rem;color:#cabfd8;background:rgba(155,127,224,.08);border-left:3px solid var(--viola);padding:7px 11px;border-radius:0 8px 8px 0;line-height:1.55}
+.note b{color:var(--oro2)}
+.conj2{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:6px}
+.conj2 .cr{display:flex;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:8px 12px;cursor:pointer}
+.conj2 .cr:hover{border-color:var(--oro)}
+.conj2 .pn{color:var(--muted);font-size:.82rem}.conj2 .vf{font-family:'Fraunces',serif;font-weight:700;color:var(--txt)}
+.idiom{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer}
+.idiom:hover{border-color:var(--oro)}
+.idiom .ic{font-size:1.4rem;flex:0 0 auto}
+.idiom .body{flex:1}
+.idiom .ph{font-family:'Fraunces',serif;font-weight:700;color:var(--oro2);font-size:1.02rem}
+.idiom .ru{color:var(--muted);font-size:.82rem}
+.idiom .ex{color:#b9ac9a;font-size:.78rem;font-style:italic;margin-top:2px}
+.idiom .spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.7}
+.ruletab{width:100%;border-collapse:collapse;margin-top:8px;font-size:.9rem}
+.ruletab td,.ruletab th{border:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:top}
+.ruletab th{background:var(--card2);color:var(--oro);font-size:.76rem;text-transform:uppercase;letter-spacing:.03em}
+.ruletab .a{font-family:'Fraunces',serif;font-weight:700;color:var(--oro2)}
+.ruletab .ex{color:var(--muted);font-size:.84rem}
+/* тренажёр общие */
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--oro));transition:.4s}
+.prog .n{font-weight:700;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--verde2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--terra));border-radius:18px 18px 0 0}
+.card .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.card .cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Fraunces',serif;margin-bottom:6px}
+.card .big-q{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:var(--txt);line-height:1.4}
+.card .big-q small{display:block;font-family:'Inter';font-size:.82rem;color:var(--muted);font-weight:400;margin-top:6px}
+.card .ans{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;color:var(--verde2);margin-top:12px;display:none}
+.card .ans.show{display:block;animation:pop .25s}@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1}}
+.card .ans .full{display:block;font-size:.92rem;color:var(--muted);font-weight:400;margin-top:4px;font-family:'Inter'}
+.card .ans .spk{cursor:pointer;color:var(--viola);margin-left:6px;font-size:1rem}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:11px 14px;border-radius:10px;cursor:pointer;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;transition:.15s;text-align:center}
+.opt:hover{border-color:var(--oro);color:var(--oro2)}
+.opt.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}
+.opt.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.inp{width:100%;margin-top:14px;background:var(--card2);border:1px solid var(--line);border-bottom:2px solid var(--oro);border-radius:8px;color:var(--oro2);font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;text-align:center;padding:10px;outline:none}
+.fb{margin-top:8px;font-weight:700;font-size:.9rem;min-height:18px}.fb.ok{color:var(--verde2)}.fb.no{color:var(--terra)}
+.btns{display:flex;gap:10px;margin-top:16px}
+.bigb{flex:1;border:none;border-radius:12px;font-family:'Inter';font-weight:700;font-size:1rem;padding:14px;cursor:pointer;transition:.15s}
+.bigb.rev{background:var(--oro);color:#1a1206}.bigb.rev:hover{background:var(--oro2)}
+.bigb.no{background:var(--red-bg);color:var(--terra);border:1px solid var(--rosso)}
+.bigb.ok{background:var(--green-bg);color:var(--verde2);border:1px solid var(--verde)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Inter';font-size:.78rem}
+.sub button:hover{color:var(--oro)}
+/* тест */
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--verde)}
+.q .qt{font-size:1.02rem;line-height:1.7}.q .qt .ru{display:block;color:var(--muted);font-size:.8rem;font-style:italic;margin-top:1px}
+.gap{display:inline-block;min-width:56px;text-align:center;border-bottom:2px dashed var(--oro);color:var(--muted);padding:0 5px;font-weight:700;letter-spacing:2px}
+.gap.f{color:var(--verde2);border-bottom-style:solid;border-color:var(--verde);letter-spacing:0}
+.gap.w{color:var(--terra);border-bottom-style:solid;border-color:var(--rosso);letter-spacing:0}
+.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qo{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:7px 13px;border-radius:9px;cursor:pointer;font-family:'Fraunces',serif;font-weight:600;font-size:.96rem}
+.qo:hover{border-color:var(--oro);color:var(--oro2)}.qo.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}.qo.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.tsec{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.05rem;margin:16px 0 8px}
+.spk2{background:none;border:none;color:var(--viola);cursor:pointer;font-size:.95rem}
+.bigbtn{display:inline-block;margin-top:14px;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+.bigbtn:hover{border-color:var(--oro);color:var(--oro2)}
+/* итог теста */
+.done{text-align:center;padding:26px 18px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);margin-top:10px}
+.done .big{font-size:2.6rem}
+.done h2{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.4rem;margin:6px 0}
+.done .score{font-family:'Fraunces',serif;font-size:2rem;color:var(--verde2)}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--oro)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--oro);color:#1a1206;font-weight:700;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Essere e Avere</h1>
+  <p>Быть и иметь — фундамент итальянского</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('rules',this)">📖 Правила</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
+  </div>
+  <div class="tab on" id="rules"><div id="rulesbody"></div></div>
+
+  <div class="tab" id="train">
+    <div class="modes" id="trmodes">
+      <button class="nb on" style="font-size:.72rem;padding:7px 11px" onclick="setTM('conj',this)">🃏 Спряжение</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('impf',this)">⏳ Imperfetto</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('idiom',this)">💬 Выражения</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('aux',this)">⚖️ avere/essere</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('age',this)">🎂 Возраст</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('cs',this)">📍 c'è/ci sono</button>
+      <button class="nb" style="font-size:.72rem;padding:7px 11px" onclick="setTM('audio',this)">🎧 на слух</button>
+    </div>
+    <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="card" id="card"></div>
+    <div class="sub"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <div class="tab" id="test">
+    <div class="prog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div id="testdone"></div>
+    <div style="text-align:center"><button class="bigbtn" onclick="buildTest()">↺ Заново</button></div>
+  </div>
+
+  <footer>Essere · Avere — вся грамматика в одном месте · озвучка Neural2 · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ══════════════════ ДАННЫЕ ══════════════════ */
+const PRON=['io','tu','lui/lei','noi','voi','loro'];
+const ESSERE_PRES=['sono','sei','è','siamo','siete','sono'];
+const AVERE_PRES=['ho','hai','ha','abbiamo','avete','hanno'];
+const ESSERE_IMPF=['ero','eri','era','eravamo','eravate','erano'];
+const AVERE_IMPF=['avevo','avevi','aveva','avevamo','avevate','avevano'];
+
+// идиомы с AVERE: [фраза, перевод, пример IT, пример RU, эмодзи]
+const IDIOMS=[
+ ["avere fame","быть голодным","Ho fame, mangiamo!","Я голоден, давай поедим!","🍽️"],
+ ["avere sete","хотеть пить","Ho sete, prendo un'acqua.","Хочу пить, возьму воды.","🥤"],
+ ["avere sonno","хотеть спать","Ho sonno, vado a letto.","Хочу спать, иду в кровать.","😴"],
+ ["avere freddo","мёрзнуть","Ho freddo, chiudi la finestra.","Мне холодно, закрой окно.","🥶"],
+ ["avere caldo","испытывать жару","Ho caldo, apro la finestra.","Мне жарко, открою окно.","🥵"],
+ ["avere paura","бояться","Ho paura dei ragni.","Я боюсь пауков.","😨"],
+ ["avere fretta","спешить","Ho fretta, devo andare.","Я спешу, мне нужно идти.","⏱️"],
+ ["avere ragione","быть правым","Hai ragione tu.","Ты прав.","✅"],
+ ["avere torto","быть неправым","Hai torto stavolta.","На этот раз ты неправ.","❌"],
+ ["avere bisogno di","нуждаться в","Ho bisogno di aiuto.","Мне нужна помощь.","🙏"],
+ ["avere voglia di","хотеть чего-то","Ho voglia di un gelato.","Хочу мороженого.","🍨"],
+ ["avere mal di testa","болеть голова","Ho mal di testa oggi.","У меня сегодня болит голова.","🤕"],
+ ["avere fortuna","везти","Hai fortuna con questo lavoro.","Тебе везёт с этой работой.","🍀"],
+ ["avere successo","иметь успех","Il film ha avuto successo.","Фильм имел успех.","🏆"],
+];
+
+// функции ESSERE: [конструкция, перевод, пример IT, пример RU, эмодзи]
+const ESSERE_USES=[
+ ["essere + прилагательное","описание состояния/качества","Sono stanco oggi.","Я устал сегодня.","🙂"],
+ ["essere di + город","происхождение (откуда)","Sono di Kiev.","Я из Киева.","🌍"],
+ ["essere + профессия","профессия / роль","Sono professore.","Я преподаватель.","👨‍🏫"],
+ ["essere in ritardo","опаздывать","Sono in ritardo!","Я опаздываю!","⏰"],
+ ["essere in anticipo","приходить раньше","Sei in anticipo oggi.","Ты сегодня рано.","⏱️"],
+ ["essere in orario","быть вовремя","Siamo in orario.","Мы вовремя.","✅"],
+];
+// c'è / ci sono отдельно
+const CS=[
+ ["c'è","есть (единственное число)","C'è un bosco vicino a casa.","Рядом с домом есть лес."],
+ ["ci sono","есть (множественное число)","Ci sono trenta gradi.","Тридцать градусов."],
+];
+
+// список глаголов для тренажёра avere/essere (используем сокращённый набор ключевых + модальные с движением)
+// [инфинитив, перевод, aux(a/e), причастие, заметка]
+const AUXV=[
+ ["mangiare","есть","a","mangiato",""],
+ ["parlare","говорить","a","parlato",""],
+ ["fare","делать","a","fatto",""],
+ ["prendere","брать","a","preso",""],
+ ["leggere","читать","a","letto",""],
+ ["scrivere","писать","a","scritto",""],
+ ["vedere","видеть","a","visto",""],
+ ["bere","пить","a","bevuto",""],
+ ["dire","говорить","a","detto",""],
+ ["mettere","класть","a","messo",""],
+ ["chiedere","спрашивать","a","chiesto",""],
+ ["studiare","учить","a","studiato",""],
+ ["andare","идти, ехать","e","andato","движение"],
+ ["venire","приходить","e","venuto","движение"],
+ ["partire","уезжать","e","partito","движение"],
+ ["tornare","возвращаться","e","tornato","движение"],
+ ["arrivare","прибывать","e","arrivato","движение"],
+ ["entrare","входить","e","entrato","движение"],
+ ["uscire","выходить","e","uscito","движение"],
+ ["salire","подниматься","e","salito","движение"],
+ ["scendere","спускаться","e","sceso","движение"],
+ ["nascere","рождаться","e","nato","состояние"],
+ ["diventare","становиться","e","diventato","состояние"],
+ ["restare","оставаться","e","restato","состояние"],
+ ["rimanere","оставаться","e","rimasto","состояние"],
+ ["cadere","падать","e","caduto","движение"],
+ ["stare","находиться","e","stato","состояние"],
+ ["alzarsi","вставать","e","alzato","возвратный"],
+ ["svegliarsi","просыпаться","e","svegliato","возвратный"],
+ ["lavarsi","мыться","e","lavato","возвратный"],
+ // essere/avere сами про себя
+ ["essere","быть","e","stato","essere→essere"],
+ ["avere","иметь","a","avuto","avere→avere"],
+];
+// особые случаи: модальный + движение → essere (карточки-примеры)
+const MODAL_MOVE=[
+ ["Sono potuto andare al mare.","Я смог поехать на море.","potere + andare (движение) → essere"],
+ ["Ho potuto fare tutti i compiti.","Я смог сделать всю домашку.","potere + fare (обычное) → avere"],
+ ["Siamo dovuti partire molto presto.","Нам пришлось уехать очень рано.","dovere + partire (движение) → essere"],
+ ["Ho dovuto cucinare per tutti.","Мне пришлось готовить для всех.","dovere + cucinare (обычное) → avere"],
+ ["Ho voluto vedere questo film.","Я захотел посмотреть этот фильм.","volere + vedere (обычное) → avere"],
+];
+
+/* ══════════════════ TTS ══════════════════ */
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/'/g,"\\'");}
+
+function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
+
+/* ══════════════════ ПРАВИЛА ══════════════════ */
+function renderRules(){
+  const essConj=ESSERE_PRES.map((f,i)=>`<div class="cr" onclick="speak('${sp(f)}')"><span class="pn">${PRON[i]}</span><span class="vf">${esc(f)}</span></div>`).join('');
+  const avConj=AVERE_PRES.map((f,i)=>`<div class="cr" onclick="speak('${sp(f)}')"><span class="pn">${PRON[i]}</span><span class="vf">${esc(f)}</span></div>`).join('');
+  const essImpf=ESSERE_IMPF.map((f,i)=>`<div class="cr" onclick="speak('${sp(f)}')"><span class="pn">${PRON[i]}</span><span class="vf">${esc(f)}</span></div>`).join('');
+  const avImpf=AVERE_IMPF.map((f,i)=>`<div class="cr" onclick="speak('${sp(f)}')"><span class="pn">${PRON[i]}</span><span class="vf">${esc(f)}</span></div>`).join('');
+  const idiomHTML=IDIOMS.map(x=>`<div class="idiom" onclick="speak('${sp(x[2])}')"><span class="ic">${x[4]}</span><div class="body"><span class="ph">${esc(x[0])}</span> — <span class="ru">${esc(x[1])}</span><div class="ex">${esc(x[2])} <span style="color:var(--muted)">— ${esc(x[3])}</span></div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[2])}')">🔊</button></div>`).join('');
+  const essUsesHTML=ESSERE_USES.map(x=>`<div class="idiom" onclick="speak('${sp(x[2])}')"><span class="ic">${x[4]}</span><div class="body"><span class="ph">${esc(x[0])}</span> — <span class="ru">${esc(x[1])}</span><div class="ex">${esc(x[2])} <span style="color:var(--muted)">— ${esc(x[3])}</span></div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[2])}')">🔊</button></div>`).join('');
+  const csHTML=CS.map(x=>`<div class="idiom" onclick="speak('${sp(x[2])}')"><span class="ic">${x[0]==='c\u0027è'?'1️⃣':'🔢'}</span><div class="body"><span class="ph">${esc(x[0])}</span> — <span class="ru">${esc(x[1])}</span><div class="ex">${esc(x[2])} <span style="color:var(--muted)">— ${esc(x[3])}</span></div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[2])}')">🔊</button></div>`).join('');
+  const modalHTML=MODAL_MOVE.map(x=>`<div class="idiom" onclick="speak('${sp(x[0])}')"><span class="ic">⚡</span><div class="body"><span class="ph">${esc(x[0])}</span><div class="ru">${esc(x[1])}</div><div class="ex">${esc(x[2])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[0])}')">🔊</button></div>`).join('');
+
+  document.getElementById('rulesbody').innerHTML=`
+  <div class="card2c">
+    <h3>✨ ESSERE — presente</h3>
+    <div class="assoc">💡 Самый неправильный и самый важный глагол. Учи наизусть — используется постоянно.</div>
+    <div class="conj2">${essConj}</div>
+    <div class="note">Passato prossimo: <b>è stato/a</b> (essere спрягается сам собой!).</div>
+  </div>
+
+  <div class="card2c">
+    <h3>🤲 AVERE — presente</h3>
+    <div class="assoc">💡 Вспомогательный для большинства глаголов в прошедшем.</div>
+    <div class="conj2">${avConj}</div>
+    <div class="note">Passato prossimo: <b>ho avuto</b> (avere тоже спрягается сам собой!).</div>
+  </div>
+
+  <div class="sec">⏳ ESSERE и AVERE в Imperfetto</div>
+  <div class="card2c">
+    <h3>⏳ ERO / AVEVO — imperfetto</h3>
+    <div class="assoc">💡 Единственные по-настоящему неправильные в imperfetto (у большинства глаголов imperfetto регулярный!). Учи наизусть, как presente.</div>
+    <div class="conj2">${essImpf}</div>
+    <div class="conj2" style="margin-top:8px">${avImpf}</div>
+    <div class="note"><b>sono stato/a</b> (что сделал — событие) vs <b>ero</b> (каким был — описание, длилось). <i>Sono stato a Roma</i> (был там, факт) vs <i>Ero stanco</i> (был уставшим, состояние).</div>
+  </div>
+
+  <div class="sec">💬 Идиомы с AVERE — «иметь» вместо «быть»</div>
+  <div class="card2c">
+    <div class="assoc">💡 В русском «голоден/хочу спать/холодно» — состояние. В итальянском это почти всегда <b>avere + существительное</b>, а не essere!</div>
+    ${idiomHTML}
+  </div>
+
+  <div class="sec">🌟 Функции ESSERE</div>
+  <div class="card2c">${essUsesHTML}</div>
+
+  <div class="sec">📍 C'È vs CI SONO</div>
+  <div class="card2c">
+    <div class="assoc">💡 <b>c'è</b> — для одного предмета, <b>ci sono</b> — для нескольких. Не путать с местоимением <b>ci</b> («туда/там»).</div>
+    ${csHTML}
+  </div>
+
+  <div class="sec">⚖️ AVERE или ESSERE — вспомогательный в Passato Prossimo</div>
+  <div class="card2c">
+    <table class="ruletab">
+      <tr><th>AVERE</th><th>ESSERE</th></tr>
+      <tr><td class="ex">Большинство глаголов. Причастие <b>не меняется</b>: ho mangiato, abbiamo mangiato.</td>
+          <td class="ex">Движение, состояние, возвратные. Причастие <b>согласуется</b>: sono andato/a/i/e.</td></tr>
+    </table>
+    <div class="note">Essere-глаголы (запомнить): <b>andare, venire, partire, tornare, arrivare, entrare, uscire, salire, scendere, nascere, morire, diventare, restare, rimanere, cadere, stare, essere</b> + все возвратные (-si).</div>
+  </div>
+
+  <div class="sec">⚡ Особый случай: VOLERE / DOVERE / POTERE</div>
+  <div class="card2c">
+    <div class="assoc">💡 Модальные обычно идут с <b>avere</b>. Но если после них — глагол движения, вспомогательный меняется на <b>essere</b>!</div>
+    ${modalHTML}
+  </div>
+
+  <div class="sec">🎂 Возраст — AVERE, не essere!</div>
+  <div class="card2c">
+    <div class="idiom" onclick="speak('Quanti anni hai?')"><span class="ic">❓</span><div class="body"><span class="ph">Quanti anni hai?</span><div class="ru">Сколько тебе лет?</div></div><button class="spk" onclick="event.stopPropagation();speak('Quanti anni hai?')">🔊</button></div>
+    <div class="idiom" onclick="speak('Ho trentacinque anni.')"><span class="ic">🎂</span><div class="body"><span class="ph">Ho trentacinque anni.</span><div class="ru">Мне тридцать пять лет.</div></div><button class="spk" onclick="event.stopPropagation();speak('Ho trentacinque anni.')">🔊</button></div>
+    <div class="note">⚠️ По-русски «мне ЕСТЬ 30 лет» — но по-итальянски «Я ИМЕЮ 30 лет»: <b>ho ... anni</b>, никогда не <i>sono ... anni</i>!</div>
+  </div>`;
+}
+
+/* ══════════════════ ТРЕНАЖЁР ══════════════════ */
+let tMode='conj',curT=null,okC=0,streak=0,total=0;
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');nextT();}
+
+function nextT(){
+  const c=document.getElementById('card');
+  if(tMode==='conj'){
+    const isEss=Math.random()<0.5;const arr=isEss?ESSERE_PRES:AVERE_PRES;const name=isEss?'essere':'avere';
+    const pi=Math.floor(Math.random()*6);const correct=arr[pi];curT={mode:'conj',correct};
+    const otherArr=isEss?AVERE_PRES:ESSERE_PRES;
+    const opts=shuffle([correct,arr[(pi+1)%6],otherArr[pi],otherArr[(pi+2)%6]]);
+    c.innerHTML=`<span class="tag">спряжение</span><div class="big-q">${esc(name)} → <b style="color:var(--oro2)">${PRON[pi]}</b><small>presente</small></div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='impf'){
+    const isEss=Math.random()<0.5;const arr=isEss?ESSERE_IMPF:AVERE_IMPF;const name=isEss?'essere':'avere';
+    const pi=Math.floor(Math.random()*6);const correct=arr[pi];curT={mode:'impf',correct};
+    const otherArr=isEss?AVERE_IMPF:ESSERE_IMPF;
+    const opts=shuffle([correct,arr[(pi+1)%6],otherArr[pi],otherArr[(pi+2)%6]]);
+    c.innerHTML=`<span class="tag">imperfetto</span><div class="big-q">${esc(name)} → <b style="color:var(--oro2)">${PRON[pi]}</b><small>imperfetto — «был/имел»</small></div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='idiom'){
+    const w=IDIOMS[Math.floor(Math.random()*IDIOMS.length)];curT={mode:'idiom',w};
+    const opts=shuffle([w[1]].concat(shuffle(IDIOMS.filter(x=>x[1]!==w[1])).slice(0,3).map(x=>x[1])));
+    c.innerHTML=`<span class="tag">выражение</span><div class="big-q">${w[4]} ${esc(w[0])}</div><div class="cue">что значит?</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w[1])}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w[2]),200);
+  } else if(tMode==='aux'){
+    const v=AUXV[Math.floor(Math.random()*AUXV.length)];curT={mode:'aux',v};
+    const correct=v[2]==='a'?'avere (ho)':'essere (sono)';
+    c.innerHTML=`<span class="tag">avere / essere</span><div class="big-q">${esc(v[0])}<small>${esc(v[1])}${v[4]?' · '+esc(v[4]):''}</small></div>
+      <div class="cue">какой вспомогательный в passato prossimo?</div>
+      <div class="opts">${shuffle(['avere (ho)','essere (sono)']).map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='age'){
+    const age=5+Math.floor(Math.random()*90);const correct='ho '+numToIt(age)+' anni';curT={mode:'age',correct};
+    c.innerHTML=`<span class="tag">возраст</span><div class="big-q">Quanti anni hai?<small>тебе ${age} лет — ответь по-итальянски</small></div>
+      <input class="inp" id="inp" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="ho ... anni">
+      <div class="fb" id="fb"></div>
+      <div class="ans" id="ansbox">${esc(correct)}<span class="spk" onclick="speak('${sp(correct)}')">🔊</span></div>
+      <div class="btns" id="tb"><button class="bigb rev" onclick="checkAge('${sp(correct)}')">Проверить</button></div>`;
+    const i=document.getElementById('inp');i.focus();i.addEventListener('keydown',e=>{if(e.key==='Enter')checkAge(correct);});
+  } else if(tMode==='cs'){
+    const single=Math.random()<0.5;const correct=single?"c'è":'ci sono';curT={mode:'cs',correct};
+    const examples=single?['un bosco vicino a casa','un problema','una soluzione']:['trenta gradi','molte persone','due gatti in giardino'];
+    const ex=examples[Math.floor(Math.random()*examples.length)];
+    c.innerHTML=`<span class="tag">c'è / ci sono</span><div class="big-q">… ${esc(ex)}<small>единственное или множественное?</small></div>
+      <div class="opts">${shuffle(["c'è",'ci sono']).map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='audio'){
+    const pool=IDIOMS.map(x=>[x[2],x[3]]).concat(ESSERE_USES.map(x=>[x[2],x[3]]));
+    const p=pool[Math.floor(Math.random()*pool.length)];curT={mode:'audio',p};
+    const opts=shuffle([p[1]].concat(shuffle(pool.filter(x=>x[1]!==p[1])).slice(0,3).map(x=>x[1])));
+    c.innerHTML=`<span class="tag">🎧 на слух</span><div class="cue">послушай и выбери перевод</div>
+      <button class="bigb rev" style="flex:none;width:auto;margin:8px auto 0;padding:12px 22px" onclick="speak('${sp(p[0])}')">▶ Повторить</button>
+      <div class="opts" style="margin-top:14px">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(p[1])}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(p[0]),250);
+  }
+}
+function numToIt(n){
+  const ones=['zero','uno','due','tre','quattro','cinque','sei','sette','otto','nove','dieci','undici','dodici','tredici','quattordici','quindici','sedici','diciassette','diciotto','diciannove'];
+  const tens=['','','venti','trenta','quaranta','cinquanta','sessanta','settanta','ottanta','novanta'];
+  if(n<20)return ones[n];
+  const t=Math.floor(n/10),o=n%10;
+  let base=tens[t];
+  if(o===1||o===8)base=base.slice(0,-1); // venti+uno=ventuno, venti+otto=ventotto
+  return base+(o?ones[o]:'');
+}
+function pickOpt(btn,chosen,correct){
+  const good=norm(chosen)===norm(correct);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  if(curT&&curT.mode==='aux')speak(curT.v[2]==='a'?('ho '+curT.v[3]):('sono '+curT.v[3]));
+  else if(curT&&curT.mode==='idiom')speak(curT.w[2]);
+  setTimeout(()=>grade(good),800);
+}
+function checkAge(correct){
+  const val=document.getElementById('inp').value;
+  const variants=[correct,correct.replace('ho ','')];
+  const good=variants.some(v=>norm(v)===norm(val))||norm(val).includes(norm(correct.replace('ho ','').replace(' anni','')));
+  document.getElementById('ansbox').classList.add('show');
+  const fb=document.getElementById('fb');fb.className='fb '+(good?'ok':'no');fb.textContent=good?'✓ Верно!':'✗ Правильно: '+correct;
+  speak(correct);
+  document.getElementById('tb').innerHTML=`<button class="bigb ${good?'ok':'no'}" onclick="grade(${good})">Дальше →</button>`;
+}
+function grade(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;document.getElementById('fill').style.width=(total?okC/total*100:0)+'%';
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';nextT();toast('Сброшено');}
+
+/* ══════════════════ ТЕСТ ══════════════════ */
+let testBuilt=false,tTotal=0;const tDone=new Set();
+function buildTest(){
+  testBuilt=true;tTotal=0;tDone.clear();document.getElementById('testdone').innerHTML='';
+  // A: спряжение (6)
+  let a='';for(let i=0;i<6;i++){tTotal++;const k='a'+i;const isEss=i%2===0;const arr=isEss?ESSERE_PRES:AVERE_PRES;const pi=Math.floor(Math.random()*6);const correct=arr[pi];const other=isEss?AVERE_PRES:ESSERE_PRES;
+    const opts=shuffle([correct,arr[(pi+2)%6],other[pi],other[(pi+3)%6]]);
+    a+=`<div class="q" id="q_${k}"><div class="qt">${isEss?'essere':'avere'} → <b style="color:var(--oro2)">${PRON[pi]}</b> = <span class="gap" id="g_${k}">?</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(correct)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div></div>`;}
+  // B: идиомы (6)
+  const selB=shuffle(IDIOMS).slice(0,6);
+  let b=selB.map((w,i)=>{tTotal++;const k='b'+i;const opts=shuffle([w[1]].concat(shuffle(IDIOMS.filter(x=>x[1]!==w[1])).slice(0,3).map(x=>x[1])));
+    return `<div class="q" id="q_${k}"><div class="qt">${w[4]} ${esc(w[0])} <button class="spk2" onclick="speak('${sp(w[2])}')">🔊</button> → <span class="gap" id="g_${k}">?</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(w[1])}','${sp(w[2])}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  // C: aux avere/essere (8, включая движение и обычные)
+  const selC=shuffle(AUXV).slice(0,8);
+  let c=selC.map((v,i)=>{tTotal++;const k='c'+i;const correct=v[2]==='a'?'avere':'essere';
+    return `<div class="q" id="q_${k}"><div class="qt">${esc(v[0])} <span class="ru">(${esc(v[1])}${v[4]?', '+esc(v[4]):''})</span> → <span class="gap" id="g_${k}">?</span></div>
+      <div class="qopts">${shuffle(['avere','essere']).map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(correct)}','${sp((v[2]==='a'?'ho ':'sono ')+v[3])}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  // D: c'è/ci sono (4)
+  const csEx=[["un problema","c'è"],["due gatti","ci sono"],["molte persone","ci sono"],["una soluzione","c'è"]];
+  let d=shuffle(csEx).map((x,i)=>{tTotal++;const k='d'+i;
+    return `<div class="q" id="q_${k}"><div class="qt">… ${esc(x[0])} <span class="gap" id="g_${k}">?</span></div>
+      <div class="qopts">${shuffle(["c'è",'ci sono']).map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(x[1])}','${sp(x[1]+' '+x[0])}')">${esc(o)}</button>`).join('')}</div></div>`;}).join('');
+  // E: imperfetto essere/avere (6)
+  let e='';for(let i=0;i<6;i++){tTotal++;const k='e'+i;const isEss=i%2===0;const arr=isEss?ESSERE_IMPF:AVERE_IMPF;const pi=Math.floor(Math.random()*6);const correct=arr[pi];const other=isEss?AVERE_IMPF:ESSERE_IMPF;
+    const opts=shuffle([correct,arr[(pi+2)%6],other[pi],other[(pi+3)%6]]);
+    e+=`<div class="q" id="q_${k}"><div class="qt">${isEss?'essere':'avere'} → <b style="color:var(--oro2)">${PRON[pi]}</b> (imperfetto) = <span class="gap" id="g_${k}">?</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(correct)}','${sp(correct)}')">${esc(o)}</button>`).join('')}</div></div>`;}
+  document.getElementById('testbody').innerHTML=
+    `<div class="tsec">A · Спряжение essere/avere (presente)</div>${a}
+     <div class="tsec">B · Выражения с avere</div>${b}
+     <div class="tsec">C · Avere или essere (аuxiliare)</div>${c}
+     <div class="tsec">D · c'è / ci sono</div>${d}
+     <div class="tsec">E · Imperfetto essere/avere</div>${e}`;
+  document.getElementById('ttot').textContent=tTotal;document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansT(k,btn,chosen,correct,say){
+  speak(say);const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+k+' .qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(norm(x.textContent)===norm(correct))x.classList.add('ok');});}
+  const gap=document.getElementById('g_'+k);if(gap){gap.textContent=chosen;gap.className='gap '+(good?'f':'w');}
+  document.getElementById('q_'+k).classList.toggle('ok',good);
+  document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tDone.size/tTotal*100)+'%';
+  if(tDone.size===tTotal)showDone();
+}
+function showDone(){
+  const pct=Math.round(tDone.size/tTotal*100);
+  let emo='🌱',txt='Продолжай тренироваться!';
+  if(pct>=95){emo='🏆';txt='Perfetto! Essere e avere — готово!';}
+  else if(pct>=80){emo='🎉';txt='Molto bene! Отлично усвоено!';}
+  else if(pct>=60){emo='👍';txt='Bene! Уже неплохо!';}
+  document.getElementById('testdone').innerHTML=`<div class="done"><div class="big">${emo}</div><h2>Тест завершён!</h2><div class="score">${tDone.size} / ${tTotal}</div><p style="color:var(--muted);margin-top:6px">${txt}</p></div>`;
+  toast('🎉 Готово!');
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderRules();
+</script>
+</body>
+</html>
