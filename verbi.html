@@ -143,6 +143,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
       <button class="fb" onclick="setF('irr',this)">неправ.</button>
       <button class="fb" onclick="setF('ess',this)">essere</button>
       <button class="fb" onclick="setF('ref',this)">возвратные</button>
+      <button class="fb" onclick="setF('slang',this)">🗣️ сленг</button>
     </div>
     <div class="count" id="count"></div>
     <div id="dizbody"></div>
@@ -326,6 +327,66 @@ const V=[
 {i:'esistere',r:'существовать',g:'ere',x:'e',emoji:'🌐',assoc:'Эзистере — существовать'},
 {i:'apparecchiare',r:'накрывать на стол',g:'are',x:'a',emoji:'🍽️',assoc:'Аппареккьяре — снаряжать стол'},
 {i:'sparecchiare',r:'убирать со стола',g:'are',x:'a',emoji:'🧹',assoc:'С-+ apparecchiare (обратное действие)'},
+// НОВОЕ — общая лексика из видео LearnAmo про сленг
+{i:'insegnare',r:'преподавать, учить (кого-то)',g:'are',x:'a',emoji:'👩‍🏫',assoc:'Инсеньяре — давать знак/учить'},
+{i:'significare',r:'означать',g:'are',x:'a',emoji:'🔤',assoc:'Синьификаре — значение'},
+{i:'esprimere',r:'выражать',g:'ere',x:'a',p:'espresso',emoji:'💭',assoc:'Эспримере — как «эспрессо» (выжатое, выраженное)'},
+{i:'indicare',r:'указывать',g:'are',x:'a',emoji:'👉',assoc:'Индикаре — индикатор'},
+{i:'descrivere',r:'описывать',g:'ere',x:'a',p:'descritto',emoji:'✍️',assoc:'Дескривере — как scrivere (писать)+de-'},
+{i:'tradurre',r:'переводить',g:'ere',x:'a',p:'tradotto',P:['traduco','traduci','traduce','traduciamo','traducete','traducono'],emoji:'🔁',assoc:'Традурре — «переводить через»'},
+{i:'dividere',r:'делить',g:'ere',x:'a',p:'diviso',emoji:'➗',assoc:'Дивидере — дивиденды, деление'},
+{i:'introdurre',r:'вводить, представлять',g:'ere',x:'a',p:'introdotto',P:['introduco','introduci','introduce','introduciamo','introducete','introducono'],emoji:'🚪',assoc:'Интродурре — интродукция'},
+{i:'pensare',r:'думать',g:'are',x:'a',emoji:'🤔',assoc:'Пенсаре — мыслить'},
+{i:'immaginare',r:'воображать',g:'are',x:'a',emoji:'💭',assoc:'Иммаджинаре — образ, воображение'},
+{i:'dipendere',r:'зависеть (от)',g:'ere',x:'e',p:'dipeso',emoji:'🔗',assoc:'Дипендере — «висеть от»'},
+{i:'derivare',r:'происходить (от)',g:'are',x:'e',emoji:'🌱',assoc:'Деривати — деривация, происхождение'},
+{i:'ricordare',r:'помнить, вспоминать',g:'are',x:'a',emoji:'💡',assoc:'Рикордаре — рекорд памяти'},
+{i:'sentirsi',r:'чувствовать себя',g:'ire',x:'e',f:true,emoji:'🫀',assoc:'Сентирси — возвратное от sentire'},
+{i:'lasciare',r:'оставлять; расставаться',g:'are',x:'a',emoji:'👋',assoc:'Лашаре — оставить (как «laisser» фр.)'},
+{i:'togliere',r:'убирать, снимать',g:'ere',x:'a',p:'tolto',P:['tolgo','togli','toglie','togliamo','togliete','tolgono'],emoji:'🗑️',assoc:'Тольере — «отобрать, снять»'},
+{i:'provare',r:'пробовать, пытаться',g:'are',x:'a',emoji:'🧪',assoc:'Проваре — проба'},
+{i:'servire',r:'служить, быть нужным',g:'ire',x:'a',emoji:'🍽️',assoc:'Сервире — сервис, обслуживание'},
+{i:'rifare',r:'переделывать',g:'are',x:'a',p:'rifatto',P:['rifaccio','rifai','rifa','rifacciamo','rifate','rifanno'],emoji:'🔄',assoc:'Ри+fare — «сделать снова»'},
+{i:'muoversi',r:'двигаться',g:'ere',x:'e',f:true,p:'mosso',P:['muovo','muovi','muove','muoviamo','muovete','muovono'],emoji:'🏃',assoc:'Муоверси — движение (motion)'},
+{i:'imparare',r:'учить, изучать',g:'are',x:'a',emoji:'📚',assoc:'Импараре — впитать знания'},
+{i:'organizzare',r:'организовывать',g:'are',x:'a',emoji:'🗂️',assoc:'Органиццаре — организация'},
+{i:'consegnare',r:'доставлять, сдавать',g:'are',x:'a',emoji:'📦',assoc:'Консеньяре — консигнация, передача'},
+{i:'acquistare',r:'приобретать',g:'are',x:'a',emoji:'🛒',assoc:'Аквистаре — «acquire» (приобрести)'},
+{i:'piacere',r:'нравиться',g:'ere',x:'e',p:'piaciuto',P:['piaccio','piaci','piace','piacciamo','piacete','piacciono'],emoji:'😊',assoc:'Пьячере — приятность (как «piacere di conoscerti»)'},
+{i:'arrabbiarsi',r:'злиться',g:'are',x:'e',f:true,emoji:'😡',assoc:'Аррабьярси — от rabbia (злость)'},
+{i:'offendere',r:'обижать, оскорблять',g:'ere',x:'a',p:'offeso',emoji:'💢',assoc:'Оффендере — оффенс, атака на чувства'},
+{i:'accettare',r:'принимать (соглашаться)',g:'are',x:'a',emoji:'✅',assoc:'Аччеттаре — акцептовать'},
+{i:'rilassarsi',r:'расслабляться',g:'are',x:'e',f:true,emoji:'🧘',assoc:'Рилассарси — релакс'},
+{i:'sbagliare',r:'ошибаться',g:'are',x:'a',emoji:'❌',assoc:'Сбальяре — сбой, ошибка'},
+{i:'confondere',r:'путать',g:'ere',x:'a',p:'confuso',emoji:'😵‍💫',assoc:'Конфондере — конфуз, путаница'},
+{i:'bloccare',r:'блокировать',g:'are',x:'a',emoji:'🚫',assoc:'Блоккаре — блокировать'},
+{i:'copiare',r:'копировать, списывать',g:'are',x:'a',emoji:'📋',assoc:'Копьяре — копия'},
+{i:'fregare',r:'обманывать; быть всё равно',g:'are',x:'a',emoji:'🙄',assoc:'Фрегаре — разговорное «наплевать» (non me ne frega niente)'},
+{i:'mentire',r:'лгать',g:'ire',x:'a',emoji:'🤥',assoc:'Ментире — ментальная неправда'},
+{i:'creare',r:'создавать',g:'are',x:'a',emoji:'🎨',assoc:'Креаре — креатив, создание'},
+{i:'permettere',r:'разрешать',g:'ere',x:'a',p:'permesso',emoji:'🟢',assoc:'Пермеccо — permission (разрешение)'},
+{i:'pubblicare',r:'публиковать',g:'are',x:'a',emoji:'📰',assoc:'Пуббликаре — публика, публикация'},
+{i:'scaricare',r:'скачивать',g:'are',x:'a',emoji:'⬇️',assoc:'Скарикаре — разгрузить (скачать)'},
+{i:'iscriversi',r:'записываться, регистрироваться',g:'ere',x:'e',f:true,p:'iscritto',emoji:'📝',assoc:'Искриверси — как scrivere (вписать себя)'},
+{i:'ringraziare',r:'благодарить',g:'are',x:'a',emoji:'🙏',assoc:'Рингранциаре — grazie внутри слова!'},
+{i:'salutare',r:'здороваться, прощаться',g:'are',x:'a',emoji:'👋',assoc:'Салутаре — salute (здоровье/приветствие)'},
+{i:'dedicare',r:'посвящать',g:'are',x:'a',emoji:'💐',assoc:'Дедикаре — дедикация, посвящение'},
+{i:'inserire',r:'вставлять, вводить',g:'isc',x:'a',emoji:'➕',assoc:'Инсерире — вставка (insert)'},
+{i:'evitare',r:'избегать',g:'are',x:'a',emoji:'🙅',assoc:'Эвитаре — эвакуация от опасности'},
+{i:'sostituire',r:'заменять',g:'isc',x:'a',emoji:'🔀',assoc:'Соституире — substitute'},
+{i:'oziare',r:'бездельничать (элегантно)',g:'are',x:'a',emoji:'🛋️',assoc:'Оциаре — от ozio (праздность); вежливый аналог cazzeggiare'},
+{i:'piovere',r:'идти (о дожде)',g:'ere',x:'e',p:'piovuto',n:'Безличный глагол, только 3 лицо: piove, è piovuto/ha piovuto.',emoji:'🌧️',assoc:'Пьовере — как piovra (осьминог, много «щупалец» дождя)'},
+{i:'esplodere',r:'взрываться',g:'ere',x:'e',p:'esploso',emoji:'💥',assoc:'Эсплодере — эксплозия'},
+// НОВОЕ — сленг из видео LearnAmo (разговорный регистр!)
+{i:'beccare',r:'поймать; встретить; подцепить',g:'are',x:'a',reg:'slang',n:'Разговорное: 1) встретиться 2) поймать с поличным 3) подхватить (болезнь).',emoji:'🐦',assoc:'Беккаре — «клевать» (birds), в сленге — поймать'},
+{i:'beccarsi',r:'встретиться (друг с другом)',g:'are',x:'e',f:true,reg:'slang',n:'Разговорное: ci becchiamo — увидимся.',emoji:'🤝',assoc:'Возвратное от beccare'},
+{i:'sgamare',r:'спалить, раскусить, вычислить',g:'are',x:'a',reg:'slang',n:'Очень разговорное — «спалить» обман/секрет.',emoji:'👀',assoc:'Сгамаре — увидеть насквозь'},
+{i:'mollare',r:'бросить (партнёра); сдаться',g:'are',x:'a',reg:'slang',n:'Разговорное: mollare qualcuno (бросить), mollare (сдаться).',emoji:'💔',assoc:'Моллáре — «отпустить» (от molle — мягкий/слабый)'},
+{i:'sclerare',r:'сходить с ума от стресса',g:'are',x:'a',reg:'slang',n:'Очень разговорное, от медицинского термина «артериосклероз».',emoji:'🤯',assoc:'Склераре — «склероз» в переносном смысле'},
+{i:'rosicare',r:'злиться от зависти, не принимать поражение',g:'are',x:'a',reg:'slang',n:'Разговорное — как англ. «to be salty».',emoji:'😤',assoc:'Розикаре — буквально «грызть» (как мыши)'},
+{i:'spaccare',r:'быть крутым, жечь (переносное); ломать (буквальное)',g:'are',x:'a',reg:'slang',n:'⚠️ Не путать с spaccarsi! Spaccare = быть отличным.',emoji:'🔥',assoc:'Спаккаре — «раскалывать», переносно — «рвать, жечь»'},
+{i:'spaccarsi',r:'упахиваться, вкалывать',g:'are',x:'e',f:true,reg:'slang',n:'⚠️ Другое значение, чем spaccare! Mi sono spaccato — я упахался.',emoji:'💪',assoc:'Возвратное от spaccare, но смысл другой — «убиваться на работе»'},
+{i:'cringiare',r:'испытывать испанский стыд',g:'are',x:'a',reg:'slang',n:'Итальянизированный неологизм от английского cringe (молодёжный сленг).',emoji:'😬',assoc:'Кринджаре — от англ. cringe'},
 ];
 
 const PRON=['io','tu','lui/lei','noi','voi','loro'];
@@ -362,8 +423,11 @@ function isIrr(v){ return !!(v.P||v.p); }
    (используют старую латинскую основу facere/dicere/bevere). */
 const IMPF_SPECIAL={
   fare:['facevo','facevi','faceva','facevamo','facevate','facevano'],
+  rifare:['rifacevo','rifacevi','rifaceva','rifacevamo','rifacevate','rifacevano'],
   dire:['dicevo','dicevi','diceva','dicevamo','dicevate','dicevano'],
   bere:['bevevo','bevevi','beveva','bevevamo','bevevate','bevevano'],
+  tradurre:['traducevo','traducevi','traduceva','traducevamo','traducevate','traducevano'],
+  introdurre:['introducevo','introducevi','introduceva','introducevamo','introducevate','introducevano'],
 };
 function imperfetto(v){
   if(v.i==='essere') return ['ero','eri','era','eravamo','eravate','erano'];
@@ -412,6 +476,7 @@ function passФильтр(v){
   if(filt==='irr')return isIrr(v);
   if(filt==='ess')return v.x==='e';
   if(filt==='ref')return !!v.f;
+  if(filt==='slang')return v.reg==='slang';
   return true;
 }
 function renderDiz(){
@@ -424,6 +489,7 @@ function renderDiz(){
     if(isIrr(v))badges.push('<span class="badge irr">неправ.</span>');
     if(v.x==='e')badges.push('<span class="badge ess">essere</span>');
     if(v.f)badges.push('<span class="badge ref">возвр.</span>');
+    if(v.reg==='slang')badges.push('<span class="badge" style="color:var(--terra);border-color:var(--terra)">🗣️ сленг</span>');
     return `<div class="vc" id="vc_${real}">
       <div class="vc-head" onclick="toggleVc(${real})">
         <span class="vemoji">${v.emoji||'📝'}</span>
