@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Zarób · Замес — рецептуры</title>
+<style>
+:root{
+  --bg:#F3EDE2; --panel:#FFFDF8; --line:#E3D8C5; --line2:#D6C7AE;
+  --ink:#241B12; --muted:#7A6A53; --soft:#9C8B71;
+  --crust:#9C3B12; --crust-d:#7A2D0C; --amber:#E5A52B; --amber-d:#C9851A;
+  --flour:#F7F1E6;
+  --r:14px; --shadow:0 1px 0 #fff inset,0 2px 14px rgba(60,40,20,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  background:radial-gradient(120% 80% at 100% -10%,#F8F2E6 0%,transparent 60%),var(--bg);
+  color:var(--ink); -webkit-font-smoothing:antialiased; min-height:100vh; overflow-x:hidden}
+.num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+
+header{position:sticky; top:0; z-index:40;
+  background:linear-gradient(180deg,#2C2017,#3A2A1C); color:#F7EFE2;
+  padding:max(10px,env(safe-area-inset-top)) 16px 0; box-shadow:0 6px 20px rgba(30,18,8,.28)}
+.brand{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.brand h1{margin:0; font-size:clamp(18px,4.6vw,22px); letter-spacing:.5px; font-weight:800}
+.brand .ru{color:var(--amber)}
+.brand .sub{color:#C9B89C; font-size:12px; margin-left:auto}
+.tabs{display:flex; gap:6px; margin-top:11px}
+.tab{appearance:none; border:0; cursor:pointer; flex:1; background:rgba(255,255,255,.06);
+  color:#E9DCC6; padding:10px 6px; border-radius:12px 12px 0 0; font-size:clamp(13px,3.4vw,15px);
+  font-weight:700; border-bottom:3px solid transparent; line-height:1.15}
+.tab small{display:block; font-weight:600; font-size:11px; color:#B9A684; margin-top:2px}
+.tab[aria-selected="true"]{background:var(--bg); color:var(--crust-d); border-bottom-color:var(--amber)}
+.tab[aria-selected="true"] small{color:var(--soft)}
+
+.subbar{position:sticky; top:0; z-index:30; background:rgba(243,237,226,.94);
+  backdrop-filter:saturate(1.1) blur(4px); border-bottom:1px solid var(--line);
+  display:flex; align-items:center; gap:10px; padding:9px 16px}
+.subbar-in{display:flex; align-items:center; gap:10px; width:100%; max-width:1240px; margin:0 auto}
+.subbar .cnt{font-size:13px; color:var(--muted); font-weight:700}
+.unit{margin-left:auto; display:inline-flex; border:1.5px solid var(--line2); border-radius:10px; overflow:hidden; background:#fff}
+.unit button{appearance:none; border:0; background:#fff; color:var(--muted); padding:7px 15px; font-size:14px; font-weight:800; cursor:pointer}
+.unit button[aria-pressed="true"]{background:var(--crust); color:#fff}
+
+.wrap{max-width:1240px; margin:0 auto; padding:14px}
+.feed{display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr)); gap:16px; align-items:start}
+@media(max-width:400px){ .feed{grid-template-columns:1fr} }
+
+.card{background:var(--panel); border:1.5px solid var(--line); border-radius:var(--r);
+  box-shadow:var(--shadow); overflow:hidden; scroll-margin-top:130px}
+.card-head{display:flex; align-items:flex-start; gap:10px; padding:15px 16px 13px;
+  border-bottom:1px dashed var(--line2); background:linear-gradient(180deg,#FFFDF8,#FBF4E8)}
+.rname{margin:0; font-size:clamp(19px,4.6vw,22px); font-weight:800}
+.rcat{color:var(--muted); font-size:12.5px; margin-top:3px}
+.badge{display:inline-block; margin-left:8px; font-size:11px; font-weight:700; color:var(--amber-d);
+  background:#FBEFD2; border:1px solid #EAD6A2; border-radius:999px; padding:1px 8px; vertical-align:2px}
+.pbtn{margin-left:auto; align-self:center; appearance:none; cursor:pointer; border:1.5px solid var(--line2);
+  color:var(--crust); background:#fff; border-radius:9px; padding:7px 12px; font-weight:800; font-size:12.5px; white-space:nowrap}
+.pbtn:active{background:var(--flour)}
+
+.controls{padding:14px 16px; border-bottom:1px dashed var(--line2)}
+.ctl-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+@media(max-width:380px){ .ctl-grid{grid-template-columns:1fr} }
+.ctl label{display:block; font-size:11px; font-weight:700; color:var(--muted); margin-bottom:6px;
+  text-transform:uppercase; letter-spacing:.4px}
+.ctl label .pl{color:var(--soft); font-weight:600; text-transform:none}
+
+.stepper{display:grid; grid-template-columns:54px 1fr 54px; align-items:stretch;
+  border:1.5px solid var(--line2); border-radius:12px; overflow:hidden; background:#fff}
+.stepper button{appearance:none; border:0; background:var(--flour); color:var(--crust-d);
+  font-size:26px; font-weight:800; cursor:pointer; line-height:1; touch-action:manipulation; padding:0}
+.stepper button:active{background:#EFE6D5}
+.stepper input{border:0; text-align:center; font-weight:800; color:var(--ink); background:#fff;
+  width:100%; min-width:0; padding:9px 2px; font-size:26px}
+.stepper.wt input{font-size:21px}
+.stepper input:focus{outline:0; background:#FFFDF6}
+.wsuffix{font-size:12px; color:var(--soft); font-weight:700; margin-top:5px; text-align:center}
+
+/* product split */
+.plab{display:block; font-size:11px; font-weight:700; color:var(--muted); margin-bottom:8px;
+  text-transform:uppercase; letter-spacing:.4px}
+.prow{padding:10px 0; border-bottom:1px dashed var(--line)}
+.prow:last-child{border-bottom:0}
+.prow.ptot{border-top:2px solid var(--line2); border-bottom:0; margin-top:2px; padding-top:11px}
+.pn{font-weight:700; font-size:15px; margin-bottom:7px}
+.prow.ptot .pn{font-weight:800; margin-bottom:0; display:inline-block}
+.pline{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.pwin{width:64px; border:1.5px solid var(--line2); border-radius:9px; padding:9px 6px;
+  font-size:16px; font-weight:700; text-align:center; background:#fff; color:var(--ink)}
+.u2{color:var(--soft); font-weight:700; font-size:13px}
+.x{color:var(--soft); font-weight:800; font-size:15px}
+.cntin{width:56px; border-left:1px solid var(--line); border-right:1px solid var(--line);
+  text-align:center; font-weight:800; font-size:18px; background:#fff; color:var(--ink); padding:8px 2px}
+.cntin.wide{width:84px}
+.cstep button,.dstep button{width:42px; font-size:22px}
+.pe{margin-left:auto; font-weight:800; color:var(--crust-d); font-size:15px; white-space:nowrap}
+.prow.ptot .pe{font-size:18px}
+
+.chips{display:flex; gap:6px; flex-wrap:wrap; margin-top:11px}
+.chip{appearance:none; cursor:pointer; border:1.5px solid var(--line2); background:#fff;
+  color:var(--crust-d); border-radius:999px; padding:6px 12px; font-size:13.5px; font-weight:700; touch-action:manipulation}
+.chip:active{background:var(--flour)}
+.chip.reset{margin-left:auto; border-color:var(--line); color:var(--muted)}
+
+.stats{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-bottom:1px solid var(--line)}
+.stats.two{grid-template-columns:repeat(2,1fr)}
+.stat{background:#FBF6EC; padding:11px 12px}
+.stat .k{font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.3px}
+.stat .v{font-size:clamp(17px,4.4vw,20px); font-weight:800; margin-top:2px}
+.stat .v small{font-size:11.5px; color:var(--soft); font-weight:700; margin-left:3px}
+
+table{width:100%; border-collapse:collapse; table-layout:fixed}
+thead th{font-size:10px; text-transform:uppercase; letter-spacing:.3px; color:var(--muted);
+  text-align:left; padding:10px 10px; border-bottom:2px solid var(--line2); font-weight:800}
+thead th.cpct{width:134px; text-align:center} thead th.cwt{width:88px; text-align:right}
+tbody td{padding:9px 10px; border-bottom:1px solid var(--line); font-size:14.5px; vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr.flour{background:#FCF7EE}
+tbody tr.grp td{background:#EFE3CE; font-weight:800; font-size:11.5px; text-transform:uppercase; letter-spacing:.3px; color:var(--crust-d); padding:9px 10px}
+.ingn{font-weight:600; word-break:break-word; line-height:1.2}
+.pct{text-align:center; white-space:nowrap}
+.ministep{display:inline-flex; align-items:stretch; border:1.5px solid var(--line2);
+  border-radius:8px; overflow:hidden; background:#fff}
+.ministep button{appearance:none; border:0; background:var(--flour); color:var(--crust-d);
+  width:22px; font-size:15px; font-weight:800; cursor:pointer; line-height:1; padding:0; touch-action:manipulation}
+.ministep button:active{background:#EFE6D5}
+.pctin{width:58px; border:0; border-left:1px solid var(--line); border-right:1px solid var(--line);
+  text-align:center; font-weight:700; font-size:13.5px; padding:6px 2px; color:var(--ink); background:#fff}
+.pctin:focus{outline:0; background:#FFFDF6}
+.wt{text-align:right; font-weight:800; font-size:16px; white-space:nowrap}
+.wt small{color:var(--soft); font-weight:700; font-size:11.5px; margin-left:3px}
+tfoot td{padding:11px 10px; font-weight:800; font-size:15px; background:#F4ECDC; border-top:2px solid var(--line2)}
+tfoot td.c{text-align:center} tfoot td.r{text-align:right}
+.note{font-size:11.5px; color:var(--soft); padding:10px 14px 14px}
+footer{max-width:1240px; margin:8px auto 30px; padding:0 16px; color:var(--soft); font-size:12px}
+
+.order{grid-column:1/-1; display:flex; flex-direction:column; gap:14px}
+.ocard{background:var(--panel); border:1.5px solid var(--line); border-radius:14px; box-shadow:var(--shadow); overflow:hidden}
+.ohead{padding:13px 16px; border-bottom:1px dashed var(--line2); background:linear-gradient(180deg,#FFFDF8,#FBF4E8); font-weight:800; font-size:16px}
+.otool{display:flex; gap:10px; align-items:center; flex-wrap:wrap; padding:12px 16px}
+.otool label{font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.3px}
+.otool .u{color:var(--soft); font-weight:700; font-size:13px}
+.oin{width:64px; border:1.5px solid var(--line2); border-radius:9px; padding:8px; font-weight:800; text-align:center; background:#fff; color:var(--ink)}
+.obtn{appearance:none; cursor:pointer; border:1.5px solid var(--crust); color:var(--crust); background:#fff; border-radius:10px; padding:9px 14px; font-weight:800; font-size:13px}
+.obtn:active{background:var(--crust); color:#fff}
+.obtn.sec{border-color:var(--line2); color:var(--muted)}
+.plan-row{display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--line)}
+.plan-row:last-child{border-bottom:0}
+.plan-row .pnm{font-weight:600; font-size:14px; flex:1; line-height:1.2}
+.plan-row input{width:92px; border:1.5px solid var(--line2); border-radius:9px; padding:9px; font-weight:700; text-align:right; background:#fff; color:var(--ink)}
+.plan-row .u{color:var(--soft); font-size:12px; font-weight:700}
+.otbl-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.otbl{width:100%; min-width:520px; border-collapse:collapse}
+.otbl th{font-size:10px; text-transform:uppercase; letter-spacing:.3px; color:var(--muted); text-align:right; padding:9px 8px; border-bottom:2px solid var(--line2); font-weight:800; white-space:nowrap}
+.otbl th:first-child{text-align:left}
+.otbl td{padding:7px 8px; border-bottom:1px solid var(--line); font-size:14px; text-align:right}
+.otbl td:first-child{text-align:left; font-weight:600}
+.otbl input{width:62px; border:1.5px solid var(--line2); border-radius:8px; padding:7px 4px; font-weight:700; text-align:right; background:#fff; color:var(--ink); font-size:13px}
+.otbl .zak{font-weight:800; color:var(--crust-d)}
+.otbl tr.hasorder{background:#FFF7EE}
+.ohint{font-size:11.5px; color:var(--soft); padding:10px 16px}
+.tab{padding:10px 4px}
+.otbl.ptbl{min-width:660px}
+.ptbl input{width:42px}
+.otbl .pnmc{min-width:150px; white-space:normal}
+.otbl .pnmc small{color:var(--soft); font-weight:700; font-size:11px}
+.otbl .wk,.otbl .dk{font-weight:800; color:var(--crust-d)}
+.otbl tfoot td{font-weight:800; background:#F4ECDC; border-top:2px solid var(--line2)}
+
+
+
+@media print{
+  header,.subbar,.controls,.pbtn,footer{display:none!important}
+  body{background:#fff}
+  .feed{display:block!important}
+  .feed .card{display:none!important}
+  .feed .card.printing{display:block!important; border:0; box-shadow:none}
+  .pctin{border:0; background:transparent; width:auto}
+  .ministep{border:0} .ministep button{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <h1>Zarób <span class="ru">· Замес</span></h1>
+    <div class="sub">рецептуры для цеха · receptury</div>
+  </div>
+  <div class="tabs" id="tabs" role="tablist"></div>
+</header>
+<div class="subbar"><div class="subbar-in">
+  <span class="cnt" id="cnt"></span>
+  <span class="unit" role="group" aria-label="jednostki">
+    <button data-unit="g" aria-pressed="true">g</button>
+    <button data-unit="kg" aria-pressed="false">kg</button>
+  </span>
+</div></div>
+
+<div class="wrap">
+  <div class="feed" id="feed"></div>
+  <footer>Веса = тесто × baker's % (mąka = 100%). Меняй штуки/вес/% — пересчитывается. У фокачи и рустика тесто раскладывается на изделия. Ключевые позиции проверяй на весах.</footer>
+</div>
+
+<script>
+const DATA={"recipes": [{"name": "Tartin", "cat": "Chleb pszenny na zakwasie", "group": "chleb", "piece": 725, "est": false, "total": 1.8895, "ings": [["mąka pszenna typ 500", 0.3509], ["mąka pszenna typ 750", 0.5789], ["mąka razowa typ 1850", 0.0702], ["woda 1", 0.5439], ["woda 2", 0.1053], ["zakwas (pszenny/żytni)", 0.2105], ["drożdże świeże", 0.0017], ["sól", 0.0281]]}, {"name": "Graham", "cat": "Chleb pszenny", "group": "chleb", "piece": 140, "est": false, "total": 1.7, "ings": [["mąka pszenna typ 500", 0.85], ["mąka razowa typ 1850", 0.15], ["woda", 0.6], ["drożdże świeże", 0.005], ["sól", 0.02], ["pomidory / musztarda", 0.075]]}, {"name": "Burak", "cat": "Chleb pszenny z dodatkami", "group": "chleb", "piece": 150, "est": false, "total": 1.905, "ings": [["mąka pszenna typ 750", 0.9], ["mąka żytnia typ 720", 0.1], ["woda 1", 0.32], ["woda 2", 0.07], ["zakwas (pszenny/żytni)", 0.2], ["zakwas buraczany", 0.2], ["drożdże świeże", 0.002], ["sól", 0.023], ["słonecznik", 0.03], ["nasiona lnu / siemię", 0.03], ["karob", 0.03]]}, {"name": "Dynia", "cat": "Chleb pszenny z dodatkami", "group": "chleb", "piece": 750, "est": false, "total": 2.0077, "ings": [["mąka pszenna typ 750", 0.9167], ["mąka żytnia typ 720", 0.0833], ["woda 1", 0.6667], ["woda 2 (mix)", 0.1333], ["drożdże świeże", 0.001], ["sól", 0.0233], ["pestki dyni", 0.0667], ["słonecznik", 0.0667], ["nasiona lnu / siemię", 0.05]]}, {"name": "Miso", "cat": "Chleb pszenny z dodatkami", "group": "chleb", "piece": 720, "est": false, "total": 1.947, "ings": [["mąka pszenna typ 750", 0.9], ["mąka żytnia typ 720", 0.1], ["woda 1", 0.5], ["woda 2", 0.12], ["zakwas (pszenny/żytni)", 0.2], ["drożdże świeże", 0.002], ["sól", 0.025], ["pasta miso", 0.1]]}, {"name": "Słód / żurawina", "cat": "Chleb pszenny z dodatkami", "group": "chleb", "piece": 740, "est": false, "total": 2.216, "ings": [["mąka pszenna typ 500", 0.15], ["mąka pszenna typ 750", 0.85], ["woda 1", 0.25], ["woda 2", 0.11], ["woda (zaparka)", 0.3], ["zakwas (pszenny/żytni)", 0.2], ["drożdże świeże", 0.002], ["sól", 0.024], ["słód płynny", 0.03], ["żurawina suszona", 0.15], ["orzechy", 0.15]]}, {"name": "Ziemniaki", "cat": "Chleb pszenny z dodatkami", "group": "chleb", "piece": 730, "est": false, "total": 2.176, "ings": [["mąka pszenna typ 750", 0.9444], ["mąka razowa typ 1850", 0.0556], ["woda 1", 0.5139], ["woda 2", 0.0972], ["zakwas (pszenny/żytni)", 0.1944], ["drożdże świeże", 0.0011], ["sól", 0.0222], ["cebula smażona", 0.0694], ["ziemniaki", 0.2778]]}, {"name": "Z pomarańczą", "cat": "Chleb pszenny słodki", "group": "chleb", "piece": 750, "est": false, "total": 2.296, "ings": [["mąka pszenna typ 500", 0.8], ["mąka pszenna typ 750", 0.2], ["woda 1", 0.55], ["woda 2", 0.2], ["zakwas (pszenny/żytni)", 0.25], ["drożdże świeże", 0.003], ["sól", 0.023], ["rodzynki", 0.25], ["pomarańcza / skórka", 0.02]]}, {"name": "Koźliak", "cat": "Chleb pszenno-żytni", "group": "chleb", "piece": 700, "est": false, "total": 1.865, "ings": [["mąka pszenna typ 750", 0.9], ["mąka żytnia typ 2000", 0.05], ["mąka razowa typ 1850", 0.05], ["woda 1", 0.54], ["woda 2", 0.08], ["zakwas (pszenny/żytni)", 0.2], ["drożdże świeże", 0.001], ["sól", 0.024], ["karob", 0.02]]}, {"name": "Żytni", "cat": "Chleb żytni", "group": "chleb", "piece": 760, "est": true, "total": 2.0737, "ings": [["mąka żytnia typ 720 (I)", 0.2619], ["mąka żytnia typ 2000 (I)", 0.2143], ["woda 1", 0.5952], ["mąka żytnia typ 720 (II)", 0.5238], ["mąka żytnia typ 2000 (II)", 0.0], ["woda 2", 0.2857], ["sól", 0.0262], ["słonecznik", 0.0952], ["ziarna / mix nasion", 0.0714]]}, {"name": "Orkiszowy", "cat": "Chleb orkiszowy", "group": "chleb", "piece": 710, "est": false, "total": 2.274, "ings": [["mąka orkiszowa typ 630", 0.8], ["mąka orkiszowa typ 1700", 0.2], ["woda 1", 0.64], ["woda 2", 0.12], ["zakwas (pszenny/żytni)", 0.48], ["drożdże świeże", 0.002], ["sól", 0.032]]}, {"name": "Pełnoziarnisty", "cat": "Chleb pełnoziarnisty", "group": "chleb", "piece": 730, "est": false, "total": 1.923, "ings": [["mąka pszenna typ 750", 0.5], ["mąka razowa typ 1850", 0.5], ["woda 1", 0.6], ["woda 2", 0.1], ["zakwas (pszenny/żytni)", 0.2], ["drożdże świeże", 0.003], ["sól", 0.02]]}, {"name": "Chocolate", "cat": "Chleb słodki / deserowy", "group": "chleb", "piece": 720, "est": false, "total": 2.935, "ings": [["mąka pszenna typ 500", 0.8], ["mąka pszenna typ 750", 0.2], ["woda 1", 0.575], ["woda 2", 0.05], ["zakwas (pszenny/żytni)", 0.5], ["drożdże świeże", 0.01], ["sól", 0.025], ["żurawina suszona", 0.3], ["kakao", 0.075], ["cukier", 0.1], ["masło", 0.1], ["chocolate drops", 0.2]]}, {"name": "Bagiet rustyk", "cat": "Pieczywo pszenne", "group": "chleb", "piece": 300, "est": true, "total": 1.678, "ings": [["mąka pszenna typ 500", 0.5], ["mąka pszenna typ 750", 0.5], ["woda 1", 0.575], ["woda 2", 0.075], ["drożdże świeże", 0.005], ["sól", 0.023]], "products": [{"name": "Bagiet", "type": "pieces", "pw": 310, "qty": 18}, {"name": "Bułki", "type": "pieces", "pw": 150, "qty": 24}]}, {"name": "Bagietka rano (poolish)", "cat": "Pieczywo pszenne", "group": "chleb", "piece": 150, "est": false, "total": 1.95625, "ings": [["mąka pszenna typ 750", 0.5], ["mąka pszenna typ 500", 0.5], ["woda 1", 0.425], ["drożdże świeże", 0.00625], ["mąka pszenna typ 750 (poolish)", 0.25], ["woda (poolish)", 0.25], ["sól", 0.025]]}, {"name": "Bicolour", "cat": "Pieczywo pszenne", "group": "chleb", "piece": 360, "est": false, "total": 1.822, "ings": [["mąka pszenna typ 500", 0.8], ["mąka pszenna typ 750", 0.2], ["woda 1", 0.5], ["woda 2", 0.1], ["zakwas (pszenny/żytni)", 0.2], ["drożdże świeże", 0.002], ["sól", 0.02]]}, {"name": "Ciabatta / Focaccia", "cat": "Pieczywo pszenne", "group": "chleb", "piece": 400, "est": true, "total": 1.769, "ings": [["mąka pszenna typ 500", 0.5], ["mąka pszenna typ 750", 0.5], ["drożdże świeże", 0.004], ["woda 1", 0.55], ["zakwas (pszenny/żytni)", 0.1], ["woda 2", 0.05], ["woda 3", 0.025], ["sól", 0.025], ["oliwa z oliwek", 0.015]], "products": [{"name": "Pizza", "type": "dough", "qty": 2000}, {"name": "Focaccia", "type": "dough", "qty": 3000}, {"name": "Ciabatta", "type": "dough", "qty": 1600}, {"name": "Ciabatta z oliwkami", "type": "dough", "qty": 2200}]}, {"name": "Shokupan Hilton", "cat": "Pieczywo mleczne (tostowe)", "group": "chleb", "piece": 450, "est": false, "total": 1.85916, "ings": [["mąka pszenna typ 500 (tangzhong)", 0.05], ["mleko (tangzhong)", 0.25], ["mąka pszenna typ 500 (główne)", 0.95], ["cukier", 0.125], ["drożdże świeże", 0.005], ["mleko w proszku", 0.00833], ["sól", 0.02083], ["mleko (główne)", 0.25], ["jaja / żółtka", 0.08333], ["masło", 0.11667]], "products": [{"name": "Bułki 450 g", "type": "pieces", "pw": 450, "qty": 16}, {"name": "Bułki 110 g", "type": "pieces", "pw": 110, "qty": 12}, {"name": "Bułki 130 g", "type": "pieces", "pw": 130, "qty": 12}]}, {"name": "Borodinski", "cat": "Chleb żytni (sezon/specjał)", "group": "chleb", "piece": 750, "est": true, "total": 2.01, "ings": [["mąka pszenna typ 750", 0.15], ["mąka żytnia typ 720", 0.43], ["mąka żytnia razowa cz", 0.12], ["woda", 0.9], ["zakwas (pszenny/żytni)", 0.25], ["sól", 0.01], ["słód płynny", 0.05], ["cukier", 0.06], ["miód", 0.04]]}, {"name": "Drożdżowe (bułki)", "cat": "Słodkie / drożdżowe", "group": "drozdzowe", "piece": 100, "est": true, "total": 2.1644, "ings": [["mąka pszenna typ 450 (tortowa)", 1.0], ["zakwas słodki", 0.37], ["drożdże świeże", 0.0043], ["sól", 0.0186], ["olej", 0.0429], ["cukier", 0.1], ["masło", 0.0571], ["mleko", 0.4286], ["jaja / żółtka", 0.1429]]}, {"name": "Pączki", "cat": "Słodkie / drożdżowe", "group": "paczki", "piece": 100, "est": false, "total": 2.03, "ings": [["mąka pszenna typ 450 (tortowa)", 1.0], ["zakwas słodki", 0.2], ["drożdże świeże", 0.01], ["sól", 0.02], ["cukier", 0.1], ["masło", 0.2], ["mleko", 0.125], ["jaja / żółtka", 0.375]]}, {"name": "Pączki (Tłusty Czwartek)", "cat": "Sezon – Tłusty Czwartek", "group": "paczki", "piece": 100, "est": false, "total": 2.3375, "ings": [["mąka pszenna typ 450 (tortowa)", 1.0], ["drożdże świeże", 0.1], ["sól", 0.0025], ["cukier", 0.18], ["masło", 0.15], ["mleko", 0.3], ["jaja / żółtka", 0.6], ["spirytus", 0.005]]}, {"name": "Ciabatta / Focaccia + Bagiet rustyk", "cat": "Pieczywo pszenne · wspólne ciasto", "group": "chleb", "est": false, "ings": [["mąka pszenna typ 500", 0.5], ["mąka pszenna typ 750", 0.5], ["drożdże świeże", 0.004], ["woda 1", 0.55], ["zakwas (pszenny/żytni)", 0.1], ["woda 2", 0.05], ["woda 3", 0.025], ["sól", 0.025], ["oliwa z oliwek", 0.015]], "products": [{"name": "Pizza", "type": "dough", "qty": 2000}, {"name": "Focaccia", "type": "dough", "qty": 3000}, {"name": "Ciabatta", "type": "dough", "qty": 1600}, {"name": "Ciabatta z oliwkami", "type": "dough", "qty": 2200}, {"name": "Bagiet", "type": "pieces", "pw": 310, "qty": 18}, {"name": "Bułki", "type": "pieces", "pw": 150, "qty": 24}], "total": 1.769, "piece": 400}], "groups": [["chleb", "Хлеб", "Chleb"], ["paczki", "Пончики", "Pączki"], ["drozdzowe", "Дрожжевое", "Drożdżowe"]], "order": {"chleb": ["Tartin", "Ciabatta / Focaccia + Bagiet rustyk", "Bagietka rano (poolish)", "Bagiet rustyk", "Ciabatta / Focaccia", "Orkiszowy", "Graham", "Shokupan Hilton", "Dynia", "Żytni", "Ziemniaki", "Koźliak", "Burak", "Słód / żurawina", "Z pomarańczą", "Pełnoziarnisty", "Miso", "Chocolate", "Bicolour", "Borodinski"]}};
+const state={group:"chleb",unit:"g"};
+const st={};
+let updaters=[];
+const $=s=>document.querySelector(s);
+const U=()=>state.unit==="kg"?"kg":"g";
+function fmtW(g){
+  if(state.unit==="kg") return (g/1000).toLocaleString('pl-PL',{minimumFractionDigits:3,maximumFractionDigits:3});
+  if(g<10) return g.toLocaleString('pl-PL',{minimumFractionDigits:1,maximumFractionDigits:1});
+  return Math.round(g).toLocaleString('pl-PL');
+}
+const pctStr=f=>(f*100).toLocaleString('pl-PL',{maximumFractionDigits:2});
+const pctVal=f=>String(Math.round(f*10000)/100);
+function defaultPieces(r){return r.piece<=120?30:(r.piece<=350?20:10);}
+function wStep(r){return r.piece>=400?25:5;}
+function ordered(g){
+  const ord=(DATA.order&&DATA.order[g])||null;
+  const arr=DATA.recipes.filter(r=>r.group===g);
+  if(!ord) return arr;
+  const by={}; arr.forEach(r=>by[r.name]=r);
+  return ord.map(n=>by[n]).filter(Boolean);
+}
+function getSt(r){
+  if(!st[r.name]){
+    if(r.parts) st[r.name]={parts:r.parts.map(p=>({fracs:p.ings.map(x=>x[1]), products:p.products.map(q=>Object.assign({},q))}))};
+    else if(r.products) st[r.name]={fracs:r.ings.map(x=>x[1]), products:r.products.map(p=>Object.assign({},p))};
+    else st[r.name]={pieces:defaultPieces(r), pw:r.piece, fracs:r.ings.map(x=>x[1])};
+  }
+  return st[r.name];
+}
+function prodDough(r,s){let d=0; r.products.forEach((p,i)=>{const sp=s.products[i];
+  d+= p.type==='pieces' ? (sp.pw||0)*(sp.qty||0) : (sp.qty||0);}); return d;}
+
+/* ===== Выпечка + Заказ сырья ===== */
+const ORD={prod:{},stock:{},manual:{},safety:25};
+function ordLoad(){ try{ Object.assign(ORD, JSON.parse(localStorage.getItem('zarob_order')||'{}')); }catch(e){} if(!ORD.prod)ORD.prod={}; if(!ORD.stock)ORD.stock={}; if(!ORD.manual)ORD.manual={}; }
+function ordSave(){ try{ localStorage.setItem('zarob_order', JSON.stringify(ORD)); }catch(e){} }
+function fmtKg(x){ return (x||0).toLocaleString('pl-PL',{maximumFractionDigits:2}); }
+function pnum(v){ return parseFloat(String(v==null?0:v).replace(',','.'))||0; }
+function canon(n){
+  if(/^woda/i.test(n)||/^zakwas/i.test(n)) return null;
+  n=n.replace(/\s*\([^)]*\)\s*/g,' ').trim();
+  if(/^mleko w proszku/i.test(n)) return 'mleko w proszku';
+  if(/^mleko/i.test(n)) return 'mleko';
+  const B=['mąka pszenna typ 500','mąka pszenna typ 750','mąka żytnia typ 720','mąka żytnia typ 2000','mąka razowa typ 1850','mąka orkiszowa typ 630','mąka orkiszowa typ 1700','mąka pełnoziarnista'];
+  for(const b of B){ if(n.toLowerCase().startsWith(b.toLowerCase())) return b; }
+  return n;
+}
+function masterIngs(){
+  const set=new Set();
+  DATA.recipes.forEach(r=>{ (r.parts?r.parts.map(p=>p.ings):[r.ings]).forEach(ings=>ings.forEach(x=>{const c=canon(x[0]); if(c)set.add(c);})); });
+  return [...set].sort((a,b)=>a.localeCompare(b,'pl'));
+}
+function prodList(){
+  const out=[];
+  DATA.recipes.forEach(r=>{
+    if(r.parts) return;                       // composite pomijamy (jego wyroby są w bazowych recepturach)
+    if(r.products){ r.products.forEach(p=>{ out.push({key:r.name+'|'+p.name, rec:r.name, name:r.name+' · '+p.name, wt:(p.type==='pieces'?p.pw:p.qty)}); }); }
+    else out.push({key:r.name, rec:r.name, name:r.name, wt:r.piece});
+  });
+  return out;
+}
+function recipeDough(){   // grams per recipe from weekly production
+  const dough={};
+  prodList().forEach(p=>{
+    const arr=ORD.prod[p.key]||[]; let wk=0; for(let d=0;d<6;d++) wk+=pnum(arr[d]);
+    if(wk>0) dough[p.rec]=(dough[p.rec]||0)+wk*p.wt;
+  });
+  return dough;
+}
+function computeNeeds(){
+  const need={}, dgh=recipeDough();
+  DATA.recipes.forEach(r=>{
+    if(r.parts) return;
+    const kg=(dgh[r.name]||0)/1000; if(kg<=0) return;
+    const total=r.ings.reduce((a,x)=>a+x[1],0), flour=total?kg/total:0;
+    r.ings.forEach(x=>{ const c=canon(x[0]); if(!c) return; need[c]=(need[c]||0)+x[1]*flour; });
+  });
+  return need;
+}
+function copyOrder(){
+  const need=computeNeeds(), S=pnum(ORD.safety);
+  const lines=masterIngs().map(m=>{ const a=need[m]||0, mn=pnum(ORD.manual[m]), st=pnum(ORD.stock[m]); return [m,Math.max(0,(a+mn)*(1+S/100)-st)]; }).filter(x=>x[1]>0.001).map(x=>'• '+x[0]+' — '+fmtKg(x[1])+' kg');
+  const txt='Zamówienie surowców (tydzień):\n'+(lines.length?lines.join('\n'):'—');
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(()=>alert('Заказ скопирован в буфер')).catch(()=>prompt('Скопируй заказ:',txt)); } else { prompt('Скопируй заказ:',txt); }
+}
+function renderProd(feed){
+  const list=prodList();
+  let rows='';
+  list.forEach((p,i)=>{
+    const arr=ORD.prod[p.key]||[]; let cells='';
+    for(let d=0;d<6;d++){ cells+='<td><input data-prod="'+i+'" data-day="'+d+'" class="num" type="text" inputmode="numeric" value="'+(arr[d]!=null&&arr[d]!==''?arr[d]:'')+'" placeholder="0"></td>'; }
+    rows+='<tr data-prow="'+i+'"><td class="pnmc">'+p.name+'<small> '+p.wt+' g</small></td>'+cells+'<td class="wk num" data-wk="'+i+'">0</td><td class="dk num" data-dk="'+i+'">0</td></tr>';
+  });
+  feed.innerHTML=''
+   +'<div class="order"><div class="ocard">'
+   +  '<div class="ohead">Выпечка по дням · Wypiek</div>'
+   +  '<div class="ohint">Впиши штуки на каждый день (Pon–Sob). Недельные объёмы автоматически формируют заказ во вкладке «Заказ». Данные сохраняются на устройстве.</div>'
+   +  '<div class="otbl-wrap"><table class="otbl ptbl"><thead><tr><th>Продукт</th><th>Pon</th><th>Wt</th><th>Śr</th><th>Czw</th><th>Pt</th><th>Sob</th><th>шт/нед</th><th>тесто кг</th></tr></thead><tbody>'+rows+'</tbody>'
+   +  '<tfoot><tr><td>Тесто всего · Razem</td><td colspan="7"></td><td class="dk num" data-role="prodtot">0</td></tr></tfoot></table></div>'
+   +  '<div class="otool"><button class="obtn sec" id="prodReset">Сброс</button></div>'
+   +'</div></div>';
+  function refresh(){
+    let tot=0;
+    list.forEach((p,i)=>{
+      const arr=ORD.prod[p.key]||[]; let wk=0; for(let d=0;d<6;d++) wk+=pnum(arr[d]);
+      const g=wk*p.wt; tot+=g;
+      const w=feed.querySelector('[data-wk="'+i+'"]'); if(w)w.textContent=wk?wk.toLocaleString('pl-PL'):'0';
+      const dk=feed.querySelector('[data-dk="'+i+'"]'); if(dk)dk.textContent=fmtKg(g/1000);
+    });
+    const pt=feed.querySelector('[data-role=prodtot]'); if(pt)pt.textContent=fmtKg(tot/1000);
+  }
+  feed.querySelectorAll('[data-prod]').forEach(inp=>inp.oninput=e=>{
+    const i=+inp.dataset.prod, d=+inp.dataset.day, p=list[i];
+    if(!ORD.prod[p.key]) ORD.prod[p.key]=[];
+    ORD.prod[p.key][d]=e.target.value; ordSave(); refresh();
+  });
+  feed.querySelector('#prodReset').onclick=()=>{ if(confirm('Очистить план выпечки по дням?')){ ORD.prod={}; ordSave(); renderProd(feed);} };
+  refresh();
+}
+function renderOrder(feed){
+  const ings=masterIngs();
+  let tRows='';
+  ings.forEach((m,k)=>{ tRows+='<tr data-row="'+k+'"><td>'+m+'</td><td class="need num" data-need="'+k+'">0</td><td><input data-manual="'+k+'" class="num" type="text" inputmode="decimal" value="'+(ORD.manual[m]||'')+'" placeholder="0"></td><td><input data-stock="'+k+'" class="num" type="text" inputmode="decimal" value="'+(ORD.stock[m]||'')+'" placeholder="0"></td><td class="zak num" data-zakaz="'+k+'">0</td></tr>'; });
+  feed.innerHTML=''
+   +'<div class="order">'
+   +  '<div class="ocard"><div class="otool">'
+   +     '<label>Страх. запас</label><input class="oin" id="ordSafety" type="text" inputmode="numeric" value="'+ORD.safety+'"><span class="u">%</span>'
+   +     '<button class="obtn" id="ordCopy">Скопировать заказ</button><button class="obtn sec" id="ordReset">Сброс</button>'
+   +   '</div><div class="ohint">Потребность берётся из вкладки «Выпечка». Заказать = (потребность + ручн.) × (1 + страх.%) − остаток. Вода и закваска не заказываются.</div></div>'
+   +  '<div class="ocard"><div class="ohead">Заказ сырья</div><div class="otbl-wrap"><table class="otbl">'
+   +     '<thead><tr><th>Sырьё</th><th>Нужно/нед</th><th>+ручн</th><th>Остаток</th><th>Заказ, кг</th></tr></thead><tbody>'+tRows+'</tbody></table></div>'
+   +   '<div class="ohint">Всё в кг. Позиции к заказу подсвечены. Прокрути таблицу вбок, если не помещается.</div></div>'
+   +'</div>';
+  function refresh(){
+    const need=computeNeeds(), S=pnum(ORD.safety);
+    ings.forEach((m,k)=>{
+      const a=need[m]||0, mn=pnum(ORD.manual[m]), st=pnum(ORD.stock[m]);
+      const zak=Math.max(0,(a+mn)*(1+S/100)-st);
+      const nd=feed.querySelector('[data-need="'+k+'"]'); if(nd)nd.textContent=fmtKg(a);
+      const zk=feed.querySelector('[data-zakaz="'+k+'"]'); if(zk)zk.textContent=fmtKg(zak);
+      const tr=feed.querySelector('[data-row="'+k+'"]'); if(tr)tr.classList.toggle('hasorder', zak>0.001);
+    });
+  }
+  feed.querySelectorAll('[data-manual]').forEach(inp=>inp.oninput=e=>{ ORD.manual[ings[+inp.dataset.manual]]=e.target.value; ordSave(); refresh(); });
+  feed.querySelectorAll('[data-stock]').forEach(inp=>inp.oninput=e=>{ ORD.stock[ings[+inp.dataset.stock]]=e.target.value; ordSave(); refresh(); });
+  feed.querySelector('#ordSafety').oninput=e=>{ ORD.safety=e.target.value; ordSave(); refresh(); };
+  feed.querySelector('#ordCopy').onclick=copyOrder;
+  feed.querySelector('#ordReset').onclick=()=>{ if(confirm('Очистить остатки и ручные корректировки?')){ ORD.stock={};ORD.manual={};ORD.safety=25; ordSave(); renderOrder(feed);} };
+  refresh();
+}
+function renderTabs(){
+  const t=$("#tabs"); t.innerHTML="";
+  DATA.groups.forEach(([g,ru,pl])=>{
+    const b=document.createElement("button");
+    b.className="tab"; b.setAttribute("role","tab"); b.setAttribute("aria-selected",state.group===g);
+    b.innerHTML=ru+"<small>"+pl+" &middot; "+DATA.recipes.filter(r=>r.group===g).length+"</small>";
+    b.onclick=()=>{state.group=g; renderFeed(); window.scrollTo({top:0});};
+    t.appendChild(b);
+  });
+  const pb=document.createElement("button");
+  pb.className="tab"; pb.setAttribute("role","tab"); pb.setAttribute("aria-selected",state.group==="prod");
+  pb.innerHTML="Выпечка<small>Wypiek</small>";
+  pb.onclick=()=>{state.group="prod"; renderFeed(); window.scrollTo({top:0});};
+  t.appendChild(pb);
+  const ob=document.createElement("button");
+  ob.className="tab"; ob.setAttribute("role","tab"); ob.setAttribute("aria-selected",state.group==="order");
+  ob.innerHTML="Заказ<small>Zamówienie</small>";
+  ob.onclick=()=>{state.group="order"; renderFeed(); window.scrollTo({top:0});};
+  t.appendChild(ob);
+}
+
+function controlsHTML(r,s){
+  if(r.products){
+    let rows="";
+    r.products.forEach((p,i)=>{
+      const sp=s.products[i];
+      if(p.type==='pieces'){
+        rows+=`<div class="prow"><div class="pn">${p.name}</div><div class="pline">
+          <input data-pw="${i}" class="num pwin" type="text" inputmode="numeric" value="${sp.pw}"><span class="u2">g</span><span class="x">×</span>
+          <span class="ministep cstep"><button data-cdec="${i}" aria-label="minus">&minus;</button><input data-cnt="${i}" class="num cntin" type="text" inputmode="numeric" value="${sp.qty}"><button data-cinc="${i}" aria-label="plus">+</button></span>
+          <span class="pe num" data-pe="${i}"></span></div></div>`;
+      } else {
+        rows+=`<div class="prow"><div class="pn">${p.name}</div><div class="pline">
+          <span class="ministep dstep"><button data-ddec="${i}" aria-label="minus">&minus;</button><input data-dough="${i}" class="num cntin wide" type="text" inputmode="numeric" value="${sp.qty}"><button data-dinc="${i}" aria-label="plus">+</button></span><span class="u2">g теста</span>
+          <span class="pe num" data-pe="${i}"></span></div></div>`;
+      }
+    });
+    return `<label class="plab">Раскладка теста · Rozkład ciasta</label><div class="prods">${rows}
+      <div class="prow ptot"><span class="pn">Тесто всего · Razem</span><span class="pe num" data-role="ptot"></span></div></div>
+      <div class="chips"><button class="chip reset" data-role="reset">↺ сброс</button></div>`;
+  }
+  const n=Math.max(1,s.pieces), pw=Math.max(1,s.pw);
+  let chips=""; [5,10,12,20,30,50,100].forEach(v=>chips+='<button class="chip" data-chip="'+v+'">'+v+' szt</button>');
+  return `<div class="ctl-grid">
+     <div class="ctl"><label>Кол-во штук <span class="pl">· Liczba sztuk</span></label>
+       <div class="stepper"><button data-role="pmin" aria-label="minus">&minus;</button>
+         <input data-role="pieces" class="num" type="text" inputmode="numeric" value="${n}">
+         <button data-role="pplus" aria-label="plus">+</button></div></div>
+     <div class="ctl"><label>Вес штуки <span class="pl">· Waga (g)</span></label>
+       <div class="stepper wt"><button data-role="wmin" aria-label="minus">&minus;</button>
+         <input data-role="pw" class="num" type="text" inputmode="numeric" value="${pw}">
+         <button data-role="wplus" aria-label="plus">+</button></div>
+       <div class="wsuffix">шаг ${wStep(r)} g</div></div>
+   </div>
+   <div class="chips">${chips}<button class="chip reset" data-role="reset">↺ сброс</button></div>`;
+}
+
+function cardHTML(r){
+  const s=getSt(r);
+  if(r.parts) return compositeHTML(r);
+  const total=s.fracs.reduce((a,b)=>a+b,0);
+  const dough=r.products?prodDough(r,s):Math.max(1,s.pieces)*Math.max(1,s.pw);
+  const flour=total?dough/total:0;
+  let rows="";
+  r.ings.forEach(([name],i)=>{
+    const frac=s.fracs[i], isFlour=/m[\u0105a]ka/i.test(name);
+    rows+='<tr class="'+(isFlour?'flour':'')+'"><td class="ingn">'+name+'</td>'
+      +'<td class="pct"><span class="ministep"><button data-pdec="'+i+'" aria-label="minus">&minus;</button><input data-pct="'+i+'" class="num pctin" type="text" inputmode="decimal" value="'+pctStr(frac)+'"><button data-pinc="'+i+'" aria-label="plus">+</button></span></td>'
+      +'<td class="wt num">'+fmtW(frac*flour)+'<small>'+U()+'</small></td></tr>';
+  });
+  const est=r.est?'<span class="badge">&#8776; вес штуки</span>':'';
+  const thirdStat=r.products?'':'<div class="stat"><div class="k">Szt × waga</div><div class="v num" data-role="sn"></div></div>';
+  return `
+   <div class="card-head">
+     <div><h2 class="rname">${r.name}${est}</h2><div class="rcat">${r.cat}</div></div>
+     <button class="pbtn" data-act="print">Печать</button>
+   </div>
+   <div class="controls">${controlsHTML(r,s)}</div>
+   <div class="stats${r.products?' two':''}">
+     <div class="stat"><div class="k">Mąka · Мука</div><div class="v num" data-role="flour">${fmtW(flour)}<small>${U()}</small></div></div>
+     <div class="stat"><div class="k">Ciasto · Тесто</div><div class="v num" data-role="dough">${fmtW(dough)}<small>${U()}</small></div></div>
+     ${thirdStat}
+   </div>
+   <table>
+     <thead><tr><th>Składnik · Ингредиент</th><th class="cpct">% к муке</th><th class="cwt">Waga · Вес</th></tr></thead>
+     <tbody>${rows}</tbody>
+     <tfoot><tr><td>Razem · Всего</td><td class="c num" data-role="tpct">${pctStr(total)}%</td><td class="r num" data-role="tot">${fmtW(dough)} ${U()}</td></tr></tfoot>
+   </table>
+   <div class="note">% = к муке (baker's percentage). Меняй % — пересчитается. Mąka ogółem = 100%.</div>`;
+}
+
+function bindCard(el,r){
+  const s=getSt(r);
+  if(r.parts){ bindComposite(el,r); return; }
+  const q=x=>el.querySelector('[data-role='+x+']');
+  function update(){
+    const total=s.fracs.reduce((a,b)=>a+b,0);
+    let dough;
+    if(r.products){
+      dough=0;
+      r.products.forEach((p,i)=>{const sp=s.products[i];
+        const d=p.type==='pieces'?(sp.pw||0)*(sp.qty||0):(sp.qty||0);
+        const pe=el.querySelector('[data-pe="'+i+'"]'); if(pe)pe.textContent='= '+fmtW(d)+' '+U();
+        dough+=d;});
+      const pt=q('ptot'); if(pt)pt.textContent=fmtW(dough)+' '+U();
+    } else {
+      const n=Math.max(0,s.pieces||0), pw=Math.max(0,s.pw||0); dough=n*pw;
+      const sn=q('sn'); if(sn)sn.innerHTML=n+' × '+pw+'<small>g</small>';
+    }
+    const flour=total?dough/total:0;
+    el.querySelectorAll('tbody tr').forEach((tr,i)=>{tr.querySelector('.wt').innerHTML=fmtW((s.fracs[i]||0)*flour)+'<small>'+U()+'</small>';});
+    q('flour').innerHTML=fmtW(flour)+'<small>'+U()+'</small>';
+    q('dough').innerHTML=fmtW(dough)+'<small>'+U()+'</small>';
+    q('tpct').textContent=pctStr(total)+'%';
+    q('tot').textContent=fmtW(dough)+' '+U();
+  }
+  // pieces/weight (single-product recipes)
+  if(!r.products){
+    const pcs=q('pieces'), pwi=q('pw'), step=wStep(r);
+    q('pmin').onclick=()=>{s.pieces=Math.max(1,(s.pieces||1)-1); pcs.value=s.pieces; update();};
+    q('pplus').onclick=()=>{s.pieces=(s.pieces||0)+1; pcs.value=s.pieces; update();};
+    pcs.oninput=e=>{s.pieces=parseInt(e.target.value||'0',10)||0; update();};
+    pcs.onblur =()=>{if(!s.pieces){s.pieces=1; pcs.value=1;} update();};
+    q('wmin').onclick=()=>{s.pw=Math.max(1,(s.pw||r.piece)-step); pwi.value=s.pw; update();};
+    q('wplus').onclick=()=>{s.pw=(s.pw||r.piece)+step; pwi.value=s.pw; update();};
+    pwi.oninput=e=>{s.pw=parseFloat(e.target.value||'0')||0; update();};
+    pwi.onblur =()=>{if(!s.pw){s.pw=r.piece; pwi.value=r.piece;} update();};
+    el.querySelectorAll('[data-chip]').forEach(c=>c.onclick=()=>{s.pieces=+c.dataset.chip; pcs.value=s.pieces; update();});
+  } else {
+    el.querySelectorAll('[data-pw]').forEach(inp=>inp.oninput=e=>{s.products[+inp.dataset.pw].pw=parseFloat(e.target.value||'0')||0; update();});
+    el.querySelectorAll('[data-cnt]').forEach(inp=>inp.oninput=e=>{s.products[+inp.dataset.cnt].qty=parseInt(e.target.value||'0',10)||0; update();});
+    el.querySelectorAll('[data-cdec]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cdec; s.products[i].qty=Math.max(0,(s.products[i].qty||0)-1); el.querySelector('[data-cnt="'+i+'"]').value=s.products[i].qty; update();});
+    el.querySelectorAll('[data-cinc]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cinc; s.products[i].qty=(s.products[i].qty||0)+1; el.querySelector('[data-cnt="'+i+'"]').value=s.products[i].qty; update();});
+    el.querySelectorAll('[data-dough]').forEach(inp=>inp.oninput=e=>{s.products[+inp.dataset.dough].qty=parseFloat(e.target.value||'0')||0; update();});
+    el.querySelectorAll('[data-ddec]').forEach(b=>b.onclick=()=>{const i=+b.dataset.ddec; s.products[i].qty=Math.max(0,(s.products[i].qty||0)-100); el.querySelector('[data-dough="'+i+'"]').value=s.products[i].qty; update();});
+    el.querySelectorAll('[data-dinc]').forEach(b=>b.onclick=()=>{const i=+b.dataset.dinc; s.products[i].qty=(s.products[i].qty||0)+100; el.querySelector('[data-dough="'+i+'"]').value=s.products[i].qty; update();});
+  }
+  // percentages (all recipes)
+  const pin=i=>el.querySelector('[data-pct="'+i+'"]');
+  function setPct(i,frac){ if(frac<0)frac=0; s.fracs[i]=frac; const e=pin(i); if(e)e.value=pctStr(frac); update(); }
+  function stepP(frac){ const v=frac*100; const sp=v<2?0.1:(v<10?0.5:1); return sp/100; }
+  el.querySelectorAll('[data-pct]').forEach(inp=>inp.oninput=e=>{s.fracs[+inp.dataset.pct]=(parseFloat(String(e.target.value).replace(',','.'))||0)/100; update();});
+  el.querySelectorAll('[data-pdec]').forEach(b=>b.onclick=()=>{const i=+b.dataset.pdec; setPct(i,Math.max(0,Math.round((s.fracs[i]-stepP(s.fracs[i]))*1000)/1000));});
+  el.querySelectorAll('[data-pinc]').forEach(b=>b.onclick=()=>{const i=+b.dataset.pinc; setPct(i,Math.round((s.fracs[i]+stepP(s.fracs[i]))*1000)/1000);});
+  // reset
+  q('reset').onclick=()=>{
+    if(r.products) s.products=r.products.map(p=>Object.assign({},p));
+    else {s.pieces=defaultPieces(r); s.pw=r.piece;}
+    s.fracs=r.ings.map(x=>x[1]); renderOne(el,r);
+  };
+  el.querySelector('[data-act=print]').onclick=()=>{
+    document.querySelectorAll('.card.printing').forEach(c=>c.classList.remove('printing'));
+    el.classList.add('printing'); window.print();};
+  updaters.push(update); update();
+}
+
+
+function compositeHTML(r){
+  const s=getSt(r);
+  let partsHTML="";
+  r.parts.forEach((part,j)=>{
+    const ps=s.parts[j];
+    let prows="";
+    part.products.forEach((p,i)=>{
+      const sp=ps.products[i];
+      if(p.type==='pieces'){
+        prows+=`<div class="prow"><div class="pn">${p.name}</div><div class="pline">
+          <input data-pw="${j}_${i}" class="num pwin" type="text" inputmode="numeric" value="${sp.pw}"><span class="u2">g</span><span class="x">×</span>
+          <span class="ministep cstep"><button data-cdec="${j}_${i}" aria-label="minus">&minus;</button><input data-cnt="${j}_${i}" class="num cntin" type="text" inputmode="numeric" value="${sp.qty}"><button data-cinc="${j}_${i}" aria-label="plus">+</button></span>
+          <span class="pe num" data-pe="${j}_${i}"></span></div></div>`;
+      } else {
+        prows+=`<div class="prow"><div class="pn">${p.name}</div><div class="pline">
+          <span class="ministep dstep"><button data-ddec="${j}_${i}" aria-label="minus">&minus;</button><input data-dough="${j}_${i}" class="num cntin wide" type="text" inputmode="numeric" value="${sp.qty}"><button data-dinc="${j}_${i}" aria-label="plus">+</button></span><span class="u2">g теста</span>
+          <span class="pe num" data-pe="${j}_${i}"></span></div></div>`;
+      }
+    });
+    partsHTML+=`<div class="plab">Тесто ${j+1} · ${part.title}</div><div class="prods">${prows}
+      <div class="prow ptot"><span class="pn">Тесто · Razem</span><span class="pe num" data-role="ptot_${j}"></span></div></div>`;
+  });
+  const agg=[], seen={};
+  r.parts.forEach(part=>part.ings.forEach(x=>{ if(!(x[0] in seen)){ seen[x[0]]=agg.length; agg.push(x[0]); } }));
+  let tableHTML="";
+  agg.forEach((name,k)=>{
+    const isFlour=/m[\u0105a]ka/i.test(name);
+    tableHTML+='<tr class="'+(isFlour?'flour':'')+'"><td class="ingn">'+name+'</td><td class="wt num" data-w="'+k+'"></td></tr>';
+  });
+  return `
+   <div class="card-head">
+     <div><h2 class="rname">${r.name}<span class="badge">2 ciasta</span></h2><div class="rcat">${r.cat}</div></div>
+     <button class="pbtn" data-act="print">Печать</button>
+   </div>
+   <div class="controls">${partsHTML}<div class="chips"><button class="chip reset" data-role="reset">↺ сброс</button></div></div>
+   <div class="stats two">
+     <div class="stat"><div class="k">Mąka · Мука (Σ)</div><div class="v num" data-role="flour"></div></div>
+     <div class="stat"><div class="k">Ciasto · Тесто (Σ)</div><div class="v num" data-role="dough"></div></div>
+   </div>
+   <table>
+     <thead><tr><th>Składnik · Ингредиент (Σ оба теста)</th><th class="cwt">Waga · Вес</th></tr></thead>
+     <tbody>${tableHTML}</tbody>
+     <tfoot><tr><td>Ciasto razem · Тесто всего</td><td class="r num" data-role="tot"></td></tr></tfoot>
+   </table>
+   <div class="note">Общая грамовка теста и суммарный сбор ингредиентов по обоим тестам. Замешиваются отдельно: у Ciabatta/Focaccia есть закваска и олива, у Rustyk — нет.</div>`;
+}
+
+function bindComposite(el,r){
+  const s=getSt(r);
+  const idx=ds=>ds.split('_').map(Number);
+  const agg=[], seen={};
+  r.parts.forEach(part=>part.ings.forEach(x=>{ if(!(x[0] in seen)){ seen[x[0]]=agg.length; agg.push(x[0]); } }));
+  function update(){
+    const sums={}; let tFlour=0, tDough=0;
+    r.parts.forEach((part,j)=>{
+      const ps=s.parts[j];
+      const total=ps.fracs.reduce((a,b)=>a+b,0);
+      let dough=0;
+      part.products.forEach((p,i)=>{const sp=ps.products[i];
+        const d=p.type==='pieces'?(sp.pw||0)*(sp.qty||0):(sp.qty||0);
+        const pe=el.querySelector('[data-pe="'+j+'_'+i+'"]'); if(pe)pe.textContent='= '+fmtW(d)+' '+U();
+        dough+=d;});
+      const flour=total?dough/total:0;
+      part.ings.forEach((ing,i)=>{ sums[ing[0]]=(sums[ing[0]]||0)+(ps.fracs[i]||0)*flour; });
+      const pt=el.querySelector('[data-role=ptot_'+j+']'); if(pt)pt.textContent=fmtW(dough)+' '+U();
+      tFlour+=flour; tDough+=dough;
+    });
+    agg.forEach((name,k)=>{ const c=el.querySelector('[data-w="'+k+'"]'); if(c)c.innerHTML=fmtW(sums[name]||0)+'<small>'+U()+'</small>'; });
+    const fl=el.querySelector('[data-role=flour]'); if(fl)fl.innerHTML=fmtW(tFlour)+'<small>'+U()+'</small>';
+    const dg=el.querySelector('[data-role=dough]'); if(dg)dg.innerHTML=fmtW(tDough)+'<small>'+U()+'</small>';
+    const tot=el.querySelector('[data-role=tot]'); if(tot)tot.textContent=fmtW(tDough)+' '+U();
+  }
+  const P=(sel,fn)=>el.querySelectorAll(sel).forEach(fn);
+  P('[data-pw]',inp=>inp.oninput=e=>{const[j,i]=idx(inp.dataset.pw); s.parts[j].products[i].pw=parseFloat(e.target.value||'0')||0; update();});
+  P('[data-cnt]',inp=>inp.oninput=e=>{const[j,i]=idx(inp.dataset.cnt); s.parts[j].products[i].qty=parseInt(e.target.value||'0',10)||0; update();});
+  P('[data-cdec]',b=>b.onclick=()=>{const[j,i]=idx(b.dataset.cdec); const pr=s.parts[j].products[i]; pr.qty=Math.max(0,(pr.qty||0)-1); el.querySelector('[data-cnt="'+j+'_'+i+'"]').value=pr.qty; update();});
+  P('[data-cinc]',b=>b.onclick=()=>{const[j,i]=idx(b.dataset.cinc); const pr=s.parts[j].products[i]; pr.qty=(pr.qty||0)+1; el.querySelector('[data-cnt="'+j+'_'+i+'"]').value=pr.qty; update();});
+  P('[data-dough]',inp=>inp.oninput=e=>{const[j,i]=idx(inp.dataset.dough); s.parts[j].products[i].qty=parseFloat(e.target.value||'0')||0; update();});
+  P('[data-ddec]',b=>b.onclick=()=>{const[j,i]=idx(b.dataset.ddec); const pr=s.parts[j].products[i]; pr.qty=Math.max(0,(pr.qty||0)-100); el.querySelector('[data-dough="'+j+'_'+i+'"]').value=pr.qty; update();});
+  P('[data-dinc]',b=>b.onclick=()=>{const[j,i]=idx(b.dataset.dinc); const pr=s.parts[j].products[i]; pr.qty=(pr.qty||0)+100; el.querySelector('[data-dough="'+j+'_'+i+'"]').value=pr.qty; update();});
+  el.querySelector('[data-role=reset]').onclick=()=>{
+    s.parts=r.parts.map(p=>({fracs:p.ings.map(x=>x[1]), products:p.products.map(q=>Object.assign({},q))}));
+    renderOne(el,r);
+  };
+  el.querySelector('[data-act=print]').onclick=()=>{
+    document.querySelectorAll('.card.printing').forEach(c=>c.classList.remove('printing'));
+    el.classList.add('printing'); window.print();};
+  updaters.push(update); update();
+}
+
+function renderOne(el,r){ el.innerHTML=cardHTML(r); bindCard(el,r); }
+function renderFeed(){
+  renderTabs();
+  const feed=$("#feed"); feed.innerHTML=""; updaters=[];
+  if(state.group==="prod"){ $("#cnt").textContent="Выпечка по дням · Wypiek"; renderProd(feed); return; }
+  if(state.group==="order"){ $("#cnt").textContent="Заказ сырья · Zamówienie"; renderOrder(feed); return; }
+  const list=ordered(state.group);
+  $("#cnt").textContent=list.length+" рецептов · receptur";
+  list.forEach(r=>{ const el=document.createElement("article"); el.className="card";
+    feed.appendChild(el); renderOne(el,r); });
+}
+function setUnit(u){state.unit=u;
+  document.querySelectorAll('[data-unit]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.unit===u));
+  updaters.forEach(f=>f());}
+document.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>setUnit(b.dataset.unit));
+window.onafterprint=()=>document.querySelectorAll('.card.printing').forEach(c=>c.classList.remove('printing'));
+ordLoad(); renderFeed();
+</script>
+</body>
+</html>
