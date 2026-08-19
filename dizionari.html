@@ -405,6 +405,23 @@ const verbWords = [
   {it:'litigare',conj:'io litigo',ph:'[litiˈɡaːre]',ru:'ссориться',cat:'talk',emoji:'😠',assoc:'Литигаре — судебная тяжба (litigation)',ex:'I miei fratelli <strong>litigavano</strong> spesso.'},
   {it:'postare',conj:'io posto',ph:'[posˈtaːre]',ru:'постить (в соцсети)',cat:'daily',emoji:'📱',assoc:'Постаре — от англ. «to post»',ex:'Oggi tutti <strong>postano</strong> le foto sui social.'},
   {it:'esistere',conj:'io esisto',ph:'[eˈzistere]',ru:'существовать',cat:'daily',emoji:'🌐',assoc:'Эзистере — существовать',ex:'I cellulari non <strong>esistevano</strong> ancora.'},
+  // НОВОЕ — из разборов в чате
+  {it:'riuscire',conj:'io riesco',ph:'[riuˈʃʃire]',ru:'суметь, справиться',cat:'daily',emoji:'🎯',assoc:'Риушире — как uscire, но «выйти на успех». riuscire A + инфинитив, предлог повторяется!'},
+  {it:'arrendersi',conj:'io mi arrendo',ph:'[arˈrɛndersi]',ru:'сдаваться',cat:'feel',emoji:'🏳️',assoc:'Аррендерси — сдаться, отдать себя. Non mi arrendo! — Я не сдаюсь!'},
+  {it:'sostituire',conj:'io sostituisco',ph:'[sostituˈire]',ru:'заменять',cat:'daily',emoji:'🔄',assoc:'Sostituire = substitute (англ.)'},
+  {it:'succedere',conj:'succede (обычно 3 лицо)',ph:'[sutˈtʃɛdere]',ru:'случаться (→ successo)',cat:'daily',emoji:'❗',assoc:'Cos\'è successo? — Что случилось? С essere!'},
+  {it:'smettere',conj:'io smetto',ph:'[ˈzmettere]',ru:'бросать, переставать (→ smesso)',cat:'daily',emoji:'🚭',assoc:'Пара к mettere/messo. Smettere DI + инфинитив.'},
+  // НОВОЕ — видео "Che cos'hai in valigia?"
+  {it:'registrare',conj:'io registro',ph:'[redʒisˈtraːre]',ru:'записывать (аудио/видео)',cat:'daily',emoji:'🎙️',assoc:'Реджистраре — регистрировать/записывать'},
+  {it:'impazzire',conj:'io impazzisco',ph:'[impatˈtsiːre]',ru:'сходить с ума (от радости)',cat:'feel',emoji:'🤪',assoc:'Импаццире — от pazzo (сумасшедший)'},
+  {it:'lanciare',conj:'io lancio',ph:'[lanˈtʃaːre]',ru:'бросать, кидать',cat:'daily',emoji:'🎯',assoc:'Ланчаре — запускать/кидать (как «launch»)'},
+  {it:'viaggiare',conj:'io viaggio',ph:'[vjadˈdʒaːre]',ru:'путешествовать',cat:'daily',emoji:'✈️',assoc:'Вьяджаре — от il viaggio (путешествие)'},
+  {it:'usare',conj:'io uso',ph:'[uˈzaːre]',ru:'использовать',cat:'daily',emoji:'🛠️',assoc:'Узаре — юзать/использовать'},
+  // НОВОЕ — «терпение» и esserci
+  {it:'pazientare',conj:'io paziento',ph:'[patsjenˈtaːre]',ru:'потерпеть, подождать',cat:'feel',emoji:'⏳',assoc:'От la pazienza (терпение)'},
+  {it:'sopportare',conj:'io sopporto',ph:'[soppor taːre]',ru:'терпеть, выносить',cat:'feel',emoji:'😤',assoc:'Соппортаре — «нести на себе» (support)'},
+  {it:'resistere',conj:'io resisto',ph:'[reˈzistere]',ru:'выдерживать, стойко терпеть',cat:'feel',emoji:'💪',assoc:'Резистере — «сопротивляться» (resist)'},
+  {it:'esserci',conj:'ci sono / c\'è',ph:'[ˈɛssertʃi]',ru:'быть тут, присутствовать',cat:'daily',emoji:'📍',assoc:'Essere + ci (место) — c\'è/ci sono, c\'era/c\'erano'},
 ];
 
 const verbCatLabels2 = {base:'Основные',move:'Движение',daily:'Быт',talk:'Общение',work:'Учёба/Работа',feel:'Чувства',home:'Дом'};
@@ -606,6 +623,21 @@ const adjWords = [
   {it:'pazzo',ph:'[ˈpattso]',forms:'pazza/pazzi/pazze',ru:'сумасшедший',sub:'quality',emoji:'🤪',assoc:'Паццо — псих (= matto)',ex:'Sei <strong>pazzo</strong>? Fa troppo caldo per uscire!'},
   {it:'matto',ph:'[ˈmatto]',forms:'matta/matti/matte',ru:'сумасшедший',sub:'quality',emoji:'🌀',assoc:'Матто — синоним pazzo',ex:'Che caldo <strong>matto</strong> oggi!'},
   {it:'unico',ph:'[ˈuːniko]',forms:'unica/unici/uniche',ru:'единственный, уникальный',sub:'quality',emoji:'1️⃣',assoc:'Унико — уникальный',ex:"L'unica cosa che volevo era tornare a letto."},
+  // НОВОЕ — «терпение» и приставка in-/im-/il-/ir-
+  {it:'paziente',ph:'[paˈtsjɛnte]',forms:'pazienti (мн.)',ru:'терпеливый; также сущ. пациент',sub:'quality',emoji:'😌',assoc:'Пациенте — то же слово, что «пациент» в русском'},
+  {it:'impaziente',ph:'[impaˈtsjɛnte]',forms:'impazienti (мн.)',ru:'нетерпеливый',sub:'quality',emoji:'⏱️',assoc:'Им- + paziente — отрицание'},
+  {it:'infelice',ph:'[infeˈliːtʃe]',forms:'infelici (мн.)',ru:'несчастный',sub:'quality',emoji:'😔',assoc:'In- + felice — отрицание'},
+  {it:'incapace',ph:'[inkaˈpaːtʃe]',forms:'incapaci (мн.)',ru:'неспособный',sub:'quality',emoji:'🙅',assoc:'In- + capace — отрицание'},
+  {it:'incerto',ph:'[inˈtʃɛrto]',forms:'incerta/incerti/incerte',ru:'неуверенный, сомнительный',sub:'quality',emoji:'🤷',assoc:'In- + certo — отрицание'},
+  {it:'ingiusto',ph:'[inˈdʒusto]',forms:'ingiusta/ingiusti/ingiuste',ru:'несправедливый',sub:'quality',emoji:'⚖️',assoc:'In- + giusto — отрицание'},
+  {it:'indipendente',ph:'[indipenˈdɛnte]',forms:'indipendenti (мн.)',ru:'независимый',sub:'quality',emoji:'🕊️',assoc:'In- + dipendente — отрицание'},
+  {it:'illegale',ph:'[illeˈɡaːle]',forms:'illegali (мн.)',ru:'нелегальный',sub:'quality',emoji:'🚫',assoc:'Il- перед l (удвоение)'},
+  {it:'illogico',ph:'[ilˈlɔdʒiko]',forms:'illogica/illogici/illogiche',ru:'нелогичный',sub:'quality',emoji:'❓',assoc:'Il- перед l (удвоение)'},
+  {it:'irregolare',ph:'[irreɡoˈlaːre]',forms:'irregolari (мн.)',ru:'неправильный, нерегулярный',sub:'quality',emoji:'🔀',assoc:'Ir- перед r (удвоение)'},
+  {it:'irresponsabile',ph:'[irresponsabile]',forms:'irresponsabili (мн.)',ru:'безответственный',sub:'quality',emoji:'🙈',assoc:'Ir- перед r (удвоение)'},
+  {it:'sfortunato',ph:'[sfortuˈnaːto]',forms:'sfortunata/sfortunati/sfortunate',ru:'невезучий',sub:'quality',emoji:'🍀',assoc:'S- отрицание перед fortunato'},
+  {it:'scontento',ph:'[skonˈtɛnto]',forms:'scontenta/scontenti/scontente',ru:'недовольный',sub:'quality',emoji:'😒',assoc:'S- отрицание перед contento'},
+  {it:'sconosciuto',ph:'[skonoˈʃuto]',forms:'sconosciuta/sconosciuti/sconosciute',ru:'незнакомый',sub:'quality',emoji:'❔',assoc:'S- отрицание перед conosciuto'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -990,6 +1022,15 @@ const nounWords = [
   {it:'la pubblicità',ph:'[pubblitʃiˈta]',forms:'',ru:'реклама',sub:'abstr',emoji:'📢',assoc:'Пуббличита — публичность, реклама',ex:'Guardavamo la <strong>pubblicità</strong> nel Carosello.'},
   {it:'la cartolina',ph:'[kartoˈliːna]',forms:'le cartoline',ru:'открытка',sub:'obj',emoji:'💌',assoc:'Картолина — почтовая карточка',ex:'Mandavo una <strong>cartolina</strong> ai miei amici.'},
   {it:'il volume',ph:'[voˈluːme]',forms:'i volumi',ru:'громкость, объём',sub:'obj',emoji:'🔊',assoc:'Волуме — тот же смысл',ex:'Ascoltavamo la musica ad alto <strong>volume</strong>.'},
+  // НОВОЕ — видео "Che cos'hai in valigia?"
+  {it:'il biglietto',ph:'[biʎˈʎetto]',forms:'i biglietti',ru:'записка; билет',sub:'obj',emoji:'💌',assoc:'Бильетто — билет/записка (два значения!)',ex:'Ho un biglietto da parte di mia figlia.'},
+  {it:'il microfono',ph:'[miˈkrɔfono]',forms:'i microfoni',ru:'микрофон',sub:'obj',emoji:'🎤',assoc:'Микрофоно — то же слово',ex:'Uso il microfono per registrare il podcast.'},
+  {it:'il gioco',ph:'[ˈdʒɔːko]',forms:'i giochi',ru:'игра, игрушка',sub:'obj',emoji:'🎲',assoc:'Джоко — игра (от giocare)',ex:'Il cane ha portato il suo gioco preferito.'},
+  {it:'la pallina',ph:'[palˈliːna]',forms:'le palline',ru:'маленький мячик',sub:'obj',emoji:'🎾',assoc:'Паллина — уменьшительное от palla (мяч)',ex:'Il cane rincorre la pallina in giardino.'},
+  {it:'le salviettine',ph:'[salvjetˈtiːne]',forms:'',ru:'влажные салфетки',sub:'obj',emoji:'🧻',assoc:'Сальвьеттине — уменьшительное от salvietta (салфетка)',ex:'Porto sempre le salviettine in viaggio.'},
+  {it:'il cibo',ph:'[ˈtʃiːbo]',forms:'',ru:'еда, корм',sub:'food',emoji:'🍲',assoc:'Чибо — еда (родственно «cibare» — кормить)',ex:'Ho preparato il cibo per il viaggio.'},
+  // НОВОЕ — слова из отдельных разборов в чате
+  {it:'la pazienza',ph:'[patˈtsjentsa]',forms:'',ru:'терпение',sub:'abstr',emoji:'🙏',assoc:'Пациенца — терпение (от paziente)',ex:'Ho bisogno di pazienza con me stesso.'},
 ];
 
 // ══════════════════════════════════════════════════════
