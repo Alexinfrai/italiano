@@ -422,6 +422,23 @@ const verbWords = [
   {it:'sopportare',conj:'io sopporto',ph:'[soppor taːre]',ru:'терпеть, выносить',cat:'feel',emoji:'😤',assoc:'Соппортаре — «нести на себе» (support)'},
   {it:'resistere',conj:'io resisto',ph:'[reˈzistere]',ru:'выдерживать, стойко терпеть',cat:'feel',emoji:'💪',assoc:'Резистере — «сопротивляться» (resist)'},
   {it:'esserci',conj:'ci sono / c\'è',ph:'[ˈɛssertʃi]',ru:'быть тут, присутствовать',cat:'daily',emoji:'📍',assoc:'Essere + ci (место) — c\'è/ci sono, c\'era/c\'erano'},
+  // НОВОЕ — уроки 19/08-28/08
+  {it:'risolvere',conj:'io risolvo',ph:'[riˈsɔlvere]',ru:'решать (проблему)',cat:'daily',emoji:'🧩',assoc:'Ризольвере — резолюция, решение (→ risolto)'},
+  {it:'spaventarsi',conj:'io mi spavento',ph:'[spaventˈtarsi]',ru:'пугаться',cat:'feel',emoji:'😱',assoc:'Спавентарси — от spavento (испуг)'},
+  {it:'proporre',conj:'io propongo',ph:'[proˈpporre]',ru:'предлагать (→ proposto)',cat:'talk',emoji:'💡',assoc:'Пропорре — как «propose»'},
+  {it:'continuare',conj:'io continuo',ph:'[kontinuˈaːre]',ru:'продолжать',cat:'daily',emoji:'▶️',assoc:'Континуаре — континуум, продолжение'},
+  // НОВОЕ — видео Super Easy Italian
+  {it:'rincorrere',conj:'io rincorro',ph:'[rinˈkorrere]',ru:'гнаться, бежать за',cat:'daily',emoji:'🏃',assoc:'Ринкоррере — ре+correre (бежать) — «гнаться»'},
+  {it:'sudare',conj:'io sudo',ph:'[suˈdaːre]',ru:'потеть',cat:'body',emoji:'💦',assoc:'Сударе — от il sudore (пот)'},
+  {it:'barare',conj:'io baro',ph:'[baˈraːre]',ru:'хитрить, жульничать',cat:'daily',emoji:'🃏',assoc:'Бараре — хитрить (в игре)'},
+  {it:'svelare',conj:'io svelo',ph:'[zveˈlaːre]',ru:'раскрывать (секрет)',cat:'talk',emoji:'🔓',assoc:'Свелare — снять «вуаль» (velo) с секрета'},
+  // НОВОЕ — уроки 29/08-03/09 (pronomi indiretti + piacere)
+  {it:'mancare',conj:'mi manca',ph:'[manˈkaːre]',ru:'не хватать; скучать (по кому-то)',cat:'feel',emoji:'💔',assoc:'Манкаре — как piacere: mi manca il mare'},
+  {it:'servire',conj:'mi serve',ph:'[serˈviːre]',ru:'быть нужным (как piacere)',cat:'daily',emoji:'🙏',assoc:'Сервире — «служить» нужде: mi serve un caffè'},
+  {it:'sembrare',conj:'mi sembra',ph:'[semˈbraːre]',ru:'казаться',cat:'talk',emoji:'🤔',assoc:'Семрраре — казаться (как piacere): mi sembra strano'},
+  {it:'bastare',conj:'mi basta',ph:'[basˈtaːre]',ru:'хватать, быть достаточным',cat:'daily',emoji:'✋',assoc:'Бастаре — «баста!» (хватит) — mi basta così'},
+  {it:'interessare',conj:'mi interessa',ph:'[interessaːre]',ru:'интересовать (как piacere)',cat:'talk',emoji:'🧐',assoc:'Интерессаре — mi interessa molto'},
+  {it:'prestare',conj:'io presto',ph:'[presˈtaːre]',ru:'одалживать (давать взаймы)',cat:'daily',emoji:'🤝',assoc:'Престаре — как «prestar» исп.'},
 ];
 
 const verbCatLabels2 = {base:'Основные',move:'Движение',daily:'Быт',talk:'Общение',work:'Учёба/Работа',feel:'Чувства',home:'Дом'};
@@ -638,6 +655,14 @@ const adjWords = [
   {it:'sfortunato',ph:'[sfortuˈnaːto]',forms:'sfortunata/sfortunati/sfortunate',ru:'невезучий',sub:'quality',emoji:'🍀',assoc:'S- отрицание перед fortunato'},
   {it:'scontento',ph:'[skonˈtɛnto]',forms:'scontenta/scontenti/scontente',ru:'недовольный',sub:'quality',emoji:'😒',assoc:'S- отрицание перед contento'},
   {it:'sconosciuto',ph:'[skonoˈʃuto]',forms:'sconosciuta/sconosciuti/sconosciute',ru:'незнакомый',sub:'quality',emoji:'❔',assoc:'S- отрицание перед conosciuto'},
+  // НОВОЕ — уроки 19/08-28/08
+  {it:'ventoso',ph:'[venˈtoːzo]',forms:'ventosa/ventosi/ventose',ru:'ветреный',sub:'quality',emoji:'💨',assoc:'Вентозо — от il vento (ветер)'},
+  {it:'sudato',ph:'[suˈdaːto]',forms:'sudata/sudati/sudate',ru:'вспотевший',sub:'quality',emoji:'💦',assoc:'Судато — причастие от sudare (потеть)'},
+  {it:'spaventato',ph:'[spaventˈtaːto]',forms:'spaventata/spaventati/spaventate',ru:'напуганный',sub:'quality',emoji:'😨',assoc:'Спавентато — причастие от spaventare'},
+  {it:'cibo spazzatura',ph:'[ˈtʃiːbo spattsaˈtuːra]',forms:'',ru:'вредная еда (junk food)',sub:'quality',emoji:'🍟',assoc:'Чибо+спаццатура — «еда-мусор»'},
+  // НОВОЕ — видео Super Easy Italian
+  {it:'distratto',ph:'[disˈtratto]',forms:'distratta/distratti/distratte',ru:'рассеянный, отвлечённый',sub:'quality',emoji:'😵‍💫',assoc:'Дистратто — причастие от distrarre (отвлекать)'},
+  {it:'imbarazzante',ph:'[imbarat ˈtsante]',forms:'imbarazzanti (мн.)',ru:'неловкий, смущающий',sub:'quality',emoji:'😳',assoc:'Имбараццанте — от imbarazzo (смущение)'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -721,6 +746,14 @@ const advWords = [
   {it:'a volte',ph:'[a ˈvɔlte]',forms:'',ru:'иногда',sub:'time',emoji:'🌤️',assoc:'А вольте — иногда, время от времени',ex:'<strong>A volte</strong> vado al cinema da solo.'},
   {it:'quasi mai',ph:'[ˈkwazi ˈmai]',forms:'',ru:'почти никогда',sub:'time',emoji:'🔋',assoc:'Куази май — почти никогда, как разряженная батарейка',ex:'Non esco <strong>quasi mai</strong> la sera.'},
   {it:'secondo me',ph:'[seˈkondo me]',forms:'',ru:'по-моему, я считаю',sub:'affirm',emoji:'💭',assoc:'Секондо ме — согласно мне',ex:'<strong>Secondo me</strong>, hai ragione.'},
+  // НОВОЕ — отдельный разбор в чате
+  {it:'purtroppo',ph:'[purˈtrɔppo]',forms:'',ru:'к сожалению',sub:'affirm',emoji:'😔',assoc:'Пуртроппо — pur (хоть) + troppo (слишком)',ex:'<strong>Purtroppo</strong> non posso venire.'},
+  // НОВОЕ — уроки 19/08-28/08
+  {it:'dopodomani',ph:'[dopodoˈmaːni]',forms:'',ru:'послезавтра',sub:'time',emoji:'📆',assoc:'Допо+доманир — «после завтра»',ex:'<strong>Dopodomani</strong> ho un altro turno.'},
+  {it:'da nessuna parte',ph:'[da nesˈsuːna ˈparte]',forms:'',ru:'никуда, нигде',sub:'other',emoji:'🚫',assoc:'Да+нессуна+парте — ни в какой части',ex:'Non vado <strong>da nessuna parte</strong> oggi.'},
+  {it:'da qualche parte',ph:'[da ˈkwalke ˈparte]',forms:'',ru:'куда-нибудь, где-нибудь',sub:'other',emoji:'📍',assoc:'Да+кваlке+парте — в какой-то части',ex:'Andiamo <strong>da qualche parte</strong> stasera?'},
+  {it:'più o meno',ph:'[ˈpju o ˈmeno]',forms:'',ru:'примерно, плюс-минус',sub:'affirm',emoji:'🤏',assoc:'Пью о мено — «больше или меньше»',ex:'Ci vogliono <strong>più o meno</strong> due ore.'},
+  {it:'migliore',ph:'[miʎˈʎoːre]',forms:'migliori (мн.)',ru:'лучший (прилагательное)',sub:'affirm',emoji:'🏆',assoc:'Мильоре — от meglio, но для существительных',ex:'Questo è il posto <strong>migliore</strong>.'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -1031,6 +1064,20 @@ const nounWords = [
   {it:'il cibo',ph:'[ˈtʃiːbo]',forms:'',ru:'еда, корм',sub:'food',emoji:'🍲',assoc:'Чибо — еда (родственно «cibare» — кормить)',ex:'Ho preparato il cibo per il viaggio.'},
   // НОВОЕ — слова из отдельных разборов в чате
   {it:'la pazienza',ph:'[patˈtsjentsa]',forms:'',ru:'терпение',sub:'abstr',emoji:'🙏',assoc:'Пациенца — терпение (от paziente)',ex:'Ho bisogno di pazienza con me stesso.'},
+  // НОВОЕ — уроки 19/08-28/08
+  {it:'il lago',ph:'[ˈlaːɡo]',forms:'i laghi',ru:'озеро',sub:'city',emoji:'🏞️',assoc:'Лаго — озеро (как «lagoon»)',ex:'Passa il tempo libero al <strong>lago</strong>.'},
+  {it:'il fosso',ph:'[ˈfɔsso]',forms:'i fossi',ru:'канава, ров',sub:'city',emoji:'🕳️',assoc:'Фоссо — ров',ex:'C\'era un <strong>fosso</strong> vicino alla strada.'},
+  {it:'la fossa',ph:'[ˈfɔssa]',forms:'le fosse',ru:'яма',sub:'city',emoji:'🕳️',assoc:'Фосса — яма (женский род от fosso)',ex:'Abbiamo scavato una <strong>fossa</strong> sulla spiaggia.'},
+  {it:"l'estetista",ph:'[esteˈtista]',forms:'gli/le estetisti/e',ru:'косметолог',sub:'fam',emoji:'💅',assoc:'Эстетиста — от «эстетика»',ex:"Mia moglie è andata dall'<strong>estetista</strong>."},
+  {it:'asilo nido',ph:'[aˈziːlo ˈniːdo]',forms:'',ru:'детский сад (ясли)',sub:'city',emoji:'🧸',assoc:'Азило-нидо — «гнездо-приют» для малышей',ex:"Vado a prendere mio figlio all'<strong>asilo nido</strong>."},
+  // НОВОЕ — видео Super Easy Italian: 5 советов по аудированию
+  {it:'il fiume',ph:'[ˈfjuːme]',forms:'i fiumi',ru:'река',sub:'city',emoji:'🏞️',assoc:'Фьюме — река (звучит как «поток»)',ex:'Oggi vado a fare una passeggiata lungo il <strong>fiume</strong>.'},
+  {it:"l'accento",ph:'[atˈtʃɛnto]',forms:'gli accenti',ru:'акцент',sub:'abstr',emoji:'🗣️',assoc:'Аччeнто — акцент',ex:'Ha un <strong>accento</strong> molto forte.'},
+  {it:'la registrazione',ph:'[redʒistratˈtsjoːne]',forms:'le registrazioni',ru:'запись (аудио)',sub:'obj',emoji:'🎙️',assoc:'Реджистрационе — от registrare',ex:'Ascolto una <strong>registrazione</strong> ogni giorno.'},
+  {it:'il consiglio',ph:'[konˈsiʎʎo]',forms:'i consigli',ru:'совет',sub:'abstr',emoji:'💡',assoc:'Консильо — консультация, совет',ex:'Ti do un <strong>consiglio</strong> utile.'},
+  // НОВОЕ — уроки 29/08-03/09
+  {it:'il favore',ph:'[faˈvoːre]',forms:'i favori',ru:'одолжение, услуга',sub:'abstr',emoji:'🙏',assoc:'Фаворе — фавор, одолжение',ex:'Ti chiedo un <strong>favore</strong>.'},
+  {it:'il numero',ph:'[ˈnuːmero]',forms:'i numeri',ru:'номер, число',sub:'obj',emoji:'🔢',assoc:'Нумеро — номер',ex:'Ti do il mio <strong>numero</strong>.'},
 ];
 
 // ══════════════════════════════════════════════════════
