@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Помощник-переводчик</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1510;--card:#251d16;--card2:#2c2219;--line:#3a2d22;--txt:#f4ede2;--muted:#9c8b76;--oro:#d9a441;--oro2:#e6bd5c;--verde:#6ba368;--verde2:#7fbf7a;--terra:#c96f4a;--viola:#a06a86;--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.55}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#1b1510,#5c3220 55%,#3a2416);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'💬';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.4rem,5vw,2.1rem);color:var(--oro2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Fraunces',serif;position:relative}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--viola))}
+.card h3{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.1rem;margin-bottom:10px}
+textarea{width:100%;min-height:110px;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:1.05rem;padding:13px;font-family:'Inter';resize:vertical;outline:none}
+textarea:focus{border-color:var(--oro)}
+.btns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.bigb{flex:1;min-width:140px;border:none;border-radius:12px;font-family:'Inter';font-weight:700;font-size:.95rem;padding:14px;cursor:pointer;transition:.15s}
+.bigb.copy{background:var(--oro);color:#1a1206}
+.bigb.copy:hover{background:var(--oro2)}
+.bigb.copy.done{background:var(--verde)}
+.linkrow{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.linkbtn{flex:1;min-width:140px;text-align:center;text-decoration:none;border:1px solid var(--line);background:var(--card2);color:var(--txt);border-radius:11px;padding:12px;font-weight:700;font-size:.9rem;transition:.15s}
+.linkbtn:hover{border-color:var(--oro);color:var(--oro2)}
+.hint{font-size:.8rem;color:var(--muted);margin-top:10px;line-height:1.6}
+.hint b{color:var(--oro2)}
+details{background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin-top:8px}
+summary{cursor:pointer;font-weight:700;color:var(--oro2);font-size:.92rem}
+.prompttext{white-space:pre-wrap;font-size:.78rem;color:var(--muted);margin-top:10px;line-height:1.6;max-height:280px;overflow-y:auto;padding-right:4px}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--oro)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--oro);color:#1a1206;font-weight:700;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Помощник-переводчик</h1>
+  <p>Готовит промпт для ChatGPT / Claude под твою грамматику</p>
+</header>
+<div class="wrap">
+
+  <div class="card">
+    <h3>✍️ Твоя фраза на русском</h3>
+    <textarea id="phrase" placeholder="Например: Вчера я забыл зонт дома и промок под дождём..."></textarea>
+    <div class="btns">
+      <button class="bigb copy" id="copybtn" onclick="copyPrompt()">📋 Скопировать промпт + фразу</button>
+    </div>
+    <div class="linkrow">
+      <a class="linkbtn" href="https://chatgpt.com" target="_blank">Открыть ChatGPT →</a>
+      <a class="linkbtn" href="https://claude.ai" target="_blank">Открыть Claude →</a>
+    </div>
+    <div class="hint">Нажми «Скопировать», потом открой ChatGPT или Claude и вставь (Ctrl+V) в новый чат. Промпт уже включает твою фразу — останется только отправить.</div>
+  </div>
+
+  <div class="card">
+    <h3>📐 Какая грамматика разрешена</h3>
+    <div class="hint">
+      <b>Времена:</b> presente, passato prossimo, imperfetto, немного futuro semplice.<br>
+      <b>Не используется:</b> congiuntivo, condizionale composto, trapassato, passato remoto.<br>
+      <b>Местоимения:</b> pronomi diretti/indiretti, возвратные, ci, tonici.<br>
+      <b>Особые глаголы:</b> piacere, mancare, servire, sembrare, bastare, interessare, importare, dispiacere, succedere/capitare, andare (=подходить).<br>
+      <b>Плюс:</b> модальные, sapere/conoscere, questo/quello, предлоги места, союзы (mentre/durante/perché/siccome/finché/appena и т.д.).
+    </div>
+    <details>
+      <summary>Показать полный текст промпта</summary>
+      <div class="prompttext" id="fullprompt"></div>
+    </details>
+  </div>
+
+  <footer>Обнови список грамматики в коде страницы по мере прохождения новых тем · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const SYSTEM_PROMPT = `Ты — переводчик с русского на итальянский. Переводи так, как сказал бы носитель языка в живой разговорной речи — естественно, без канцелярита, с правильным порядком слов и обычными для разговора оборотами.
+
+ГЛАВНОЕ ОГРАНИЧЕНИЕ — используй только грамматику, которую я уже выучил:
+
+Времена и наклонения:
+- Presente (все группы -are/-ere/-ire, включая isc-глаголы и неправильные: essere, avere, andare, venire, fare, dire, dare, stare, uscire, bere, rimanere, scegliere, potere, dovere, volere, sapere, tenere, valere, piacere и т.д.)
+- Passato prossimo (avere/essere, согласование причастий, неправильные причастия, возвратные глаголы)
+- Imperfetto (все группы + essere, avere, fare, dire, bere на старой основе; tradurre/introdurre/rifare тоже на особой основе)
+- Futuro semplice — только базово, я только начал (andare→andrò, rimanere→rimarrò)
+- НЕ используй: congiuntivo, condizionale composto, trapassato, passato remoto (кроме отдельных фиксированных случаев вроде vorrei — его можно)
+
+Местоимения:
+- Pronomi diretti (lo/la/li/le) и indiretti (mi/ti/gli/le/ci/vi/gli) — всегда перед глаголом
+- Возвратные частицы (mi/ti/si/ci/vi/si)
+- Ci как местоимение места (ci vado, ci sono stato) и в c'è/ci sono
+- Pronomi tonici в ответах (a me sì, anche a me, neanche a me)
+
+Особые глаголы (работают как piacere — подлежащее сзади, человек через косвенное местоимение):
+piacere, mancare, servire, sembrare, bastare, interessare, importare, dispiacere, succedere/capitare, andare (в значении «подходить»)
+
+Другое, что я знаю:
+- Модальные potere/dovere/volere (без предлога перед инфинитивом) vs andare a / cominciare a / riuscire a (с предлогом a)
+- Sapere vs conoscere (разница: знать факт/уметь vs быть знакомым)
+- Questo/quello, притяжательные (mio/tuo/suo...), предлоги места (a/in/da + слитные формы al/nel/dal и т.д.)
+- Наречия частотности (sempre, spesso, di solito, a volte, raramente, mai)
+- Союзы: mentre (+ глагол) vs durante (+ существительное), quando, perché, siccome/dato che/poiché, finché, appena, comunque, inoltre, infatti, insomma, per questo/perciò
+- Отрицания: non...mai, nessuno, niente/nulla, qualcosa, qualcuno
+- Сравнение: più/meno, meglio/migliore
+- Числа, дни недели, время на часах
+
+ФОРМАТ ОТВЕТА
+Для каждой фразы дай:
+1. Перевод на итальянский
+2. Если использовал грамматику из списка выше не самым очевидным образом — короткую пометку, что это и почему (1 строка)
+3. Если естественный перевод носителя потребовал бы времени/конструкции, которых нет в списке (congiuntivo и т.п.) — дай упрощённый вариант в рамках моей грамматики и отдельно укажи, как сказал бы носитель на самом деле, с пометкой «это ты пока не проходил»
+
+ТОН
+Разговорный, живой итальянский — не учебниковый. Если есть несколько вариантов (нейтральный/разговорный), давай оба с пометкой разницы.
+
+Переведи, пожалуйста, следующую фразу:
+`;
+
+document.getElementById('fullprompt').textContent = SYSTEM_PROMPT;
+
+function copyPrompt(){
+  const phrase = document.getElementById('phrase').value.trim();
+  if(!phrase){ toast('Сначала введи фразу'); return; }
+  const full = SYSTEM_PROMPT + phrase;
+  navigator.clipboard.writeText(full).then(()=>{
+    const btn = document.getElementById('copybtn');
+    btn.textContent = '✅ Скопировано! Вставь в чат';
+    btn.classList.add('done');
+    toast('Промпт скопирован в буфер');
+    setTimeout(()=>{ btn.textContent = '📋 Скопировать промпт + фразу'; btn.classList.remove('done'); }, 2500);
+  }).catch(()=>{
+    // запасной вариант для старых браузеров
+    const ta = document.createElement('textarea');
+    ta.value = full; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    toast('Промпт скопирован в буфер');
+  });
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1800);}
+</script>
+</body>
+</html>
