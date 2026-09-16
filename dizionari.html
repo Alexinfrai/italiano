@@ -439,6 +439,12 @@ const verbWords = [
   {it:'bastare',conj:'mi basta',ph:'[basˈtaːre]',ru:'хватать, быть достаточным',cat:'daily',emoji:'✋',assoc:'Бастаре — «баста!» (хватит) — mi basta così'},
   {it:'interessare',conj:'mi interessa',ph:'[interessaːre]',ru:'интересовать (как piacere)',cat:'talk',emoji:'🧐',assoc:'Интерессаре — mi interessa molto'},
   {it:'prestare',conj:'io presto',ph:'[presˈtaːre]',ru:'одалживать (давать взаймы)',cat:'daily',emoji:'🤝',assoc:'Престаре — как «prestar» исп.'},
+  // НОВОЕ — урок 10/09
+  {it:'rompere',conj:'io rompo',ph:'[ˈrompere]',ru:'ломать (→ rotto)',cat:'daily',emoji:'💥',assoc:'Ромпере — как «rupture»'},
+  {it:'sistemare',conj:'io sistemo',ph:'[sistemaːre]',ru:'привести в порядок, починить, уладить',cat:'daily',emoji:'🔧',assoc:'Систeмаре — систематизировать'},
+  {it:'importare',conj:'non mi importa',ph:'[importaːre]',ru:'иметь значение (как piacere)',cat:'talk',emoji:'🤷',assoc:'Импортаре — «привносить значимость»'},
+  {it:'dispiacere',conj:'mi dispiace',ph:'[dispjaˈtʃeːre]',ru:'сожалеть, быть неприятным (как piacere)',cat:'feel',emoji:'😔',assoc:'Диспьячере — противоположность piacere (dis-)'},
+  {it:'capitare',conj:'mi è capitato',ph:'[kapitaːre]',ru:'случаться, происходить',cat:'daily',emoji:'🎲',assoc:'Капитаре — синоним succedere'},
 ];
 
 const verbCatLabels2 = {base:'Основные',move:'Движение',daily:'Быт',talk:'Общение',work:'Учёба/Работа',feel:'Чувства',home:'Дом'};
@@ -663,6 +669,8 @@ const adjWords = [
   // НОВОЕ — видео Super Easy Italian
   {it:'distratto',ph:'[disˈtratto]',forms:'distratta/distratti/distratte',ru:'рассеянный, отвлечённый',sub:'quality',emoji:'😵‍💫',assoc:'Дистратто — причастие от distrarre (отвлекать)'},
   {it:'imbarazzante',ph:'[imbarat ˈtsante]',forms:'imbarazzanti (мн.)',ru:'неловкий, смущающий',sub:'quality',emoji:'😳',assoc:'Имбараццанте — от imbarazzo (смущение)'},
+  // НОВОЕ — урок 10/09
+  {it:'essere annoiato',ph:'[annojaːto]',forms:'annoiata/annoiati/annoiate',ru:'скучать, испытывать скуку',sub:'quality',emoji:'😑',assoc:'Аннояaто — от noia (скука)'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -754,6 +762,11 @@ const advWords = [
   {it:'da qualche parte',ph:'[da ˈkwalke ˈparte]',forms:'',ru:'куда-нибудь, где-нибудь',sub:'other',emoji:'📍',assoc:'Да+кваlке+парте — в какой-то части',ex:'Andiamo <strong>da qualche parte</strong> stasera?'},
   {it:'più o meno',ph:'[ˈpju o ˈmeno]',forms:'',ru:'примерно, плюс-минус',sub:'affirm',emoji:'🤏',assoc:'Пью о мено — «больше или меньше»',ex:'Ci vogliono <strong>più o meno</strong> due ore.'},
   {it:'migliore',ph:'[miʎˈʎoːre]',forms:'migliori (мн.)',ru:'лучший (прилагательное)',sub:'affirm',emoji:'🏆',assoc:'Мильоре — от meglio, но для существительных',ex:'Questo è il posto <strong>migliore</strong>.'},
+  // НОВОЕ — урок 10/09
+  {it:'alla fine',ph:'[alla ˈfiːne]',forms:'',ru:'в конце, в итоге, в конце концов',sub:'time',emoji:'🏁',assoc:'Алла+фине — «к концу»',ex:'Alla fine siamo rimasti a casa.'},
+  {it:"all'inizio",ph:'[allinitsjo]',forms:'',ru:'в начале, поначалу',sub:'time',emoji:'🎬',assoc:'Аллинициo — противоположность alla fine',ex:"All'inizio non ci serviva niente."},
+  {it:'cosa vuol dire',ph:'[ˈkɔza vwɔl ˈdiːre]',forms:'',ru:'что значит',sub:'other',emoji:'❓',assoc:'Коза вуоль дире — буквально «что хочет сказать»',ex:'Cosa vuol dire questa parola?'},
+  {it:'avere bisogno di',ph:'[aˈveːre biˈzoɲɲo di]',forms:'',ru:'нуждаться в чём-то',sub:'other',emoji:'🙏',assoc:'Авере бизоньо — «иметь нужду»',ex:'Ho bisogno di te.'},
 ];
 
 // ══════════════════════════════════════════════════════
@@ -1078,6 +1091,10 @@ const nounWords = [
   // НОВОЕ — уроки 29/08-03/09
   {it:'il favore',ph:'[faˈvoːre]',forms:'i favori',ru:'одолжение, услуга',sub:'abstr',emoji:'🙏',assoc:'Фаворе — фавор, одолжение',ex:'Ti chiedo un <strong>favore</strong>.'},
   {it:'il numero',ph:'[ˈnuːmero]',forms:'i numeri',ru:'номер, число',sub:'obj',emoji:'🔢',assoc:'Нумеро — номер',ex:'Ti do il mio <strong>numero</strong>.'},
+  // НОВОЕ — урок 10/09
+  {it:"l'attrezzatura",ph:'[attretstsaˈtuːra]',forms:'',ru:'оборудование, снаряжение',sub:'obj',emoji:'🛠️',assoc:'Аттреццатура — атрибутика, снаряжение',ex:"L'attrezzatura è vecchia e si rompe sempre."},
+  {it:'la betulla',ph:'[beˈtulla]',forms:'le betulle',ru:'берёза',sub:'city',emoji:'🌳',assoc:'Бетулла — берёза (лат. betula)',ex:'Un temporale ha rotto la betulla in giardino.'},
+  {it:'il temporale',ph:'[temporaːle]',forms:'i temporali',ru:'гроза',sub:'city',emoji:'⛈️',assoc:'Темпорале — временная непогода',ex:'È arrivato un forte temporale ieri sera.'},
 ];
 
 // ══════════════════════════════════════════════════════
