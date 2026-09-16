@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Zaz — Mi va</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1510;--card:#251d16;--card2:#2c2219;--line:#3a2d22;--txt:#f4ede2;--muted:#9c8b76;--oro:#d9a441;--oro2:#e6bd5c;--verde:#6ba368;--verde2:#7fbf7a;--terra:#c96f4a;--rosso:#c1553f;--blu:#4f8a86;--viola:#a06a86;--green-bg:rgba(107,163,104,.16);--red-bg:rgba(193,85,63,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#1b1510,#5c3220 55%,#3a2416);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'🎵';position:absolute;font-size:7rem;opacity:.05;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.4rem);color:var(--oro2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Fraunces',serif;position:relative}
+#api{background:#150f0b;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Inter'}
+.btn-c{background:var(--viola);border:none;border-radius:7px;color:#fff;font-weight:700;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--verde2)}#st.err{color:var(--rosso)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5a4a3a;margin-right:5px}.dot.on{background:var(--verde)}
+.hint{font-size:.64rem;color:#7a6a58;margin-top:5px}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:700;font-size:.86rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--viola);border-color:var(--viola);color:#fff}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card2c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card2c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--viola))}
+.card2c h3{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.08rem;margin-bottom:10px}
+.note{margin-top:9px;font-size:.83rem;color:#cabfd8;background:rgba(155,127,224,.08);border-left:3px solid var(--viola);padding:7px 11px;border-radius:0 8px 8px 0;line-height:1.55}
+.idiom{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer}
+.idiom:hover{border-color:var(--oro)}
+.idiom .ic{font-size:1.4rem;flex:0 0 auto}
+.idiom .body{flex:1}
+.idiom .ph{font-family:'Fraunces',serif;font-weight:700;color:var(--oro2);font-size:1.02rem}
+.idiom .ru{color:var(--muted);font-size:.82rem}
+.idiom .spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.7}
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--oro));transition:.4s}
+.prog .n{font-weight:700;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--verde2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 20px;box-shadow:var(--shadow);text-align:center;min-height:210px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--terra));border-radius:18px 18px 0 0}
+.card .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.card .cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Fraunces',serif;margin-bottom:6px}
+.card .big-q{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600;color:var(--txt)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:11px 14px;border-radius:10px;cursor:pointer;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;transition:.15s;text-align:center}
+.opt:hover{border-color:var(--oro);color:var(--oro2)}
+.opt.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}
+.opt.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Inter';font-size:.78rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--verde)}
+.q .qt{font-size:1.02rem;line-height:1.7}
+.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qo{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:7px 13px;border-radius:9px;cursor:pointer;font-weight:600;font-size:.96rem}
+.qo:hover{border-color:var(--oro);color:var(--oro2)}.qo.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}.qo.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.tsec{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.05rem;margin:16px 0 8px}
+.bigbtn{display:inline-block;margin-top:14px;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--oro)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--oro);color:#1a1206;font-weight:700;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Zaz — Mi va</h1>
+  <p>Лексика песни · без полного текста</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('rules',this)">📖 Разбор</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
+  </div>
+
+  <div class="tab on" id="rules">
+    <div class="card2c">
+      <h3>🎵 О песне</h3>
+      <div class="note">«Mi va» — итальянская версия песни Zaz «Je veux» (оригинал на французском). Песня о желании простой, настоящей жизни, свободы и радости вместо лицемерия и показной вежливости. Полный текст — на официальных площадках (Spotify, Genius); здесь только лексика и грамматика без цитирования лирики целиком.</div>
+    </div>
+
+    <div class="card2c">
+      <h3>💬 Ключевые обороты (без цитирования строк)</h3>
+      <div id="idiomlist"></div>
+    </div>
+
+    <div class="card2c">
+      <h3>📐 Грамматика песни</h3>
+      <div class="note"><b>Mi va</b> — от <i>andare</i> в особом значении «нравится/подходит» (как <i>piacere</i>): <i>mi va bene</i> = «меня устраивает», <i>(non) mi va</i> = «мне (не) хочется». В песне обыгрывается как «хочу» (более разговорный синоним <i>voglio</i>).</div>
+      <div class="note"><b>Morire di + существительное</b> — идиома «умирать от...» в значении «очень сильно хотеть/испытывать»: <i>morire di fame</i> (умирать с голоду), <i>morire di felicità</i> (умирать от счастья), <i>morire di noia</i> (умирать от скуки).</div>
+      <div class="note"><b>Non... mai</b> — «никогда не...» (двойное отрицание, обязательное в итальянском): не забывай <i>non</i> перед глаголом.</div>
+    </div>
+  </div>
+
+  <div class="tab" id="train">
+    <div class="modes" id="trmodes">
+      <button class="nb on" style="font-size:.76rem;padding:7px 12px" onclick="setTM('it2ru',this)">🇮🇹→🇷🇺</button>
+      <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('ru2it',this)">🇷🇺→🇮🇹</button>
+      <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('audio',this)">🎧 на слух</button>
+    </div>
+    <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="card" id="card"></div>
+    <div class="sub"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <div class="tab" id="test">
+    <div class="prog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div style="text-align:center"><button class="bigbtn" onclick="buildTest()">↺ Заново</button></div>
+  </div>
+
+  <footer>Полный текст: ищи «Zaz Mi va testo» на Genius/Spotify · озвучка Neural2 · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* Лексика песни: [it, ru, emoji] — отдельные слова/обороты, НЕ строки лирики */
+const W=[
+["la libertà","свобода","🕊️"],
+["la gioia","радость","😊"],
+["l'amore","любовь","❤️"],
+["la semplicità","простота","🌿"],
+["morire di felicità","умирать от счастья (идиома)","🤩"],
+["venite con me","идёмте со мной","🚶"],
+["la vita vera","настоящая жизнь","✨"],
+["non sopporto","я не выношу","😤"],
+["il galateo","этикет","🎩"],
+["non fa per me","это не для меня","🙅"],
+["non so cosa dico","не знаю, что говорю","🤷"],
+["che male c'è?","что плохого?","❓"],
+["basta con l'ipocrisia","хватит лицемерия","🚫"],
+["benvenuti tutti","добро пожаловать всем","👋"],
+["ogni sguardo","каждый взгляд","👁️"],
+["la verità","правда","💎"],
+["sopportare","выносить, терпеть","😣"],
+["l'ipocrita","лицемер","🎭"],
+["la maschera","маска","🎭"],
+["onesto","честный","🤝"],
+["sincero","искренний","💯"],
+["autentico","настоящий, подлинный","✅"],
+["il cuore","сердце","💗"],
+["libero","свободный (прил.)","🔓"],
+["reale","реальный","🌍"],
+["essere se stessi","быть собой","🙋"],
+["la scelta","выбор","🔀"],
+["il coraggio","смелость","🦁"],
+["cambiare vita","изменить жизнь","🔄"],
+];
+
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/'/g,"\\'");}
+function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
+
+function renderRules(){
+  document.getElementById('idiomlist').innerHTML=W.map(w=>`<div class="idiom" onclick="speak('${sp(w[0])}')"><span class="ic">${w[2]}</span><div class="body"><span class="ph">${esc(w[0])}</span><div class="ru">${esc(w[1])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(w[0])}')">🔊</button></div>`).join('');
+}
+
+let tMode='it2ru',curT=null,okC=0,streak=0,total=0,deck=[];
+function buildDeck(){
+  let d=[];W.forEach(w=>{d.push(w);d.push(w);});
+  for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];}
+  for(let i=1;i<d.length;i++){
+    if(d[i]===d[i-1]){
+      for(let k=i+1;k<d.length;k++){
+        if(d[k]!==d[i-1]&&(k+1>=d.length||d[k+1]!==d[i])){[d[i],d[k]]=[d[k],d[i]];break;}
+      }
+    }
+  }
+  return d;
+}
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');deck=buildDeck();nextT();}
+function nextT(){
+  if(!deck.length)deck=buildDeck();
+  if(deck.length===0){showRoundDone();return;}
+  const w=deck.pop();curT=w;const c=document.getElementById('card');
+  if(tMode==='it2ru'){
+    const opts=shuffle([w[1]].concat(shuffle(W.filter(x=>x[1]!==w[1])).slice(0,3).map(x=>x[1])));
+    c.innerHTML=`<span class="tag">IT→RU</span><div class="big-q">${w[2]} ${esc(w[0])}</div><div class="cue">что значит?</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w[1])}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w[0]),200);
+  } else if(tMode==='ru2it'){
+    const opts=shuffle([w[0]].concat(shuffle(W.filter(x=>x[0]!==w[0])).slice(0,3).map(x=>x[0])));
+    c.innerHTML=`<span class="tag">RU→IT</span><div class="big-q">${esc(w[1])}</div><div class="cue">по-итальянски</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w[0])}')">${esc(o)}</button>`).join('')}</div>`;
+  } else if(tMode==='audio'){
+    const opts=shuffle([w[1]].concat(shuffle(W.filter(x=>x[1]!==w[1])).slice(0,3).map(x=>x[1])));
+    c.innerHTML=`<span class="tag">🎧 на слух</span><div class="cue">послушай и выбери перевод</div>
+      <button style="background:var(--oro);color:#1a1206;border:none;border-radius:12px;font-weight:700;padding:12px 22px;cursor:pointer;margin:8px auto 0;display:block" onclick="speak('${sp(w[0])}')">▶ Повторить</button>
+      <div class="opts" style="margin-top:14px">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w[1])}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w[0]),250);
+  }
+  document.getElementById('fill').style.width=((W.length*2-deck.length)/(W.length*2)*100)+'%';
+}
+function showRoundDone(){
+  const pct=total?Math.round(okC/total*100):0;
+  let emo='🌱',txt='Продолжай тренироваться!';
+  if(pct>=95){emo='🏆';txt='Perfetto! Все слова закреплены!';}
+  else if(pct>=80){emo='🎉';txt='Molto bene!';}
+  else if(pct>=60){emo='👍';txt='Bene!';}
+  document.getElementById('card').innerHTML=`<div style="text-align:center">
+    <div style="font-size:2.4rem">${emo}</div>
+    <div style="font-family:'Fraunces',serif;color:var(--oro2);font-size:1.25rem;margin:6px 0">Круг пройден!</div>
+    <div style="font-family:'Fraunces',serif;font-size:1.8rem;color:var(--verde2)">${okC} / ${total}</div>
+    <p style="color:var(--muted);margin-top:6px">${txt}</p>
+    <button class="opt" style="margin-top:16px" onclick="okC=0;total=0;streak=0;document.getElementById('ok').textContent=0;document.getElementById('streak').textContent='';deck=buildDeck();nextT();">↺ Новый круг</button>
+  </div>`;
+  toast('🎉 Все слова пройдены по 2 раза!');
+}
+function pickOpt(btn,chosen,correct){
+  const good=norm(chosen)===norm(correct);speak(curT[0]);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),800);
+}
+function grade(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('fill').style.width='0%';document.getElementById('streak').textContent='';deck=buildDeck();nextT();toast('Сброшено');}
+
+
+let testBuilt=false,tTotal=0;const tDone=new Set();
+function buildTest(){
+  testBuilt=true;tTotal=0;tDone.clear();
+  const sel=shuffle(W);
+  let html=sel.map((w,i)=>{tTotal++;const k='q'+i;const opts=shuffle([w[1]].concat(shuffle(W.filter(x=>x[1]!==w[1])).slice(0,3).map(x=>x[1])));
+    return `<div class="q" id="q_${k}"><div class="qt">${w[2]} ${esc(w[0])} <button class="spk2" style="background:none;border:none;color:var(--viola);cursor:pointer" onclick="speak('${sp(w[0])}')">🔊</button> → <span id="g_${k}" style="color:var(--muted)">?</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(w[1])}')">${esc(o)}</button>`).join('')}</div></div>`;
+  }).join('');
+  document.getElementById('testbody').innerHTML=html;
+  document.getElementById('ttot').textContent=tTotal;document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansT(k,btn,chosen,correct){
+  speak(chosen);const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+k+' .qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(norm(x.textContent)===norm(correct))x.classList.add('ok');});}
+  document.getElementById('g_'+k).textContent=chosen;document.getElementById('g_'+k).style.color=good?'var(--verde2)':'var(--terra)';
+  document.getElementById('q_'+k).classList.toggle('ok',good);
+  document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tDone.size/tTotal*100)+'%';
+  if(tDone.size===tTotal)toast('🎉 Готово!');
+}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderRules();
+</script>
+</body>
+</html>
