@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇮🇹 Урок 03/10 — слова и выражения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1510;--card:#251d16;--card2:#2c2219;--line:#3a2d22;--txt:#f4ede2;--muted:#9c8b76;--oro:#d9a441;--oro2:#e6bd5c;--verde:#6ba368;--verde2:#7fbf7a;--terra:#c96f4a;--rosso:#c1553f;--blu:#4f8a86;--viola:#a06a86;--green-bg:rgba(107,163,104,.16);--red-bg:rgba(193,85,63,.16);--shadow:0 8px 30px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Inter',sans-serif;min-height:100vh;line-height:1.5}
+header{text-align:center;padding:28px 18px 16px;background:linear-gradient(135deg,#1b1510,#7a4a1e 55%,#3a2416);border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+header::after{content:'📘';position:absolute;font-size:7rem;opacity:.06;top:50%;left:50%;transform:translate(-50%,-50%)}
+header .flag{font-size:1.8rem;letter-spacing:.3em;position:relative}
+header h1{font-family:'Fraunces',serif;font-weight:700;font-size:clamp(1.5rem,5vw,2.4rem);color:var(--oro2);margin:.08em 0 .04em;position:relative}
+header p{color:var(--muted);font-size:.86rem;font-style:italic;font-family:'Fraunces',serif;position:relative}
+#api{background:#150f0b;border-bottom:1px solid var(--line);padding:8px 14px;font-size:.72rem}
+.api-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.api-in{flex:1;min-width:150px;background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--txt);font-size:.76rem;padding:7px 10px;outline:none;font-family:'Inter'}
+.btn-c{background:var(--terra);border:none;border-radius:7px;color:#fff;font-weight:700;font-size:.74rem;padding:7px 13px;cursor:pointer}
+.btn-x{background:var(--card2);border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:.74rem;padding:7px 10px;cursor:pointer}
+#st{font-size:.66rem;margin-top:4px;min-height:12px;color:var(--muted)}#st.ok{color:var(--verde2)}#st.err{color:var(--rosso)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#5a4a3a;margin-right:5px}.dot.on{background:var(--verde)}
+.hint{font-size:.64rem;color:#7a6a58;margin-top:5px}
+.wrap{max-width:680px;margin:0 auto;padding:16px 16px 80px}
+.nav{display:flex;gap:7px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.nb{border:1px solid var(--line);background:var(--card);color:var(--muted);padding:9px 18px;border-radius:99px;font-weight:700;font-size:.86rem;cursor:pointer;transition:.15s}
+.nb.on{background:var(--terra);border-color:var(--terra);color:#fff}
+.tab{display:none}.tab.on{display:block;animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+.card2c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card2c::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--terra))}
+.card2c h3{font-family:'Fraunces',serif;color:var(--oro2);font-size:1.08rem;margin-bottom:10px}
+.note{margin-top:9px;font-size:.83rem;color:#cabfd8;background:rgba(155,127,224,.08);border-left:3px solid var(--viola);padding:7px 11px;border-radius:0 8px 8px 0;line-height:1.55}
+.note:first-child{margin-top:0}
+.catlbl{font-family:'Fraunces',serif;color:var(--oro2);font-size:.95rem;margin:14px 0 7px;display:flex;align-items:center;gap:6px}
+.catlbl:first-child{margin-top:0}
+.filterbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.fchip{border:1px solid var(--line);background:var(--card2);color:var(--muted);padding:5px 12px;border-radius:99px;font-size:.74rem;font-weight:700;cursor:pointer}
+.fchip.on{background:var(--oro);border-color:var(--oro);color:#1a1206}
+.srch{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--txt);font-size:.9rem;padding:9px 12px;outline:none;font-family:'Inter';margin-bottom:12px}
+.srch:focus{border-color:var(--oro)}
+.idiom{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid var(--line);border-radius:11px;padding:10px 13px;margin-bottom:8px;cursor:pointer}
+.idiom:hover{border-color:var(--oro)}
+.idiom .ic{font-size:1.4rem;flex:0 0 auto}
+.idiom .body{flex:1}
+.idiom .ph{font-family:'Fraunces',serif;font-weight:700;color:var(--oro2);font-size:1.02rem}
+.idiom .ru{color:var(--muted);font-size:.82rem}
+.idiom .spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:1rem;opacity:.7}
+.vc{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;box-shadow:var(--shadow);overflow:hidden}
+.vc-head{display:flex;align-items:center;gap:11px;padding:13px 15px;cursor:pointer}
+.vc-head .inf{font-family:'Fraunces',serif;font-weight:700;font-size:1.25rem;color:var(--oro2)}
+.vc-head .vemoji{font-size:1.6rem;line-height:1;flex:0 0 auto}
+.vc-head .ru{color:var(--muted);font-size:.9rem;flex:1}
+.vc-head .badge{font-size:.6rem;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--line);border-radius:99px;padding:2px 8px;color:var(--muted)}
+.vc-head .badge.irr{color:var(--rosso);border-color:var(--rosso)}
+.vc-head .badge.ess{color:var(--blu);border-color:var(--blu)}
+.vc-head .badge.ref{color:var(--viola);border-color:var(--viola)}
+.vc-head .spk{background:none;border:none;color:var(--viola);cursor:pointer;font-size:1.05rem;opacity:.65}
+.vc-head .chev{color:var(--muted);transition:.2s;font-size:.8rem}
+.vc.open .chev{transform:rotate(90deg)}
+.vc-body{display:none;padding:0 15px 14px;border-top:1px solid var(--line)}
+.vc.open .vc-body{display:block;animation:fade .25s}
+.sect{margin-top:12px}
+.sect h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--oro);margin-bottom:7px}
+.conj{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.cr{display:flex;justify-content:space-between;gap:8px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.92rem}
+.cr .pn{color:var(--muted);font-size:.8rem;white-space:nowrap}.cr .vf{font-family:'Fraunces',serif;font-weight:700;color:var(--txt);text-align:right}
+.ppnote{color:var(--muted);font-size:.78rem;margin-top:6px}
+.modes{display:flex;gap:6px;justify-content:center;margin-bottom:10px;flex-wrap:wrap}
+.prog{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.bar{flex:1;height:8px;background:var(--card2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--verde),var(--oro));transition:.4s}
+.prog .n{font-weight:700;font-size:.8rem;color:var(--muted)}.prog .n b{color:var(--verde2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:40px 20px 24px;box-shadow:var(--shadow);text-align:center;min-height:210px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--oro),var(--terra));border-radius:18px 18px 0 0}
+.card .tag{position:absolute;top:12px;right:14px;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:2px 9px}
+.card .cue{color:var(--muted);font-size:.84rem;font-style:italic;font-family:'Fraunces',serif;margin-bottom:6px}
+.card .big-q{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600;color:var(--txt)}
+.card .big-q.sm{font-size:1.12rem;font-weight:400;font-style:italic;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.opt{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:11px 14px;border-radius:10px;cursor:pointer;font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;transition:.15s;text-align:center}
+.opt:hover{border-color:var(--oro);color:var(--oro2)}
+.opt.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}
+.opt.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.sub{display:flex;justify-content:space-between;margin-top:13px;font-size:.78rem}
+.sub button{background:none;border:none;color:var(--muted);cursor:pointer;text-decoration:underline;font-family:'Inter';font-size:.78rem}
+.q{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 15px;margin-bottom:10px;box-shadow:var(--shadow)}
+.q.ok{border-color:var(--verde)}
+.q .qt{font-size:1.02rem;line-height:1.7}
+.qopts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.qo{background:var(--card2);border:1px solid var(--line);color:var(--txt);padding:7px 13px;border-radius:9px;cursor:pointer;font-weight:600;font-size:.96rem;text-align:left}
+.qo:hover{border-color:var(--oro);color:var(--oro2)}.qo.ok{background:var(--green-bg);border-color:var(--verde);color:var(--verde2)}.qo.no{background:var(--red-bg);border-color:var(--rosso);color:var(--terra)}
+.bigbtn{display:inline-block;margin-top:14px;border:1px solid var(--line);background:var(--card2);color:var(--txt);font-family:'Inter';font-weight:700;font-size:.84rem;padding:9px 16px;border-radius:10px;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}footer a{color:var(--oro)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(60px);background:var(--oro);color:#1a1206;font-weight:700;padding:11px 20px;border-radius:99px;box-shadow:var(--shadow);opacity:0;transition:.35s;z-index:60;font-size:.9rem}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="flag">🇮🇹</div>
+  <h1>Урок 03/10 — слова и выражения</h1>
+  <p>Словарь, устойчивые выражения, тренажёр и тест</p>
+</header>
+<div id="api">
+  <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
+    <input class="api-in" id="key" type="password" placeholder="API ключ (необязательно)">
+    <button class="btn-c" onclick="connectKey()">OK</button>
+    <button class="btn-x" id="clr" style="display:none" onclick="clearKey()">✕</button></div>
+  <div id="st"></div><div class="hint" id="hint">Тот же ключ, что в словаре. Без ключа — голос браузера.</div>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <button class="nb on" onclick="tab('rules',this)">📖 Словарь</button>
+    <button class="nb" onclick="tab('expr',this)">💬 Выражения</button>
+    <button class="nb" onclick="tab('train',this)">🏋️ Тренажёр</button>
+    <button class="nb" onclick="tab('test',this)">📝 Тест</button>
+  </div>
+
+  <div class="tab on" id="rules">
+    <div class="card2c">
+      <h3>📘 Слова урока</h3>
+      <div class="note"><b>meglio / peggio</b> — наречия («лучше / хуже»), они идут к глаголам: <i>sto meglio</i>, <i>va peggio</i>. Это сравнительная степень от <b>bene / male</b>. Нельзя говорить <i>più bene</i> или <i>più male</i> — только <i>meglio</i> и <i>peggio</i>. Нажми на слово, чтобы услышать произношение, а на глагол — чтобы раскрыть спряжение.</div>
+    </div>
+    <div class="card2c">
+      <h3>📚 Полный список <span id="cnt" style="color:var(--muted);font-weight:400;font-size:.8rem"></span></h3>
+      <div class="filterbar" id="filterbar"></div>
+      <div id="wordlist"></div>
+    </div>
+  </div>
+
+  <div class="tab" id="expr">
+    <div class="card2c">
+      <h3>💬 Устойчивые выражения <span id="ecnt" style="color:var(--muted);font-weight:400;font-size:.8rem"></span></h3>
+      <div class="note">Выражения сгруппированы по словам урока. В начале — фразы из самого диалога. Нажми на фразу, чтобы её услышать. Помета «разг.» — разговорная речь.</div>
+      <input class="srch" id="esearch" type="search" placeholder="🔎 Поиск по выражениям (итал. или рус.)" oninput="renderExpr()" style="margin-top:12px">
+      <div id="exprlist"></div>
+    </div>
+  </div>
+
+  <div class="tab" id="train">
+    <div class="modes" id="trmodes">
+      <button class="nb on" style="font-size:.76rem;padding:7px 12px" onclick="setTM('it2ru',this)">🇮🇹→🇷🇺</button>
+      <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('ru2it',this)">🇷🇺→🇮🇹</button>
+      <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('audio',this)">🎧 на слух</button>
+      <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('def',this)">🧩 описание→слово</button>
+    </div>
+    <div class="filterbar" id="trpool" style="justify-content:center"></div>
+    <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
+    <div class="card" id="card"></div>
+    <div class="sub"><button onclick="nextT()">→ Пропустить</button><button onclick="resetT()">↺ Сброс</button></div>
+  </div>
+
+  <div class="tab" id="test">
+    <div class="filterbar" id="tpool" style="justify-content:center"></div>
+    <div class="filterbar" id="tdir" style="justify-content:center"></div>
+    <div class="filterbar" id="tcnt" style="justify-content:center"></div>
+    <div class="prog"><span class="n">Верно: <b id="tok">0</b> / <span id="ttot">0</span></span><div class="bar"><i id="tfill"></i></div></div>
+    <div id="testbody"></div>
+    <div style="text-align:center"><button class="bigbtn" onclick="buildTest()">↺ Заново</button></div>
+  </div>
+
+  <footer>озвучка Neural2 · <a href="index.html">← Главная</a></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ══════ СЛОВА УРОКА ══════
+   [it, ru, emoji, cat, spec]
+   spec (только у глаголов): g = группа (are/ere/ire/isc), x = 'a' (avere) или 'e' (essere),
+   p = неправильное причастие, P = неправильный presente,
+   r = возвратный, base = инфинитив без -si, suf = хвост после глагола */
+const W=[
+// ГЛАГОЛЫ
+["scappare","убегать, сбегать","🏃","verb",{g:'are',x:'e'}],
+["sfornare","доставать из печи","🍞","verb",{g:'are',x:'a'}],
+["infornare","ставить в печь, выпекать","🔥","verb",{g:'are',x:'a'}],
+["cuocere","печь, варить, готовить","🍳","verb",{g:'ere',x:'a',p:'cotto',P:['cuocio','cuoci','cuoce','cuociamo','cuocete','cuociono']}],
+["impastare","замешивать","👐","verb",{g:'are',x:'a'}],
+["riparare","чинить, ремонтировать","🔧","verb",{g:'are',x:'a'}],
+["rompere","ломать (rotto)","💥","verb",{g:'ere',x:'a',p:'rotto'}],
+["avvisare","предупреждать","⚠️","verb",{g:'are',x:'a'}],
+["sbrigarsi","поторопиться","⏩","verb",{g:'are',x:'e',r:1,base:'sbrigare'}],
+["stirare","гладить (бельё)","👔","verb",{g:'are',x:'a'}],
+["ammalarsi","заболевать","🤒","verb",{g:'are',x:'e',r:1,base:'ammalare'}],
+["tagliare","резать","🔪","verb",{g:'are',x:'a'}],
+["tagliarsi i capelli","стричь (себе) волосы","💇","verb",{g:'are',x:'e',r:1,base:'tagliare',suf:' i capelli'}],
+["preferire","предпочитать","👍","verb",{g:'isc',x:'a'}],
+// СУЩЕСТВИТЕЛЬНЫЕ
+["il lievito","дрожжи","🫧","noun"],
+["l'impasto","тесто","🍞","noun"],
+["il turno","смена; очередь","⏰","noun"],
+["la lavastoviglie","посудомоечная машина","🍽️","noun"],
+["il raffreddore","простуда, насморк","🤧","noun"],
+["lo scontrino","чек","🧾","noun"],
+["il conto","счёт","💳","noun"],
+["il resto","сдача; остаток","🪙","noun"],
+["il marciapiede","тротуар","🚶","noun"],
+["il ferro da stiro","утюг","♨️","noun"],
+["il coltello","нож","🔪","noun"],
+["il casino","беспорядок, бардак (разг.)","🌪️","noun"],
+// СРАВНЕНИЕ
+["meglio","лучше","⬆️","comp"],
+["peggio","хуже","⬇️","comp"],
+];
+const CATS={verb:{label:'🔨 Глаголы'},noun:{label:'📦 Существительные'},comp:{label:'⚖️ Лучше / хуже'}};
+let curFilter='all';
+
+/* ══════ ОПИСАНИЯ (задание 1 урока) ══════ */
+const DEF=[
+["il lievito","La sostanza che fa crescere il pane."],
+["l'impasto","Farina, acqua e lievito mescolati insieme."],
+["il turno","Le ore in cui lavori: di mattina, di pomeriggio o di notte."],
+["la lavastoviglie","La macchina che lava i piatti."],
+["il raffreddore","Una malattia leggera: hai il naso chiuso e starnutisci."],
+["lo scontrino","Il piccolo foglio che ti danno in un negozio dopo che hai pagato."],
+["il conto","Il foglio con il prezzo da pagare alla fine della cena al ristorante."],
+["il resto","I soldi che ti ridanno quando paghi più del prezzo."],
+["il marciapiede","La parte della strada dove camminano le persone."],
+["il ferro da stiro","L'oggetto caldo che usiamo per i vestiti."],
+];
+
+/* ══════ УСТОЙЧИВЫЕ ВЫРАЖЕНИЯ ══════
+   h = заголовок группы, e = эмодзи, n = заметка (необязательно), i = [[it, ru], ...] */
+const G=[
+{h:'Фразы из диалога',e:'🗣️',n:'<b>Siccome</b> («так как») ставится в начале и объясняет причину: <i>Siccome c\'era un casino, sono andato al lavoro.</i> После следствия вместо него говорят <b>perché</b>: <i>Sono andato al lavoro perché c\'era un casino.</i> Выражение <b>e sì e no</b> — «и да и нет, как сказать».',i:[
+["Come ti senti?","Как ты себя чувствуешь?"],
+["Meglio di prima?","Лучше, чем раньше?"],
+["È più facile dire che va tutto bene!","Проще сказать, что всё хорошо!"],
+["Cosa hai fatto nel fine settimana?","Что ты делал на выходных?"],
+["Niente di bello.","Ничего хорошего."],
+["Sei stato a casa?","Ты был дома?"],
+["E sì e no.","И да и нет; не совсем."],
+["Siccome c'era un casino al lavoro, sono andato al lavoro.","Так как на работе был бардак, я пошёл на работу."],
+["Come sta tuo figlio?","Как твой сын?"],
+["Corre molto e va a scuola.","Он много бегает и ходит в школу."],
+["Cosa fai dopo la lezione?","Что ты делаешь после урока?"],
+["Vado a tagliarmi i capelli perché preferisco i capelli corti.","Иду стричься, потому что предпочитаю короткие волосы."]]},
+{h:'MEGLIO / PEGGIO',e:'⚖️',i:[
+["Meglio tardi che mai.","Лучше поздно, чем никогда."],
+["Meglio di niente.","Лучше, чем ничего."],
+["Meglio così.","Так лучше."],
+["Tanto meglio!","Тем лучше!"],
+["Tanto peggio!","Тем хуже!"],
+["Oggi sto meglio.","Сегодня я чувствую себя лучше."],
+["Peggio di così non può andare.","Хуже некуда."],
+["Va sempre peggio.","Становится всё хуже и хуже."],
+["Alla meno peggio","Кое-как, как получится"],
+["Fare del proprio meglio","Сделать всё возможное"],
+["Cambiare in meglio","Измениться к лучшему"],
+["Meglio un uovo oggi che una gallina domani.","Лучше синица в руках, чем журавль в небе."]]},
+{h:'IL CASINO',e:'🌪️',n:'<b>Casino</b> — разговорное слово, в нейтральной речи говорят <i>confusione</i> или <i>disordine</i>.',i:[
+["Che casino!","Какой бардак!"],
+["Fare casino","Шуметь, устраивать бардак (разг.)"],
+["C'è un casino di gente.","Куча народу (разг.)."],
+["Ho un casino di cose da fare.","У меня куча дел (разг.)."]]},
+{h:'IL COLTELLO',e:'🔪',i:[
+["Il coltello da pane","Хлебный нож"],
+["Un coltello affilato","Острый нож"],
+["Il coltello e la forchetta","Нож и вилка"],
+["Avere il coltello dalla parte del manico","Держать ситуацию в своих руках"],
+["Mettere il coltello alla gola","Приставить нож к горлу"]]},
+{h:'TAGLIARE / TAGLIARSI I CAPELLI',e:'💇',n:'<b>Tagliarsi i capelli</b> — подстричься самому. Если стрижёт парикмахер, говорят <b>farsi tagliare i capelli</b>: <i>Mi faccio tagliare i capelli.</i>',i:[
+["Tagliare a fette","Нарезать ломтями"],
+["Mi sono tagliato con il coltello.","Я порезался ножом."],
+["Tagliarsi i capelli","Стричь себе волосы"],
+["Farsi tagliare i capelli","Постричься (у парикмахера)"],
+["Tagliare la corda","Смыться, удрать (разг.)"],
+["Tagliare corto","Говорить покороче, не тянуть"],
+["Tagliare i ponti con qualcuno","Порвать с кем-то все связи"],
+["Tagliare la strada a qualcuno","Перерезать кому-то дорогу"]]},
+{h:'PREFERIRE',e:'👍',i:[
+["Cosa preferisci?","Что ты предпочитаешь?"],
+["Preferisco il caffè al tè.","Я предпочитаю кофе чаю."],
+["Preferisco restare a casa.","Я предпочитаю остаться дома."],
+["Preferisco lavorare di notte.","Я предпочитаю работать ночью."],
+["Se preferisci…","Если ты предпочитаешь (хочешь)…"]]},
+{h:'SCAPPARE',e:'🏃',n:'<b>Scappare</b> спрягается с <b>essere</b>: <i>Il gatto è scappato.</i> Безличное <i>mi scappa</i> — «меня разбирает, невтерпёж».',i:[
+["Il gatto è scappato.","Кот убежал."],
+["Scappare via","Убежать, удрать"],
+["Scappare di casa","Сбежать из дома"],
+["Scappare a gambe levate","Броситься наутёк"],
+["Mi scappa da ridere.","Меня разбирает смех."],
+["Mi scappa la pipì.","Невтерпёж в туалет (разг.)."],
+["Mi è scappata una parolaccia.","У меня вырвалось ругательство."],
+["Lasciarsi scappare un'occasione","Упустить возможность"]]},
+{h:'INFORNARE / SFORNARE / CUOCERE',e:'🔥',i:[
+["Infornare il pane","Поставить хлеб в печь"],
+["Sfornare una torta","Достать пирог из духовки"],
+["Appena sfornato","Только что из печи"],
+["Sforna un libro all'anno.","Выпускает по книге в год (перен.)."],
+["Cuocere al forno","Печь, запекать в духовке"],
+["Cuocere a fuoco lento","Готовить на медленном огне"],
+["Cuocere a vapore","Готовить на пару"],
+["Cuocere a puntino","Приготовить в самый раз"],
+["Lasciare qualcuno a cuocere nel suo brodo","Оставить кого-то расхлёбывать самому"]]},
+{h:'IMPASTARE / L\'IMPASTO / IL LIEVITO',e:'🍞',i:[
+["Impastare a mano","Месить вручную"],
+["Far lievitare l'impasto","Дать тесту подняться"],
+["L'impasto deve riposare.","Тесту нужно отдохнуть."],
+["Il lievito di birra","Пивные (прессованные) дрожжи"],
+["Il lievito in polvere","Разрыхлитель теста"],
+["Il lievito madre","Закваска"],
+["Mettere le mani in pasta","Взяться за дело, влезть в дело"],
+["Avere le mani in pasta","Быть в курсе дел, быть вовлечённым"]]},
+{h:'RIPARARE / ROMPERE',e:'🔧',i:[
+["Riparare un guasto","Устранить поломку"],
+["Far riparare la macchina","Отдать машину в ремонт"],
+["Riparare un torto","Исправить несправедливость, загладить обиду"],
+["Ripararsi dalla pioggia","Укрыться от дождя"],
+["La lavastoviglie è rotta.","Посудомойка сломана."],
+["Mi sono rotto una gamba.","Я сломал ногу."],
+["Rompere il ghiaccio","Растопить лёд (начать разговор)"],
+["Rompere il silenzio","Нарушить молчание"],
+["Rompere con qualcuno","Порвать с кем-то, расстаться"],
+["Rompere le scatole","Надоедать (разг.)"],
+["Che rottura!","Как надоело! (разг.)"]]},
+{h:'AVVISARE / SBRIGARSI',e:'⏩',n:'<b>Sbrigati!</b> и <b>Sbrighiamoci!</b> — повелительное наклонение (imperativo). Пока запоминай как готовые фразы.',i:[
+["Ti avviso che…","Предупреждаю тебя, что…"],
+["Avvisare in anticipo","Предупредить заранее"],
+["Avvisare il capo","Предупредить начальника"],
+["Senza preavviso","Без предупреждения"],
+["Devo sbrigarmi.","Мне нужно поторопиться."],
+["Sbrigati!","Поторопись!"],
+["Sbrighiamoci!","Давайте поторопимся!"],
+["Sbrigare le faccende","Управиться с делами"],
+["Sbrigare una pratica","Уладить формальности, оформить бумаги"]]},
+{h:'STIRARE / IL FERRO DA STIRO',e:'👔',n:'<b>Battere il ferro finché è caldo</b> — здесь <i>ferro</i> это просто «железо», а не утюг.',i:[
+["Stirare le camicie","Гладить рубашки"],
+["L'asse da stiro","Гладильная доска"],
+["Ho lasciato il ferro da stiro acceso.","Я оставил утюг включённым."],
+["Battere il ferro finché è caldo","Ковать железо, пока горячо"],
+["Mi sono stirato un muscolo.","Я потянул мышцу."]]},
+{h:'AMMALARSI / IL RAFFREDDORE',e:'🤒',i:[
+["Mi sono ammalato.","Я заболел."],
+["Ammalarsi gravemente","Серьёзно заболеть"],
+["Avere il raffreddore","Быть простуженным, иметь насморк"],
+["Prendere il raffreddore","Подхватить простуду"],
+["Sono raffreddato.","Я простужен."],
+["Ho il naso chiuso.","У меня заложен нос."],
+["Il raffreddore da fieno","Сенная лихорадка"],
+["Mettersi in malattia","Взять больничный (разг.)"]]},
+{h:'IL TURNO',e:'⏰',i:[
+["Il turno di notte","Ночная смена"],
+["Fare il turno di mattina","Работать в утреннюю смену"],
+["A turno","По очереди"],
+["Di turno","Дежурный (о смене, аптеке)"],
+["Aspetto il mio turno.","Жду своей очереди."],
+["Scambiare il turno con un collega","Поменяться сменой с коллегой"]]},
+{h:'LA LAVASTOVIGLIE',e:'🍽️',i:[
+["Caricare la lavastoviglie","Загрузить посудомойку"],
+["Svuotare la lavastoviglie","Разгрузить посудомойку"],
+["Mettere i piatti in lavastoviglie","Положить тарелки в посудомойку"]]},
+{h:'LO SCONTRINO / IL CONTO / IL RESTO',e:'🧾',n:'<b>Tenga il resto</b> — вежливая форма на «Вы» (imperativo формальный). Запомни как готовую фразу.',i:[
+["Vuole lo scontrino?","Вам нужен чек?"],
+["Conservo sempre lo scontrino.","Я всегда сохраняю чек."],
+["Il conto, per favore.","Счёт, пожалуйста."],
+["Pagare il conto","Оплатить счёт"],
+["Pagare alla romana","Делить счёт поровну"],
+["Fare i conti","Подсчитывать, сводить баланс"],
+["Rendersi conto","Осознавать, отдавать себе отчёт"],
+["Tenere conto di qualcosa","Учитывать что-то"],
+["In fin dei conti","В конце концов"],
+["Tenga il resto.","Оставьте сдачу."],
+["Dare il resto","Дать сдачу"],
+["Non ho il resto.","У меня нет сдачи."],
+["Del resto…","К тому же…; впрочем…"],
+["Per il resto…","Что касается остального…"]]},
+{h:'IL MARCIAPIEDE',e:'🚶',i:[
+["Camminare sul marciapiede","Идти по тротуару"],
+["Parcheggiare sul marciapiede","Парковаться на тротуаре"],
+["Il marciapiede è scivoloso.","Тротуар скользкий."]]},
+];
+const E=[];G.forEach(g=>g.i.forEach(x=>E.push({it:x[0],ru:x[1],em:g.e,g:g.h})));
+
+/* ══════ ПУЛЫ ДЛЯ ТРЕНАЖЁРА И ТЕСТА ══════ */
+const ITW=W.map(w=>({it:w[0],ru:w[1],em:w[2],k:'w'}));
+const ITE=E.map(e=>({it:e.it,ru:e.ru,em:e.em,k:'e'}));
+function poolItems(p){return p==='words'?ITW:(p==='expr'?ITE:ITW.concat(ITE));}
+function distract(item,field){
+  const src=item.k==='e'?ITE:ITW;
+  const seen=new Set([norm(item[field])]);const out=[];
+  shuffle(src).forEach(x=>{const v=x[field];const n=norm(v);if(out.length<3&&!seen.has(n)){seen.add(n);out.push(v);}});
+  return out;
+}
+function options(item,field){return shuffle([item[field]].concat(distract(item,field)));}
+
+/* ══════ СПРЯЖЕНИЕ ══════ */
+const PRON=['io','tu','lui/lei','noi','voi','loro'];
+const RP=['mi','ti','si','ci','vi','si'];
+const AUX_A=['ho','hai','ha','abbiamo','avete','hanno'];
+const AUX_E=['sono','sei','è','siamo','siete','sono'];
+function vStem(inf){return inf.slice(0,-3);}
+function vPresente(s,inf){
+  if(s.P)return s.P.slice();
+  const stem=vStem(inf);const last=stem.slice(-1);const cg=(last==='c'||last==='g');const endsI=(last==='i');
+  if(s.g==='are')return [stem+'o',cg?stem+'hi':(endsI?stem:stem+'i'),stem+'a',cg?stem+'hiamo':(endsI?stem+'amo':stem+'iamo'),stem+'ate',stem+'ano'];
+  if(s.g==='ere')return [stem+'o',stem+'i',stem+'e',stem+'iamo',stem+'ete',stem+'ono'];
+  if(s.g==='ire')return [stem+'o',stem+'i',stem+'e',stem+'iamo',stem+'ite',stem+'ono'];
+  return [stem+'isco',stem+'isci',stem+'isce',stem+'iamo',stem+'ite',stem+'iscono'];
+}
+function vParticipio(s,inf){if(s.p)return s.p;const stem=vStem(inf);if(s.g==='are')return stem+'ato';if(s.g==='ere')return stem+'uto';return stem+'ito';}
+function vImperfetto(inf){
+  const stem=vStem(inf);const end=inf.slice(-3);
+  if(end==='are')return [stem+'avo',stem+'avi',stem+'ava',stem+'avamo',stem+'avate',stem+'avano'];
+  if(end==='ere')return [stem+'evo',stem+'evi',stem+'eva',stem+'evamo',stem+'evate',stem+'evano'];
+  return [stem+'ivo',stem+'ivi',stem+'iva',stem+'ivamo',stem+'ivate',stem+'ivano'];
+}
+function vAll(w){
+  const s=w[4],inf=s.base||w[0],r=!!s.r,suf=s.suf||'';
+  const pp=vParticipio(s,inf),ppP=pp.slice(0,-1)+'i';
+  let pres=vPresente(s,inf),impf=vImperfetto(inf),pass;
+  if(s.x==='a')pass=AUX_A.map(a=>a+' '+pp);
+  else pass=AUX_E.map((a,i)=>(r?RP[i]+' ':'')+a+' '+(i<3?pp+'/a':ppP+'/e'));
+  if(r){pres=pres.map((f,i)=>RP[i]+' '+f);impf=impf.map((f,i)=>RP[i]+' '+f);}
+  return {pres:pres.map(f=>f+suf),impf:impf.map(f=>f+suf),pass:pass.map(f=>f+suf)};
+}
+
+/* ══════ ОЗВУЧКА ══════ */
+let ttsKey=localStorage.getItem('it_tts_key')||'';
+let ttsVoice=localStorage.getItem('it_tts_voice')||'it-IT-Neural2-A';
+if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.setItem('it_tts_voice',ttsVoice);}
+const cache={};let curAudio=null;
+async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
+function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
+async function speak(t){t=(t||'').replace(/\/[ae]\b/g,'').replace(/…/g,'');if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
+function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
+function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
+function setStatus(m,t){const e=document.getElementById('st');e.textContent=m;e.className=t;}
+
+/* ══════ УТИЛИТЫ ══════ */
+function norm(s){return (s||'').toLowerCase().trim().replace(/[''`]/g,"'").replace(/\s+/g,' ').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[.?!,;]+$/,'');}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function esc(s){return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function sp(t){return (t||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._t);window._t=setTimeout(()=>t.classList.remove('show'),1700);}
+function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
+
+/* ══════ СЛОВАРЬ ══════ */
+function renderFilterbar(){
+  const cats=['all',...Object.keys(CATS)];
+  document.getElementById('filterbar').innerHTML=cats.map(c=>`<button class="fchip ${c===curFilter?'on':''}" onclick="setFilter('${c}')">${c==='all'?'Все':CATS[c].label}</button>`).join('');
+}
+function setFilter(c){curFilter=c;renderFilterbar();renderWordlist();}
+function verbCardHTML(w,i){
+  const s=w[4],badges=[];
+  if(s.p||s.P)badges.push('<span class="badge irr">неправ.</span>');
+  if(s.r)badges.push('<span class="badge ref">возвр.</span>');
+  else if(s.x==='e')badges.push('<span class="badge ess">essere</span>');
+  return `<div class="vc" id="vc_${i}">
+    <div class="vc-head" onclick="toggleVc(${i})">
+      <span class="vemoji">${w[2]}</span>
+      <span class="inf">${esc(w[0])}</span>
+      ${badges.join('')}
+      <span class="ru">${esc(w[1])}</span>
+      <button class="spk" onclick="event.stopPropagation();speak('${sp(w[0])}')">🔊</button>
+      <span class="chev">▶</span>
+    </div>
+    <div class="vc-body" id="vb_${i}"></div>
+  </div>`;
+}
+function crRows(forms,withPron){return forms.map((f,i)=>`<div class="cr" onclick="speak('${sp(f)}')"><span class="pn">${PRON[i]}</span><span class="vf">${esc(f)}</span></div>`).join('');}
+function toggleVc(i){
+  const vc=document.getElementById('vc_'+i),body=document.getElementById('vb_'+i);
+  if(vc.classList.contains('open')){vc.classList.remove('open');return;}
+  if(!body.innerHTML){
+    const w=W[i],s=w[4],a=vAll(w);
+    const how=s.r?'возвратный глагол — всегда <b>essere</b> + местоимение mi/ti/si…; причастие согласуется: -o/-a/-i/-e':(s.x==='e'?'<b>essere</b>: причастие согласуется с подлежащим (-o/-a/-i/-e)':'<b>avere</b>: причастие не меняется');
+    body.innerHTML=`
+      <div class="sect"><h4>Presente — настоящее</h4><div class="conj">${crRows(a.pres)}</div></div>
+      <div class="sect"><h4>Passato Prossimo — прошедшее</h4><div class="conj">${crRows(a.pass)}</div><div class="ppnote">${how}</div></div>
+      <div class="sect"><h4>Imperfetto — описание / привычка в прошлом</h4><div class="conj">${crRows(a.impf)}</div></div>`;
+  }
+  vc.classList.add('open');
+}
+function wordRow(w,i){
+  if(w[3]==='verb')return verbCardHTML(w,i);
+  return `<div class="idiom" onclick="speak('${sp(w[0])}')"><span class="ic">${w[2]}</span><div class="body"><span class="ph">${esc(w[0])}</span><div class="ru">${esc(w[1])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(w[0])}')">🔊</button></div>`;
+}
+function renderWordlist(){
+  const idx=W.map((w,i)=>i).filter(i=>curFilter==='all'||W[i][3]===curFilter);
+  document.getElementById('cnt').textContent=`(${idx.length} из ${W.length})`;
+  let html='';
+  Object.keys(CATS).forEach(c=>{
+    const items=idx.filter(i=>W[i][3]===c);
+    if(!items.length)return;
+    if(curFilter==='all')html+=`<div class="catlbl">${CATS[c].label}</div>`;
+    html+=items.map(i=>wordRow(W[i],i)).join('');
+  });
+  document.getElementById('wordlist').innerHTML=html;
+}
+
+/* ══════ ВЫРАЖЕНИЯ ══════ */
+function renderExpr(){
+  const q=norm(document.getElementById('esearch').value);
+  let html='',n=0;
+  G.forEach(g=>{
+    const items=g.i.filter(x=>!q||norm(x[0]).includes(q)||norm(x[1]).includes(q));
+    if(!items.length)return;
+    n+=items.length;
+    html+=`<div class="catlbl">${g.e} ${esc(g.h)}</div>`;
+    if(g.n&&!q)html+=`<div class="note" style="margin-bottom:9px">${g.n}</div>`;
+    html+=items.map(x=>`<div class="idiom" onclick="speak('${sp(x[0])}')"><div class="body"><span class="ph">${esc(x[0])}</span><div class="ru">${esc(x[1])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[0])}')">🔊</button></div>`).join('');
+  });
+  document.getElementById('ecnt').textContent=`(${n} из ${E.length})`;
+  document.getElementById('exprlist').innerHTML=html||'<div class="note">Ничего не найдено.</div>';
+}
+
+/* ══════ ТРЕНАЖЁР ══════ */
+const POOLS=[['words','📘 Слова'],['expr','💬 Выражения'],['all','Всё вместе']];
+let tMode='it2ru',tPool='words',curT=null,okC=0,streak=0,total=0,deck=[],deckN=0,deckBuilt=false;
+function renderPoolChips(elId,cur,fn){
+  document.getElementById(elId).innerHTML=POOLS.map(p=>`<button class="fchip ${p[0]===cur?'on':''}" onclick="${fn}('${p[0]}')">${p[1]}</button>`).join('');
+}
+function trItems(){
+  if(tMode==='def')return DEF.map(d=>({it:d[0],def:d[1],em:'🧩',k:'d'}));
+  return poolItems(tPool);
+}
+function buildDeck(){
+  const base=trItems();let d=[];base.forEach(w=>{d.push(w);d.push(w);});
+  d=shuffle(d);
+  for(let i=1;i<d.length;i++){
+    if(d[i]===d[i-1]){
+      for(let k=i+1;k<d.length;k++){
+        if(d[k]!==d[i-1]&&(k+1>=d.length||d[k+1]!==d[i])){[d[i],d[k]]=[d[k],d[i]];break;}
+      }
+    }
+  }
+  return d;
+}
+function restartDeck(){deckBuilt=false;curT=null;okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('streak').textContent='';document.getElementById('fill').style.width='0%';nextT();}
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('trpool').style.display=(m==='def')?'none':'flex';restartDeck();}
+function setTPool(p){tPool=p;renderPoolChips('trpool',tPool,'setTPool');restartDeck();}
+function nextT(){
+  if(!deckBuilt){deck=buildDeck();deckN=deck.length;deckBuilt=true;}
+  if(!deck.length){showRoundDone();return;}
+  const w=deck.pop();curT=w;const c=document.getElementById('card');
+  if(tMode==='def'){
+    const opts=shuffle([w.it].concat(shuffle(DEF.filter(x=>x[0]!==w.it)).slice(0,3).map(x=>x[0])));
+    c.innerHTML=`<span class="tag">описание→слово</span><div class="cue">какое слово подходит?</div><div class="big-q sm">${esc(w.def)}</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w.it)}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w.def),200);
+  } else if(tMode==='it2ru'){
+    const opts=options(w,'ru');
+    c.innerHTML=`<span class="tag">IT→RU</span><div class="big-q${w.k==='e'?' sm':''}">${w.em} ${esc(w.it)}</div><div class="cue">что значит?</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w.ru)}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w.it),200);
+  } else if(tMode==='ru2it'){
+    const opts=options(w,'it');
+    c.innerHTML=`<span class="tag">RU→IT</span><div class="big-q${w.k==='e'?' sm':''}">${esc(w.ru)}</div><div class="cue">по-итальянски</div>
+      <div class="opts">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w.it)}')">${esc(o)}</button>`).join('')}</div>`;
+  } else {
+    const opts=options(w,'ru');
+    c.innerHTML=`<span class="tag">🎧 на слух</span><div class="cue">послушай и выбери перевод</div>
+      <button style="background:var(--oro);color:#1a1206;border:none;border-radius:12px;font-weight:700;padding:12px 22px;cursor:pointer;margin:8px auto 0;display:block" onclick="speak('${sp(w.it)}')">▶ Повторить</button>
+      <div class="opts" style="margin-top:14px">${opts.map(o=>`<button class="opt" onclick="pickOpt(this,'${sp(o)}','${sp(w.ru)}')">${esc(o)}</button>`).join('')}</div>`;
+    setTimeout(()=>speak(w.it),250);
+  }
+  document.getElementById('fill').style.width=((deckN-deck.length-1)/deckN*100)+'%';
+}
+function showRoundDone(){
+  const pct=total?Math.round(okC/total*100):0;
+  let emo='🌱',txt='Continua ad allenarti!';
+  if(pct>=95){emo='🏆';txt='Perfetto! Tutto imparato!';}
+  else if(pct>=80){emo='🎉';txt='Molto bene!';}
+  else if(pct>=60){emo='👍';txt='Bene!';}
+  document.getElementById('fill').style.width='100%';
+  document.getElementById('card').innerHTML=`<div style="text-align:center">
+    <div style="font-size:2.4rem">${emo}</div>
+    <div style="font-family:'Fraunces',serif;color:var(--oro2);font-size:1.25rem;margin:6px 0">Круг пройден!</div>
+    <div style="font-family:'Fraunces',serif;font-size:1.8rem;color:var(--verde2)">${okC} / ${total}</div>
+    <p style="color:var(--muted);margin-top:6px">${txt}</p>
+    <button class="opt" style="margin-top:16px" onclick="restartDeck()">↺ Новый круг</button>
+  </div>`;
+  toast('🎉 Все карточки пройдены по 2 раза!');
+}
+function pickOpt(btn,chosen,correct){
+  const good=norm(chosen)===norm(correct);
+  speak(curT.it);
+  document.querySelectorAll('#card .opt').forEach(b=>{b.style.pointerEvents='none';if(norm(b.textContent)===norm(correct))b.classList.add('ok');});
+  if(!good)btn.classList.add('no');
+  setTimeout(()=>grade(good),800);
+}
+function grade(ok){total++;if(ok){okC++;streak++;if(streak%5===0)toast('🔥 Серия '+streak);}else streak=0;
+  document.getElementById('ok').textContent=okC;
+  document.getElementById('streak').textContent=streak>1?('🔥'+streak):'';nextT();}
+function resetT(){restartDeck();toast('Сброшено');}
+
+/* ══════ ТЕСТ ══════ */
+let testBuilt=false,tTotal=0,tTPool='words',tTDir='it2ru',tTCount=20;const tDone=new Set();
+function renderTestChips(){
+  renderPoolChips('tpool',tTPool,'setTTPool');
+  document.getElementById('tdir').innerHTML=[['it2ru','🇮🇹→🇷🇺'],['ru2it','🇷🇺→🇮🇹']].map(d=>`<button class="fchip ${d[0]===tTDir?'on':''}" onclick="setTTDir('${d[0]}')">${d[1]}</button>`).join('');
+  document.getElementById('tcnt').innerHTML=[[10,'10 вопросов'],[20,'20 вопросов'],[40,'40 вопросов'],[0,'Все']].map(d=>`<button class="fchip ${d[0]===tTCount?'on':''}" onclick="setTTCount(${d[0]})">${d[1]}</button>`).join('');
+}
+function setTTPool(p){tTPool=p;buildTest();}
+function setTTDir(d){tTDir=d;buildTest();}
+function setTTCount(n){tTCount=n;buildTest();}
+function buildTest(){
+  testBuilt=true;tTotal=0;tDone.clear();renderTestChips();
+  let sel=shuffle(poolItems(tTPool));if(tTCount)sel=sel.slice(0,tTCount);
+  const from=tTDir==='it2ru'?'it':'ru',to=tTDir==='it2ru'?'ru':'it';
+  const html=sel.map((w,i)=>{tTotal++;const k='q'+i;const opts=options(w,to);
+    return `<div class="q" id="q_${k}"><div class="qt">${w.em} ${esc(w[from]||w[from==='it'?'it':'ru'])} <button style="background:none;border:none;color:var(--viola);cursor:pointer" onclick="speak('${sp(w.it)}')">🔊</button> → <span id="g_${k}" style="color:var(--muted)">?</span></div>
+      <div class="qopts">${opts.map(o=>`<button class="qo" onclick="ansT('${k}',this,'${sp(o)}','${sp(w[to])}','${sp(w.it)}')">${esc(o)}</button>`).join('')}</div></div>`;
+  }).join('');
+  document.getElementById('testbody').innerHTML=html;
+  document.getElementById('ttot').textContent=tTotal;document.getElementById('tok').textContent=0;document.getElementById('tfill').style.width='0%';
+}
+function ansT(k,btn,chosen,correct,itText){
+  speak(itText);const good=norm(chosen)===norm(correct);
+  const g=[...document.querySelectorAll('#q_'+k+' .qo')];g.forEach(x=>x.style.pointerEvents='none');
+  if(good){btn.classList.add('ok');tDone.add(k);}else{btn.classList.add('no');g.forEach(x=>{if(norm(x.textContent)===norm(correct))x.classList.add('ok');});}
+  document.getElementById('g_'+k).textContent=chosen;document.getElementById('g_'+k).style.color=good?'var(--verde2)':'var(--terra)';
+  document.getElementById('q_'+k).classList.toggle('ok',good);
+  document.getElementById('tok').textContent=tDone.size;document.getElementById('tfill').style.width=(tDone.size/tTotal*100)+'%';
+  if(tDone.size===tTotal)toast('🎉 Все верно!');
+}
+
+if('speechSynthesis' in window)speechSynthesis.getVoices();
+if(ttsKey)markConn();
+renderFilterbar();
+renderWordlist();
+renderExpr();
+renderPoolChips('trpool',tPool,'setTPool');
+renderTestChips();
+</script>
+</body>
+</html>
