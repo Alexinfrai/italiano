@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇮🇹 Урок 03/10 — слова и выражения</title>
+<title>🇮🇹 Урок со словами</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -100,8 +100,8 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
 <body>
 <header>
   <div class="flag">🇮🇹</div>
-  <h1>Урок 03/10 — слова и выражения</h1>
-  <p>Словарь, устойчивые выражения, тренажёр и тест</p>
+  <h1>Урок со словами</h1>
+  <p>Слова и выражения уроков 03/10 · 05/11 · 10/11 — словарь, тренажёр, тест</p>
 </header>
 <div id="api">
   <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
@@ -120,11 +120,15 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
 
   <div class="tab on" id="rules">
     <div class="card2c">
-      <h3>📘 Слова урока</h3>
-      <div class="note"><b>meglio / peggio</b> — наречия («лучше / хуже»), они идут к глаголам: <i>sto meglio</i>, <i>va peggio</i>. Это сравнительная степень от <b>bene / male</b>. Нельзя говорить <i>più bene</i> или <i>più male</i> — только <i>meglio</i> и <i>peggio</i>. Нажми на слово, чтобы услышать произношение, а на глагол — чтобы раскрыть спряжение.</div>
+      <h3>📘 Слова уроков 03/10, 05/11 и 10/11</h3>
+      <div class="note"><b>meglio / peggio</b> — наречия («лучше / хуже»), они идут к глаголам: <i>sto meglio</i>, <i>va peggio</i>. Нельзя говорить <i>più bene</i> или <i>più male</i>.</div>
+      <div class="note"><b>Числа 10–20:</b> 11–16 оканчиваются на <b>-dici</b> (undici, dodici, tredici, quattordici, quindici, sedici), а 17–19 собираются как «10 + число»: <b>dici</b>assette, <b>dici</b>otto, <b>dici</b>annove.</div>
+      <div class="note"><b>caricare / scaricare</b> — «загружать, заряжать» и «разгружать, разряжать»; <b>carico / scarico</b> — «заряженный / разряженный» (это прилагательные). <b>Stendere</b> — развесить бельё, <b>piegare</b> — сложить.</div>
+      <div class="note"><b>Произношение:</b> <i>sci</i> перед гласной читается «ш»: <i>asciugare</i> [ашугáре], <i>asciugamano</i> [ашугамáно]. В слове <i>ladro</i> ударение на первый слог: [ЛАдро]. Нажми на слово, чтобы услышать, а на глагол — чтобы раскрыть спряжение.</div>
     </div>
     <div class="card2c">
       <h3>📚 Полный список <span id="cnt" style="color:var(--muted);font-weight:400;font-size:.8rem"></span></h3>
+      <div class="filterbar lesbar"></div>
       <div class="filterbar" id="filterbar"></div>
       <div id="wordlist"></div>
     </div>
@@ -134,6 +138,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
     <div class="card2c">
       <h3>💬 Устойчивые выражения <span id="ecnt" style="color:var(--muted);font-weight:400;font-size:.8rem"></span></h3>
       <div class="note">Выражения сгруппированы по словам урока. В начале — фразы из самого диалога. Нажми на фразу, чтобы её услышать. Помета «разг.» — разговорная речь.</div>
+      <div class="filterbar lesbar" style="margin-top:12px"></div>
       <input class="srch" id="esearch" type="search" placeholder="🔎 Поиск по выражениям (итал. или рус.)" oninput="renderExpr()" style="margin-top:12px">
       <div id="exprlist"></div>
     </div>
@@ -146,6 +151,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
       <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('audio',this)">🎧 на слух</button>
       <button class="nb" style="font-size:.76rem;padding:7px 12px" onclick="setTM('def',this)">🧩 описание→слово</button>
     </div>
+    <div class="filterbar lesbar" id="trles" style="justify-content:center"></div>
     <div class="filterbar" id="trpool" style="justify-content:center"></div>
     <div class="prog"><span class="n">Верно: <b id="ok">0</b></span><div class="bar"><i id="fill"></i></div><span class="n" id="streak"></span></div>
     <div class="card" id="card"></div>
@@ -153,6 +159,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
   </div>
 
   <div class="tab" id="test">
+    <div class="filterbar lesbar" style="justify-content:center"></div>
     <div class="filterbar" id="tpool" style="justify-content:center"></div>
     <div class="filterbar" id="tdir" style="justify-content:center"></div>
     <div class="filterbar" id="tcnt" style="justify-content:center"></div>
@@ -172,38 +179,98 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
    r = возвратный, base = инфинитив без -si, suf = хвост после глагола */
 const W=[
 // ГЛАГОЛЫ
-["scappare","убегать, сбегать","🏃","verb",{g:'are',x:'e'}],
-["sfornare","доставать из печи","🍞","verb",{g:'are',x:'a'}],
-["infornare","ставить в печь, выпекать","🔥","verb",{g:'are',x:'a'}],
-["cuocere","печь, варить, готовить","🍳","verb",{g:'ere',x:'a',p:'cotto',P:['cuocio','cuoci','cuoce','cuociamo','cuocete','cuociono']}],
-["impastare","замешивать","👐","verb",{g:'are',x:'a'}],
-["riparare","чинить, ремонтировать","🔧","verb",{g:'are',x:'a'}],
-["rompere","ломать (rotto)","💥","verb",{g:'ere',x:'a',p:'rotto'}],
-["avvisare","предупреждать","⚠️","verb",{g:'are',x:'a'}],
-["sbrigarsi","поторопиться","⏩","verb",{g:'are',x:'e',r:1,base:'sbrigare'}],
-["stirare","гладить (бельё)","👔","verb",{g:'are',x:'a'}],
-["ammalarsi","заболевать","🤒","verb",{g:'are',x:'e',r:1,base:'ammalare'}],
-["tagliare","резать","🔪","verb",{g:'are',x:'a'}],
-["tagliarsi i capelli","стричь (себе) волосы","💇","verb",{g:'are',x:'e',r:1,base:'tagliare',suf:' i capelli'}],
-["preferire","предпочитать","👍","verb",{g:'isc',x:'a'}],
+["scappare","убегать, сбегать","🏃","verb",{g:'are',x:'e'},'0310'],
+["sfornare","доставать из печи","🍞","verb",{g:'are',x:'a'},'0310'],
+["infornare","ставить в печь, выпекать","🔥","verb",{g:'are',x:'a'},'0310'],
+["cuocere","печь, варить, готовить","🍳","verb",{g:'ere',x:'a',p:'cotto',P:['cuocio','cuoci','cuoce','cuociamo','cuocete','cuociono']},'0310'],
+["impastare","замешивать","👐","verb",{g:'are',x:'a'},'0310'],
+["riparare","чинить, ремонтировать","🔧","verb",{g:'are',x:'a'},'0310'],
+["rompere","ломать (rotto)","💥","verb",{g:'ere',x:'a',p:'rotto'},'0310'],
+["avvisare","предупреждать","⚠️","verb",{g:'are',x:'a'},'0310'],
+["sbrigarsi","поторопиться","⏩","verb",{g:'are',x:'e',r:1,base:'sbrigare'},'0310'],
+["stirare","гладить (бельё)","👔","verb",{g:'are',x:'a'},'0310'],
+["ammalarsi","заболевать","🤒","verb",{g:'are',x:'e',r:1,base:'ammalare'},'0310'],
+["tagliare","резать","🔪","verb",{g:'are',x:'a'},'0310'],
+["tagliarsi i capelli","стричь (себе) волосы","💇","verb",{g:'are',x:'e',r:1,base:'tagliare',suf:' i capelli'},'0310'],
+["preferire","предпочитать","👍","verb",{g:'isc',x:'a'},'0310'],
 // СУЩЕСТВИТЕЛЬНЫЕ
-["il lievito","дрожжи","🫧","noun"],
-["l'impasto","тесто","🍞","noun"],
-["il turno","смена; очередь","⏰","noun"],
-["la lavastoviglie","посудомоечная машина","🍽️","noun"],
-["il raffreddore","простуда, насморк","🤧","noun"],
-["lo scontrino","чек","🧾","noun"],
-["il conto","счёт","💳","noun"],
-["il resto","сдача; остаток","🪙","noun"],
-["il marciapiede","тротуар","🚶","noun"],
-["il ferro da stiro","утюг","♨️","noun"],
-["il coltello","нож","🔪","noun"],
-["il casino","беспорядок, бардак (разг.)","🌪️","noun"],
+["il lievito","дрожжи","🫧","noun",null,'0310'],
+["l'impasto","тесто","🍞","noun",null,'0310'],
+["il turno","смена; очередь","⏰","noun",null,'0310'],
+["la lavastoviglie","посудомоечная машина","🍽️","noun",null,'0310'],
+["il raffreddore","простуда, насморк","🤧","noun",null,'0310'],
+["lo scontrino","чек","🧾","noun",null,'0310'],
+["il conto","счёт","💳","noun",null,'0310'],
+["il resto","сдача; остаток","🪙","noun",null,'0310'],
+["il marciapiede","тротуар","🚶","noun",null,'0310'],
+["il ferro da stiro","утюг","♨️","noun",null,'0310'],
+["il coltello","нож","🔪","noun",null,'0310'],
+["il casino","беспорядок, бардак (разг.)","🌪️","noun",null,'0310'],
 // СРАВНЕНИЕ
-["meglio","лучше","⬆️","comp"],
-["peggio","хуже","⬇️","comp"],
+["meglio","лучше","⬆️","adv",null,'0310'],
+["peggio","хуже","⬇️","adv",null,'0310'],
+// ===== 05/11 =====
+["sistemare","приводить в порядок, налаживать","🛠️","verb",{g:'are',x:'a'},'0511'],
+["rubare","воровать, красть","🦹","verb",{g:'are',x:'a'},'0511'],
+["il ladro","вор","🥷","noun",null,'0511'],
+["stamattina","сегодня утром","🌅","adv",null,'0511'],
+["qui / qua","здесь, тут, сюда","📍","adv",null,'0511'],
+["lì / là","там, туда","👉","adv",null,'0511'],
+["dove","где? куда?","❓","adv",null,'0511'],
+// ===== 10/11 =====
+["soffrire","страдать (sofferto)","😣","verb",{g:'ire',x:'a',p:'sofferto'},'1011'],
+["caricare","загружать, заряжать","🔋","verb",{g:'are',x:'a'},'1011'],
+["scaricare","разгружать, разряжать","📤","verb",{g:'are',x:'a'},'1011'],
+["buttare","бросать","🗑️","verb",{g:'are',x:'a'},'1011'],
+["buttare via","выбрасывать","🚮","verb",{g:'are',x:'a',base:'buttare',suf:' via'},'1011'],
+["prestare","одалживать, давать в долг","🤝","verb",{g:'are',x:'a'},'1011'],
+["restituire","возвращать","↩️","verb",{g:'isc',x:'a'},'1011'],
+["piegare","складывать","👕","verb",{g:'are',x:'a'},'1011'],
+["stendere","вешать, развешивать (steso)","🧷","verb",{g:'ere',x:'a',p:'steso'},'1011'],
+["asciugare","сушить, вытирать","💨","verb",{g:'are',x:'a'},'1011'],
+["asciugarsi","сушиться, вытираться","🧖","verb",{g:'are',x:'e',r:1,base:'asciugare'},'1011'],
+["sporcare","пачкать","🍫","verb",{g:'are',x:'a'},'1011'],
+["sporcarsi","пачкаться","🍦","verb",{g:'are',x:'e',r:1,base:'sporcare'},'1011'],
+["scottarsi","обжечься","🔥","verb",{g:'are',x:'e',r:1,base:'scottare'},'1011'],
+["rovesciare","опрокидывать, проливать","🥛","verb",{g:'are',x:'a'},'1011'],
+["annullare","отменять","❌","verb",{g:'are',x:'a'},'1011'],
+["mettere","положить, поставить (messo)","📥","verb",{g:'ere',x:'a',p:'messo'},'1011'],
+["il riscaldamento","отопление","🌡️","noun",null,'1011'],
+["la condizione / le condizioni","условие / условия","📋","noun",null,'1011'],
+["la spazzatura / l'immondizia","мусор","🗑️","noun",null,'1011'],
+["il caricabatterie","зарядное устройство","🔌","noun",null,'1011'],
+["la presa","розетка","🔌","noun",null,'1011'],
+["il bucato","стирка, бельё","🧺","noun",null,'1011'],
+["lo stendino","сушилка для белья","🧦","noun",null,'1011'],
+["l'asciugamano","полотенце","🛁","noun",null,'1011'],
+["la macchia","пятно","☕","noun",null,'1011'],
+["la pentola","кастрюля","🍲","noun",null,'1011'],
+["il citofono","домофон","🔔","noun",null,'1011'],
+["l'ombrello","зонт","☂️","noun",null,'1011'],
+["la gita","поход, экскурсия, поездка","🥾","noun",null,'1011'],
+["umido","влажный","💧","adj",null,'1011'],
+["bagnato","мокрый","💦","adj",null,'1011'],
+["carico","заряженный, загруженный","🔋","adj",null,'1011'],
+["scarico","разряженный, разгруженный","🪫","adj",null,'1011'],
+["fare il bucato","стирать вещи","🧺","phrase",null,'1011'],
+["mi dispiace","мне жаль","😔","phrase",null,'1011'],
+["per il momento","пока, на данный момент","⏳","phrase",null,'1011'],
+["dieci","десять (10)","🔢","num",null,'1011'],
+["undici","одиннадцать (11)","🔢","num",null,'1011'],
+["dodici","двенадцать (12)","🔢","num",null,'1011'],
+["tredici","тринадцать (13)","🔢","num",null,'1011'],
+["quattordici","четырнадцать (14)","🔢","num",null,'1011'],
+["quindici","пятнадцать (15)","🔢","num",null,'1011'],
+["sedici","шестнадцать (16)","🔢","num",null,'1011'],
+["diciassette","семнадцать (17)","🔢","num",null,'1011'],
+["diciotto","восемнадцать (18)","🔢","num",null,'1011'],
+["diciannove","девятнадцать (19)","🔢","num",null,'1011'],
+["venti","двадцать (20)","🔢","num",null,'1011'],
 ];
-const CATS={verb:{label:'🔨 Глаголы'},noun:{label:'📦 Существительные'},comp:{label:'⚖️ Лучше / хуже'}};
+const CATS={verb:{label:'🔨 Глаголы'},noun:{label:'📦 Существительные'},adj:{label:'🎨 Прилагательные'},adv:{label:'📍 Наречия'},num:{label:'🔢 Числа 10–20'},phrase:{label:'💬 Фразы'}};
+const LES=[['all','Все уроки'],['0310','03/10'],['0511','05/11'],['1011','10/11']];
+const LESLBL={'0310':'03/10','0511':'05/11','1011':'10/11'};
+let curLes='all';
 let curFilter='all';
 
 /* ══════ ОПИСАНИЯ (задание 1 урока) ══════ */
@@ -223,7 +290,7 @@ const DEF=[
 /* ══════ УСТОЙЧИВЫЕ ВЫРАЖЕНИЯ ══════
    h = заголовок группы, e = эмодзи, n = заметка (необязательно), i = [[it, ru], ...] */
 const G=[
-{h:'Фразы из диалога',e:'🗣️',n:'<b>Siccome</b> («так как») ставится в начале и объясняет причину: <i>Siccome c\'era un casino, sono andato al lavoro.</i> После следствия вместо него говорят <b>perché</b>: <i>Sono andato al lavoro perché c\'era un casino.</i> Выражение <b>e sì e no</b> — «и да и нет, как сказать».',i:[
+{l:'0310',h:'Фразы из диалога 03/10',e:'🗣️',n:'<b>Siccome</b> («так как») ставится в начале и объясняет причину: <i>Siccome c\'era un casino, sono andato al lavoro.</i> После следствия вместо него говорят <b>perché</b>: <i>Sono andato al lavoro perché c\'era un casino.</i> Выражение <b>e sì e no</b> — «и да и нет, как сказать».',i:[
 ["Come ti senti?","Как ты себя чувствуешь?"],
 ["Meglio di prima?","Лучше, чем раньше?"],
 ["È più facile dire che va tutto bene!","Проще сказать, что всё хорошо!"],
@@ -236,7 +303,7 @@ const G=[
 ["Corre molto e va a scuola.","Он много бегает и ходит в школу."],
 ["Cosa fai dopo la lezione?","Что ты делаешь после урока?"],
 ["Vado a tagliarmi i capelli perché preferisco i capelli corti.","Иду стричься, потому что предпочитаю короткие волосы."]]},
-{h:'MEGLIO / PEGGIO',e:'⚖️',i:[
+{l:'0310',h:'MEGLIO / PEGGIO',e:'⚖️',i:[
 ["Meglio tardi che mai.","Лучше поздно, чем никогда."],
 ["Meglio di niente.","Лучше, чем ничего."],
 ["Meglio così.","Так лучше."],
@@ -249,18 +316,18 @@ const G=[
 ["Fare del proprio meglio","Сделать всё возможное"],
 ["Cambiare in meglio","Измениться к лучшему"],
 ["Meglio un uovo oggi che una gallina domani.","Лучше синица в руках, чем журавль в небе."]]},
-{h:'IL CASINO',e:'🌪️',n:'<b>Casino</b> — разговорное слово, в нейтральной речи говорят <i>confusione</i> или <i>disordine</i>.',i:[
+{l:'0310',h:'IL CASINO',e:'🌪️',n:'<b>Casino</b> — разговорное слово, в нейтральной речи говорят <i>confusione</i> или <i>disordine</i>.',i:[
 ["Che casino!","Какой бардак!"],
 ["Fare casino","Шуметь, устраивать бардак (разг.)"],
 ["C'è un casino di gente.","Куча народу (разг.)."],
 ["Ho un casino di cose da fare.","У меня куча дел (разг.)."]]},
-{h:'IL COLTELLO',e:'🔪',i:[
+{l:'0310',h:'IL COLTELLO',e:'🔪',i:[
 ["Il coltello da pane","Хлебный нож"],
 ["Un coltello affilato","Острый нож"],
 ["Il coltello e la forchetta","Нож и вилка"],
 ["Avere il coltello dalla parte del manico","Держать ситуацию в своих руках"],
 ["Mettere il coltello alla gola","Приставить нож к горлу"]]},
-{h:'TAGLIARE / TAGLIARSI I CAPELLI',e:'💇',n:'<b>Tagliarsi i capelli</b> — подстричься самому. Если стрижёт парикмахер, говорят <b>farsi tagliare i capelli</b>: <i>Mi faccio tagliare i capelli.</i>',i:[
+{l:'0310',h:'TAGLIARE / TAGLIARSI I CAPELLI',e:'💇',n:'<b>Tagliarsi i capelli</b> — подстричься самому. Если стрижёт парикмахер, говорят <b>farsi tagliare i capelli</b>: <i>Mi faccio tagliare i capelli.</i>',i:[
 ["Tagliare a fette","Нарезать ломтями"],
 ["Mi sono tagliato con il coltello.","Я порезался ножом."],
 ["Tagliarsi i capelli","Стричь себе волосы"],
@@ -269,13 +336,13 @@ const G=[
 ["Tagliare corto","Говорить покороче, не тянуть"],
 ["Tagliare i ponti con qualcuno","Порвать с кем-то все связи"],
 ["Tagliare la strada a qualcuno","Перерезать кому-то дорогу"]]},
-{h:'PREFERIRE',e:'👍',i:[
+{l:'0310',h:'PREFERIRE',e:'👍',i:[
 ["Cosa preferisci?","Что ты предпочитаешь?"],
 ["Preferisco il caffè al tè.","Я предпочитаю кофе чаю."],
 ["Preferisco restare a casa.","Я предпочитаю остаться дома."],
 ["Preferisco lavorare di notte.","Я предпочитаю работать ночью."],
 ["Se preferisci…","Если ты предпочитаешь (хочешь)…"]]},
-{h:'SCAPPARE',e:'🏃',n:'<b>Scappare</b> спрягается с <b>essere</b>: <i>Il gatto è scappato.</i> Безличное <i>mi scappa</i> — «меня разбирает, невтерпёж».',i:[
+{l:'0310',h:'SCAPPARE',e:'🏃',n:'<b>Scappare</b> спрягается с <b>essere</b>: <i>Il gatto è scappato.</i> Безличное <i>mi scappa</i> — «меня разбирает, невтерпёж».',i:[
 ["Il gatto è scappato.","Кот убежал."],
 ["Scappare via","Убежать, удрать"],
 ["Scappare di casa","Сбежать из дома"],
@@ -284,7 +351,7 @@ const G=[
 ["Mi scappa la pipì.","Невтерпёж в туалет (разг.)."],
 ["Mi è scappata una parolaccia.","У меня вырвалось ругательство."],
 ["Lasciarsi scappare un'occasione","Упустить возможность"]]},
-{h:'INFORNARE / SFORNARE / CUOCERE',e:'🔥',i:[
+{l:'0310',h:'INFORNARE / SFORNARE / CUOCERE',e:'🔥',i:[
 ["Infornare il pane","Поставить хлеб в печь"],
 ["Sfornare una torta","Достать пирог из духовки"],
 ["Appena sfornato","Только что из печи"],
@@ -294,7 +361,7 @@ const G=[
 ["Cuocere a vapore","Готовить на пару"],
 ["Cuocere a puntino","Приготовить в самый раз"],
 ["Lasciare qualcuno a cuocere nel suo brodo","Оставить кого-то расхлёбывать самому"]]},
-{h:'IMPASTARE / L\'IMPASTO / IL LIEVITO',e:'🍞',i:[
+{l:'0310',h:'IMPASTARE / L\'IMPASTO / IL LIEVITO',e:'🍞',i:[
 ["Impastare a mano","Месить вручную"],
 ["Far lievitare l'impasto","Дать тесту подняться"],
 ["L'impasto deve riposare.","Тесту нужно отдохнуть."],
@@ -303,7 +370,7 @@ const G=[
 ["Il lievito madre","Закваска"],
 ["Mettere le mani in pasta","Взяться за дело, влезть в дело"],
 ["Avere le mani in pasta","Быть в курсе дел, быть вовлечённым"]]},
-{h:'RIPARARE / ROMPERE',e:'🔧',i:[
+{l:'0310',h:'RIPARARE / ROMPERE',e:'🔧',i:[
 ["Riparare un guasto","Устранить поломку"],
 ["Far riparare la macchina","Отдать машину в ремонт"],
 ["Riparare un torto","Исправить несправедливость, загладить обиду"],
@@ -315,7 +382,7 @@ const G=[
 ["Rompere con qualcuno","Порвать с кем-то, расстаться"],
 ["Rompere le scatole","Надоедать (разг.)"],
 ["Che rottura!","Как надоело! (разг.)"]]},
-{h:'AVVISARE / SBRIGARSI',e:'⏩',n:'<b>Sbrigati!</b> и <b>Sbrighiamoci!</b> — повелительное наклонение (imperativo). Пока запоминай как готовые фразы.',i:[
+{l:'0310',h:'AVVISARE / SBRIGARSI',e:'⏩',n:'<b>Sbrigati!</b> и <b>Sbrighiamoci!</b> — повелительное наклонение (imperativo). Пока запоминай как готовые фразы.',i:[
 ["Ti avviso che…","Предупреждаю тебя, что…"],
 ["Avvisare in anticipo","Предупредить заранее"],
 ["Avvisare il capo","Предупредить начальника"],
@@ -325,13 +392,13 @@ const G=[
 ["Sbrighiamoci!","Давайте поторопимся!"],
 ["Sbrigare le faccende","Управиться с делами"],
 ["Sbrigare una pratica","Уладить формальности, оформить бумаги"]]},
-{h:'STIRARE / IL FERRO DA STIRO',e:'👔',n:'<b>Battere il ferro finché è caldo</b> — здесь <i>ferro</i> это просто «железо», а не утюг.',i:[
+{l:'0310',h:'STIRARE / IL FERRO DA STIRO',e:'👔',n:'<b>Battere il ferro finché è caldo</b> — здесь <i>ferro</i> это просто «железо», а не утюг.',i:[
 ["Stirare le camicie","Гладить рубашки"],
 ["L'asse da stiro","Гладильная доска"],
 ["Ho lasciato il ferro da stiro acceso.","Я оставил утюг включённым."],
 ["Battere il ferro finché è caldo","Ковать железо, пока горячо"],
 ["Mi sono stirato un muscolo.","Я потянул мышцу."]]},
-{h:'AMMALARSI / IL RAFFREDDORE',e:'🤒',i:[
+{l:'0310',h:'AMMALARSI / IL RAFFREDDORE',e:'🤒',i:[
 ["Mi sono ammalato.","Я заболел."],
 ["Ammalarsi gravemente","Серьёзно заболеть"],
 ["Avere il raffreddore","Быть простуженным, иметь насморк"],
@@ -340,18 +407,18 @@ const G=[
 ["Ho il naso chiuso.","У меня заложен нос."],
 ["Il raffreddore da fieno","Сенная лихорадка"],
 ["Mettersi in malattia","Взять больничный (разг.)"]]},
-{h:'IL TURNO',e:'⏰',i:[
+{l:'0310',h:'IL TURNO',e:'⏰',i:[
 ["Il turno di notte","Ночная смена"],
 ["Fare il turno di mattina","Работать в утреннюю смену"],
 ["A turno","По очереди"],
 ["Di turno","Дежурный (о смене, аптеке)"],
 ["Aspetto il mio turno.","Жду своей очереди."],
 ["Scambiare il turno con un collega","Поменяться сменой с коллегой"]]},
-{h:'LA LAVASTOVIGLIE',e:'🍽️',i:[
+{l:'0310',h:'LA LAVASTOVIGLIE',e:'🍽️',i:[
 ["Caricare la lavastoviglie","Загрузить посудомойку"],
 ["Svuotare la lavastoviglie","Разгрузить посудомойку"],
 ["Mettere i piatti in lavastoviglie","Положить тарелки в посудомойку"]]},
-{h:'LO SCONTRINO / IL CONTO / IL RESTO',e:'🧾',n:'<b>Tenga il resto</b> — вежливая форма на «Вы» (imperativo формальный). Запомни как готовую фразу.',i:[
+{l:'0310',h:'LO SCONTRINO / IL CONTO / IL RESTO',e:'🧾',n:'<b>Tenga il resto</b> — вежливая форма на «Вы» (imperativo формальный). Запомни как готовую фразу.',i:[
 ["Vuole lo scontrino?","Вам нужен чек?"],
 ["Conservo sempre lo scontrino.","Я всегда сохраняю чек."],
 ["Il conto, per favore.","Счёт, пожалуйста."],
@@ -366,17 +433,161 @@ const G=[
 ["Non ho il resto.","У меня нет сдачи."],
 ["Del resto…","К тому же…; впрочем…"],
 ["Per il resto…","Что касается остального…"]]},
-{h:'IL MARCIAPIEDE',e:'🚶',i:[
+{l:'0310',h:'IL MARCIAPIEDE',e:'🚶',i:[
 ["Camminare sul marciapiede","Идти по тротуару"],
 ["Parcheggiare sul marciapiede","Парковаться на тротуаре"],
 ["Il marciapiede è scivoloso.","Тротуар скользкий."]]},
+{l:'0511',h:'Фразы из диалога 05/11',e:'🗣️',n:'<b>Dopo due settimane</b> — «через две недели». <b>Mi ha sistemato la luce</b> — «починил мне свет»: <i>mi</i> показывает, для кого это сделали. <b>Sì</b> («да») пишется с ударением, а <i>si</i> без него — местоимение.',i:[
+["E tu come stai?","А ты как?"],
+["Tutto a posto!","Всё в порядке!"],
+["Fa freddo.","Холодно."],
+["Quanti gradi ci sono?","Сколько градусов?"],
+["Ci sono sei - sette gradi.","Шесть-семь градусов."],
+["Hai lavorato oggi?","Ты сегодня работал?"],
+["Sì, ho lavorato oggi.","Да, сегодня я работал."],
+["Dopo due settimane, l'elettricista mi ha sistemato la luce.","Через две недели электрик починил мне свет."],
+["Cosa fai questo fine settimana?","Что ты делаешь в эти выходные?"],
+["Sabato porto mio figlio in piscina.","В субботу я веду сына в бассейн."],
+["Poi andiamo nel bosco, là c'è un lago.","Потом идём в лес, там есть озеро."],
+["Facciamo una passeggiata e beviamo un tè.","Погуляем и выпьем чаю."],
+["Fate un picnic?","Вы устроите пикник?"],
+["E tua moglie non viene?","А жена не придёт?"],
+["Mia moglie è andata in viaggio di lavoro.","Жена уехала в командировку."],
+["Quando torna?","Когда она вернётся?"],
+["Torna domenica.","Вернётся в воскресенье."]]},
+{l:'0511',h:'SISTEMARE',e:'🛠️',i:[
+["Sistemare la casa","Навести порядок в доме"],
+["Sistemare il forno","Наладить печь"],
+["Sistemare una questione","Уладить вопрос"],
+["Sistemarsi i capelli","Поправить причёску"],
+["Mettere a posto la cucina","Прибрать на кухне"]]},
+{l:'0511',h:'STAMATTINA / QUI-QUA / LÌ-LÀ',e:'📍',n:'<b>qui, lì</b> — точное место («вот здесь», «вон там»), <b>qua, là</b> — место приблизительно («где-то тут», «в той стороне»). <b>Lì</b> и <b>là</b> пишутся с ударением: <i>li</i> без него — местоимение «их».',i:[
+["Stamattina ho lavorato.","Сегодня утром я работал."],
+["Sono qui.","Я здесь."],
+["Vieni qua!","Иди сюда!"],
+["Il lago è lì.","Озеро вон там."],
+["Nel bosco, là c'è un lago.","В лесу, там есть озеро."],
+["Di qua, prego.","Сюда, пожалуйста."],
+["Qua e là","Здесь и там, кое-где"]]},
+{l:'0511',h:'IL LADRO / RUBARE / DOVE',e:'🥷',i:[
+["Il ladro è scappato molto lontano.","Вор убежал очень далеко."],
+["Al ladro!","Держи вора!"],
+["Hanno rubato la macchina.","Украли машину."],
+["Mi hanno rubato il telefono.","У меня украли телефон."],
+["Dove sono scappati i bambini?","Куда убежали дети?"],
+["Dove sei?","Где ты?"],
+["Dove vai?","Куда идёшь?"]]},
+{l:'0511',h:'Предложения урока 05/11',e:'📝',i:[
+["Slava, non posso parlare adesso, devo sfornare il pane!","Слава, я не могу сейчас говорить, мне нужно достать хлеб!"],
+["Ieri abbiamo comprato una lavastoviglie nuova.","Вчера мы купили новую посудомойку."],
+["Il mio capo non può sistemare il forno da solo.","Мой шеф не может наладить печь сам."],
+["Domani è il mio turno e devo svegliarmi alle tre.","Завтра моя смена, и мне нужно проснуться в три."],
+["Il mio collega ha il raffreddore e devo lavorare al posto suo.","У моего коллеги насморк, и мне надо работать вместо него."]]},
+{l:'1011',h:'Фразы из диалога 10/11',e:'🗣️',n:'<b>E basta</b> — «и всё», «и больше ничего». <b>Io e mio figlio</b> — по-итальянски «я и сын» говорят в таком порядке (не <i>mio figlio e io</i>). <b>Che spettacolo!</b> в диалоге сказано с иронией, обычно же это «Какая красота!».',i:[
+["Nel nostro nuovo posto di lavoro non c'è ancora il riscaldamento.","На нашем новом месте работы ещё нет отопления."],
+["Il capo non ha soldi per farlo.","У шефа нет денег, чтобы это сделать."],
+["Ho capito! Quando lo fa?","Понял! Когда он это сделает?"],
+["La settimana prossima","На следующей неделе"],
+["Nelle prossime settimane","В ближайшие недели"],
+["Nei prossimi giorni","В ближайшие дни"],
+["Per il momento, dovete soffrire!","Пока придётся потерпеть!"],
+["Ieri faceva freddo.","Вчера было холодно."],
+["Quanti gradi ci sono fuori?","Сколько градусов на улице?"],
+["Ci sono uno - due gradi.","Один-два градуса."],
+["Che spettacolo!","Ну и красота! (иронично)"],
+["Dentro ci sono diciassette - diciotto gradi.","Внутри семнадцать-восемнадцать градусов."],
+["Mamma mia!","Мама моя! (Боже мой!)"],
+["È difficile lavorare in queste condizioni.","Трудно работать в таких условиях."],
+["Cosa avete fatto nel fine settimana?","Что вы делали на выходных?"],
+["Mia moglie è tornata domenica sera.","Жена вернулась в воскресенье вечером."],
+["Io e mio figlio abbiamo guardato i film.","Мы с сыном смотрели фильмы."],
+["Abbiamo fatto una passeggiata e basta.","Мы погуляли, и всё."],
+["Ho lavorato tutto il fine settimana e non sono uscito di casa.","Я работал все выходные и не выходил из дома."],
+["Ero troppo stanco e ho deciso di riposarmi e basta.","Я слишком устал и решил просто отдохнуть."]]},
+{l:'1011',h:'IL RISCALDAMENTO / UMIDO / SOFFRIRE',e:'🌡️',n:'<b>Mi dispiace</b> — «мне жаль»: <i>dispiacere</i> того же типа, что <i>piacere</i> и <i>mancare</i>, поэтому «кому» стоит в косвенной форме (<i>mi, ti, gli…</i>).',i:[
+["Accendere il riscaldamento","Включить отопление"],
+["Il riscaldamento è spento.","Отопление выключено."],
+["Qui fa umido.","Здесь сыро."],
+["Soffrire il freddo","Плохо переносить холод"],
+["Soffrire di mal di testa","Страдать головными болями"],
+["Mi dispiace molto.","Мне очень жаль."],
+["Mi dispiace, ma non posso.","Мне жаль, но я не могу."],
+["Ti dispiace se apro la finestra?","Ты не против, если я открою окно?"]]},
+{l:'1011',h:'LE CONDIZIONI',e:'📋',i:[
+["In queste condizioni","В таких условиях"],
+["Le condizioni di lavoro","Условия труда"],
+["Essere in buone condizioni","Быть в хорошем состоянии"],
+["A una condizione","При одном условии"]]},
+{l:'1011',h:'CARICARE / SCARICARE',e:'🔋',n:'<b>Caricare</b> — загружать и заряжать, <b>scaricare</b> — разгружать и разряжать. <b>Carico / scarico</b> — прилагательные («заряженный / разряженный»), у них четыре формы: <i>scarico, scarica, scarichi, scariche</i>. <b>Staccare la spina</b> — «выдернуть вилку», а в переносном смысле «отключиться, отдохнуть».',i:[
+["Caricare il telefono","Зарядить телефон"],
+["Il telefono è scarico.","Телефон разряжен."],
+["La batteria è scarica.","Батарея разряжена."],
+["Quando hai la batteria scarica, devi caricare il telefono.","Когда батарея разряжена, надо зарядить телефон."],
+["Caricare il pane in macchina","Загрузить хлеб в машину"],
+["Scaricare la macchina","Разгрузить машину"],
+["Quando hai finito di preparare il pane, lo carichi in macchina e lo porti al ristorante.","Когда закончил готовить хлеб, ты загружаешь его в машину и везёшь в ресторан."],
+["Scaricare un'applicazione","Скачать приложение"],
+["Dov'è il caricabatterie?","Где зарядка?"],
+["In questa stanza non c'è una presa.","В этой комнате нет розетки."],
+["Staccare la spina","Отключиться, отдохнуть (букв.: выдернуть вилку)"]]},
+{l:'1011',h:'BUTTARE / LA SPAZZATURA',e:'🗑️',i:[
+["Buttare la spazzatura","Выбрасывать мусор"],
+["Portare fuori la spazzatura","Вынести мусор"],
+["Stasera porti tu fuori la spazzatura?","Сегодня вечером мусор выносишь ты?"],
+["Buttare via i soldi","Выбросить деньги на ветер"],
+["La raccolta differenziata","Раздельный сбор мусора"]]},
+{l:'1011',h:'PRESTARE / RESTITUIRE',e:'🤝',i:[
+["Mi puoi prestare centomila euro?","Ты можешь одолжить мне сто тысяч евро?"],
+["Chiedere in prestito dei soldi","Занять денег"],
+["Restituisco i soldi domani.","Верну деньги завтра."],
+["Restituire i libri alla biblioteca","Вернуть книги в библиотеку"],
+["Restituire il favore","Отплатить услугой за услугу"]]},
+{l:'1011',h:'IL BUCATO / STENDERE / PIEGARE / ASCIUGARE',e:'🧺',i:[
+["C'è il sole, è il giorno giusto per fare il bucato.","Светит солнце, самый подходящий день для стирки."],
+["Stendere il bucato","Развесить бельё"],
+["Il bucato è ancora bagnato.","Бельё ещё мокрое."],
+["Metto le magliette bagnate sullo stendino in balcone.","Кладу мокрые футболки на сушилку на балконе."],
+["Piegare i vestiti","Складывать одежду"],
+["Piegare gli asciugamani","Складывать полотенца"],
+["Asciugare i piatti","Вытирать посуду"],
+["Asciugarsi con l'asciugamano","Вытереться полотенцем"],
+["Dopo la doccia mi asciugo con un asciugamano grande.","После душа я вытираюсь большим полотенцем."],
+["Asciugarsi i capelli","Сушить волосы"],
+["Bagnato fradicio","Промокший до нитки"]]},
+{l:'1011',h:'SPORCARE / SCOTTARSI / ROVESCIARE',e:'☕',i:[
+["Sporcarsi le mani","Испачкать руки"],
+["Mi sono sporcato di cioccolato.","Я испачкался шоколадом."],
+["Una macchia di caffè","Пятно от кофе"],
+["Hai una macchia di caffè sulla camicia!","У тебя на рубашке пятно от кофе!"],
+["Togliere una macchia","Вывести пятно"],
+["Mi sono scottato la mano.","Я обжёг руку."],
+["Scottarsi con la pentola","Обжечься о кастрюлю"],
+["Scottarsi al sole","Обгореть на солнце"],
+["Rovesciare il latte","Опрокинуть (пролить) молоко"],
+["Rovesciare il caffè sulla camicia","Пролить кофе на рубашку"]]},
+{l:'1011',h:'ANNULLARE / IL CITOFONO / L\'OMBRELLO',e:'☂️',i:[
+["Annullare una lezione","Отменить урок"],
+["Annullare la prenotazione","Отменить бронь"],
+["Scusami, devo annullare la nostra lezione di oggi perché vado dal dottore.","Извини, мне нужно отменить наш сегодняшний урок, потому что я иду к врачу."],
+["Suonare al citofono","Позвонить в домофон"],
+["Qualcuno suona al citofono: chi è?","Кто-то звонит в домофон: кто там?"],
+["Prendi l'ombrello, fuori piove!","Возьми зонт, на улице дождь!"],
+["Metto l'acqua per la pasta in una pentola.","Наливаю воду для пасты в кастрюлю."],
+["Annullare la gita al lago","Отменить поездку на озеро"],
+["Fare una gita","Съездить на экскурсию (в поход)"]]},
+{l:'1011',h:'METTERE',e:'📥',i:[
+["Mettere in ordine","Привести в порядок"],
+["Mettere la sveglia alle tre","Поставить будильник на три"],
+["Mettere il pane in forno","Положить хлеб в духовку"],
+["Mettere i vestiti nell'armadio","Положить одежду в шкаф"]]},
 ];
-const E=[];G.forEach(g=>g.i.forEach(x=>E.push({it:x[0],ru:x[1],em:g.e,g:g.h})));
+const E=[];G.forEach(g=>g.i.forEach(x=>E.push({it:x[0],ru:x[1],em:g.e,g:g.h,l:g.l})));
 
 /* ══════ ПУЛЫ ДЛЯ ТРЕНАЖЁРА И ТЕСТА ══════ */
-const ITW=W.map(w=>({it:w[0],ru:w[1],em:w[2],k:'w'}));
-const ITE=E.map(e=>({it:e.it,ru:e.ru,em:e.em,k:'e'}));
-function poolItems(p){return p==='words'?ITW:(p==='expr'?ITE:ITW.concat(ITE));}
+const ITW=W.map(w=>({it:w[0],ru:w[1],em:w[2],k:'w',l:w[5]}));
+const ITE=E.map(e=>({it:e.it,ru:e.ru,em:e.em,k:'e',l:e.l}));
+function inLes(x){return curLes==='all'||x.l===curLes;}
+function poolItems(p){const a=p==='words'?ITW:(p==='expr'?ITE:ITW.concat(ITE));return a.filter(inLes);}
 function distract(item,field){
   const src=item.k==='e'?ITE:ITW;
   const seen=new Set([norm(item[field])]);const out=[];
@@ -423,7 +634,7 @@ if(/Wavenet|Standard/i.test(ttsVoice)){ttsVoice='it-IT-Neural2-A';localStorage.s
 const cache={};let curAudio=null;
 async function gtts(t){if(cache[t])return cache[t];const body={input:{text:t},voice:{languageCode:'it-IT',name:ttsVoice},audioConfig:{audioEncoding:'MP3',speakingRate:0.96,pitch:0,effectsProfileId:['headphone-class-device']}};const r=await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${ttsKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'err');}const d=await r.json();cache[t]=d.audioContent;return d.audioContent;}
 function bSpeak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='it-IT';u.rate=.95;u.pitch=1.0;const vs=speechSynthesis.getVoices().filter(x=>/^it/i.test(x.lang));const v=vs.find(x=>/google|natural|neural|premium/i.test(x.name))||vs[0];if(v)u.voice=v;speechSynthesis.speak(u);}catch(e){}}
-async function speak(t){t=(t||'').replace(/\/[ae]\b/g,'').replace(/…/g,'');if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
+async function speak(t){t=(t||'').replace(/\/[ae]\b/g,'').replace(/\s+\/\s+/g,', ').replace(/…/g,'');if(curAudio){curAudio.pause();curAudio=null;}try{if(ttsKey){const b=await gtts(t);const a=new Audio('data:audio/mp3;base64,'+b);curAudio=a;a.play();}else bSpeak(t);}catch(e){setStatus('❌ '+e.message,'err');bSpeak(t);}}
 function connectKey(){const k=document.getElementById('key').value.trim();if(!k){setStatus('Введи ключ','err');return;}setStatus('⏳...','');ttsKey=k;delete cache['ciao'];gtts('ciao').then(b=>{localStorage.setItem('it_tts_key',k);markConn();setStatus('✅ Подключено','ok');new Audio('data:audio/mp3;base64,'+b).play();}).catch(e=>{ttsKey='';setStatus('❌ '+e.message,'err');});}
 function markConn(){document.getElementById('dot').classList.add('on');document.getElementById('clr').style.display='block';document.getElementById('hint').style.display='none';document.getElementById('key').style.display='none';document.querySelector('.btn-c').style.display='none';}
 function clearKey(){ttsKey='';localStorage.removeItem('it_tts_key');location.reload();}
@@ -438,6 +649,11 @@ function toast(m){const t=document.getElementById('toast');t.textContent=m;t.cla
 function tab(id,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');if(id==='train'&&!curT)nextT();if(id==='test'&&!testBuilt)buildTest();}
 
 /* ══════ СЛОВАРЬ ══════ */
+function renderLes(){
+  const html=LES.map(l=>`<button class="fchip ${l[0]===curLes?'on':''}" onclick="setLes('${l[0]}')">${l[0]==='all'?l[1]:'📅 '+l[1]}</button>`).join('');
+  document.querySelectorAll('.lesbar').forEach(el=>{el.innerHTML=html;});
+}
+function setLes(l){curLes=l;renderLes();renderWordlist();renderExpr();restartDeck();if(testBuilt)buildTest();}
 function renderFilterbar(){
   const cats=['all',...Object.keys(CATS)];
   document.getElementById('filterbar').innerHTML=cats.map(c=>`<button class="fchip ${c===curFilter?'on':''}" onclick="setFilter('${c}')">${c==='all'?'Все':CATS[c].label}</button>`).join('');
@@ -479,7 +695,7 @@ function wordRow(w,i){
   return `<div class="idiom" onclick="speak('${sp(w[0])}')"><span class="ic">${w[2]}</span><div class="body"><span class="ph">${esc(w[0])}</span><div class="ru">${esc(w[1])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(w[0])}')">🔊</button></div>`;
 }
 function renderWordlist(){
-  const idx=W.map((w,i)=>i).filter(i=>curFilter==='all'||W[i][3]===curFilter);
+  const idx=W.map((w,i)=>i).filter(i=>(curFilter==='all'||W[i][3]===curFilter)&&(curLes==='all'||W[i][5]===curLes));
   document.getElementById('cnt').textContent=`(${idx.length} из ${W.length})`;
   let html='';
   Object.keys(CATS).forEach(c=>{
@@ -496,14 +712,15 @@ function renderExpr(){
   const q=norm(document.getElementById('esearch').value);
   let html='',n=0;
   G.forEach(g=>{
+    if(curLes!=='all'&&g.l!==curLes)return;
     const items=g.i.filter(x=>!q||norm(x[0]).includes(q)||norm(x[1]).includes(q));
     if(!items.length)return;
     n+=items.length;
-    html+=`<div class="catlbl">${g.e} ${esc(g.h)}</div>`;
+    html+=`<div class="catlbl">${g.e} ${esc(g.h)}${curLes==='all'?` <span style="color:var(--muted);font-size:.7rem;font-family:Inter;font-weight:600">· ${LESLBL[g.l]}</span>`:''}</div>`;
     if(g.n&&!q)html+=`<div class="note" style="margin-bottom:9px">${g.n}</div>`;
     html+=items.map(x=>`<div class="idiom" onclick="speak('${sp(x[0])}')"><div class="body"><span class="ph">${esc(x[0])}</span><div class="ru">${esc(x[1])}</div></div><button class="spk" onclick="event.stopPropagation();speak('${sp(x[0])}')">🔊</button></div>`).join('');
   });
-  document.getElementById('ecnt').textContent=`(${n} из ${E.length})`;
+  document.getElementById('ecnt').textContent=`(${n} из ${E.filter(inLes).length})`;
   document.getElementById('exprlist').innerHTML=html||'<div class="note">Ничего не найдено.</div>';
 }
 
@@ -530,7 +747,7 @@ function buildDeck(){
   return d;
 }
 function restartDeck(){deckBuilt=false;curT=null;okC=0;streak=0;total=0;document.getElementById('ok').textContent=0;document.getElementById('streak').textContent='';document.getElementById('fill').style.width='0%';nextT();}
-function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('trpool').style.display=(m==='def')?'none':'flex';restartDeck();}
+function setTM(m,btn){tMode=m;document.querySelectorAll('#trmodes .nb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');document.getElementById('trpool').style.display=(m==='def')?'none':'flex';document.getElementById('trles').style.display=(m==='def')?'none':'flex';restartDeck();}
 function setTPool(p){tPool=p;renderPoolChips('trpool',tPool,'setTPool');restartDeck();}
 function nextT(){
   if(!deckBuilt){deck=buildDeck();deckN=deck.length;deckBuilt=true;}
@@ -620,6 +837,7 @@ function ansT(k,btn,chosen,correct,itText){
 
 if('speechSynthesis' in window)speechSynthesis.getVoices();
 if(ttsKey)markConn();
+renderLes();
 renderFilterbar();
 renderWordlist();
 renderExpr();
