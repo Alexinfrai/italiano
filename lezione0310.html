@@ -101,7 +101,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
 <header>
   <div class="flag">🇮🇹</div>
   <h1>Урок со словами</h1>
-  <p>Слова и выражения уроков 03/10 · 05/11 · 10/11 — словарь, тренажёр, тест</p>
+  <p>Слова и выражения уроков 03/10 · 05/11 · 10/11 · 12/11 — словарь, тренажёр, тест</p>
 </header>
 <div id="api">
   <div class="api-row"><span><span class="dot" id="dot"></span>🔊 Google TTS</span>
@@ -120,11 +120,12 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:24px;padd
 
   <div class="tab on" id="rules">
     <div class="card2c">
-      <h3>📘 Слова уроков 03/10, 05/11 и 10/11</h3>
+      <h3>📘 Слова уроков 03/10, 05/11, 10/11 и 12/11</h3>
       <div class="note"><b>meglio / peggio</b> — наречия («лучше / хуже»), они идут к глаголам: <i>sto meglio</i>, <i>va peggio</i>. Нельзя говорить <i>più bene</i> или <i>più male</i>.</div>
       <div class="note"><b>Числа 10–20:</b> 11–16 оканчиваются на <b>-dici</b> (undici, dodici, tredici, quattordici, quindici, sedici), а 17–19 собираются как «10 + число»: <b>dici</b>assette, <b>dici</b>otto, <b>dici</b>annove.</div>
       <div class="note"><b>caricare / scaricare</b> — «загружать, заряжать» и «разгружать, разряжать»; <b>carico / scarico</b> — «заряженный / разряженный» (это прилагательные). <b>Stendere</b> — развесить бельё, <b>piegare</b> — сложить.</div>
       <div class="note"><b>Произношение:</b> <i>sci</i> перед гласной читается «ш»: <i>asciugare</i> [ашугáре], <i>asciugamano</i> [ашугамáно]. В слове <i>ladro</i> ударение на первый слог: [ЛАдро]. Нажми на слово, чтобы услышать, а на глагол — чтобы раскрыть спряжение.</div>
+      <div class="note"><b>Предлоги (12/11):</b> <b>con</b> — с; <b>su</b> — на; <b>tra / fra</b> — через, между; <b>per</b> — для, чтобы; <b>a</b> — города, «кому?»; <b>in</b> — страны, регионы, транспорт; <b>di</b> — чей, чего, о чём, материал; <b>da</b> — откуда, к кому, с какого момента, назначение. Главная пара — <b>di / da</b>: <i>tazza di tè</i> (чашка чая) и <i>tazza da tè</i> (чайная чашка).</div>
     </div>
     <div class="card2c">
       <h3>📚 Полный список <span id="cnt" style="color:var(--muted);font-weight:400;font-size:.8rem"></span></h3>
@@ -266,10 +267,46 @@ const W=[
 ["diciotto","восемнадцать (18)","🔢","num",null,'1011'],
 ["diciannove","девятнадцать (19)","🔢","num",null,'1011'],
 ["venti","двадцать (20)","🔢","num",null,'1011'],
+// ===== 12/11 =====
+["con","с; с помощью","🔗","prep",null,'1211'],
+["su","на (на поверхности); на тему","🔗","prep",null,'1211'],
+["tra / fra","через; между; среди","🔗","prep",null,'1211'],
+["per","чтобы; для; направление (partire per)","🔗","prep",null,'1211'],
+["a","где? куда? (города); кому?","🔗","prep",null,'1211'],
+["in","в (внутрь); страны, регионы, транспорт","🔗","prep",null,'1211'],
+["di","кого? чего? о чём? происхождение, материал","🔗","prep",null,'1211'],
+["da","откуда? к кому? с какого момента? назначение","🔗","prep",null,'1211'],
+["smettere","бросать, переставать (smettere di)","🚭","verb",{g:'ere',x:'a',p:'smesso'},'1211'],
+["sperare","надеяться (sperare di)","🤞","verb",{g:'are',x:'a'},'1211'],
+["cercare","пытаться, стараться (cercare di); искать","🔍","verb",{g:'are',x:'a'},'1211'],
+["dimenticare","забывать (dimenticare di)","🤔","verb",{g:'are',x:'a'},'1211'],
+["decidere","решать (decidere di)","⚖️","verb",{g:'ere',x:'a',p:'deciso'},'1211'],
+["finire","заканчивать (finire di)","🏁","verb",{g:'isc',x:'a'},'1211'],
+["cucire","шить","🧵","verb",{g:'ire',x:'a',P:['cucio','cuci','cuce','cuciamo','cucite','cuciono']},'1211'],
+["il panificio","пекарня, хлебный магазин","🥖","noun",null,'1211'],
+["il collega","коллега","👔","noun",null,'1211'],
+["la suocera","свекровь, тёща (мать мужа / жены)","👵","noun",null,'1211'],
+["la sciarpa","шарф","🧣","noun",null,'1211'],
+["la lana","шерсть","🐑","noun",null,'1211'],
+["la tazza","чашка","☕","noun",null,'1211'],
+["il bicchiere","стакан, бокал","🥛","noun",null,'1211'],
+["la macchina da cucire","швейная машинка","🧵","noun",null,'1211'],
+["il buio","темнота","🌑","noun",null,'1211'],
+["la paura","страх","😨","noun",null,'1211'],
+["il bisogno","нужда, потребность","🙏","noun",null,'1211'],
+["il ritardo","опоздание","⏰","noun",null,'1211'],
+["altrettanto","взаимно; и вам тоже","🤝","adv",null,'1211'],
+["scusa","прости (на «ты»)","🙏","phrase",null,'1211'],
+["scusi","простите (на «Вы»)","🙇","phrase",null,'1211'],
+["piove a dirotto","льёт как из ведра","🌧️","phrase",null,'1211'],
+["avere bisogno di","нуждаться в чём-то","🙏","phrase",null,'1211'],
+["avere paura di","бояться чего-то","😨","phrase",null,'1211'],
+["di notte / di giorno","ночью / днём","🌓","phrase",null,'1211'],
+["fare freddo","быть холодно (о погоде)","🥶","phrase",null,'1211'],
 ];
-const CATS={verb:{label:'🔨 Глаголы'},noun:{label:'📦 Существительные'},adj:{label:'🎨 Прилагательные'},adv:{label:'📍 Наречия'},num:{label:'🔢 Числа 10–20'},phrase:{label:'💬 Фразы'}};
-const LES=[['all','Все уроки'],['0310','03/10'],['0511','05/11'],['1011','10/11']];
-const LESLBL={'0310':'03/10','0511':'05/11','1011':'10/11'};
+const CATS={verb:{label:'🔨 Глаголы'},noun:{label:'📦 Существительные'},adj:{label:'🎨 Прилагательные'},adv:{label:'📍 Наречия'},num:{label:'🔢 Числа 10–20'},prep:{label:'🔗 Предлоги'},phrase:{label:'💬 Фразы'}};
+const LES=[['all','Все уроки'],['0310','03/10'],['0511','05/11'],['1011','10/11'],['1211','12/11']];
+const LESLBL={'0310':'03/10','0511':'05/11','1011':'10/11','1211':'12/11'};
 let curLes='all';
 let curFilter='all';
 
@@ -285,6 +322,10 @@ const DEF=[
 ["il resto","I soldi che ti ridanno quando paghi più del prezzo."],
 ["il marciapiede","La parte della strada dove camminano le persone."],
 ["il ferro da stiro","L'oggetto caldo che usiamo per i vestiti."],
+["la sciarpa","Si mette intorno al collo quando fa freddo."],
+["la suocera","La madre di tua moglie o di tuo marito."],
+["il bicchiere","Ci bevi l'acqua o il vino."],
+["il panificio","Il posto dove si fa e si vende il pane."],
 ];
 
 /* ══════ УСТОЙЧИВЫЕ ВЫРАЖЕНИЯ ══════
@@ -580,6 +621,65 @@ const G=[
 ["Mettere la sveglia alle tre","Поставить будильник на три"],
 ["Mettere il pane in forno","Положить хлеб в духовку"],
 ["Mettere i vestiti nell'armadio","Положить одежду в шкаф"]]},
+{l:'1211',h:'Фразы из диалога 12/11',e:'🗣️',n:'<b>Scusa</b> — на «ты», <b>scusi</b> — на «Вы». <b>Piove a dirotto</b> — «льёт как из ведра». <b>Altrettanto</b> — ответ на пожелание: «Buon appetito!» — «Altrettanto!».',i:[
+["Scusami per il ritardo.","Прости за опоздание."],
+["Scusi!","Простите! (на «Вы»)"],
+["Ho mangiato tardi perché sono tornato a casa tardi.","Я поздно поел, потому что поздно вернулся домой."],
+["Sì. Ho lavorato oggi.","Да. Сегодня я работал."],
+["Come stanno tua moglie e tuo figlio?","Как поживают твоя жена и твой сын?"],
+["Tutto bene, tutto a posto.","Всё хорошо, всё в порядке."],
+["Mio figlio gioca e mia moglie mangia.","Мой сын играет, а моя жена ест."],
+["Che tempo fa a Gdansk?","Какая погода в Гданьске?"],
+["Piove?","Идёт дождь?"],
+["No, oggi non piove.","Нет, сегодня дождя нет."],
+["Qui piove tanto! Tutto il giorno! Piove a dirotto!","Здесь сильно льёт! Весь день! Льёт как из ведра!"],
+["D'inverno a Gdansk fa molto freddo.","Зимой в Гданьске очень холодно."],
+["Altrettanto!","Взаимно!"]]},
+{l:'1211',h:'TRA / FRA',e:'↔️',n:'<b>tra = fra</b> — это одно и то же: «через (о времени)», «между», «среди».',i:[
+["Mia moglie viene fra dieci minuti.","Моя жена придёт через десять минут."],
+["La casa mia si trova tra la stazione e la banca centrale.","Мой дом находится между вокзалом и центральным банком."],
+["Tra i miei amici, io sono il più alto.","Среди моих друзей я самый высокий."]]},
+{l:'1211',h:'DA — с какого момента',e:'📆',n:'<b>da + время + presente</b> — действие началось в прошлом и идёт до сих пор. По-русски тоже настоящее время, не прошедшее.',i:[
+["Sono di Kiev, ma vengo da Gdansk.","Я из Киева, но приехал из Гданьска."],
+["Conosco mia moglie da quindici anni.","Я знаю свою жену пятнадцать лет."],
+["Io e Slava ci conosciamo da sette mesi.","Мы со Славой знакомы семь месяцев."],
+["Lavoro al panificio da due anni.","Я работаю в пекарне два года."],
+["Studio italiano da settembre.","Я учу итальянский с сентября."]]},
+{l:'1211',h:'DA — к кому, откуда, назначение',e:'➡️',n:'<b>da + инфинитив</b> — назначение: <i>qualcosa da bere, molto da fare, macchina da cucire, ferro da stiro</i>. <b>da + человек</b> — «к кому» / «у кого».',i:[
+["Stasera andiamo da Marco per cena.","Сегодня вечером идём к Марко на ужин."],
+["Domani vado da mia suocera.","Завтра иду к свекрови (тёще)."],
+["Il treno parte da Gdansk alle otto.","Поезд отходит из Гданьска в восемь."],
+["Mia moglie ha comprato una nuova macchina da cucire.","Моя жена купила новую швейную машинку."],
+["Ho bisogno di un nuovo ferro da stiro.","Мне нужен новый утюг."],
+["Da bambino giocavo sempre a calcio.","В детстве я всегда играл в футбол."],
+["Hai qualcosa da bere?","Есть что-нибудь выпить?"]]},
+{l:'1211',h:'DI — чей, чего, о чём',e:'📎',n:'<b>di</b> — «чей / чего», происхождение (<i>essere di</i>), материал (без артикля: <i>di lana</i>), «о чём». <b>Di notte</b> — ночью, <b>di giorno</b> — днём. <b>del</b> = di + il.',i:[
+["Questa è la macchina di mio fratello.","Это машина моего брата."],
+["Il mio collega Piotr è di Cracovia.","Мой коллега Пётр из Кракова."],
+["Di notte dormo poco.","Ночью я мало сплю."],
+["Mi dai un bicchiere di acqua?","Дашь мне стакан воды?"],
+["Questa sciarpa è di lana.","Этот шарф шерстяной."],
+["Mio figlio è più alto del suo amico.","Мой сын выше своего друга."],
+["Con i colleghi parliamo sempre di lavoro.","С коллегами мы всегда говорим о работе."]]},
+{l:'1211',h:'DI или DA: почувствуй разницу',e:'⚖️',n:'<b>tazza di tè</b> — чашка чая (внутри чай), <b>tazza da tè</b> — чайная чашка (посуда). Так же: <i>bicchiere di vino / da vino</i>.',i:[
+["Ho sete: mi dai una tazza di tè?","Хочу пить: дашь чашку чая?"],
+["Ho comprato sei tazze da tè per la cucina.","Я купил шесть чайных чашек для кухни."],
+["Stasera vado da Marco.","Сегодня вечером иду к Марко."],
+["Questa è la casa di Marco.","Это дом Марко."],
+["Piotr è di Cracovia.","Пётр родом из Кракова."],
+["Piotr viene da Cracovia.","Пётр приезжает из Кракова."],
+["Abbiamo bevuto un bicchiere di vino.","Мы выпили бокал вина."],
+["Dove sono i bicchieri da vino?","Где бокалы для вина?"]]},
+{l:'1211',h:'Глагол + DI + инфинитив',e:'🔗',n:'Эти глаголы требуют <b>di</b> перед инфинитивом: <b>smettere di</b> (бросать), <b>sperare di</b> (надеяться), <b>avere paura di</b>, <b>cercare di</b> (пытаться), <b>dimenticare di</b>, <b>avere bisogno di</b>, <b>finire di</b>, <b>decidere di</b>.',i:[
+["Ieri ho dimenticato di chiudere la finestra e la casa era fredda.","Вчера я забыл закрыть окно, и в доме было холодно."],
+["Mio figlio ha paura di restare solo al buio.","Мой сын боится остаться один в темноте."],
+["Quando finisco di lavorare, vado a prendere mio figlio a scuola.","Когда заканчиваю работать, иду забирать сына из школы."],
+["Ho finito di lavorare all'una.","Я закончил работать в час."],
+["Io e mia moglie abbiamo deciso di andare in Italia l'estate prossima.","Мы с женой решили поехать в Италию следующим летом."],
+["Il mio collega ha smesso di fumare un anno fa.","Мой коллега бросил курить год назад."],
+["Cerco di parlare italiano ogni giorno, ma è difficile!","Я стараюсь говорить по-итальянски каждый день, но это трудно!"],
+["Sono stanco, ho bisogno di dormire un po'.","Я устал, мне нужно немного поспать."],
+["Spero di vedere presto il mare italiano!","Надеюсь скоро увидеть итальянское море!"]]},
 ];
 const E=[];G.forEach(g=>g.i.forEach(x=>E.push({it:x[0],ru:x[1],em:g.e,g:g.h,l:g.l})));
 
